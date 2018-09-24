@@ -1,23 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TextInput, AsyncStorage, StatusBar} from 'react-native';
+import Login from './views/login';
+import Forgot from './views/forgot';
+import Account from './views/account';
+import {Styles} from './assets/styles/styles'
+import { MemoryRouter, Route, Redirect } from "react-router-dom";
+
+
+
 
 export default class App extends React.Component {
+  
+  componentDidMount() {
+    AsyncStorage.getItem('customer_api_key').then((value) => {
+      if (value != null) this.defaultRoute = '/account';
+      else this.defaultRoute = '/login';
+      this.router.history.push(this.defaultRoute);
+    });
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <MemoryRouter ref={(e) => this.router = e}>
+        <View style={Styles.container} >
+          <StatusBar barStyle="dark-content"/>
+          <ImageBackground 
+            source={require('./assets/images/backgrounds/login.jpg')} 
+            style={Styles.backgroundImage}>
+            <Route path="/login" component={Login} />
+            <Route path="/forgot" component={Forgot} />
+            <Route path="/account" component={Account} />
+          </ImageBackground>
+        </View>
+      </MemoryRouter>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
