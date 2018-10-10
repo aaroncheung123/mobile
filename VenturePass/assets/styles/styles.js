@@ -31,8 +31,8 @@ export const Styles = StyleSheet.create({
 	},
 	overlayLogo: {
 		marginBottom: 70,
-		height: 125,
-		width: 375
+		height: 110,
+		width: 325
 	},
 	overlayButton: { 
 		height: 50,

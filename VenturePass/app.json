@@ -6,8 +6,9 @@
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "description": "Venture Pass customers can access their passes right from their phone",
+    "icon": "./assets/images/branding/icon.png",
     "ios": {
-      "bundleIdentifier": "eliteworks.venturepass", 
+      "bundleIdentifier": "com.myventurepass.venturepass", 
       "supportsTablet": true,
       "infoPlist": {
         "NSAppTransportSecurity": {
@@ -24,7 +25,7 @@
     },
     "android": {
       "versionCode": 10000,
-      "package": "eliteworks.venturepass",
+      "package": "com.myventurepass.venturepass",
       "permissions": [
         "INTERNET"
       ],

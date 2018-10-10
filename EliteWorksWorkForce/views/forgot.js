@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, AsyncStorage} from 'react-native';
+import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text} from 'react-native';
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {Icon, Button} from 'react-native-elements'
 import {Constants} from 'expo';
@@ -12,52 +12,25 @@ export default class Login extends React.Component {
 	{
 		super(props);
 		this.state = {
-			email: 'kyle.paulson@eliteworks.com',
-			password: 'E3r$t5y6u7',
-			errorMessage: '',
-			applicationKey: 'www'
+			email: '',
+			password: '',
+			errorMessage: ''
 		}
 		this.login = this.login.bind(this);
 		this.goToForgot = this.goToForgot.bind(this);
 	}
 
 	login() {		
-
-		if (this.state.applicationKey.trim() == '' || this.state.email.trim() == '' || this.state.password.trim() == '')
+		if (this.state.email.trim() == '' || this.state.password.trim() == '')
 		{
 			this.setState({errorMessage: 'Invalid Email or Password'})
 			return;
 		}
 
-		GlobalUtil.webClientKey = this.state.applicationKey.trim();
-
-
 		this.setState({loading: true})
 		if (!this.state.loading) {
-			EliteAPI.CRM.User.login({username: this.state.email.trim(), password: this.state.password.trim()}, (success) => {
-
-				AsyncStorage.getItem('workspaces').then((value) => {
-					let workspaces = {}
-					if (!GlobalUtil.isEmpty(value)) workspaces = JSON.parse(value);
-
-					GlobalUtil.webClientApiKey = success.data.user_key.key;
-					Service.Config.refresh(() => {
-						Service.Config.get('COMPANY_NAME', (companyName) => {
-							workspaces[GlobalUtil.webClientKey] = {
-								companyName: companyName,
-								apiKey: success.data.user_key.key
-							}
-							AsyncStorage.setItem('workspaces', JSON.stringify(workspaces), () => {
-								AsyncStorage.setItem('workspaceSelected', GlobalUtil.webClientKey, () => {
-									this.props.history.push('/account');
-								});
-							});	
-						}, '')
-
-					});
-
-				});
-	
+			API.Login({username: this.state.email, password: this.state.password}, (success) => {
+				this.props.history.push('/account');
 			}, (failure) => {
 				this.setState({loading: false, errorMessage: failure.error_message})
 			})

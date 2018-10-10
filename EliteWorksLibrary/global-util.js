@@ -109,6 +109,7 @@ Date.prototype.getEndOfWeek = function()
 //     ('Y' is the full year)
 Date.prototype.formatDate = function(format_string)
 {
+    let globalUtil = new GlobalUtil();
     var completeString = '';
     for (var i = 0; i < format_string.length; i++)
     {
@@ -116,12 +117,12 @@ Date.prototype.formatDate = function(format_string)
         if (c == 'l') completeString += this.getWeekDay();
         else if (c == 'k') completeString += this.getWeekDayShort();
         else if (c == 'M') completeString += this.getMonthName();
-        else if (c == 'n') completeString += GlobalUtil.padZeros((this.getMonth() + 1), 2);
-        else if (c == 'd') completeString += GlobalUtil.padZeros(this.getDate(), 2);
+        else if (c == 'n') completeString += globalUtil.padZeros((this.getMonth() + 1), 2);
+        else if (c == 'd') completeString += globalUtil.padZeros(this.getDate(), 2);
         else if (c == 'h') completeString += this.getHours();
-        else if (c == 'i') completeString += GlobalUtil.padZeros(this.getHours(), 2);
-        else if (c == 'm') completeString += GlobalUtil.padZeros(this.getMinutes(), 2);
-        else if (c == 's') completeString += GlobalUtil.padZeros(this.getSeconds(), 2);
+        else if (c == 'i') completeString += globalUtil.padZeros(this.getHours(), 2);
+        else if (c == 'm') completeString += globalUtil.padZeros(this.getMinutes(), 2);
+        else if (c == 's') completeString += globalUtil.padZeros(this.getSeconds(), 2);
         else if (c == 'H') completeString += this.getHours() > 12 ? this.getHours() - 12 : this.getHours() == 0 ? 12 : this.getHours();
         else if (c == 'A') completeString += this.getHours() > 12 ? 'PM' : 'AM';
         else if (c == 'y') completeString += this.getFullYear().toString().substr(-2);
@@ -130,37 +131,131 @@ Date.prototype.formatDate = function(format_string)
     }
     return completeString;
 };
-window.GlobalUtil = {
 
-    htmlTextStripper: function strip(html){
+import CLASS_STRING_MAP from './class-string-map';
+
+
+class GlobalUtil {
+
+    constructor() {
+        this.webClientKey = 'www';
+        this.webClientApiKey = '';
+    }
+
+    htmlTextStripper (html){
         var striptags = require('striptags');
         return striptags(html);
-    },
-    padZeros: function(string, number_of_zeros)
+    }
+    
+    padZeros (string, number_of_zeros)
     {
         string = String(string);
-        while(string.length < number_of_zeros)
-        {
-            string = '0' + string;
-        }
+        while(string.length < number_of_zeros) string = '0' + string;
         return string;
-    },
+    }
 
-    convertMysqlToDate: function(mysql_date)
+    pad (string, number, character)
+    {
+        string = String(string);
+        while(string.length < number) string = character + string;
+        return string;
+    }
+
+    convertMysqlToDate (mysql_date)
     {
         if (mysql_date === undefined || mysql_date === null) return new Date();
         var dateConvertedString = mysql_date.substring(5,7) + "/" + mysql_date.substring(8,10) + "/" + mysql_date.substring(0,4) + " " + mysql_date.substring(11,13) + ":" + mysql_date.substring(14,16) + ":" + mysql_date.substring(17, 19) + " UTC";
         return new Date(dateConvertedString);
-    },
+    }
 
-    convertDateToMysql: function(date)
+    convertDateToMysql (date)
     {
         return date.getUTCFullYear() + '-' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' + ('00' + date.getUTCDate()).slice(-2) + ' ' +  ('00' + date.getUTCHours()).slice(-2) + ':' +  ('00' + date.getUTCMinutes()).slice(-2) + ':' + ('00' + date.getUTCSeconds()).slice(-2);
-    },
-    convertMysqlToDateRaw: function(mysql_date)
+    }
+    convertMysqlToDateRaw (mysql_date)
     {
         if (mysql_date === undefined || mysql_date === null) return new Date();
         var dateConvertedString = mysql_date.substring(5,7) + "/" + mysql_date.substring(8,10) + "/" + mysql_date.substring(0,4) + " " + mysql_date.substring(11,13) + ":" + mysql_date.substring(14,16) + ":" + mysql_date.substring(17, 19);
         return new Date(dateConvertedString);
-    },
-};
+    }
+
+    inputToBool (input) 
+    {
+        if (input === 'true') return true;
+        else if (input === true) return true;
+        else if (input === '1') return true;
+        else if (input === 1) return true;
+        else return false;
+    }
+    isEmpty (input) 
+    {
+        if (input === '') return true;
+        else if (input === undefined) return true;
+        else if (input === null) return true;
+        else if (input === "0000-00-00 00:00:00") return true;
+        else return false;
+    }
+    getClassFromString (classString) {
+        let classStringMap = CLASS_STRING_MAP();
+        return classStringMap[classString];
+    }
+
+
+    ulify (string, character_limit)
+    {
+        if (string == undefined) return '';
+        return (string.length <= character_limit) ? string : string.substring(0, character_limit) + "...";
+    }
+}
+
+window.GlobalUtil = new GlobalUtil();
+
+// str models
+import WorkOrder from './models/str/work-order';
+import WorkOrderProduct from './models/str/work-order-product';
+
+class StrModels {
+    constructor()
+    {
+        this.WorkOrder = WorkOrder;
+        this.WorkOrderProduct = WorkOrderProduct;
+    }
+}
+
+// crm models
+import User from './models/crm/user';
+import TimeClock from './models/crm/time-clock';
+
+class CrmModels {
+    constructor()
+    {
+        this.User = User;
+        this.TimeClock = TimeClock;
+    }
+}
+
+
+// do all api declarations
+import StrApis from './api/str';
+import CrmApis from './api/crm';
+import GenApis from './api/gen';
+
+class EliteAPI {
+    constructor() {
+        this.Models = {
+            STR: new StrModels(),
+            CRM: new CrmModels()
+        };
+    }
+}
+
+window.EliteAPI = new EliteAPI();
+
+window.EliteAPI.STR = new StrApis();
+window.EliteAPI.CRM = new CrmApis();
+window.EliteAPI.GEN = new GenApis();
+
+
+
+import Service from './api/service';
+window.Service = new Service();

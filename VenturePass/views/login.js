@@ -41,10 +41,9 @@ export default class Login extends React.Component {
 
 	render() {
 		return (
-			<View>
+			<View style={Styles.overlay}>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-					<View 
-						style={Styles.overlay}>
+					<View>
 						<KeyboardAwareScrollView
 							keyboardShouldPersistTaps='always' 
 							>

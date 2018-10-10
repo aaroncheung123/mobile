@@ -77,7 +77,7 @@ class APIClass {
 		}).then((response) => {
 			var json = response.json().then((data) => {
 				if (data.result == 'success') {
-					if (successCallback !== undefined) successCallback(data);
+				  	if (successCallback !== undefined) successCallback(data);
 				}
 				else if (failureCallback !== undefined) failureCallback(data);
 			}).catch(() => {

@@ -46,10 +46,9 @@ export default class Forgot extends React.Component {
 
 		var messageStyles = this.state.success ? Styles.overlaySuccessText : Styles.overlayErrorText;
 		return (
-			<View>
+			<View style={Styles.overlay}>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-					<View 
-						style={Styles.overlay}>
+					<View>
 						<KeyboardAwareScrollView>
 							<View 
 								style={Styles.scrollView}>

@@ -163,7 +163,7 @@ export default class Account extends React.Component {
 							{passViews}
 						</View>
 					</ScrollView>
-					<View style={ShareStyles.container}>
+					{/*<View style={ShareStyles.container}>
 
 						<Button
 							buttonStyle={ShareStyles.buttonShare}
@@ -173,7 +173,7 @@ export default class Account extends React.Component {
 							onPress={this.share}
 							loading={this.state.referralCodeLoading}
 						/> 
-					</View>
+					</View>*/}
 				</View>
 			</View>
 		);
