@@ -34,6 +34,10 @@
       "barStyle": "light-content",
       "backgroundColor": "#000000"
     }
+  },
+  "packagerOpts": {
+    "projectRoots": "",
+    "config": "rn-cli.config.js"
   }
 }
 

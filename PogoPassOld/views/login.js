@@ -56,6 +56,7 @@ export default class Login extends React.Component {
 									<Icon 
 										style={IconInputStyles.icon} 
 										name='mail' 
+  										type='favicon'
 										color='white'/>
 									<TextInput 
 										autoCapitalize='none'
@@ -75,6 +76,7 @@ export default class Login extends React.Component {
 									<Icon 
 										style={IconInputStyles.icon} 
 										name='lock' 
+										type='favicon'
 										color='white'/>
 									<TextInput 
 										autoCapitalize='none'
