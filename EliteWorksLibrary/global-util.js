@@ -206,6 +206,23 @@ class GlobalUtil {
         if (string == undefined) return '';
         return (string.length <= character_limit) ? string : string.substring(0, character_limit) + "...";
     }
+
+    convertToAPIargs (obj) {
+        obj = {...obj};
+        if(obj !== undefined && obj !== null && Object.getPrototypeOf(obj).toString() === '[object Object]') {
+            var newObj = {...obj};
+            for (var key in newObj) {
+                if (newObj.hasOwnProperty(key)) {
+                    if(newObj[key] === null) delete newObj[key];
+                    else if(newObj[key] === undefined || Object.getPrototypeOf(newObj[key]).toString() === '[object Object]' || Array.isArray(newObj[key])) {
+                         newObj[key] = (function(){return})()
+                    }
+                }
+            }
+            return newObj;
+        }
+        return obj;
+    }
 }
 
 window.GlobalUtil = new GlobalUtil();

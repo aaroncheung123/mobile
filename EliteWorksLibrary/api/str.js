@@ -52,6 +52,40 @@ class WorkOrder extends Model {
     return WebClient.basicPost(form_data, url, success_callback, failure_callback);
   }
 
+  
+  // purpose
+  //   mark a work order complete
+  // args
+  //   work_order_id (required)
+  // returns
+  //   (none)
+  complete(form_data, success_callback, failure_callback) {
+    var url = "/global/str/work/order/complete";
+    return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+  }
+
+  // purpose
+  //   mark work order as cancelled
+  // args
+  //   work_order_id (required)
+  // returns 
+  //   (none)
+  cancel(form_data, success_callback, failure_callback) {
+    var url = "/global/str/work/order/cancel";
+    return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+  }
+
+  // purpose
+  //   mark work order as cancelled
+  // args
+  //   work_order_id (required)
+  // returns 
+  //   (none)
+  process(form_data, success_callback, failure_callback) {
+    var url = "/global/str/work/order/process";
+    return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+  }
+
 }
 
 class WorkOrderProduct extends Model {

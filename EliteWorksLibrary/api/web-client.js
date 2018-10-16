@@ -3,7 +3,7 @@ export default class WebClient {
 
 	static getFullUrl(url)
 	{
-		return `https://${GlobalUtil.webClientKey}.eliteworks.com${url}`;
+		return `http://${GlobalUtil.webClientKey}.staging.eliteworks.com${url}`;
 	}
 
 	static addApiKey(args)
@@ -40,7 +40,6 @@ export default class WebClient {
 		args = WebClient.addApiKey(args);
 		var paramsEncoded = "?" + Object.keys(args).map(prop => {return [prop, args[prop]].map(encodeURIComponent).join("=")}).join("&");
 
-        console.log(WebClient.getFullUrl(url) + paramsEncoded);
 		fetch(WebClient.getFullUrl(url) + paramsEncoded, {
 			method: "GET",
 			headers: {

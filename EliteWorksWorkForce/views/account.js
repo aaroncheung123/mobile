@@ -154,7 +154,7 @@ export default class Account extends React.Component {
 								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
 							/>
 						</View>
-						<Text style={TOP_MENU_STYLES.companyName}>{this.state.companyName}</Text>
+						<Text style={TOP_MENU_STYLES.companyName}>{GlobalUtil.ulify(this.state.companyName, 25)}</Text>
 					</View>
 
 					{/*content*/}
@@ -292,9 +292,9 @@ const TOP_MENU_STYLES = {
 	companyName: {
 		position: 'absolute',
 		top: 27,
-		left: 55,
-		fontSize: 28,
-		right: 55,
+		left: 65,
+		fontSize: 24,
+		right: 35,
 		textAlign: 'center',
 		color: '#dddddd'
 	}
