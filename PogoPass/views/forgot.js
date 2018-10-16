@@ -3,7 +3,6 @@ import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, 
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {Icon, Button} from 'react-native-elements'
 import {Styles, IconInputStyles} from '../assets/styles/styles'
-import API from '../assets/api/api'
 
 export default class Forgot extends React.Component {
 	constructor(props)
@@ -30,7 +29,7 @@ export default class Forgot extends React.Component {
 
 		this.setState({loading: true})
 		if (!this.state.loading) {
-			API.ForgotPassword({email: this.state.email}, (success) => {
+			EliteAPI.CRM.User.forgotPassword({email: this.state.email}, (success) => {
 				this.setState({loading: false, message: 'Sent Password Reset Email', success: true})
 			}, (failure) => {
 				this.setState({loading: false, message: failure.error_message, success: false})

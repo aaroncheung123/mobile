@@ -4,8 +4,7 @@ import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../assets/style
 
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
-import {Icon, Button} from 'react-native-elements'
-import API from '../assets/api/api'
+import {Icon, Button} from 'react-native-elements';
 
 export default class Account extends React.Component {
 	constructor(props)
@@ -79,7 +78,7 @@ export default class Account extends React.Component {
 	}
 
 	loadReferralCode() {
-		API.getReferralCode({}, (success) => {
+		EliteAPI.CRM.User.getReferralCode({}, (success) => {
 			this.setState({referralCodeLoading: false});
 			this.setState({referralCode: success.data.user_code})
 			AsyncStorage.setItem('customer_referral_code', JSON.stringify(success.data.user_code));
@@ -89,7 +88,7 @@ export default class Account extends React.Component {
 	loadAccounts() {
 		if (!this.state.refreshing) {
 			this.setState({refreshing: true});
-			API.getUser({include_classes: 'account,venueserviceservice,accountservice,service,venue,accounttype'}, success => {
+			EliteAPI.CRM.User.get({include_classes: 'account,venueserviceservice,accountservice,service,venue,accounttype'}, success => {
 
 				var accounts = success.data.user.accounts.sort((a, b) => {
 					return this.getAccountExpiration(b) - this.getAccountExpiration(a)
