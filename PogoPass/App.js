@@ -21,7 +21,6 @@ export default class App extends React.Component {
       }
       this.router.history.push(this.defaultRoute);
     });
-
   }
 
   render() {
