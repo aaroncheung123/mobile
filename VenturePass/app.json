@@ -24,7 +24,7 @@
       "buildNumber": "1.0"
     },
     "android": {
-      "versionCode": 10000,
+      "versionCode": 20000,
       "package": "com.myventurepass.venturepass",
       "permissions": [
         "INTERNET"

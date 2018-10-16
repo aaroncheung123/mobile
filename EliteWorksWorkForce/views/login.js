@@ -12,10 +12,10 @@ export default class Login extends React.Component {
 	{
 		super(props);
 		this.state = {
-			email: 'kyle.paulson@eliteworks.com',
-			password: 'E3r$t5y6u7',
+			email: 'bard3456@msn.com',
+			password: 'eliteworks1',
 			errorMessage: '',
-			applicationKey: 'www'
+			applicationKey: '884dce'
 		}
 		this.login = this.login.bind(this);
 		this.goToForgot = this.goToForgot.bind(this);
