@@ -1,17 +1,16 @@
 import React from 'react';
-import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text} from 'react-native';
+import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, AsyncStorage} from 'react-native';
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {Icon, Button} from 'react-native-elements'
 import {Styles, IconInputStyles} from '../assets/styles/styles'
-import API from '../assets/api/api'
 
 export default class Login extends React.Component {
 	constructor(props)
 	{
 		super(props);
 		this.state = {
-			email: '',
-			password: '',
+			email: 'kyle.paulson@eliteworks.com',
+			password: 'eliteworks1',
 			errorMessage: '',
 			loading: false
 		}
@@ -28,7 +27,11 @@ export default class Login extends React.Component {
 
 		this.setState({loading: true})
 		if (!this.state.loading) {
-			API.Login({username: this.state.email, password: this.state.password}, (success) => {
+
+			console.log('test');
+			EliteAPI.CRM.User.login({username: this.state.email, password: this.state.password}, success => {
+				AsyncStorage.setItem('customer_api_key', success.data.user_key.key);
+				GlobalUtil.webClientApiKey = success.data.user_key.key;
 				this.props.history.push('/account');
 			}, (failure) => {
 				this.setState({loading: false, errorMessage: failure.error_message})
@@ -117,7 +120,7 @@ export default class Login extends React.Component {
 					</View>
 				</TouchableWithoutFeedback>
 
-            	<Text style={{position: 'absolute', textAlign: 'center', bottom: 15, color: 'white', width: '100%'}}>V. 2.2</Text>
+            	<Text style={{position: 'absolute', textAlign: 'center', bottom: 15, color: 'white', width: '100%'}}>V. 2.5</Text>
 			</View>
 		);
 	}

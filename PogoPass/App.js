@@ -11,10 +11,16 @@ import './EliteWorksLibrary/global-util'
 
 export default class App extends React.Component {
 
+  constructor(props) {
+    super(props)
+    GlobalUtil.webClientKey = '0000000676';
+  }
+
   componentDidMount() {
     AsyncStorage.getItem('customer_api_key').then((value) => {
       if (value != null){
         this.defaultRoute = '/account';
+        GlobalUtil.webClientApiKey = value;
       }
       else{
         this.defaultRoute = '/login';
