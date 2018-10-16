@@ -22,8 +22,8 @@ export default class Account extends React.Component {
 		this.share = this.share.bind(this);
 	}
 
-	componentDidMount() 
-	{   
+	componentDidMount()
+	{
 		AsyncStorage.getItem('account_keys').then((value) => {
 
 			if (value != null) {
@@ -34,7 +34,7 @@ export default class Account extends React.Component {
 						AsyncStorage.getItem('account_' + accountKey).then((account) => {
 							if (account != null)
 							{
-								var account = JSON.parse(account); 
+								var account = JSON.parse(account);
 								this.state.accounts.push(account);
 								this.forceUpdate();
 							}
@@ -48,7 +48,7 @@ export default class Account extends React.Component {
 		});
 
 		AsyncStorage.getItem('customer_referral_code').then((value) => {
-			if (value != null) 
+			if (value != null)
 			{
 				this.setState({referralCode: JSON.parse(value), referralCodeLoading: false});
 			}
@@ -60,13 +60,13 @@ export default class Account extends React.Component {
 	logout() {
 		AsyncStorage.removeItem('customer_api_key', () => {
 			this.props.history.push('/login');
-		})		
+		})
 	}
 
 
 	share() {
 		if (this.state.referralCode) {
- 
+
 			var message = 'Check out Pogo Pass! It gives you free access to tons of entertainment venues in your area. Click the link below to get up your membership 60% off. ' + this.state.referralCode.url_referral;
 			Share.share({
 				message: message,
@@ -82,9 +82,8 @@ export default class Account extends React.Component {
 		API.getReferralCode({}, (success) => {
 			this.setState({referralCodeLoading: false});
 			this.setState({referralCode: success.data.user_code})
-			AsyncStorage.setItem('customer_referral_code', JSON.stringify(success.data.user_code));	
+			AsyncStorage.setItem('customer_referral_code', JSON.stringify(success.data.user_code));
 		})
-
 	}
 
 	loadAccounts() {
@@ -93,11 +92,11 @@ export default class Account extends React.Component {
 			API.getUser({include_classes: 'account,venueserviceservice,accountservice,service,venue,accounttype'}, success => {
 
 				var accounts = success.data.user.accounts.sort((a, b) => {
-					return this.getAccountExpiration(b) - this.getAccountExpiration(a)	
+					return this.getAccountExpiration(b) - this.getAccountExpiration(a)
 				})
 
 				this.setState({accounts: accounts});
-		
+
 				var accountKeys = [];
 				accounts.forEach(account => {
 
@@ -107,7 +106,7 @@ export default class Account extends React.Component {
 							if (account_service.service) delete account_service.service;
 							if (account_service.venue_service_services) {
 								account_service.venue_service_services.forEach((venue_service_service) => {
-									
+
 									if (venue_service_service.venue_service.venue)
 									{
 										delete venue_service_service.venue_service.venue.data;
@@ -123,10 +122,10 @@ export default class Account extends React.Component {
 					AsyncStorage.setItem('account_' + account.account_key, JSON.stringify(account))
 				});
 
-				AsyncStorage.setItem('account_keys', JSON.stringify(accountKeys));	
+				AsyncStorage.setItem('account_keys', JSON.stringify(accountKeys));
 
 				this.setState({refreshing: false});
-				
+
 			}, failure => {
 				this.setState({refreshing: false})
 				alert('Cannot Connect to Server - Unable to refresh passes');
@@ -172,7 +171,7 @@ export default class Account extends React.Component {
 							size="40"
 							onPress={this.share}
 							loading={this.state.referralCodeLoading}
-						/> 
+						/>
 					</View>
 				</View>
 			</View>
@@ -271,8 +270,8 @@ class Pass extends React.Component {
 				<Text style={PassStyles.textName}>
 					{this.props.account.full_name}
 				</Text>
-				{	
-					city != '' ? 
+				{
+					city != '' ?
 					<Text style={PassStyles.textCity}>
 						{city}
 					</Text> : null
@@ -306,7 +305,7 @@ class Pass extends React.Component {
 							</Text>
 						</View>
 						<View style={PassStyles.modalScrollView}>
-							<ScrollView 
+							<ScrollView
 								refreshControl={
 									<RefreshControl
 										refreshing={this.props.refreshing}
@@ -323,7 +322,7 @@ class Pass extends React.Component {
 								color="black"
 								onPress={() => this.setState({modalVisible: false})}
 							/>
-						</View> 
+						</View>
 					</View>
 					</View>
 				</Modal>
