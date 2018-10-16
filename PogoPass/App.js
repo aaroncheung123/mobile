@@ -6,7 +6,7 @@ import Account from './views/account';
 import {Styles} from './assets/styles/styles'
 import { MemoryRouter, Route, Redirect } from "react-router-dom";
 
-import '../EliteWorksLibrary/global-util'
+//import '../EliteWorksLibrary/global-util'
 
 
 export default class App extends React.Component {
