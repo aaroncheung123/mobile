@@ -1,4 +1,8 @@
 {
+  "packagerOpts": {
+    "projectRoots": "",
+    "config": "rn-cli.config.js"
+  },
   "expo": {
     "name": "Pogo Pass",
     "description": "View Pogo Pass directly from your phone",
@@ -17,9 +21,6 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "bundleIdentifier": "pogopass.mobile.eliteworks",
       "supportsTablet": true,
@@ -47,9 +48,5 @@
       "barStyle": "light-content",
       "backgroundColor": "#000000"
     }
-  },
-  "packagerOpts": {
-    "projectRoots": "",
-    "config": "rn-cli.config.js"
   }
 }

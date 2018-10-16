@@ -1,0 +1,9 @@
+{
+  "name": "EliteWorksLibrary",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {},
+  "dependencies": {
+    "striptags": "^3.1.1"
+  }
+}
