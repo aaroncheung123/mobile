@@ -3,8 +3,8 @@ const path = require('path');
 module.exports = {
 	getProjectRoots() {
 		return [
-			__dirname,
-			path.join(__dirname, '..', 'EliteWorksLibrary')
+			path.join(__dirname, '..', 'EliteWorksLibrary'),
+			__dirname
 		]
 	}
 }
