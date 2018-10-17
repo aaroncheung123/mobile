@@ -54,7 +54,7 @@ export default class Login extends React.Component {
 							>
 							<View
 								style={Styles.scrollView}>
-								<Image style={Styles.overlayLogo} source={require('../assets/images/logos/pogopass.png')} />
+								<Image style={Styles.overlayLogo} source={require('../assets/images/logos/login_logo.png')} />
 								<View
 									style={IconInputStyles.container}>
 									<Icon
@@ -109,9 +109,9 @@ export default class Login extends React.Component {
 									loading={this.state.loading}
 								/>
 								<Button
+									title="Forgot your password?"
 									icon={{name: 'question', type: 'evilicon', size: 15, color: "white"}}
 									buttonStyle={Styles.link}
-									title="Forgot Password"
 									color="white"
 									onPress={this.goToForgot}
 								/>

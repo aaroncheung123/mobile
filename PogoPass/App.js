@@ -35,7 +35,7 @@ export default class App extends React.Component {
         <View style={Styles.container} >
           <StatusBar barStyle="dark-content"/>
           <ImageBackground
-            source={require('./assets/images/backgrounds/login.jpg')}
+            source={require('./assets/images/backgrounds/rollercoaster_background.jpg')}
             style={Styles.backgroundImage}>
             <Route path="/login" component={Login} />
             <Route path="/forgot" component={Forgot} />
