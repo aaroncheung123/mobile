@@ -18,7 +18,7 @@ export default class Login extends React.Component {
 		this.goToForgot = this.goToForgot.bind(this);
 	}
 
-	login() {		
+	login() {
 		if (this.state.email.trim() == '' || this.state.password.trim() == '')
 		{
 			this.setState({errorMessage: 'Invalid Email or Password'})
@@ -43,52 +43,52 @@ export default class Login extends React.Component {
 		return (
 			<View>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-					<View 
+					<View
 						style={Styles.overlay}>
 						<KeyboardAwareScrollView
-							keyboardShouldPersistTaps='always' 
+							keyboardShouldPersistTaps='always'
 							>
-							<View 
+							<View
 								style={Styles.scrollView}>
 								<Image style={Styles.overlayLogo} source={require('../assets/images/logos/pogopass.png')} />
-								<View 
+								<View
 									style={IconInputStyles.container}>
-									<Icon 
-										style={IconInputStyles.icon} 
-										name='mail' 
+									<Icon
+										style={IconInputStyles.icon}
+										name='mail'
   										type='favicon'
 										color='white'/>
-									<TextInput 
+									<TextInput
 										autoCapitalize='none'
 										underlineColorAndroid='transparent'
 										returnKeyType="next"
-										placeholder="Email" 
-										placeholderTextColor="#eeeeee" 
-										keyboardType="email-address" 
+										placeholder="Email"
+										placeholderTextColor="#eeeeee"
+										keyboardType="email-address"
 										keyboardAppearance="dark"
-										style={IconInputStyles.text} 
-										value={this.state.email} 
+										style={IconInputStyles.text}
+										value={this.state.email}
 										onChangeText={(email) => this.setState({email: email, errorMessage: ''})}
 										onSubmitEditing={() => this.passwordInput.focus()}>
 									</TextInput>
 								</View>
 								<View style={IconInputStyles.container}>
-									<Icon 
-										style={IconInputStyles.icon} 
-										name='lock' 
+									<Icon
+										style={IconInputStyles.icon}
+										name='lock'
 										type='favicon'
 										color='white'/>
-									<TextInput 
+									<TextInput
 										autoCapitalize='none'
 										underlineColorAndroid='transparent'
 										ref={(e) => this.passwordInput = e}
 										returnKeyType="send"
 										keyboardAppearance="dark"
 										placeholder="Password"
-										secureTextEntry={true} 
-										placeholderTextColor="#eeeeee" 
-										style={IconInputStyles.text} 
-										value={this.state.password} 
+										secureTextEntry={true}
+										placeholderTextColor="#eeeeee"
+										style={IconInputStyles.text}
+										value={this.state.password}
 										onChangeText={(password) => this.setState({password: password, errorMessage: ''})}
 										onSubmitEditing={this.login}>
 									</TextInput>
@@ -109,13 +109,14 @@ export default class Login extends React.Component {
 									buttonStyle={Styles.link}
 									title="Forgot Password"
 									color="white"
-									onPress={this.goToForgot}
+									onPress={() =>
+			              this.props.navigation.navigate('Account')
 								/>
 							</View>
 						</KeyboardAwareScrollView>
 					</View>
 				</TouchableWithoutFeedback>
-          
+
             	<Text style={{position: 'absolute', textAlign: 'center', bottom: 15, color: 'white', width: '100%'}}>V. 2.2</Text>
 			</View>
 		);

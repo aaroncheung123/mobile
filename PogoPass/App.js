@@ -5,8 +5,8 @@ import Forgot from './views/forgot';
 import Account from './views/account';
 import {Styles} from './assets/styles/styles'
 import { MemoryRouter, Route, Redirect } from "react-router-dom";
-
 import './EliteWorksLibrary/global-util'
+import AppNavigator from './views/appnavigator';
 
 
 export default class App extends React.Component {
@@ -17,7 +17,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    AsyncStorage.getItem('customer_api_key').then((value) => {
+    AsyncStorage.getItem('customer_api_keys').then((value) => {
       if (value != null){
         this.defaultRoute = '/account';
         GlobalUtil.webClientApiKey = value;
@@ -31,18 +31,17 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <MemoryRouter ref={(e) => this.router = e}>
-        <View style={Styles.container} >
-          <StatusBar barStyle="dark-content"/>
-          <ImageBackground
-            source={require('./assets/images/backgrounds/rollercoaster_background.jpg')}
-            style={Styles.backgroundImage}>
-            <Route path="/login" component={Login} />
-            <Route path="/forgot" component={Forgot} />
-            <Route path="/account" component={Account} />
-          </ImageBackground>
-        </View>
-      </MemoryRouter>
+      <AppNavigator/>
+
+
     );
   }
 }
+
+// <View style={Styles.container} >
+//   <StatusBar barStyle="dark-content"/>
+//   <ImageBackground
+//     source={require('./assets/images/backgrounds/rollercoaster_background.jpg')}
+//     style={Styles.backgroundImage}>
+//   </ImageBackground>
+// </View>

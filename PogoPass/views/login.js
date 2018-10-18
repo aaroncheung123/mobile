@@ -113,7 +113,8 @@ export default class Login extends React.Component {
 									icon={{name: 'question', type: 'evilicon', size: 15, color: "white"}}
 									buttonStyle={Styles.link}
 									color="white"
-									onPress={this.goToForgot}
+									onPress={() =>
+			              this.props.navigation.navigate('Account')}
 								/>
 							</View>
 						</KeyboardAwareScrollView>

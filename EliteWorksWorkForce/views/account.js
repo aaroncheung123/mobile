@@ -4,7 +4,7 @@ import React from 'react';
 import {StyleSheet, View, ScrollView, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, AsyncStorage} from 'react-native';
 import {MemoryRouter, Route, Redirect} from "react-router-dom";
 import {Icon} from 'react-native-elements';
-import {Constants} from 'expo';	
+import {Constants} from 'expo';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey} from '../assets/styles/constants';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
@@ -72,11 +72,11 @@ export default class Account extends React.Component {
 			// set default route as login
 			let workspaces = {}
 
-			if (!GlobalUtil.isEmpty(value)) workspaces = JSON.parse(value) 
+			if (!GlobalUtil.isEmpty(value)) workspaces = JSON.parse(value)
 			else this.props.history.push('/login');
 
 
-			if (Object.keys(workspaces).length > 0) this.setState({workSpaces: workspaces}); 
+			if (Object.keys(workspaces).length > 0) this.setState({workSpaces: workspaces});
 			else this.props.history.push('/login');
 		});
 	}
@@ -86,7 +86,7 @@ export default class Account extends React.Component {
 			// set default route as login
 			let workspaces = {}
 
-			if (!GlobalUtil.isEmpty(value)) workspaces = JSON.parse(value) 
+			if (!GlobalUtil.isEmpty(value)) workspaces = JSON.parse(value)
 
 			if (workspaces[GlobalUtil.webClientKey]) {
 				delete workspaces[GlobalUtil.webClientKey];
@@ -101,18 +101,18 @@ export default class Account extends React.Component {
 						Service.Config.refresh(() => {
 							Service.User.refresh(() => {
 								AsyncStorage.setItem('workspaceSelected', selectedWorkspace, () => {
-									this.setState({workSpaces: workspaces}, this.populateData); 
+									this.setState({workSpaces: workspaces}, this.populateData);
 								});
 							})
 						})
 					}
-					else 
+					else
 					{
 						AsyncStorage.removeItem('workspaceSelected').then(() => {
 							this.props.history.push('/login');
 						})
 					}
-				});	
+				});
 			}
 
 		});
@@ -149,7 +149,7 @@ export default class Account extends React.Component {
 							<Icon
 								name='bars'
 								type='font-awesome'
-								color='#dddddd'  
+								color='#dddddd'
 								size={35}
 								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
 							/>
@@ -169,21 +169,21 @@ export default class Account extends React.Component {
 					{/*Bottom Menu*/}
 					<View style={ACCOUNT_MENU.container}>
 						<View style={ACCOUNT_MENU.menuContainer}>
-							<AccountMenuItem 
-								onPress={() => this.updatePath('/dashboard')} 
-								active={path === '/dashboard'} 
+							<AccountMenuItem
+								onPress={() => this.updatePath('/dashboard')}
+								active={path === '/dashboard'}
 								icon="home"
 								title="Home"
 							/>
-							<AccountMenuItem 
-								onPress={() => this.updatePath('/orders')} 
-								active={path === '/orders'} 
+							<AccountMenuItem
+								onPress={() => this.updatePath('/orders')}
+								active={path === '/orders'}
 								icon="clipboard"
 								title="Tasks"
 							/>
-							<AccountMenuItem 
-								onPress={() => this.updatePath('/time')} 
-								active={path === '/time'} 
+							<AccountMenuItem
+								onPress={() => this.updatePath('/time')}
+								active={path === '/time'}
 								icon="clock-o"
 								title="Time Clock"
 							/>
@@ -193,17 +193,17 @@ export default class Account extends React.Component {
 					{/*Side Menu*/}
 					<Animated.View style={{...SIDE_MENU_STYLES.container, width: this.state.sideMenuWidth}}>
 						{
-							this.state.sideMenuShowContent ? 
+							this.state.sideMenuShowContent ?
 							<View style={SIDE_MENU_STYLES.innerContainer}>
 								<View style={SIDE_MENU_STYLES.userNameContainer}>
 									<Text style={SIDE_MENU_STYLES.text}>{this.state.user.full_name}</Text>
-								</View> 
+								</View>
 								<View style={SIDE_MENU_STYLES.companiesContainer}>
 									<ScrollView>
 										{
 											Object.keys(this.state.workSpaces).map((key) => <WorkSpaceSideBarRow key={key} workSpaceKey={key} workspace={this.state.workSpaces[key]} onSelectWorkspace={() => this.handleSelectWorkspace(key)}/>)
 										}
-										<TouchableWithoutFeedback 
+										<TouchableWithoutFeedback
 											onPress={() => this.setState({showLoginModal: true})}
 										>
 											<View style={{...SIDE_MENU_STYLES.workSpaceRowContainer, backgroundColor: '#222222'}}>
@@ -212,8 +212,8 @@ export default class Account extends React.Component {
 										</TouchableWithoutFeedback>
 									</ScrollView>
 								</View>
-								<TouchableWithoutFeedback 
-									
+								<TouchableWithoutFeedback
+
 									onPress={this.handleLogout}
 								>
 									<View style={SIDE_MENU_STYLES.logoutContainer}>
@@ -252,7 +252,7 @@ const AccountMenuItem = (props) => {
 const WorkSpaceSideBarRow = (props) => {
 	let backgroundColor = GlobalUtil.webClientKey === props.workSpaceKey ? EliteWorksOrange : '#222222'
 	return (
-		<TouchableWithoutFeedback 
+		<TouchableWithoutFeedback
 			onPress={props.onSelectWorkspace}
 		>
 			<View style={{...SIDE_MENU_STYLES.workSpaceRowContainer, backgroundColor: backgroundColor}}>
@@ -263,7 +263,7 @@ const WorkSpaceSideBarRow = (props) => {
 	)
 }
 
-// we need a top menu 
+// we need a top menu
 
 // then content
 
@@ -308,14 +308,14 @@ const SIDE_MENU_STYLES = {
 		backgroundColor: '#222222'
 	},
 	innerContainer: {
-		minWidth: 300, 
+		minWidth: 300,
 		flex: 1
 	},
 	userNameContainer: {
 		flex: 1,
 		maxHeight: 60,
 		borderBottomWidth: 1,
-		borderBottomColor: '#dddddd'  
+		borderBottomColor: '#dddddd'
 	},
 	text: {
 		flex: 1,
@@ -341,10 +341,10 @@ const SIDE_MENU_STYLES = {
 		flex: 3,
 		maxHeight: 60,
 		borderTopWidth: 1,
-		borderTopColor: '#dddddd'  
+		borderTopColor: '#dddddd'
 	},
 	workSpaceRowContainer: {
-		flex: 1, 
+		flex: 1,
 		borderBottomColor: AccountMenuGrey,
 		borderBottomWidth: 1
 	}
