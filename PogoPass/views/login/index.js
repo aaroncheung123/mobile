@@ -30,7 +30,7 @@ export default class Login extends React.Component {
 			EliteAPI.CRM.User.login({username: this.state.email, password: this.state.password}, success => {
 				AsyncStorage.setItem('customer_api_key', success.data.user_key.key);
 				GlobalUtil.webClientApiKey = success.data.user_key.key;
-				this.props.navigation.navigate('Account')
+				this.props.history.push('/account')
 			}, (failure) => {
 				this.setState({loading: false, errorMessage: failure.error_message})
 			})
@@ -107,7 +107,7 @@ export default class Login extends React.Component {
 									icon={{name: 'question', type: 'evilicon', size: 15, color: "white"}}
 									buttonStyle={Styles.link}
 									color="white"
-									onPress={() => this.props.navigation.navigate('Forgot')}
+									onPress={() => this.props.history.push('/forgot')}
 								/>
 							</View>
 						</KeyboardAwareScrollView>

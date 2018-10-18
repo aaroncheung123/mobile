@@ -89,7 +89,7 @@ export default class Forgot extends React.Component {
 									buttonStyle={Styles.link}
 									title="Back to Login"
 									color="white"
-									onPress={() => this.props.navigation.navigate('Login')}
+									onPress={() => this.props.history.push('/login')}
 								/>
 							</View>
 						</KeyboardAwareScrollView>

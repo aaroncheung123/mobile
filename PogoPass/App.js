@@ -16,17 +16,6 @@ export default class App extends React.Component {
 		GlobalUtil.webClientKey = '0000000676';
 	}
 
-	componentDidMount() {
-		AsyncStorage.getItem('customer_api_keys').then((value) => {
-			if (value != null){
-				this.defaultRoute = '/account';
-				GlobalUtil.webClientApiKey = value;
-			}
-			else{
-				this.defaultRoute = '/login';
-			}
-		});
-	}
 
 	render() {
 		return (
