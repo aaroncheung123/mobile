@@ -352,7 +352,7 @@ const SIDE_MENU_STYLES = {
 
 const CONTENT_STYLES = {
 	container: {
-		flex: 2,
+		flex: 1,
 		width: '100%',
 		//backgroundColor: AccountContentGrey
 	}
@@ -360,7 +360,7 @@ const CONTENT_STYLES = {
 
 const ACCOUNT_MENU = {
 	container: {
-		flex: 3,
+		flex: 1,
 		width: '100%',
 		backgroundColor: AccountMenuGrey,
 		maxHeight: 65,

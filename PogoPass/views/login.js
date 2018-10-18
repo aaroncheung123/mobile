@@ -28,7 +28,6 @@ export default class Login extends React.Component {
 		this.setState({loading: true})
 		if (!this.state.loading) {
 
-			console.log('test');
 			EliteAPI.CRM.User.login({username: this.state.email, password: this.state.password}, success => {
 				AsyncStorage.setItem('customer_api_key', success.data.user_key.key);
 				GlobalUtil.webClientApiKey = success.data.user_key.key;
