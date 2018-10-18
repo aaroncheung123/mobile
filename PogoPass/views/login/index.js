@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, AsyncStorage} from 'react-native';
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {Icon, Button} from 'react-native-elements'
-import {Styles, IconInputStyles} from '../assets/styles/styles'
+import {Styles, IconInputStyles} from '../../assets/styles/styles'
 
 export default class Login extends React.Component {
 	constructor(props)
@@ -15,7 +15,6 @@ export default class Login extends React.Component {
 			loading: false
 		}
 		this.login = this.login.bind(this);
-		this.goToForgot = this.goToForgot.bind(this);
 	}
 
 	login() {
@@ -31,15 +30,11 @@ export default class Login extends React.Component {
 			EliteAPI.CRM.User.login({username: this.state.email, password: this.state.password}, success => {
 				AsyncStorage.setItem('customer_api_key', success.data.user_key.key);
 				GlobalUtil.webClientApiKey = success.data.user_key.key;
-				this.props.history.push('/account');
+				this.props.navigation.navigate('Account')
 			}, (failure) => {
 				this.setState({loading: false, errorMessage: failure.error_message})
 			})
 		}
-	}
-
-	goToForgot() {
-		this.props.history.push('/forgot');
 	}
 
 	render() {
@@ -53,7 +48,7 @@ export default class Login extends React.Component {
 							>
 							<View
 								style={Styles.scrollView}>
-								<Image style={Styles.overlayLogo} source={require('../assets/images/logos/login_logo.png')} />
+								<Image style={Styles.overlayLogo} source={require('../../assets/images/logos/login_logo.png')} />
 								<View
 									style={IconInputStyles.container}>
 									<Icon
@@ -112,8 +107,7 @@ export default class Login extends React.Component {
 									icon={{name: 'question', type: 'evilicon', size: 15, color: "white"}}
 									buttonStyle={Styles.link}
 									color="white"
-									onPress={() =>
-			              this.props.navigation.navigate('Account')}
+									onPress={() => this.props.navigation.navigate('Forgot')}
 								/>
 							</View>
 						</KeyboardAwareScrollView>

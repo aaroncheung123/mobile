@@ -1,12 +1,12 @@
 import React from 'react';
 import NavigationBar from 'react-native-navbar';
-import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../assets/styles/styles';
+import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
 import {Icon, Button} from 'react-native-elements';
 
-import Navigator from '../components/navigator';
+import Navigator from '../../../components/navigator';
 
 export default class Account extends React.Component {
 	constructor(props)
@@ -163,7 +163,6 @@ export default class Account extends React.Component {
 							{passViews}
 						</View>
 					</ScrollView>
-					<Navigator/>
 				</View>
 			</View>
 		);

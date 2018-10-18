@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text} from 'react-native';
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {Icon, Button} from 'react-native-elements'
-import {Styles, IconInputStyles} from '../assets/styles/styles'
+import {Styles, IconInputStyles} from '../../assets/styles/styles'
 
 export default class Forgot extends React.Component {
 	constructor(props)
@@ -52,7 +52,7 @@ export default class Forgot extends React.Component {
 						<KeyboardAwareScrollView>
 							<View
 								style={Styles.scrollView}>
-								<Image style={Styles.overlayLogo} source={require('../assets/images/logos/login_logo.png')} />
+								<Image style={Styles.overlayLogo} source={require('../../assets/images/logos/login_logo.png')} />
 								<View
 									style={IconInputStyles.container}>
 									<Icon
@@ -89,7 +89,7 @@ export default class Forgot extends React.Component {
 									buttonStyle={Styles.link}
 									title="Back to Login"
 									color="white"
-									onPress={this.backToLogin}
+									onPress={() => this.props.navigation.navigate('Login')}
 								/>
 							</View>
 						</KeyboardAwareScrollView>

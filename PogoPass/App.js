@@ -6,42 +6,43 @@ import Account from './views/account';
 import {Styles} from './assets/styles/styles'
 import { MemoryRouter, Route, Redirect } from "react-router-dom";
 import './EliteWorksLibrary/global-util'
-import AppNavigator from './views/appnavigator';
+import BaseNavigation from './views/index';
 
 
 export default class App extends React.Component {
 
-  constructor(props) {
-    super(props)
-    GlobalUtil.webClientKey = '0000000676';
-  }
+	constructor(props) {
+		super(props)
+		GlobalUtil.webClientKey = '0000000676';
+	}
 
-  componentDidMount() {
-    AsyncStorage.getItem('customer_api_keys').then((value) => {
-      if (value != null){
-        this.defaultRoute = '/account';
-        GlobalUtil.webClientApiKey = value;
-      }
-      else{
-        this.defaultRoute = '/login';
-      }
-      this.router.history.push(this.defaultRoute);
-    });
-  }
+	componentDidMount() {
+		AsyncStorage.getItem('customer_api_keys').then((value) => {
+			if (value != null){
+				this.defaultRoute = '/account';
+				GlobalUtil.webClientApiKey = value;
+			}
+			else{
+				this.defaultRoute = '/login';
+			}
+		});
+	}
 
-  render() {
-    return (
-      <AppNavigator/>
+	render() {
+		return (
+			<View style={Styles.container} >
+				<StatusBar barStyle="dark-content"/>
+				<ImageBackground
+				source={require('./assets/images/backgrounds/rollercoaster_background.jpg')}
+				style={Styles.backgroundImage}>
+					<BaseNavigation/>
+				</ImageBackground>
+			</View>
 
-
-    );
-  }
+		);
+	}
 }
 
-// <View style={Styles.container} >
-//   <StatusBar barStyle="dark-content"/>
-//   <ImageBackground
-//     source={require('./assets/images/backgrounds/rollercoaster_background.jpg')}
-//     style={Styles.backgroundImage}>
-//   </ImageBackground>
-// </View>
+
+
+ 
