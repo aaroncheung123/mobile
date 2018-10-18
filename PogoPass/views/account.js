@@ -6,6 +6,8 @@ import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, Refresh
 import Barcode from 'react-native-barcode-builder';
 import {Icon, Button} from 'react-native-elements';
 
+import Navigator from '../components/navigator';
+
 export default class Account extends React.Component {
 	constructor(props)
 	{
@@ -161,17 +163,7 @@ export default class Account extends React.Component {
 							{passViews}
 						</View>
 					</ScrollView>
-					<View style={ShareStyles.container}>
-
-						<Button
-							buttonStyle={ShareStyles.buttonShare}
-							title={!this.state.referralCodeLoading ? "Refer a Friend - Make $5" : ""}
-							color="white"
-							size="40"
-							onPress={this.share}
-							loading={this.state.referralCodeLoading}
-						/>
-					</View>
+					<Navigator/>
 				</View>
 			</View>
 		);
@@ -346,3 +338,14 @@ const VenueTotal = (props) => {
 		</View>
 	)
 }
+
+
+//This was the refer a friend button
+// <Button
+// 	buttonStyle={ShareStyles.buttonShare}
+// 	title={!this.state.referralCodeLoading ? "Refer a friend for $5" : ""}
+// 	color="white"
+// 	size="40"
+// 	onPress={this.share}
+// 	loading={this.state.referralCodeLoading}
+// />

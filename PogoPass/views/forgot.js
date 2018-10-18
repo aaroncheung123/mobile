@@ -47,28 +47,28 @@ export default class Forgot extends React.Component {
 		return (
 			<View>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-					<View 
+					<View
 						style={Styles.overlay}>
 						<KeyboardAwareScrollView>
-							<View 
+							<View
 								style={Styles.scrollView}>
-								<Image style={Styles.overlayLogo} source={require('../assets/images/logos/pogopass.png')} />
-								<View 
+								<Image style={Styles.overlayLogo} source={require('../assets/images/logos/login_logo.png')} />
+								<View
 									style={IconInputStyles.container}>
-									<Icon 
-										style={IconInputStyles.icon} 
-										name='mail' 
+									<Icon
+										style={IconInputStyles.icon}
+										name='mail'
 										color='white'/>
-									<TextInput 
+									<TextInput
 										autoCapitalize='none'
 										underlineColorAndroid='transparent'
 										returnKeyType="send"
-										placeholder="Email" 
-										placeholderTextColor="#eeeeee" 
-										keyboardType="email-address" 
+										placeholder="Email"
+										placeholderTextColor="#eeeeee"
+										keyboardType="email-address"
 										keyboardAppearance="dark"
-										style={IconInputStyles.text} 
-										value={this.state.email} 
+										style={IconInputStyles.text}
+										value={this.state.email}
 										onChangeText={(email) => this.setState({email: email, message: ''})}
 										onSubmitEditing={this.forgot}>
 									</TextInput>

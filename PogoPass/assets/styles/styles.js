@@ -9,7 +9,7 @@ export const Styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		marginTop: Constants.statusBarHeight,
+		// marginTop: Constants.statusBarHeight,
 		height: '100%'
 	},
 	iconInputIcon: {
@@ -23,25 +23,29 @@ export const Styles = StyleSheet.create({
 	overlay: {
 		flex: 1,
 		width: '100%',
+		height: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: 'rgba(0, 0, 0, 0.4)',
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'center'
 	},
 	overlayLogo: {
-		marginBottom: 70
+		marginBottom: 50,
+		marginTop: 35,
+		height:150,
+		width:150
 	},
 	overlayButton: {
-		height: 50,
-		borderColor: PogoOrange,
+		height: 60,
+		borderColor: 'white',
 		borderWidth: 2,
 		borderStyle: 'solid',
 		borderRadius: 15,
-		marginTop: 30,
-		backgroundColor: 'transparent',
-		width: 350,
-		maxWidth: 350
+		marginTop: 35,
+		backgroundColor: PogoOrange,
+		width: 240,
+		maxWidth: 240
 	},
 	scrollView: {
 		flex: 1,
@@ -51,7 +55,6 @@ export const Styles = StyleSheet.create({
 		paddingTop: 100
 	},
 	link: {
-		marginTop: 20,
 		backgroundColor: 'transparent',
 	},
 	overlayErrorText: {
@@ -70,31 +73,31 @@ export const Styles = StyleSheet.create({
 
 export const IconInputStyles = StyleSheet.create({
 	text: {
-		height: 25, 
+		height: 25,
 		width: '80%',
 		lineHeight: 25,
 		color: 'white',
 		fontWeight: "400",
-		fontSize: 18,
-		marginLeft: 10
-
-	}, 
+		fontSize: 14,
+		marginLeft: 25
+	},
 	container:  {
-		width: '80%',
+		width: '72%',
 		maxWidth: 350,
 		borderStyle: 'solid',
 		borderBottomColor: 'white',
 		borderBottomWidth: 2,
-		flex: 1, 
+		flex: 1,
 		alignItems: 'center',
 		flexDirection: 'row',
 		height: 50,
-		maxHeight: 50
+		maxHeight: 50,
+		marginBottom: 10
 	},
 	icon: {
 		width: 20
 	}
-}); 
+});
 
 export const VenueTotalStyles = StyleSheet.create({
 	container: {

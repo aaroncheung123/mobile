@@ -5,6 +5,7 @@ import Forgot from './views/forgot';
 import Account from './views/account';
 import {Styles} from './assets/styles/styles'
 import { MemoryRouter, Route, Redirect } from "react-router-dom";
+import AppNavigator from './views/appnavigator';
 
 import '../EliteWorksLibrary/global-util'
 
@@ -26,18 +27,17 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <MemoryRouter ref={(e) => this.router = e}>
         <View style={Styles.container} >
+
           <StatusBar barStyle="dark-content"/>
+
           <ImageBackground
-            source={require('./assets/images/backgrounds/login.jpg')}
+            source={require('./assets/images/backgrounds/rollercoaster_background.jpg')}
             style={Styles.backgroundImage}>
-            <Route path="/login" component={Login} />
-            <Route path="/forgot" component={Forgot} />
-            <Route path="/account" component={Account} />
           </ImageBackground>
         </View>
-      </MemoryRouter>
+        <AppNavigator/>
+
     );
   }
 }
