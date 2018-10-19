@@ -8,9 +8,24 @@ export default class Blog extends React.Component {
 
 	render() {
 		return (
-			<View>
-				<Blurb/>
-			</View>
+
+				<ScrollView >
+					<View style={STYLES.container}>
+						<Blurb/>
+						<Blurb/>
+						<Blurb/>
+					</View>
+				</ScrollView>
+
 		);
+	}
+}
+
+const STYLES = {
+  container: {
+		flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
 	}
 }
