@@ -9,7 +9,6 @@ import AccountInformation from './account-information/index'
 import Events from './events/index'
 import Notifications from './notifications/index'
 import Refer from './refer/index'
-import BottomMenu from '../../components/bottom-menu'
 
 const ELITE_WORKS_ORANGE = '#faa31a'
 
@@ -21,12 +20,12 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.router.history.push('/pass-manager');
-    this.forceUpdate();
+    this.updatePath('/pass-manager');
   }
 
   updatePath(path) {
     this.router.history.push(path);
+    this.forceUpdate();
   }
 
   render()
