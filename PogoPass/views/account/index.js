@@ -27,7 +27,6 @@ export default class AccountNavigation extends React.Component {
 
   updatePath(path) {
     this.router.history.push(path);
-    //this.setState({sideMenuOpen: false}, this.updateSideMenu)
   }
 
   render()
@@ -107,15 +106,16 @@ const STYLES = {
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: 'white',
       maxHeight: 65,
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor:'white',
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30
     },
     menuContainer: {
       flexDirection: 'row',
       flex: 1,
-      maxWidth: 300,
       width: '100%'
     },
     menuItemContainer: {
@@ -123,7 +123,9 @@ const STYLES = {
       height: '100%',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30
     }
   },
   container: {
