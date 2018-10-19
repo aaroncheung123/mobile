@@ -16,7 +16,6 @@ export default class App extends React.Component {
 		GlobalUtil.webClientKey = '0000000676';
 	}
 
-
 	render() {
 		return (
 			<View style={Styles.container} >
