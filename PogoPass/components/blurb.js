@@ -5,8 +5,10 @@ export default class Blurb extends React.Component {
   render() {
     return (
         <View style={STYLES.blurbContainer}>
-          <View stlye={STYLES.textBox}>
-            <Text stlye={STYLES.textStyle}>
+          <View style={STYLES.orangeTab}>
+          </View>
+          <View style={STYLES.textBox}>
+            <Text style={STYLES.textStyle}>
               New Story: 5 new venues added
             </Text>
           </View>
@@ -22,9 +24,7 @@ export default class Blurb extends React.Component {
 
 const STYLES = {
   blurbContainer: {
-    flex: 1,
     backgroundColor:'white',
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -33,16 +33,20 @@ const STYLES = {
     backgroundColor:'white',
     borderRadius: 20,
     opacity: 0.9,
-    marginTop: 10
+    marginTop: 10,
+    // borderLeftStyle: 'solid',
+    // borderLeftColor: 'orange',
+    // borderLeftWidth: 30
   },
   orangeTab: {
-    height:20,
-    width:20,
+    height:'100%',
+    flex: 1,
     backgroundColor: 'orange',
-    borderTopLeftRadius: 20
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20
   },
   textBox:{
-    backgroundColor:'black',
+    flex:9,
     alignItems: 'center',
     justifyContent: 'center',
   },
