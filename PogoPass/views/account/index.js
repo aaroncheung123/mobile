@@ -7,7 +7,7 @@ import {MemoryRouter, Route, IndexRedirect} from 'react-router';
 import PassManager from './pass-manager/index'
 import AccountInformation from './account-information/index'
 import Events from './events/index'
-import Notifications from './notifications/index'
+import Blog from './blog/index'
 import Refer from './refer/index'
 
 const ELITE_WORKS_ORANGE = '#faa31a'
@@ -40,7 +40,7 @@ export default class AccountNavigation extends React.Component {
             <Route path="/pass-manager" component={PassManager} />
             <Route path="/account-information" component={AccountInformation} />
             <Route path="/events" component={Events} />
-            <Route path="/notifications" component={Notifications} />
+            <Route path="/blog" component={Blog} />
             <Route path="/refer" component={Refer} />
           </ScrollView>
 
@@ -48,8 +48,8 @@ export default class AccountNavigation extends React.Component {
           <View style={STYLES.accountMenu.container}>
             <View style={STYLES.accountMenu.menuContainer}>
               <AccountMenuItem
-                onPress={() => this.updatePath('/notifications')}
-                active={path === '/notifications'}
+                onPress={() => this.updatePath('/blog')}
+                active={path === '/blog'}
                 icon="bell"
               />
               <AccountMenuItem

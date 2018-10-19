@@ -4,7 +4,7 @@ import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
 import Blurb from '../../../components/blurb';
 
-export default class Notifications extends React.Component {
+export default class Blog extends React.Component {
 
 	render() {
 		return (
