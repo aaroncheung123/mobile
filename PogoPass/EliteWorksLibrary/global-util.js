@@ -256,23 +256,23 @@ class CrmModels {
 import StrApis from './api/str';
 import CrmApis from './api/crm';
 import GenApis from './api/gen';
+import CmsApis from './api/gen';
 
 class EliteAPI {
     constructor() {
         this.Models = {
             STR: new StrModels(),
-            CRM: new CrmModels()
+            CRM: new CrmModels(),
         };
+
+        this.STR = new StrApis();
+        this.CRM = new CrmApis();
+        this.GEN = new GenApis();
+        this.CMS = new CmsApis();
     }
 }
 
 window.EliteAPI = new EliteAPI();
-
-window.EliteAPI.STR = new StrApis();
-window.EliteAPI.CRM = new CrmApis();
-window.EliteAPI.GEN = new GenApis();
-
-
 
 import Service from './api/service';
 window.Service = new Service();
