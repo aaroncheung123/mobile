@@ -251,28 +251,45 @@ class CrmModels {
     }
 }
 
+import Blog from './models/cms/blog';
+import Post from './models/cms/post';
+
+// cms models
+class CMSModels {
+    constructor()
+    {
+        this.Blog = Blog;
+        this.Post = Post;
+    }
+}
+
+
 
 // do all api declarations
 import StrApis from './api/str';
 import CrmApis from './api/crm';
 import GenApis from './api/gen';
-import CmsApis from './api/gen';
+import CmsApis from './api/cms';
 
 class EliteAPI {
     constructor() {
         this.Models = {
             STR: new StrModels(),
             CRM: new CrmModels(),
+            CMS: new CMSModels()
         };
 
-        this.STR = new StrApis();
-        this.CRM = new CrmApis();
-        this.GEN = new GenApis();
-        this.CMS = new CmsApis();
     }
 }
 
 window.EliteAPI = new EliteAPI();
+
+window.EliteAPI.STR = new StrApis();
+window.EliteAPI.CRM = new CrmApis();
+window.EliteAPI.GEN = new GenApis();
+window.EliteAPI.CMS = new CmsApis();
+
+console.log(EliteAPI);
 
 import Service from './api/service';
 window.Service = new Service();

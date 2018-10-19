@@ -40,6 +40,7 @@ export default class WebClient {
 		args = WebClient.addApiKey(args);
 		var paramsEncoded = "?" + Object.keys(args).map(prop => {return [prop, args[prop]].map(encodeURIComponent).join("=")}).join("&");
 
+
 		fetch(WebClient.getFullUrl(url) + paramsEncoded, {
 			method: "GET",
 			headers: {

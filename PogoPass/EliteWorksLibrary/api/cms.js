@@ -36,7 +36,7 @@ class Blog extends Model {
 	{
 		var url = '/global/cms/blog/add';
 		return WebClient.basicPost(form_data, url,  (success) => {
-			success.data.blog = new EliteAPI.Models.CMS.EliteBlog(success.data.blog);
+			success.data.blog = new EliteAPI.Models.CMS.Blog(success.data.blog);
 			if (success_callback) success_callback(success);
 		}, failure_callback);
 	}
@@ -74,7 +74,7 @@ class Blog extends Model {
 	{
 		var url = '/global/cms/blog/search';
 		return WebClient.basicGet(form_data, url,  (success) => {
-			success.data.blogs = success.data.blogs.map((blog) => new EliteAPI.Models.CMS.EliteBlog(blog));
+			success.data.blogs = success.data.blogs.map((blog) => new EliteAPI.Models.CMS.Blog(blog));
 			if (success_callback) success_callback(success);
 		}, failure_callback);
 	}
@@ -132,7 +132,7 @@ class Post extends Model {
 	{
 		var url = '/global/cms/post/add';
 		return WebClient.basicPost(form_data, url,  (success) => {
-			success.data.post = new EliteAPI.Models.CMS.ElitePost(success.data.post);
+			success.data.post = new EliteAPI.Models.CMS.Post(success.data.post);
 			if (success_callback) success_callback(success);
 		}, failure_callback);
 	}
