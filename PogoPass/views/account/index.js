@@ -1,17 +1,18 @@
 import React from 'react';
 import { Platform, View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
-
-import PassManager from './pass-manager/index'
 import {Styles, IconInputStyles} from '../../assets/styles/styles'
-
-
 import {Icon, Button} from 'react-native-elements'
-
 import {MemoryRouter, Route, IndexRedirect} from 'react-router';
 
+import PassManager from './pass-manager/index'
+import AccountInformation from './account-information/index'
+import Events from './events/index'
+import Notifications from './notifications/index'
+import Refer from './refer/index'
+import BottomMenu from '../../components/bottom-menu'
 
-const EliteWorksOrange = '#00ff00'
-const AccountMenuGrey = '#222222'
+const ELITE_WORKS_ORANGE = '#faa31a'
+const ACCOUNT_MENU_GRAY = '#000000'
 
 
 export default class AccountNavigation extends React.Component {
@@ -27,80 +28,43 @@ export default class AccountNavigation extends React.Component {
   }
 
   updatePath(path) {
+    console.log(path);
     this.router.history.push(path);
-    this.setState({sideMenuOpen: false}, this.updateSideMenu)
+    //this.setState({sideMenuOpen: false}, this.updateSideMenu)
   }
 
-  render() 
+  render()
   {
-
     let path = (this.router) ? this.router.history.location.pathname : '';
-    if (this.router) console.log(this.router.history.location.pathname)
+    {/*if (this.router){
+      console.log(this.router.history.location.pathname);
+    }*/}
     return (
 
       <MemoryRouter ref={e => this.router = e}>
         <View>
           <ScrollView style={CONTENT_STYLES.container}>
             <Route path="/pass-manager" component={PassManager} />
+            <Route path="/account-information" component={AccountInformation} />
+            <Route path="/events" component={Events} />
+            <Route path="/notifications" component={Notifications} />
+            <Route path="/refer" component={Refer} />
           </ScrollView>
 
-
-
           {/*Bottom Menu*/}
-          <View style={ACCOUNT_MENU.container}>
-            <View style={ACCOUNT_MENU.menuContainer}>
-              <AccountMenuItem
-                onPress={() => this.updatePath('/pass-manager')}
-                active={path === '/pass-manager'}
-                icon="home"
-                title="Home"
-              />
-              <AccountMenuItem
-                onPress={() => this.updatePath('/orders')}
-                active={path === '/orders'}
-                icon="clipboard"
-                title="Tasks"
-              />
-              <AccountMenuItem
-                onPress={() => this.updatePath('/time')}
-                active={path === '/time'}
-                icon="clock-o"
-                title="Time Clock"
-              />
-            </View>
-          </View>
-
+          <BottomMenu
+            path=this.path
+          />
         </View>
 
       </MemoryRouter>
 
     )
   }
-
-
-
-}
-
-
-
-const AccountMenuItem = (props) => {
-  return (
-    <TouchableWithoutFeedback onPress={props.onPress}>
-      <View style={ACCOUNT_MENU.menuItemContainer}>
-        <Icon
-          name={props.icon}
-          type='font-awesome'
-          color={props.active ? EliteWorksOrange : '#dddddd'}
-          size={30}
-        />
-        <Text style={{color: (props.active ? EliteWorksOrange : '#dddddd')}}>{props.title}</Text>
-      </View>
-    </TouchableWithoutFeedback>
-  )
 }
 
 const WorkSpaceSideBarRow = (props) => {
-  let backgroundColor = GlobalUtil.webClientKey === props.workSpaceKey ? EliteWorksOrange : '#222222'
+  let backgroundColor = GlobalUtil.webClientKey === props.workSpaceKey ? ELITE_WORKS_ORANGE : '#222222'
   return (
     <TouchableWithoutFeedback
       onPress={props.onSelectWorkspace}
@@ -113,37 +77,35 @@ const WorkSpaceSideBarRow = (props) => {
   )
 }
 
-
-
 const STYLES = {
+  topMenu: {
+    container: {
+      flex: 1,
+      width: '100%',
+      maxHeight: 70,
+      backgroundColor: ELITE_WORKS_ORANGE
+    },
+    leftMenuIconContainer: {
+      position: 'absolute',
+      top: 25,
+      left: 14,
+    },
+    companyName: {
+      position: 'absolute',
+      top: 27,
+      left: 65,
+      fontSize: 24,
+      right: 35,
+      textAlign: 'center',
+      color: '#dddddd'
+    }
+  },
   container: {
     flex: 1,
     width: '100%'
   }
 }
 
-const TOP_MENU_STYLES = {
-  container: {
-    flex: 1,
-    width: '100%',
-    maxHeight: 70,
-    backgroundColor: EliteWorksOrange
-  },
-  leftMenuIconContainer: {
-    position: 'absolute',
-    top: 25,
-    left: 14,
-  },
-  companyName: {
-    position: 'absolute',
-    top: 27,
-    left: 65,
-    fontSize: 24,
-    right: 35,
-    textAlign: 'center',
-    color: '#dddddd'
-  }
-}
 
 const SIDE_MENU_STYLES = {
   container: {
@@ -190,7 +152,7 @@ const SIDE_MENU_STYLES = {
   },
   workSpaceRowContainer: {
     flex: 1,
-    borderBottomColor: AccountMenuGrey,
+    borderBottomColor: ACCOUNT_MENU_GRAY,
     borderBottomWidth: 1
   }
 }
@@ -200,28 +162,5 @@ const CONTENT_STYLES = {
     flex: 1,
     width: '100%',
     //backgroundColor: AccountContentGrey
-  }
-}
-
-const ACCOUNT_MENU = {
-  container: {
-    flex: 1,
-    width: '100%',
-    backgroundColor: AccountMenuGrey,
-    maxHeight: 65,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  menuContainer: {
-    flexDirection: 'row',
-    flex: 1,
-    maxWidth: 300,
-    width: '100%'
-  },
-  menuItemContainer: {
-    width: '33.333%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center'
   }
 }
