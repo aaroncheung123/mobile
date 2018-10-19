@@ -12,7 +12,7 @@ import Refer from './refer/index'
 import BottomMenu from '../../components/bottom-menu'
 
 const ELITE_WORKS_ORANGE = '#faa31a'
-const ACCOUNT_MENU_GRAY = '#000000'
+const ACCOUNT_MENU_GRAY = 'black'
 
 
 export default class AccountNavigation extends React.Component {
@@ -52,9 +52,10 @@ export default class AccountNavigation extends React.Component {
           </ScrollView>
 
           {/*Bottom Menu*/}
-          <BottomMenu
-            path=this.path
-          />
+          <View>
+            <Text>Hello</Text>
+          </View>
+
         </View>
 
       </MemoryRouter>
