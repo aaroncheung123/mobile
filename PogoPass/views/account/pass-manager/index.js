@@ -6,8 +6,6 @@ import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, Refresh
 import Barcode from 'react-native-barcode-builder';
 import {Icon, Button} from 'react-native-elements';
 
-import Navigator from '../../../components/navigator';
-
 export default class Account extends React.Component {
 	constructor(props)
 	{

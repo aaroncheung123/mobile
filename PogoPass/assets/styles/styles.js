@@ -10,7 +10,8 @@ export const Styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		// marginTop: Constants.statusBarHeight,
-		height: '100%'
+		height: '100%',
+		width: '100%'
 	},
 	iconInputIcon: {
 		width: 30
@@ -28,11 +29,12 @@ export const Styles = StyleSheet.create({
 		justifyContent: 'center',
 		backgroundColor: 'rgba(0, 0, 0, 0.4)',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		width: 360
 	},
 	overlayLogo: {
 		marginBottom: 50,
-		marginTop: 35,
+		marginTop: 140,
 		height:150,
 		width:150
 	},
@@ -51,8 +53,7 @@ export const Styles = StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		alignItems: 'center',
-		justifyContent: 'center',
-		paddingTop: 100
+		justifyContent: 'center'
 	},
 	link: {
 		backgroundColor: 'transparent',

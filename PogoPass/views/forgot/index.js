@@ -19,8 +19,6 @@ export default class Forgot extends React.Component {
 	}
 
 	forgot() {
-
-
 		if (this.state.email.trim() == '')
 		{
 			this.setState({message: 'Invalid Email', success: false});
