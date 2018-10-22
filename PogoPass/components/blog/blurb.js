@@ -33,13 +33,25 @@ export default class Blurb extends React.Component {
 		let posts = this.state.posts.map(post => <Text style={STYLES.textStyle}> {post} </Text>);
 
     return (
-        <View style={STYLES.blurbContainer}>
-          <View style={STYLES.orangeTab}>
-          </View>
+        <View style={STYLES.dateSectionContainer}>
 
-          <View style={STYLES.textBox}>
-            {posts}
-          </View>
+
+					<View style={STYLES.topSection}>
+						<Text style={STYLES.dateTextBox}>1</Text>
+					</View>
+
+
+
+
+					<View style={STYLES.bottomSection}>
+						<View style={STYLES.orangeTab}>
+						</View>
+
+						<View style={STYLES.textBox}>
+							{posts}
+						</View>
+					</View>
+
 
         </View>
 
@@ -51,13 +63,25 @@ export default class Blurb extends React.Component {
 
 
 const STYLES = {
-  blurbContainer: {
+	dateSectionContainer: {
+		flex: 1,
+		flexDirection: 'column',
+		alignItems: 'center',
+    justifyContent: 'center',
+		width:'85%',
+		marginTop: 30
+	},
+	topSection: {
+		flex:1,
+		alignItems: 'flex-start',
+		backgroundColor: 'black'
+	},
+  bottomSection: {
+		flex:9,
     backgroundColor:'white',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '90%',
-    height: 80,
     backgroundColor:'white',
     borderRadius: 20,
     opacity: 0.9,
@@ -77,6 +101,9 @@ const STYLES = {
     flex:9,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+	dateTextBox:{
+    color:'white'
   },
   textStyle:{
     textAlign:'center',

@@ -35,8 +35,8 @@ export default class AccountNavigation extends React.Component {
     return (
 
       <MemoryRouter ref={e => this.router = e}>
-        <View>
-          <ScrollView style={STYLES.backgroundContainer}>
+        <View style={STYLES.fullScreenContainer}>
+          <ScrollView style={STYLES.scrollViewContainer}>
             <Route path="/pass-manager" component={PassManager} />
             <Route path="/account-information" component={AccountInformation} />
             <Route path="/events" component={Events} />
@@ -101,10 +101,16 @@ const AccountMenuItem = (props) => {
 
 
 const STYLES = {
-  backgroundContainer: {
+  fullScreenContainer: {
     flex: 1,
-    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.4)'
+  },
+  scrollViewContainer: {
+    flex: 9,
+    height: '100%'
   },
   accountMenu: {
     container: {

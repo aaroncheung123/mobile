@@ -62,7 +62,7 @@ export default class BlogDateSections extends React.Component {
 		//let posts = this.state.posts.map(post => <Blurb key={post.post_id} post={post} />);
 		let dateSections = this.state.dates.map(date => <Blurb key={date.date_id} posts={this.state.posts} date={date}/>);
     return (
-        <View style={STYLES.blogContainer}>
+        <View styles={STYLES.insideBlogContainer}>
 					{dateSections}
         </View>
     );
@@ -72,14 +72,8 @@ export default class BlogDateSections extends React.Component {
 
 
 const STYLES = {
-  blogContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '90%',
-    height: 80,
-    borderRadius: 20,
-    marginTop: 10,
+  insideBlogContainer: {
+    flex: 9
   }
 }
 

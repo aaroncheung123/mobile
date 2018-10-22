@@ -9,11 +9,15 @@ export default class Blog extends React.Component {
 	render() {
 		return (
 
-					<View style={STYLES.container}>
-						<Text style={STYLES.title}>
-							Blog
-						</Text>
+					<View style={STYLES.totalContainer}>
+						<View style={STYLES.sectionTitle}>
+							<Text style={STYLES.title}>
+								Blog
+							</Text>
+						</View>
+
 						<BlogDateSections/>
+
 					</View>
 
 		);
@@ -21,15 +25,18 @@ export default class Blog extends React.Component {
 }
 
 const STYLES = {
-  container: {
+  totalContainer: {
+		flex:1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'flex-start',
+		backgroundColor:'gray'
+	},
+	sectionTitle:{
+		flex: 1
 	},
 	title: {
 		color: 'white',
-		fontSize: 35,
-		marginTop: 15,
-		marginBottom: 15
+		fontSize: 35
 	}
 }
