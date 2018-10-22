@@ -9,7 +9,7 @@ export default class Blurb extends React.Component {
           </View>
           <View style={STYLES.textBox}>
             <Text style={STYLES.textStyle}>
-              New Story: 5 new venues added
+              {this.props.post.name}
             </Text>
           </View>
 
@@ -51,7 +51,8 @@ const STYLES = {
     justifyContent: 'center',
   },
   textStyle:{
-    textAlign:'center'
+    textAlign:'center',
+    fontSize: 15
   }
 }
 
