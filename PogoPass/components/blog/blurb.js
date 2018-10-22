@@ -2,15 +2,43 @@ import React from 'react';
 import {View, Text} from 'react-native';
 
 export default class Blurb extends React.Component {
+
+  constructor(props){
+    super(props);
+		this.state = {
+			posts: []
+		}
+		this.arrangeDates.bind(this);
+  }
+
+	componentDidMount(){
+		this.arrangeDates();
+	}
+
+
+	arrangeDates(){
+		myArray = [];
+		for(let post of this.props.posts){
+			// console.log("date: ", this.props.date);
+			// console.log("created_at: ", post.created_at);
+			if(this.props.date === post.created_at){
+				myArray.push(post.name);
+			}
+		}
+		console.log("t123: ", myArray);
+		this.setState({posts: myArray});
+	}
+
   render() {
+		let posts = this.state.posts.map(post => <Text style={STYLES.textStyle}> {post} </Text>);
+
     return (
         <View style={STYLES.blurbContainer}>
           <View style={STYLES.orangeTab}>
           </View>
+
           <View style={STYLES.textBox}>
-            <Text style={STYLES.textStyle}>
-              {this.props.post.name}
-            </Text>
+            {posts}
           </View>
 
         </View>
@@ -61,3 +89,8 @@ const STYLES = {
     // <View stlye={STYLES.orangeTab}>
     //   <Text stlye={STYLES.textStyle}>Hi</Text>
     // </View>
+//{this.props.}
+
+// <Text style={STYLES.textStyle}>
+// 	{posts}
+// </Text>
