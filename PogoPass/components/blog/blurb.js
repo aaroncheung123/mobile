@@ -1,36 +1,58 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {AppRegistry,StyleSheet,Text,ScrollView, View,TouchableHighlight, Image, Animated} from 'react-native';
 
 export default class Blurb extends React.Component {
 
-  /*constructor(props){
-    super(props);
-		this.state = {
-			posts: []
-		}
-		//this.arrangeDates.bind(this);
-  }*/
+	constructor(props){
+			super(props);
 
-	/*componentDidMount(){
-		this.arrangeDates();
-	}*/
+			this.icons = {     //Step 2
+					'up'    : require('../../assets/images/icons/up_arrow.png'),
+					'down'  : require('../../assets/images/icons/down_arrow.png')
+			};
 
+			this.state = {       //Step 3
+					title       : props.title,
+					expanded    : true,
+					animation   : new Animated.Value()
+			};
+	}
 
-/*	arrangeDates(){
-		myArray = [];
-		for(let post of this.props.posts){
-			// console.log("date: ", this.props.date);
-			// console.log("created_at: ", post.created_at);
-			if(this.props.date === post.created_at){
-				myArray.push(post.name);
-			}
-		}
-		console.log("t123: ", myArray);
-		this.setState({posts: myArray});
-	}*/
+	toggle(){
+			//Step 1
+			let initialValue    = this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
+					finalValue      = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
+			this.setState({
+					expanded : !this.state.expanded  //Step 2
+			});
+
+			this.state.animation.setValue(initialValue);  //Step 3
+			Animated.spring(     //Step 4
+					this.state.animation,
+					{
+							toValue: finalValue
+					}
+			).start();  //Step 5
+	}
+
+	_setMaxHeight(event){
+			this.setState({
+					maxHeight   : event.nativeEvent.layout.height
+			});
+	}
+
+	_setMinHeight(event){
+			this.setState({
+					minHeight   : event.nativeEvent.layout.height
+			});
+	}
   render() {
-		//let posts = this.state.posts.map(post => );
+		let icon = this.icons['down'];
+
+		if(this.state.expanded){
+				icon = this.icons['up'];   //Step 4
+		}
 
     return (
 			<View style={STYLES.blurbSection}>
@@ -41,6 +63,8 @@ export default class Blurb extends React.Component {
 					<Text style={STYLES.textStyle}> {this.props.post.name} </Text>
 				</View>
 			</View>
+
+
     );
   }
 }
