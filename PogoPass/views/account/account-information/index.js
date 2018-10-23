@@ -8,8 +8,7 @@ export default class AccountInformation extends React.Component {
 
 	render() {
 		return (
-			<View>
-				<ScrollView style={STYLES.container}>
+			<View style={STYLES.container}>
 	        <Panel title="A Panel with short content text">
 	          <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
 	        </Panel>
@@ -19,7 +18,6 @@ export default class AccountInformation extends React.Component {
 	        <Panel title="Another Panel">
 	          <Text>Lorem ipsum dolor sit amet...</Text>
 	        </Panel>
-	      </ScrollView>
 			</View>
 
 		);

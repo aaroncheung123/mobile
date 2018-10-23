@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {AppRegistry,StyleSheet,Text,ScrollView, View,TouchableHighlight, Image, Animated} from 'react-native'; //Step 1
 
 
@@ -8,8 +8,8 @@ class Panel extends React.Component{
         super(props);
 
         this.icons = {     //Step 2
-            'up'    : require('../../images/icons/up_arrow.png'),
-            'down'  : require('../../images/icons/down_arrow.png')
+            'up'    : require('../../assets/images/icons/up_arrow.png'),
+            'down'  : require('../../assets/images/icons/down_arrow.png')
         };
 
         this.state = {       //Step 3
