@@ -107,23 +107,25 @@ const STYLES = {
   },
   textStyle:{
     textAlign:'center',
-    fontSize: 15,
-		flex: 4
+    fontSize: 16,
+		fontWeight: 'bold',
+		padding: 30
   },
 	buttonImage : {
-		width   : 30,
-		height  : 25
+		width: 12,
+		height: 8,
+		opacity: .3
 	},
-	button      : {
-		flex:1
+	button: {
+		justifyContent: 'center',
+		paddingRight: 30
 	},
 	titleContainer : {
 			flexDirection: 'row',
-			justifyContent: 'center',
+			justifyContent: 'space-between'
 	},
 	body: {
-		padding: 10,
-		paddingTop: 0
+		padding: 30
   }
 }
 

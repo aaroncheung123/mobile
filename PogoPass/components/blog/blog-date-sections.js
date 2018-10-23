@@ -62,24 +62,11 @@ export default class BlogDateSections extends React.Component {
 const STYLES = {
   dateSectionText: {
     fontSize: 16,
+		fontWeight: 'bold',
 		color: 'white'
   },
 	totalDateSection: {
-		marginTop: 25
+		marginTop: 25,
+		width: '85%'
 	}
 }
-
-
-// this.setState({posts: success.data.posts}, function () {
-// 	console.log(this.state.posts[0].name);
-// });
-
-//<Text>{this.state.dates[0]}</Text>
-
-// for(let i = 0; i < this.state.posts.length; i++){
-// 	if(!this.state.dates.includes(this.state.posts[i].created_at)){
-// 		console.log("This is a date of a post: ", this.state.posts[i].created_at);
-// 		this.setState({dates: this.state.dates.concat(this.state.posts[i].created_at)});
-// 		};
-// 	}
-// 	this.parsePosts();

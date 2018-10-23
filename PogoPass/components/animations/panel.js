@@ -57,11 +57,12 @@ class Panel extends React.Component{
             icon = this.icons['up'];   //Step 4
         }
 
-        //Step 5
         return (
             <Animated.View style={[STYLES.container,{height: this.state.animation}]}>
                 <View style={STYLES.titleContainer} onLayout={this._setMinHeight.bind(this)}>
-                    <Text style={STYLES.title}>{this.state.title}</Text>
+                    <Text style={STYLES.title}>
+                        {this.state.title}
+                    </Text>
                     <TouchableHighlight
                         style={STYLES.button}
                         onPress={this.toggle.bind(this)}
