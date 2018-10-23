@@ -3,20 +3,20 @@ import {View, Text} from 'react-native';
 
 export default class Blurb extends React.Component {
 
-  constructor(props){
+  /*constructor(props){
     super(props);
 		this.state = {
 			posts: []
 		}
-		this.arrangeDates.bind(this);
-  }
+		//this.arrangeDates.bind(this);
+  }*/
 
-	componentDidMount(){
+	/*componentDidMount(){
 		this.arrangeDates();
-	}
+	}*/
 
 
-	arrangeDates(){
+/*	arrangeDates(){
 		myArray = [];
 		for(let post of this.props.posts){
 			// console.log("date: ", this.props.date);
@@ -27,35 +27,20 @@ export default class Blurb extends React.Component {
 		}
 		console.log("t123: ", myArray);
 		this.setState({posts: myArray});
-	}
+	}*/
 
   render() {
-		let posts = this.state.posts.map(post => <Text style={STYLES.textStyle}> {post} </Text>);
+		//let posts = this.state.posts.map(post => );
 
     return (
-        <View style={STYLES.dateSectionContainer}>
+			<View style={STYLES.blurbSection}>
+				<View style={STYLES.orangeTab}>
+				</View>
 
-
-					<View style={STYLES.topSection}>
-						<Text style={STYLES.dateTextBox}>1</Text>
-					</View>
-
-
-
-
-					<View style={STYLES.bottomSection}>
-						<View style={STYLES.orangeTab}>
-						</View>
-
-						<View style={STYLES.textBox}>
-							{posts}
-						</View>
-					</View>
-
-
-        </View>
-
-
+				<View style={STYLES.textBox}>
+					<Text style={STYLES.textStyle}> {this.props.post.name} </Text>
+				</View>
+			</View>
     );
   }
 }
@@ -63,21 +48,9 @@ export default class Blurb extends React.Component {
 
 
 const STYLES = {
-	dateSectionContainer: {
-		flex: 1,
-		flexDirection: 'column',
-		alignItems: 'center',
-    justifyContent: 'center',
-		width:'85%',
-		marginTop: 30
-	},
-	topSection: {
-		flex:1,
-		alignItems: 'flex-start',
-		backgroundColor: 'black'
-	},
-  bottomSection: {
-		flex:9,
+  blurbSection: {
+		height: 85,
+		minWidth: '80%',
     backgroundColor:'white',
     flexDirection: 'row',
     alignItems: 'center',
@@ -85,10 +58,7 @@ const STYLES = {
     backgroundColor:'white',
     borderRadius: 20,
     opacity: 0.9,
-    marginTop: 10,
-    // borderLeftStyle: 'solid',
-    // borderLeftColor: 'orange',
-    // borderLeftWidth: 30
+		marginTop: 5
   },
   orangeTab: {
     height:'100%',

@@ -7,62 +7,50 @@ export default class BlogDateSections extends React.Component {
   constructor(props){
     super(props);
 		this.state = {
-			posts: [],
-			dates: [],
-			dateSections: []
+			datedPosts: []
 		}
-		this.groupDates.bind(this);
-		this.parsePostsAccordingToDates.bind(this);
   }
 
   componentDidMount(){
-    EliteAPI.CMS.Post.search({}, success => {
-			//console.log(success.data.posts[0].name);
-			this.setState({posts: success.data.posts}, function () {
-				this.groupDates();
-			});
+    EliteAPI.CMS.Post.search({sort_columns: "publish_at DESC"}, success => {
+			let datedPosts = {};
+			let currentDate = new Date();
+			for (let post of success.data.posts) {
+				let postDate = GlobalUtil.convertMysqlToDate(post.publish_at);
+				if (postDate > currentDate) continue;
+				let day = postDate.formatDate("n/d/Y");
+				if (datedPosts[day] === undefined){
+					datedPosts[day] = [];
+				}
+				datedPosts[day].push(post);
+			}
+			//console.log("Dated Posts: ", datedPosts);
+			this.setState({datedPosts: datedPosts});
+
 		}, failure => {})
   }
 
-	// *****************************************
-	//
-	//Grouping all of the posts according to their dates
-	//
-	// *****************************************
+
 	groupDates(){
-		console.log("Length of state.posts: ", this.state.posts.length);
-		let myDateArray = [];
-		for (let post of this.state.posts) {
-			if(!this.state.dates.includes(post.created_at)){
-				myDateArray.push(post.created_at);
-			}
-		}
-		this.setState({dates: myDateArray}, function(){
-			this.parsePostsAccordingToDates();
-		});
-	}
-
-
-	parsePostsAccordingToDates(){
-		let myArrayOfArrays = [];
-		for(let date of this.state.dates){
-			let myArray = [];
-			for(let post of this.state.posts){
-				if(post.created_at === date){
-					myArray.push(post);
-				}
-			}
-			myArrayOfArrays.push(myArray);
-		}
-		this.setState({dateSections: myArrayOfArrays});
 
 	}
 
   render() {
-		//let posts = this.state.posts.map(post => <Blurb key={post.post_id} post={post} />);
-		let dateSections = this.state.dates.map(date => <Blurb key={date.date_id} posts={this.state.posts} date={date}/>);
+		let dateSections = Object.keys(this.state.datedPosts).map(key => {
+			let postElements = this.state.datedPosts[key].map(post => <Blurb key={post.post_id} post={post}/>)
+
+			return (
+				<View key={key} style={STYLES.totalDateSection}>
+					<Text style={STYLES.dateSectionText}>
+						{key}
+					</Text>
+					{postElements}
+				</View>
+			)
+		})
+
     return (
-        <View styles={STYLES.insideBlogContainer}>
+        <View>
 					{dateSections}
         </View>
     );
@@ -72,9 +60,13 @@ export default class BlogDateSections extends React.Component {
 
 
 const STYLES = {
-  insideBlogContainer: {
-    flex: 9
-  }
+  dateSectionText: {
+    fontSize: 16,
+		color: 'white'
+  },
+	totalDateSection: {
+		marginTop: 25
+	}
 }
 
 

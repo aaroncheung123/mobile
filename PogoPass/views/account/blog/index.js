@@ -12,7 +12,7 @@ export default class Blog extends React.Component {
 					<View style={STYLES.totalContainer}>
 						<View style={STYLES.sectionTitle}>
 							<Text style={STYLES.title}>
-								Blog
+								News
 							</Text>
 						</View>
 
@@ -26,14 +26,15 @@ export default class Blog extends React.Component {
 
 const STYLES = {
   totalContainer: {
-		flex:1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-start',
-		backgroundColor:'gray'
+    justifyContent: 'center',
+		minWidth:'100%',
+		minHeight: '100%'
 	},
 	sectionTitle:{
-		flex: 1
+		height: 75,
+		marginTop: 10
 	},
 	title: {
 		color: 'white',
