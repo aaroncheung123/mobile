@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppRegistry,StyleSheet,Text,ScrollView, View,TouchableHighlight, Image, Animated} from 'react-native';
+import {AppRegistry,StyleSheet,Text,ScrollView, View,TouchableHighlight, Image, Animated, WebView} from 'react-native';
 
 export default class Blurb extends React.Component {
 
@@ -60,7 +60,7 @@ export default class Blurb extends React.Component {
 			<TouchableHighlight
 					style={STYLES.button}
 					onPress={this.toggle.bind(this)}
-					underlayColor= 'none'>
+					underlayColor= 'transparent'>
 					<Animated.View style={[STYLES.blurbSection ,{height: this.state.animation}]}>
 						<View style={STYLES.titleContainer} onLayout={this._setMinHeight.bind(this)}>
 								<Text style={STYLES.textStyle}>
@@ -74,7 +74,8 @@ export default class Blurb extends React.Component {
 						</View>
 
 						<View style={STYLES.body} onLayout={this._setMaxHeight.bind(this)}>
-								<Text> {this.props.post.content} </Text>
+
+							<Text> {this.props.post.content} </Text>
 						</View>
 					</Animated.View>
 			</TouchableHighlight>
@@ -110,7 +111,8 @@ const STYLES = {
   textStyle:{
     textAlign:'center',
     fontSize: 18,
-		padding: 30
+		padding: 30,
+		overflow:'hidden'
   },
 	buttonImage : {
 		width: 12,
@@ -158,3 +160,6 @@ const STYLES = {
 // 	borderLeftWidth: 40,
 // 	borderColor: 'orange'
 // },
+
+
+//<Text> {this.props.post.content} </Text>
