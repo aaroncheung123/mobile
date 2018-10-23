@@ -55,14 +55,30 @@ export default class Blurb extends React.Component {
 		}
 
     return (
-			<View style={STYLES.blurbSection}>
-				<View style={STYLES.orangeTab}>
+
+
+
+			<Animated.View style={[STYLES.blurbSection ,{height: this.state.animation}]}>
+				<View style={STYLES.titleContainer} onLayout={this._setMinHeight.bind(this)}>
+						<Text style={STYLES.textStyle}>
+							{this.props.post.name}
+						</Text>
+
+						<TouchableHighlight
+	              style={STYLES.button}
+	              onPress={this.toggle.bind(this)}
+	              underlayColor="#f1f1f1">
+	              <Image
+	                  style={STYLES.buttonImage}
+	                  source={icon}
+	              ></Image>
+	          </TouchableHighlight>
 				</View>
 
-				<View style={STYLES.textBox}>
-					<Text style={STYLES.textStyle}> {this.props.post.name} </Text>
-				</View>
-			</View>
+				<View style={STYLES.body} onLayout={this._setMaxHeight.bind(this)}>
+            <Text> TEST TEST </Text>
+        </View>
+			</Animated.View>
 
 
     );
@@ -72,8 +88,13 @@ export default class Blurb extends React.Component {
 
 
 const STYLES = {
+	container   : {
+        backgroundColor: '#fff',
+        margin:10,
+        overflow:'hidden'
+    },
   blurbSection: {
-		height: 85,
+		minHeight: 85,
 		minWidth: '80%',
     backgroundColor:'white',
     flexDirection: 'row',
@@ -82,19 +103,9 @@ const STYLES = {
     backgroundColor:'white',
     borderRadius: 20,
     opacity: 0.9,
-		marginTop: 5
-  },
-  orangeTab: {
-    height:'100%',
-    flex: 1,
-    backgroundColor: 'orange',
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20
-  },
-  textBox:{
-    flex:9,
-    alignItems: 'center',
-    justifyContent: 'center',
+		marginTop: 5,
+		borderLeftWidth: 40,
+		borderColor: 'orange'
   },
 	dateTextBox:{
     color:'white'
@@ -102,7 +113,14 @@ const STYLES = {
   textStyle:{
     textAlign:'center',
     fontSize: 15
-  }
+  },
+	buttonImage : {
+			width   : 30,
+			height  : 25
+	},
+	titleContainer : {
+			flexDirection: 'row'
+	}
 }
 
 
@@ -115,3 +133,5 @@ const STYLES = {
 // <Text style={STYLES.textStyle}>
 // 	{posts}
 // </Text>
+
+//{this.props.post.name}
