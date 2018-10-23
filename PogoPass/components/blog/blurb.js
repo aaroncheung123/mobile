@@ -89,37 +89,37 @@ export default class Blurb extends React.Component {
 
 const STYLES = {
 	container   : {
-        backgroundColor: '#fff',
-        margin:10,
-        overflow:'hidden'
-    },
+    backgroundColor: '#fff',
+    margin:10,
+    overflow:'hidden'
+  },
   blurbSection: {
-		minHeight: 85,
-		minWidth: '80%',
-    backgroundColor:'white',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor:'white',
     borderRadius: 20,
     opacity: 0.9,
 		marginTop: 5,
 		borderLeftWidth: 40,
-		borderColor: 'orange'
+		borderColor: 'orange',
+		overflow:'hidden'
   },
 	dateTextBox:{
     color:'white'
   },
   textStyle:{
     textAlign:'center',
-    fontSize: 15
+    fontSize: 15,
+		flex: 4
   },
 	buttonImage : {
-			width   : 30,
-			height  : 25
+		width   : 30,
+		height  : 25
+	},
+	button      : {
+		flex:1
 	},
 	titleContainer : {
-			flexDirection: 'row'
+			flexDirection: 'row',
+			justifyContent: 'center',
 	},
 	body: {
 		padding: 10,
@@ -139,3 +139,18 @@ const STYLES = {
 // </Text>
 
 //{this.props.post.name}
+
+// blurbSection: {
+// 	minHeight: 85,
+// 	minWidth: '80%',
+// 	backgroundColor:'white',
+// 	flexDirection: 'column',
+// 	alignItems: 'center',
+// 	justifyContent: 'center',
+// 	backgroundColor:'white',
+// 	borderRadius: 20,
+// 	opacity: 0.9,
+// 	marginTop: 5,
+// 	borderLeftWidth: 40,
+// 	borderColor: 'orange'
+// },
