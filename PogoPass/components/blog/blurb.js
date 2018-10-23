@@ -57,28 +57,30 @@ export default class Blurb extends React.Component {
     return (
 
 
-
-			<Animated.View style={[STYLES.blurbSection ,{height: this.state.animation}]}>
-				<View style={STYLES.titleContainer} onLayout={this._setMinHeight.bind(this)}>
-						<Text style={STYLES.textStyle}>
-							{this.props.post.name}
-						</Text>
-
-						<TouchableHighlight
-	              style={STYLES.button}
-	              onPress={this.toggle.bind(this)}
-	              underlayColor="#f1f1f1">
-	              <Image
+			<TouchableHighlight
+					style={STYLES.button}
+					onPress={this.toggle.bind(this)}
+					underlayColor= 'none'>
+					<Animated.View style={[STYLES.blurbSection ,{height: this.state.animation}]}>
+						<View style={STYLES.titleContainer} onLayout={this._setMinHeight.bind(this)}>
+								<Text style={STYLES.textStyle}>
+									{this.props.post.name}
+								</Text>
+								<Image
 	                  style={STYLES.buttonImage}
-	                  source={icon}
-	              ></Image>
-	          </TouchableHighlight>
-				</View>
+	                  source={icon}>
+								</Image>
 
-				<View style={STYLES.body} onLayout={this._setMaxHeight.bind(this)}>
-            <Text> {this.props.post.content} </Text>
-        </View>
-			</Animated.View>
+						</View>
+
+						<View style={STYLES.body} onLayout={this._setMaxHeight.bind(this)}>
+								<Text> {this.props.post.content} </Text>
+						</View>
+					</Animated.View>
+			</TouchableHighlight>
+
+
+
 
 
     );
@@ -107,22 +109,22 @@ const STYLES = {
   },
   textStyle:{
     textAlign:'center',
-    fontSize: 16,
-		fontWeight: 'bold',
+    fontSize: 18,
 		padding: 30
   },
 	buttonImage : {
 		width: 12,
 		height: 8,
-		opacity: .3
+		opacity: .3,
+		marginRight: 30
 	},
 	button: {
-		justifyContent: 'center',
-		paddingRight: 30
+		justifyContent: 'center'
 	},
 	titleContainer : {
 			flexDirection: 'row',
-			justifyContent: 'space-between'
+			justifyContent: 'space-between',
+			alignItems: 'center'
 	},
 	body: {
 		padding: 30

@@ -61,12 +61,11 @@ export default class BlogDateSections extends React.Component {
 
 const STYLES = {
   dateSectionText: {
-    fontSize: 16,
-		fontWeight: 'bold',
+    fontSize: 18,
 		color: 'white'
   },
 	totalDateSection: {
-		marginTop: 25,
+		paddingTop: 25,
 		width: '85%'
 	}
 }

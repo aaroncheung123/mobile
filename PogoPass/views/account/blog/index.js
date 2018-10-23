@@ -10,7 +10,7 @@ export default class Blog extends React.Component {
 		return (
 
 					<View style={STYLES.totalContainer}>
-						<View style={STYLES.sectionTitle}>
+						<View>
 							<Text style={STYLES.title}>
 								News
 							</Text>
@@ -32,12 +32,9 @@ const STYLES = {
 		minWidth:'100%',
 		minHeight: '100%'
 	},
-	sectionTitle:{
-		height: 75,
-		marginTop: 10
-	},
 	title: {
 		color: 'white',
-		fontSize: 35
+		fontSize: 35,
+		paddingTop: 20
 	}
 }
