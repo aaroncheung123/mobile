@@ -6,12 +6,12 @@ export default class Blurb extends React.Component {
 	constructor(props){
 			super(props);
 
-			this.icons = {     //Step 2
+			this.icons = {
 					'up'    : require('../../assets/images/icons/up_arrow.png'),
 					'down'  : require('../../assets/images/icons/down_arrow.png')
 			};
 
-			this.state = {       //Step 3
+			this.state = {
 					title       : props.title,
 					expanded    : true,
 					animation   : new Animated.Value()
@@ -24,16 +24,16 @@ export default class Blurb extends React.Component {
 					finalValue      = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
 			this.setState({
-					expanded : !this.state.expanded  //Step 2
+					expanded : !this.state.expanded
 			});
 
-			this.state.animation.setValue(initialValue);  //Step 3
-			Animated.spring(     //Step 4
+			this.state.animation.setValue(initialValue);
+			Animated.spring(
 					this.state.animation,
 					{
 							toValue: finalValue
 					}
-			).start();  //Step 5
+			).start();
 	}
 
 	_setMaxHeight(event){
@@ -51,7 +51,7 @@ export default class Blurb extends React.Component {
 		let icon = this.icons['down'];
 
 		if(this.state.expanded){
-				icon = this.icons['up'];   //Step 4
+				icon = this.icons['up'];
 		}
 
     return (
@@ -76,7 +76,7 @@ export default class Blurb extends React.Component {
 				</View>
 
 				<View style={STYLES.body} onLayout={this._setMaxHeight.bind(this)}>
-            <Text> TEST TEST </Text>
+            <Text> {this.props.post.content} </Text>
         </View>
 			</Animated.View>
 
@@ -97,7 +97,7 @@ const STYLES = {
 		minHeight: 85,
 		minWidth: '80%',
     backgroundColor:'white',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor:'white',
@@ -120,7 +120,11 @@ const STYLES = {
 	},
 	titleContainer : {
 			flexDirection: 'row'
-	}
+	},
+	body: {
+		padding: 10,
+		paddingTop: 0
+  }
 }
 
 
