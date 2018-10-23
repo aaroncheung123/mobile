@@ -1,23 +1,52 @@
-//import React,{ Component,StyleSheet,Text,View,Image,TouchableHighlight,Animated } from 'react-native';
-
 import React, { Component } from 'react';
-import {StyleSheet,Text,View,Image,TouchableHighlight,Animated} from 'react-native';
+import {AppRegistry,StyleSheet,Text,ScrollView, View,TouchableHighlight, Image, Animated} from 'react-native'; //Step 1
+
+
 
 class Panel extends React.Component{
     constructor(props){
         super(props);
+
         this.icons = {     //Step 2
-            'up'    : require('../../assets/images/icons/up_arrow.png'),
-            'down'  : require('../../assets/images/icons/down_arrow.png')
+            'up'    : require('../../images/icons/up_arrow.png'),
+            'down'  : require('../../images/icons/down_arrow.png')
         };
+
         this.state = {       //Step 3
             title       : props.title,
-            expanded    : true
+            expanded    : true,
+            animation   : new Animated.Value()
         };
     }
 
     toggle(){
+        //Step 1
+        let initialValue    = this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
+            finalValue      = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
+        this.setState({
+            expanded : !this.state.expanded  //Step 2
+        });
+
+        this.state.animation.setValue(initialValue);  //Step 3
+        Animated.spring(     //Step 4
+            this.state.animation,
+            {
+                toValue: finalValue
+            }
+        ).start();  //Step 5
+    }
+
+    _setMaxHeight(event){
+        this.setState({
+            maxHeight   : event.nativeEvent.layout.height
+        });
+    }
+
+    _setMinHeight(event){
+        this.setState({
+            minHeight   : event.nativeEvent.layout.height
+        });
     }
 
 
@@ -30,8 +59,8 @@ class Panel extends React.Component{
 
         //Step 5
         return (
-            <View style={STYLES.container} >
-                <View style={STYLES.titleContainer}>
+            <Animated.View style={[STYLES.container,{height: this.state.animation}]}>
+                <View style={STYLES.titleContainer} onLayout={this._setMinHeight.bind(this)}>
                     <Text style={STYLES.title}>{this.state.title}</Text>
                     <TouchableHighlight
                         style={STYLES.button}
@@ -44,27 +73,22 @@ class Panel extends React.Component{
                     </TouchableHighlight>
                 </View>
 
-                <View style={STYLES.body}>
+                <View style={STYLES.body} onLayout={this._setMaxHeight.bind(this)}>
                     {this.props.children}
                 </View>
 
-            </View>
+            </Animated.View>
         );
     }
 }
-export default Panel;
-
-
 const STYLES = {
     container   : {
         backgroundColor: '#fff',
         margin:10,
-        overflow:'hidden',
-        minHeight: 40
+        overflow:'hidden'
     },
     titleContainer : {
-        flexDirection: 'row',
-        minHeight: 40
+        flexDirection: 'row'
     },
     title       : {
         flex    : 1,
@@ -84,3 +108,5 @@ const STYLES = {
         paddingTop  : 0
     }
 }
+
+export default Panel;

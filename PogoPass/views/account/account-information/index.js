@@ -9,10 +9,15 @@ export default class AccountInformation extends React.Component {
 	render() {
 		return (
 			<View>
-
 				<ScrollView style={STYLES.container}>
 	        <Panel title="A Panel with short content text">
 	          <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+	        </Panel>
+	        <Panel title="A Panel with long content text">
+	          <Text>Lorem ipsum...</Text>
+	        </Panel>
+	        <Panel title="Another Panel">
+	          <Text>Lorem ipsum dolor sit amet...</Text>
 	        </Panel>
 	      </ScrollView>
 			</View>
@@ -23,9 +28,9 @@ export default class AccountInformation extends React.Component {
 
 const STYLES = {
   container: {
-    flex            : 1,
-    backgroundColor : 'white',
-    paddingTop      : 30
+		flex            : 1,
+		backgroundColor : '#f4f7f9',
+		paddingTop      : 30
   }
 }
 
