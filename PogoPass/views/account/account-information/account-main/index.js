@@ -2,7 +2,6 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../../assets/styles/styles';
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
-import {MemoryRouter, Route, IndexRedirect} from 'react-router';
 import InfoTab from '../../../../components/info-tab.js';
 
 
@@ -15,8 +14,7 @@ export default class AccountInformation extends React.Component {
   }
 
 	updatePath(path) {
-		this.router.history.push(path);
-		this.forceUpdate();
+		this.props.history.push(path);
 	}
 
 	render() {

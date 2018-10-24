@@ -4,8 +4,8 @@ import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
 import {MemoryRouter, Route, IndexRedirect} from 'react-router';
 import InfoTab from '../../../components/info-tab.js';
-import Profile from './profile/index.js';
 import AccountMain from './account-main/index.js';
+import Profile from './profile/index.js';
 
 
 export default class AccountInformation extends React.Component {
@@ -35,6 +35,7 @@ export default class AccountInformation extends React.Component {
 				<View style={STYLES.fullScreenContainer}>
 					<ScrollView style={STYLES.scrollViewContainer}>
 						<Route path="/account-main" component={AccountMain} />
+						<Route path="/profile" component={Profile} />
 					</ScrollView>
 				</View>
 
