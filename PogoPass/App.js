@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground, TextInput, AsyncStorage, StatusBar} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TextInput, AsyncStorage, StatusBar, WebView} from 'react-native';
 import Login from './views/login';
 import Forgot from './views/forgot';
 import Account from './views/account';

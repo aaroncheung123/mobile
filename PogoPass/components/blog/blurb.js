@@ -74,16 +74,11 @@ export default class Blurb extends React.Component {
 						</View>
 
 						<View style={STYLES.body} onLayout={this._setMaxHeight.bind(this)}>
-
-							<Text> {this.props.post.content} </Text>
+							  <WebView source={{html:this.props.post.content}} style={STYLES.webViewStyle} />
 						</View>
+
 					</Animated.View>
 			</TouchableHighlight>
-
-
-
-
-
     );
   }
 }
@@ -129,8 +124,13 @@ const STYLES = {
 			alignItems: 'center'
 	},
 	body: {
+		flex: 1,
 		padding: 30
-  }
+  },
+	webViewStyle: {
+		height: 200,
+		width: 200
+	}
 }
 
 
