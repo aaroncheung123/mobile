@@ -1,11 +1,9 @@
 import React from 'react';
 import NavigationBar from 'react-native-navbar';
-import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
+import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../../assets/styles/styles';
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
 import {MemoryRouter, Route, IndexRedirect} from 'react-router';
-import InfoTab from '../../../components/info-tab.js';
-import Profile from './profile/index.js';
-import AccountMain from './account-main/index.js';
+import InfoTab from '../../../../components/info-tab.js';
 
 
 export default class AccountInformation extends React.Component {
@@ -16,10 +14,6 @@ export default class AccountInformation extends React.Component {
 		this.updatePath = this.updatePath.bind(this);
   }
 
-	componentDidMount() {
-		this.updatePath('/account-main');
-	}
-
 	updatePath(path) {
 		this.router.history.push(path);
 		this.forceUpdate();
@@ -27,19 +21,18 @@ export default class AccountInformation extends React.Component {
 
 	render() {
 		return (
-
-
-		<MemoryRouter ref={e => this.router = e}>
 			<View style={STYLES.totalContainer}>
+				<Text style={STYLES.title}>
+					Account Information
+				</Text>
 
-				<View style={STYLES.fullScreenContainer}>
-					<ScrollView style={STYLES.scrollViewContainer}>
-						<Route path="/account-main" component={AccountMain} />
-					</ScrollView>
-				</View>
+				<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
+				<InfoTab onPress={() => this.updatePath('/addresses')} icon='truck' name='Addresses'/>
+				<InfoTab onPress={() => this.updatePath('/payment')} icon='credit-card' name='Payment / Credit'/>
+				<InfoTab onPress={() => this.updatePath('/orders')} icon='calendar' name='Orders'/>
+				<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
 
 			</View>
-		</MemoryRouter>
 
 			// <MemoryRouter ref={e => this.router = e}>
 			// 	<View style={STYLES.fullScreenContainer}>
