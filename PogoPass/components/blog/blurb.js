@@ -1,5 +1,6 @@
 import React from 'react';
 import {AppRegistry,StyleSheet,Text,ScrollView, View,TouchableHighlight, Image, Animated, WebView} from 'react-native';
+//Import  AutoResizeHeightWebView  from  ' ./AutoResizeHeightWebView ' ;
 
 export default class Blurb extends React.Component {
 
@@ -47,6 +48,15 @@ export default class Blurb extends React.Component {
 					minHeight   : event.nativeEvent.layout.height
 			});
 	}
+
+	//the handling method of the event onNavigationChange
+	onNavigationChange(event) {
+		if (event.title) {
+	    const htmlHeight = Number(event.title) //convert to number
+	    this.setState({Height:htmlHeight});
+		}
+  }
+
   render() {
 		let icon = this.icons['down'];
 
@@ -74,7 +84,12 @@ export default class Blurb extends React.Component {
 						</View>
 
 						<View style={STYLES.body} onLayout={this._setMaxHeight.bind(this)}>
-							  <WebView source={{html:this.props.post.content}} style={STYLES.webViewStyle} />
+							<WebView
+								source={{html:this.props.post.content}}
+								style={STYLES.webViewStyle}
+								scrollEnabled={false}
+								/>
+
 						</View>
 
 					</Animated.View>
@@ -163,3 +178,18 @@ const STYLES = {
 
 
 //<Text> {this.props.post.content} </Text>
+
+
+// <WebView
+// 	source={{html:this.props.post.content}}
+// 	style={STYLES.webViewStyle}
+// 	scrollEnabled={false}
+// 	onNavigationStateChange={this.onNavigationStateChange.bind(this)}
+// 	/>
+
+
+// <AutoResizeHeightWebView
+// 	defaultHeight={200}
+// 	style={{backgroundColor:'white'}}
+// 	AnimationDuration={500}
+// 	source={{uri: 'http://www.ftchinese.com/story/001075607'}}/>

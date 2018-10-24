@@ -20,7 +20,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/blog');
+    this.updatePath('/account-information');
   }
 
   updatePath(path) {
@@ -36,8 +36,6 @@ export default class AccountNavigation extends React.Component {
 
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
-
-
           <ScrollView style={STYLES.scrollViewContainer}>
             <Route path="/pass-manager" component={PassManager} />
             <Route path="/account-information" component={AccountInformation} />
@@ -104,13 +102,13 @@ const AccountMenuItem = (props) => {
 
 const STYLES = {
   fullScreenContainer: {
-    flexDirection: 'column',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.4)'
   },
-  scrollViewContainer: {
-    flex: 1
+  scrollViewContainer:{
+    flex:1
   },
   accountMenu: {
     container: {
