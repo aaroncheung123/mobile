@@ -17,7 +17,7 @@ export default class AccountInformation extends React.Component {
   }
 
 	componentDidMount() {
-		this.updatePath('/account-main');
+		this.updatePath('/profile');
 	}
 
 	updatePath(path) {
@@ -28,19 +28,12 @@ export default class AccountInformation extends React.Component {
 	render() {
 		return (
 
-
-		<MemoryRouter ref={e => this.router = e}>
-			<View style={STYLES.totalContainer}>
-
-				<View style={STYLES.fullScreenContainer}>
-					<ScrollView style={STYLES.scrollViewContainer}>
-						<Route path="/account-main" component={AccountMain} />
-						<Route path="/profile" component={Profile} />
-					</ScrollView>
+			<MemoryRouter ref={e => this.router = e}>
+				<View style={STYLES.routerContainer}>
+					<Route path="/account-main" component={AccountMain} />
+					<Route path="/profile" component={Profile} />
 				</View>
-
-			</View>
-		</MemoryRouter>
+			</MemoryRouter>
 
 			// <MemoryRouter ref={e => this.router = e}>
 			// 	<View style={STYLES.fullScreenContainer}>
@@ -70,27 +63,9 @@ export default class AccountInformation extends React.Component {
 }
 
 const STYLES = {
-	totalContainer: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-		flex: 1,
-		width:'100%'
-	},
-	title: {
-		color: 'white',
-		fontSize: 35,
-		paddingTop: 60,
-		paddingBottom: 60,
-		flex: 1
-	},
-	topSection:{
-		flex: 1,
-		backgroundColor: 'black'
-	},
-	bottomSection:{
-		backgroundColor: 'white',
-		maxHeight: '100%',
-		maxWidth: '100%'
+	routerContainer: {
+		width:'100%',
+		backgroundColor: 'white'
 	}
 }
 

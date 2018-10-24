@@ -8,10 +8,10 @@ export default class InfoTab extends React.Component {
     render() {
         return (
 			<TouchableWithoutFeedback onPress={this.props.onPress}>
-	            <View style={STYLES.container}>
+      	<View style={STYLES.container}>
 					<Icon name={this.props.icon} size= {20}/>
-	                <Text style={STYLES.textStyle}>{this.props.name}</Text>
-	            </View>
+          <Text style={STYLES.textStyle}>{this.props.name}</Text>
+        </View>
 			</TouchableWithoutFeedback>
         );
     }

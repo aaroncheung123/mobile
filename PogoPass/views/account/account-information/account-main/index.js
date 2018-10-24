@@ -20,41 +20,17 @@ export default class AccountInformation extends React.Component {
 	render() {
 		return (
 			<View style={STYLES.totalContainer}>
-				<Text style={STYLES.title}>
-					Account Information
-				</Text>
-
+				<View style={STYLES.titleContainer}>
+					<Text style={STYLES.title}>
+						Account Information
+					</Text>
+				</View>
 				<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
 				<InfoTab onPress={() => this.updatePath('/addresses')} icon='truck' name='Addresses'/>
 				<InfoTab onPress={() => this.updatePath('/payment')} icon='credit-card' name='Payment / Credit'/>
 				<InfoTab onPress={() => this.updatePath('/orders')} icon='calendar' name='Orders'/>
 				<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
-
 			</View>
-
-			// <MemoryRouter ref={e => this.router = e}>
-			// 	<View style={STYLES.fullScreenContainer}>
-			// 		<ScrollView style={STYLES.scrollViewContainer}>
-			// 			<Route path="/pass-manager" component={PassManager} />
-			// 		</ScrollView>
-			//
-			// 		{/*Bottom Menu*/}
-			// 		<View style={STYLES.accountMenu.container}>
-			// 			<View style={STYLES.accountMenu.menuContainer}>
-			// 				<AccountMenuItem
-			// 					onPress={() => this.updatePath('/blog')}
-			// 					active={path === '/blog'}
-			// 					icon="bell"
-			// 				/>
-			// 				/>
-			// 			</View>
-			// 		</View>
-			//
-			// 	</View>
-			//
-			// </MemoryRouter>
-
-
 		);
 	}
 }
@@ -67,20 +43,18 @@ const STYLES = {
 		width:'100%'
 	},
 	title: {
+		textAlign: 'center',
 		color: 'white',
 		fontSize: 35,
 		paddingTop: 60,
 		paddingBottom: 60,
-		flex: 1
+		width:'100%',
+		fontSize: 24
 	},
-	topSection:{
-		flex: 1,
-		backgroundColor: 'black'
-	},
-	bottomSection:{
-		backgroundColor: 'white',
-		maxHeight: '100%',
-		maxWidth: '100%'
+	titleContainer: {
+		backgroundColor: '#faa31a',
+		width:'100%',
+		opacity: .85
 	}
 }
 
@@ -120,3 +94,27 @@ const STYLES = {
 
 // <View style={STYLES.bottomSection}>
 // </View>
+
+
+
+// <MemoryRouter ref={e => this.router = e}>
+// 	<View style={STYLES.fullScreenContainer}>
+// 		<ScrollView style={STYLES.scrollViewContainer}>
+// 			<Route path="/pass-manager" component={PassManager} />
+// 		</ScrollView>
+//
+// 		{/*Bottom Menu*/}
+// 		<View style={STYLES.accountMenu.container}>
+// 			<View style={STYLES.accountMenu.menuContainer}>
+// 				<AccountMenuItem
+// 					onPress={() => this.updatePath('/blog')}
+// 					active={path === '/blog'}
+// 					icon="bell"
+// 				/>
+// 				/>
+// 			</View>
+// 		</View>
+//
+// 	</View>
+//
+// </MemoryRouter>

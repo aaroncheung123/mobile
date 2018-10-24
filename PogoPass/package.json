@@ -25,6 +25,8 @@
     "react-navigation": "^2.18.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "react-router-native": "^4.3.0",
+    "react-router-native-stack": "0.0.15",
     "striptags": "^3.1.1"
   }
 }

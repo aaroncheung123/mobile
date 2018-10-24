@@ -108,7 +108,8 @@ const STYLES = {
     backgroundColor: 'rgba(0, 0, 0, 0.4)'
   },
   scrollViewContainer:{
-    flex:1
+    flex:1,
+    width: '100%'
   },
   accountMenu: {
     container: {
