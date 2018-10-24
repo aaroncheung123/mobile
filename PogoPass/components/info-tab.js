@@ -9,7 +9,7 @@ export default class InfoTab extends React.Component {
         return (
 			<TouchableWithoutFeedback onPress={this.props.onPress}>
       	<View style={STYLES.container}>
-					<Icon name={this.props.icon} size= {20}/>
+					<Icon name={this.props.icon} size= {20} color='white'/>
           <Text style={STYLES.textStyle}>{this.props.name}</Text>
         </View>
 			</TouchableWithoutFeedback>

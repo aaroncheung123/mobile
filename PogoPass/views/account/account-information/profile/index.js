@@ -18,25 +18,54 @@ export default class Profile extends React.Component {
 					<View style={STYLES.wholeContainer}>
 						<View style={STYLES.topMenu}>
 							<TouchableWithoutFeedback onPress={() => this.updatePath('/account-main')}>
-									 <Icon name='chevron-left' size= {20}/>
+									 <Icon name='arrow-left' size= {25}/>
 							</TouchableWithoutFeedback>
 
 							<Text style={STYLES.textStyle}>Profile</Text>
 
 						</View>
 
+						<View style={STYLES.bottomSectionTitle}>
+							<Text> Hello </Text>
+						</View>
+
 						<View style={STYLES.bottomSection}>
+
 							<Text style={STYLES.bottomTextStyle}>First Name</Text>
 							<TextInput
 							 style={STYLES.textInputStyle}
-               placeholder = "First Name"
-               placeholderTextColor = "#9a73ef"
+							 underlineColorAndroid = "transparent"
+               placeholder = "John"
+               placeholderTextColor = "black"
                autoCapitalize = "none"
                onChangeText = {this.handleEmail}/>
 
 							<Text style={STYLES.bottomTextStyle}>Last Name</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 underlineColorAndroid = "transparent"
+	               placeholder = "Doe"
+	               placeholderTextColor = "black"
+	               autoCapitalize = "none"
+	               onChangeText = {this.handleEmail}/>
+
 							<Text style={STYLES.bottomTextStyle}>Email</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 underlineColorAndroid = "transparent"
+	               placeholder = "johndoe@gmail.com"
+	               placeholderTextColor = "black"
+	               autoCapitalize = "none"
+	               onChangeText = {this.handleEmail}/>
+
 							<Text style={STYLES.bottomTextStyle}>Phone</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 underlineColorAndroid = "transparent"
+	               placeholder = "123-123-1234"
+	               placeholderTextColor = "black"
+	               autoCapitalize = "none"
+	               onChangeText = {this.handleEmail}/>
 						</View>
 
 					</View>
@@ -63,6 +92,15 @@ const STYLES = {
 		opacity: .9,
 		backgroundColor: '#E5E5E5',
 		width:'100%',
+		paddingLeft: 30,
+		paddingRight: 30,
+		paddingBottom: 60
+	},
+	bottomSectionTitle: {
+		backgroundColor:'#c9c9c9',
+		width:'100%',
+		height:'10%',
+		opacity:.9
 	},
 	textStyle: {
 		fontSize: 20,
@@ -72,11 +110,13 @@ const STYLES = {
 	},
 	bottomTextStyle: {
 		fontSize: 16,
-		padding: 30
+		paddingTop: 20,
+		paddingBottom: 10
 	},
 	textInputStyle: {
-		width:'60%',
-		underlineColor: "black",
-		padding: 30
+		height: 40,
+		paddingLeft: 20,
+		borderWidth: 1,
+		borderRadius: 5
 	}
 }

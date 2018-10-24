@@ -50,7 +50,7 @@ export default class AccountNavigation extends React.Component {
               <AccountMenuItem
                 onPress={() => this.updatePath('/blog')}
                 active={path === '/blog'}
-                icon="bell"
+                icon="newspaper-o"
               />
               <AccountMenuItem
                 onPress={() => this.updatePath('/account-information')}

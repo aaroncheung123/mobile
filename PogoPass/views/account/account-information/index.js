@@ -43,8 +43,6 @@ const STYLES = {
 	routerContainer: {
 		flex:1,
 		width:'100%',
-		borderColor: 'gray',
-		borderTopWidth: 1,
 	}
 }
 
