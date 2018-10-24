@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableWithoutFeedback, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Profile extends React.Component {
@@ -15,27 +15,68 @@ export default class Profile extends React.Component {
 
     render() {
         return (
-					<View styles={STYLES.container}>
-						<TouchableWithoutFeedback onPress={() => this.updatePath('/account-main')}>
-								<View styles={STYLES.topMenu}>
-		                <Icon name='chevron-left' size= {20}/>
-		                <Text>Test 123</Text>
-								</View>
-		        </TouchableWithoutFeedback>
+					<View style={STYLES.wholeContainer}>
+						<View style={STYLES.topMenu}>
+							<TouchableWithoutFeedback onPress={() => this.updatePath('/account-main')}>
+									 <Icon name='chevron-left' size= {20}/>
+							</TouchableWithoutFeedback>
+
+							<Text style={STYLES.textStyle}>Profile</Text>
+
+						</View>
+
+						<View style={STYLES.bottomSection}>
+							<Text style={STYLES.bottomTextStyle}>First Name</Text>
+							<TextInput
+							 style={STYLES.textInputStyle}
+               placeholder = "First Name"
+               placeholderTextColor = "#9a73ef"
+               autoCapitalize = "none"
+               onChangeText = {this.handleEmail}/>
+
+							<Text style={STYLES.bottomTextStyle}>Last Name</Text>
+							<Text style={STYLES.bottomTextStyle}>Email</Text>
+							<Text style={STYLES.bottomTextStyle}>Phone</Text>
+						</View>
+
 					</View>
+
 
         );
     }
 }
 
 const STYLES = {
-	container: {
-		flexDirection: 'row',
-		backgroundColor: 'white',
-		width:'100%'
+	wholeContainer:{
+		flex: 1
 	},
 	topMenu: {
 		flexDirection: 'row',
-		flex:1,
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		width:'100%',
+		backgroundColor: 'orange',
+		opacity: .85,
+		padding: 17,
+	},
+	bottomSection: {
+		opacity: .9,
+		backgroundColor: '#E5E5E5',
+		width:'100%',
+	},
+	textStyle: {
+		fontSize: 20,
+		color: 'white',
+		fontWeight: 'bold',
+		paddingLeft: 60
+	},
+	bottomTextStyle: {
+		fontSize: 16,
+		padding: 30
+	},
+	textInputStyle: {
+		width:'60%',
+		underlineColor: "black",
+		padding: 30
 	}
 }

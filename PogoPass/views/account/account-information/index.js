@@ -35,37 +35,16 @@ export default class AccountInformation extends React.Component {
 				</View>
 			</MemoryRouter>
 
-			// <MemoryRouter ref={e => this.router = e}>
-			// 	<View style={STYLES.fullScreenContainer}>
-			// 		<ScrollView style={STYLES.scrollViewContainer}>
-			// 			<Route path="/pass-manager" component={PassManager} />
-			// 		</ScrollView>
-			//
-			// 		{/*Bottom Menu*/}
-			// 		<View style={STYLES.accountMenu.container}>
-			// 			<View style={STYLES.accountMenu.menuContainer}>
-			// 				<AccountMenuItem
-			// 					onPress={() => this.updatePath('/blog')}
-			// 					active={path === '/blog'}
-			// 					icon="bell"
-			// 				/>
-			// 				/>
-			// 			</View>
-			// 		</View>
-			//
-			// 	</View>
-			//
-			// </MemoryRouter>
-
-
 		);
 	}
 }
 
 const STYLES = {
 	routerContainer: {
+		flex:1,
 		width:'100%',
-		backgroundColor: 'white'
+		borderColor: 'gray',
+		borderTopWidth: 1,
 	}
 }
 
