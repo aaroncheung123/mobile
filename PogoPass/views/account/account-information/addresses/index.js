@@ -6,7 +6,7 @@ import AddressCard from '../../../../components/account-information/address-card
 
 export default class Blurb extends React.Component {
 
-	
+
 
 	updatePath(path) {
 		this.props.history.push(path);
@@ -17,12 +17,9 @@ export default class Blurb extends React.Component {
             <View style={STYLES.container}>
                 <TopMenu title= 'Addresses' onPress={() => this.updatePath('/account-main')}/>
 
-								<AddressCard/>
-								<AddressCard/>
-								<AddressCard/>
-								<AddressCard/>
-								<AddressCard/>
-								<AddressCard/>
+								<AddressCard name='John Doe' address='9104 N Cornwall Way, Eagle Mountain, UT 84005'/>
+								<AddressCard name='John Doe' address='9104 N Cornwall Way, Eagle Mountain, UT 84005'/>
+								<AddressCard name='John Doe' address='9104 N Cornwall Way, Eagle Mountain, UT 84005'/>
 
 
             </View>

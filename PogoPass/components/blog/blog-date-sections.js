@@ -30,11 +30,6 @@ export default class BlogDateSections extends React.Component {
 		}, failure => {})
   }
 
-
-	groupDates(){
-
-	}
-
   render() {
 		let dateSections = Object.keys(this.state.datedPosts).map(key => {
 			let postElements = this.state.datedPosts[key].map(post => <Blurb key={post.post_id} post={post}/>)

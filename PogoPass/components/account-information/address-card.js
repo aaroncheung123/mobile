@@ -1,14 +1,19 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {StyleSheet, Text, View , Image, TouchableHighlight, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Blurb extends React.Component {
 
     constructor(props){
       super(props);
-          this.state = {
-              user: undefined
-          }
+      this.state = {       //Step 3
+        title: props.title,
+        expanded: true
+        };
+    }
+
+    toggle(){
+
     }
 
     render() {
@@ -18,17 +23,35 @@ export default class Blurb extends React.Component {
                     <Icon name='home' size= {45}/>
                 </View>
 
-                <View style={STYLES.cardContainer}>
-                    <View style={STYLES.bodyTextContainer}>
-                        <Text style={STYLES.textHeader}>John Doe</Text>
-                        <Text style={STYLES.textContent}>9104 N Cornwall Way, Eagle Mountain, UT 84005</Text>
-                    </View>
 
 
-                    <View style={STYLES.editIconContainer}>
-                        <Icon name='edit' size= {25}/>
+                <View style={STYLES.outsideContainer}>
+                    <View style={STYLES.cardContainer}>
+                        <View style={STYLES.bodyTextContainer}>
+                            <Text style={STYLES.textHeader}>{this.props.name}</Text>
+                            <Text style={STYLES.textContent}>{this.props.address}</Text>
+                        </View>
+
+
+
+                        <View style={STYLES.editIconContainer}>
+                            <TouchableHighlight
+                                style={STYLES.button}
+                                onPress={this.toggle.bind(this)}
+                                underlayColor="#f1f1f1">
+                                <Icon name='edit' size= {25}/>
+                            </TouchableHighlight>
+                        </View>
                     </View>
+
+                    <View style={STYLES.hiddenBody}>
+                        <Text>
+                            {this.props.address}
+                        </Text>
+                    </View>
+
                 </View>
+
             </View>
 
         );
@@ -51,12 +74,16 @@ const STYLES = {
         marginTop: 30,
         marginLeft: 10
     },
+    outsideContainer: {
+        flexDirection: 'column',
+        flex: 1
+    },
     cardContainer: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        backgroundColor: 'white',
+        backgroundColor: '#D9D9D9',
         opacity: .9,
         marginLeft: 25,
         borderRadius: 5,
@@ -78,5 +105,27 @@ const STYLES = {
         justifyContent:'center',
         alignItems: 'center',
         flex: 1
+    },
+    hiddenBody: {
+        backgroundColor: 'white',
+        borderRadius: 5,
+        opacity: .9,
+        marginLeft: 25,
+        marginTop: 2,
+        padding: 20
     }
 }
+
+
+    // <View style={styles.titleContainer}>
+    //     <Text style={styles.title}>{this.state.title}</Text>
+    //     <TouchableHighlight
+    //         style={styles.button}
+    //         onPress={this.toggle.bind(this)}
+    //         underlayColor="#f1f1f1">
+    //     </TouchableHighlight>
+    // </View>
+    //
+    // <View style={styles.body}>
+    //     {this.props.children}
+    // </View>

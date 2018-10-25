@@ -1,6 +1,5 @@
 import React from 'react';
 import {AppRegistry,StyleSheet,Text,ScrollView, View,TouchableHighlight, Image, Animated, WebView} from 'react-native';
-//Import  AutoResizeHeightWebView  from  ' ./AutoResizeHeightWebView ' ;
 
 export default class Blurb extends React.Component {
 
@@ -20,7 +19,6 @@ export default class Blurb extends React.Component {
 	}
 
 	toggle(){
-			//Step 1
 			let initialValue    = this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
 					finalValue      = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
@@ -49,10 +47,10 @@ export default class Blurb extends React.Component {
 			});
 	}
 
-	//the handling method of the event onNavigationChange
+	//The handling method of the event onNavigationChange
 	onNavigationChange(event) {
 		if (event.title) {
-	    const htmlHeight = Number(event.title) //convert to number
+	    const htmlHeight = Number(event.title)
 	    this.setState({Height:htmlHeight});
 		}
   }
@@ -147,49 +145,3 @@ const STYLES = {
 		width: 200
 	}
 }
-
-
-
-    // <View stlye={STYLES.orangeTab}>
-    //   <Text stlye={STYLES.textStyle}>Hi</Text>
-    // </View>
-//{this.props.}
-
-// <Text style={STYLES.textStyle}>
-// 	{posts}
-// </Text>
-
-//{this.props.post.name}
-
-// blurbSection: {
-// 	minHeight: 85,
-// 	minWidth: '80%',
-// 	backgroundColor:'white',
-// 	flexDirection: 'column',
-// 	alignItems: 'center',
-// 	justifyContent: 'center',
-// 	backgroundColor:'white',
-// 	borderRadius: 20,
-// 	opacity: 0.9,
-// 	marginTop: 5,
-// 	borderLeftWidth: 40,
-// 	borderColor: 'orange'
-// },
-
-
-//<Text> {this.props.post.content} </Text>
-
-
-// <WebView
-// 	source={{html:this.props.post.content}}
-// 	style={STYLES.webViewStyle}
-// 	scrollEnabled={false}
-// 	onNavigationStateChange={this.onNavigationStateChange.bind(this)}
-// 	/>
-
-
-// <AutoResizeHeightWebView
-// 	defaultHeight={200}
-// 	style={{backgroundColor:'white'}}
-// 	AnimationDuration={500}
-// 	source={{uri: 'http://www.ftchinese.com/story/001075607'}}/>
