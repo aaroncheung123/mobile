@@ -22,8 +22,6 @@ export default class Profile extends React.Component {
 
 	componentDidMount() {
 		Service.User.get((user) => {
-
-			console.log(user);
 			this.setState({user: user});
 		})
 	}

@@ -4,6 +4,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Blurb extends React.Component {
 
+    constructor(props){
+      super(props);
+          this.state = {
+              user: undefined
+          }
+    }
+
     render() {
         return (
             <View style={STYLES.container}>
@@ -32,7 +39,8 @@ const STYLES = {
     container: {
         flex: 1,
         flexDirection: 'row',
-        padding: 30
+        paddingHorizontal: 20,
+        paddingTop: 20,
     },
     iconContainer:{
         position: 'absolute',
@@ -40,8 +48,8 @@ const STYLES = {
         backgroundColor:'orange',
         borderRadius: 50,
         padding: 15,
-        marginTop: 40,
-        marginLeft: 20
+        marginTop: 30,
+        marginLeft: 10
     },
     cardContainer: {
         flex: 1,
@@ -62,7 +70,7 @@ const STYLES = {
     },
     bodyTextContainer: {
         marginVertical: 20,
-        marginLeft: 60,
+        marginLeft: 65,
         flex: 4
     },
     editIconContainer: {
@@ -72,8 +80,3 @@ const STYLES = {
         flex: 1
     }
 }
-
-
-// position: 'absolute',
-// top: 10,
-// left: 235,
