@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TouchableWithoutFeedback, TextInput, TouchableHighlight} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TopMenu from '../../../../components/account-information/top-menu';
+import AddressCard from '../../../../components/account-information/address-card';
 
 export default class Blurb extends React.Component {
 
@@ -11,15 +12,19 @@ export default class Blurb extends React.Component {
 
     render() {
         return (
-            <View style={STYLES.wholeContainer}>
+            <View style={STYLES.container}>
                 <TopMenu title= 'Addresses' onPress={() => this.updatePath('/account-main')}/>
+
+								<AddressCard/>
+
+
             </View>
         );
     }
 }
 
 const STYLES = {
-	wholeContainer:{
+	container:{
 		flex: 1
 	},
 }

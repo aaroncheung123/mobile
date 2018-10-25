@@ -38,6 +38,7 @@ const STYLES = {
 		width:'100%',
 		backgroundColor: 'orange',
 		padding: 17,
+		opacity: .95
 	},
 	textStyle: {
 		fontSize: 20,
