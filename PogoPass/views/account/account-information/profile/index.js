@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TouchableWithoutFeedback, TextInput, TouchableHighlight} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-elements'
+import TopMenu from '../../../../components/account-information/top-menu';
 
 export default class Profile extends React.Component {
 
@@ -70,14 +71,7 @@ export default class Profile extends React.Component {
 				if (!this.state.user) return null;
         return (
 					<View style={STYLES.wholeContainer}>
-						<View style={STYLES.topMenu}>
-							<TouchableWithoutFeedback onPress={() => this.updatePath('/account-main')}>
-									 <Icon name='arrow-left' size= {25} color='white'/>
-							</TouchableWithoutFeedback>
-
-							<Text style={STYLES.textStyle}>Profile</Text>
-
-						</View>
+						<TopMenu title= 'Profile' onPress={() => this.updatePath('/account-main')}/>
 
 						<View style={STYLES.bottomSectionTitle}>
 							<Text style={STYLES.bottomSectionHeader}> Personal Information </Text>
