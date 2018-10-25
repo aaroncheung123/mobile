@@ -57,10 +57,7 @@ export default class Profile extends React.Component {
 				});
 
 				//clearing out the input boxes
-				this.setState({currentPassword: ''});
-				this.setState({newPassword: ''})
-				this.setState({confirmPassword: ''})
-
+				this.setState({currentPassword: '', newPassword: '', confirmPassword: ''});
 		}
 
 	}
@@ -140,7 +137,7 @@ export default class Profile extends React.Component {
 
 
 
-					
+
 
 
 						<View style={STYLES.bottomSectionTitle}>
