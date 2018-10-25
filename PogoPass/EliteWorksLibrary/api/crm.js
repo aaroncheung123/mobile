@@ -12,7 +12,7 @@ export default class CrmApi {
 
 class User {
 
-    
+
     // purpose
     //   add a user login token so the user can login one time
     // args
@@ -109,7 +109,7 @@ class User {
         var url = '/global/crm/user/meta';
         return WebClient.basicGet(form_data, url, success_callback, failure_callback);
     }
-        
+
     // purpose
     //   set a user in the database
     // args
@@ -119,7 +119,7 @@ class User {
     //   last_name (optional) - edit last name of user
     //   phone (optional) - edit main phone number for user
     //   username (optional) - edit user name of user must be a username that doesn't exist
-    //   affiliate_parent_user_id (optional) 
+    //   affiliate_parent_user_id (optional)
     //   affiliate_commission_group_id (optional)
     // returns
     //   whether or not it successfully edited user
@@ -130,11 +130,12 @@ class User {
     }
 
 
-    // purpose
+		// purpose
     //   set password of user
-    // args
-    //   password
-    //   email_login_token
+    //	args
+    //   password (required)
+    //   current_password (required if key is not set)
+    //   key (required if current_password is not set)
     // returns
     //   (none)
     setPassword (form_data, success_callback, failure_callback)
@@ -184,14 +185,14 @@ class User {
         var url = '/global/crm/user/export';
         return WebClient.basicPostRaw(form_data, url, success_callback, failure_callback);
     }
-    
+
 
     // purpose
     //   get available amount of credit they can redeem
     // args
     //   user_id (optional) (default is logged in user)
     // returns
-    //   amount 
+    //   amount
     creditAvailable (form_data, success_callback, failure_callback)
     {
         var url = '/global/crm/user/credit/available';
@@ -210,7 +211,7 @@ class User {
         return WebClient.basicGet(form_data, url, success_callback, failure_callback);
     }
 
-    // purpose 
+    // purpose
     //   gets the user permissions
     // args
     //   user_id (optional) (requires Administrator permission) (default is logged in userid)
@@ -225,7 +226,7 @@ class User {
     // purpose
     //   adds affiliate type to user and makes them become an affiliate
     // args
-    //   user_id (optional) (default is logged in user id) 
+    //   user_id (optional) (default is logged in user id)
     //   tax_address_id (required if AFFILIATE_REQUIRE_TAX_ADDRESS is true in config)
     //   tax_id (required if AFFILIATE_REQUIRE_TAX_ID is true in config)
     //   payout_method_id (required if AFFILIATE_REQUIRE_PAYOUT_METHOD is true in config)
@@ -294,7 +295,7 @@ class User {
     }
 
     // purpose
-    //   get commission payout 
+    //   get commission payout
     // args
     //   user_id (optional) (default is user logged in)
     // returns
@@ -353,20 +354,20 @@ class User {
     //   email (required)
     // returns
     //   (none)
-    forgotPassword (form_data, success_callback, failure_callback) 
+    forgotPassword (form_data, success_callback, failure_callback)
     {
 
         var url = '/global/eml/user/password/set';
         return WebClient.basicPost(form_data, url, success_callback, failure_callback);
     }
-    
+
     // purpose
     //   get referral code
     // args
     //   (none)
     // returns
     //   (none)
-    getReferralCode (form_data, success_callback, failure_callback) 
+    getReferralCode (form_data, success_callback, failure_callback)
     {
 
         var url = '/global/crm/user/code/referral/system';
@@ -432,7 +433,7 @@ class TimeClock extends Model {
     //   user_id (optional default is user signed in)
     //   manager_user_id (required if user role requires manager)
     //   start (required)
-    //   end (required) 
+    //   end (required)
     // returns
     //   time_clock
     add (form_data, success_callback, failure_callback)

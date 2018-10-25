@@ -6,14 +6,40 @@ export default class Profile extends React.Component {
 
 	constructor(props)
 	{
-	super(props);
+		super(props);
+		this.state = {
+			user: undefined
+		}
 		this.updatePath = this.updatePath.bind(this);
+		this.handlePersonalInformationSubmit = this.handlePersonalInformationSubmit.bind(this);
+	}
+
+	componentDidMount() {
+		Service.User.get((user) => {
+
+			console.log(user);
+			this.setState({user: user});
+		})
 	}
 	updatePath(path) {
 	    this.props.history.push(path);
 	}
 
+	handleTextChange(property, value) {
+		let user = this.state.user;
+		user[property] = value;
+		this.setState({user: user});
+	}
+
+	handlePersonalInformationSubmit() {
+		this.state.user.save((success) => {
+				console.log(success);
+				alert('saved');
+		})
+	}
+
     render() {
+				if (!this.state.user) return null;
         return (
 					<View style={STYLES.wholeContainer}>
 						<View style={STYLES.topMenu}>
@@ -35,28 +61,31 @@ export default class Profile extends React.Component {
 							<TextInput
 							 style={STYLES.textInputStyle}
 							 underlineColorAndroid = "transparent"
-               placeholder = "John"
+               placeholder = "First Name"
                placeholderTextColor = "black"
                autoCapitalize = "none"
-               onChangeText = {this.handleEmail}/>
+							 value={this.state.user.first_name}
+               onChangeText = {(value) => this.handleTextChange('first_name', value)}/>
 
 							<Text style={STYLES.bottomTextStyle}>Last Name</Text>
 								<TextInput
 								 style={STYLES.textInputStyle}
 								 underlineColorAndroid = "transparent"
-	               placeholder = "Doe"
+	               placeholder = "Last Name"
 	               placeholderTextColor = "black"
 	               autoCapitalize = "none"
-	               onChangeText = {this.handleEmail}/>
+								 value={this.state.user.last_name}
+	               onChangeText = {(value) => this.handleTextChange('last_name', value)}/>
 
 							<Text style={STYLES.bottomTextStyle}>Email</Text>
 								<TextInput
 								 style={STYLES.textInputStyle}
 								 underlineColorAndroid = "transparent"
-	               placeholder = "johndoe@gmail.com"
+	               placeholder = "Email"
 	               placeholderTextColor = "black"
 	               autoCapitalize = "none"
-	               onChangeText = {this.handleEmail}/>
+								 value={this.state.user.email}
+	               onChangeText = {(value) => this.handleTextChange('email', value)}/>
 
 							<Text style={STYLES.bottomTextStyle}>Phone</Text>
 								<TextInput
@@ -65,9 +94,10 @@ export default class Profile extends React.Component {
 	               placeholder = "123-123-1234"
 	               placeholderTextColor = "black"
 	               autoCapitalize = "none"
-	               onChangeText = {this.handleEmail}/>
+								 value={this.state.user.phone}
+	               onChangeText = {(value) => this.handleTextChange('phone', value)}/>
 
-							 <TouchableHighlight style = {STYLES.buttonContainer}>
+							 <TouchableHighlight style = {STYLES.buttonContainer} onPress={this.handlePersonalInformationSubmit}>
 				            <Text style = {STYLES.buttonStyle}>
 				               Save
 				            </Text>
