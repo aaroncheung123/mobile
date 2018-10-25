@@ -18,7 +18,7 @@ export default class Profile extends React.Component {
 					<View style={STYLES.wholeContainer}>
 						<View style={STYLES.topMenu}>
 							<TouchableWithoutFeedback onPress={() => this.updatePath('/account-main')}>
-									 <Icon name='arrow-left' size= {25}/>
+									 <Icon name='arrow-left' size= {25} color='white'/>
 							</TouchableWithoutFeedback>
 
 							<Text style={STYLES.textStyle}>Profile</Text>
@@ -26,7 +26,7 @@ export default class Profile extends React.Component {
 						</View>
 
 						<View style={STYLES.bottomSectionTitle}>
-							<Text> Hello </Text>
+							<Text style={STYLES.bottomSectionHeader}> Personal Information </Text>
 						</View>
 
 						<View style={STYLES.bottomSection}>
@@ -68,6 +68,36 @@ export default class Profile extends React.Component {
 	               onChangeText = {this.handleEmail}/>
 						</View>
 
+
+
+						<View style={STYLES.bottomSectionTitle}>
+							<Text style={STYLES.bottomSectionHeader}> Password </Text>
+						</View>
+
+						<View style={STYLES.bottomSection}>
+
+							<Text style={STYLES.bottomTextStyle}>Current Password</Text>
+							<TextInput
+							 style={STYLES.textInputStyle}
+							 underlineColorAndroid = "transparent"
+               autoCapitalize = "none"
+               onChangeText = {this.handleEmail}/>
+
+						 <Text style={STYLES.bottomTextStyle}>New Password</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 underlineColorAndroid = "transparent"
+	               autoCapitalize = "none"
+	               onChangeText = {this.handleEmail}/>
+
+							 <Text style={STYLES.bottomTextStyle}>Confirm New Password</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 underlineColorAndroid = "transparent"
+	               autoCapitalize = "none"
+	               onChangeText = {this.handleEmail}/>
+						</View>
+
 					</View>
 
 
@@ -85,11 +115,10 @@ const STYLES = {
 		alignItems: 'center',
 		width:'100%',
 		backgroundColor: 'orange',
-		opacity: .85,
 		padding: 17,
 	},
 	bottomSection: {
-		opacity: .9,
+		opacity: .90,
 		backgroundColor: '#E5E5E5',
 		width:'100%',
 		paddingLeft: 30,
@@ -99,14 +128,16 @@ const STYLES = {
 	bottomSectionTitle: {
 		backgroundColor:'#c9c9c9',
 		width:'100%',
-		height:'10%',
-		opacity:.9
+		opacity:.95
+	},
+	bottomSectionHeader: {
+		fontSize: 20,
+		padding: 30
 	},
 	textStyle: {
 		fontSize: 20,
 		color: 'white',
-		fontWeight: 'bold',
-		paddingLeft: 60
+		paddingLeft: 20
 	},
 	bottomTextStyle: {
 		fontSize: 16,

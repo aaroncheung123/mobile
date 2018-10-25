@@ -54,7 +54,7 @@ const STYLES = {
 	titleContainer: {
 		backgroundColor: '#faa31a',
 		width:'100%',
-		opacity: .85
+		opacity: .95
 	}
 }
 
