@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableWithoutFeedback, TextInput, TouchableHighlight} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Button } from 'react-native-elements'
 
 export default class Profile extends React.Component {
 
@@ -61,9 +62,6 @@ export default class Profile extends React.Component {
 							<TextInput
 							 style={STYLES.textInputStyle}
 							 underlineColorAndroid = "transparent"
-               placeholder = "First Name"
-               placeholderTextColor = "black"
-               autoCapitalize = "none"
 							 value={this.state.user.first_name}
                onChangeText = {(value) => this.handleTextChange('first_name', value)}/>
 
@@ -73,7 +71,6 @@ export default class Profile extends React.Component {
 								 underlineColorAndroid = "transparent"
 	               placeholder = "Last Name"
 	               placeholderTextColor = "black"
-	               autoCapitalize = "none"
 								 value={this.state.user.last_name}
 	               onChangeText = {(value) => this.handleTextChange('last_name', value)}/>
 
@@ -81,8 +78,6 @@ export default class Profile extends React.Component {
 								<TextInput
 								 style={STYLES.textInputStyle}
 								 underlineColorAndroid = "transparent"
-	               placeholder = "Email"
-	               placeholderTextColor = "black"
 	               autoCapitalize = "none"
 								 value={this.state.user.email}
 	               onChangeText = {(value) => this.handleTextChange('email', value)}/>
@@ -91,17 +86,20 @@ export default class Profile extends React.Component {
 								<TextInput
 								 style={STYLES.textInputStyle}
 								 underlineColorAndroid = "transparent"
-	               placeholder = "123-123-1234"
-	               placeholderTextColor = "black"
-	               autoCapitalize = "none"
 								 value={this.state.user.phone}
 	               onChangeText = {(value) => this.handleTextChange('phone', value)}/>
 
-							 <TouchableHighlight style = {STYLES.buttonContainer} onPress={this.handlePersonalInformationSubmit}>
-				            <Text style = {STYLES.buttonStyle}>
-				               Save
-				            </Text>
-	         			</TouchableHighlight>
+							 <View style={STYLES.buttonContainer}>
+								 <Button
+	 							  raised
+	 							  icon={{name: 'save'}}
+	 							  title='Save'
+	 								buttonStyle = {STYLES.buttonStyle}
+									onPress = {this.handlePersonalInformationSubmit}
+	 							/>
+							 </View>
+
+
 						</View>
 
 
@@ -133,11 +131,14 @@ export default class Profile extends React.Component {
 	               autoCapitalize = "none"
 	               onChangeText = {this.handleEmail}/>
 
-								 <TouchableHighlight style = {STYLES.buttonContainer}>
-		 								 <Text style = {STYLES.buttonStyle}>
-		 										Set Password
-		 								 </Text>
-		 						 </TouchableHighlight>
+								 <View style={STYLES.buttonContainer}>
+									 <Button
+		 							  raised
+		 							  icon={{name: 'lock'}}
+		 							  title='Set Password'
+		 								buttonStyle = {STYLES.buttonStyle}
+		 							/>
+								 </View>
 						</View>
 
 
@@ -154,14 +155,9 @@ const STYLES = {
 		flex: 1
 	},
 	buttonStyle:{
-		color: 'white',
 		backgroundColor: 'orange',
-		fontSize: 16,
-		paddingTop: 10,
-		paddingBottom: 10,
-		paddingLeft: 25,
-		paddingRight: 25,
-		borderRadius: 5
+		paddingLeft: 15,
+		paddingRight: 15
 	},
 	buttonContainer:{
 		paddingTop: 30,
@@ -209,3 +205,12 @@ const STYLES = {
 		borderRadius: 5
 	}
 }
+
+
+
+
+// <TouchableHighlight style = {STYLES.buttonContainer} onPress={this.handlePersonalInformationSubmit}>
+// 		 <Text style = {STYLES.buttonStyle}>
+// 				Save
+// 		 </Text>
+//  </TouchableHighlight>
