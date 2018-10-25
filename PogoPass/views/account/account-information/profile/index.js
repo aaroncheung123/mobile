@@ -9,10 +9,14 @@ export default class Profile extends React.Component {
 	{
 		super(props);
 		this.state = {
-			user: undefined
+			user: undefined,
+			currentPassword: '',
+			newPassword: '',
+			confirmPassword: ''
 		}
 		this.updatePath = this.updatePath.bind(this);
 		this.handlePersonalInformationSubmit = this.handlePersonalInformationSubmit.bind(this);
+		this.handlePasswordSubmit = this.handlePasswordSubmit.bind(this);
 	}
 
 	componentDidMount() {
@@ -32,10 +36,40 @@ export default class Profile extends React.Component {
 		this.setState({user: user});
 	}
 
+
+
+
+
+	handlePasswordSubmit() {
+		console.log("password: ", this.state.currentPassword);
+		if(this.state.newPassword != this.state.confirmPassword){
+			alert('Passwords do not match');
+		}
+		else{
+			EliteAPI.CRM.User.setPassword ({
+				password: this.state.newPassword,
+				current_password: this.state.currentPassword},
+				success => {
+					alert('Password has been updated');
+				},
+				failure => {
+					alert(failure.error_message);
+				});
+
+				//clearing out the input boxes
+				this.setState({currentPassword: ''});
+				this.setState({newPassword: ''})
+				this.setState({confirmPassword: ''})
+
+		}
+
+	}
+
+
 	handlePersonalInformationSubmit() {
 		this.state.user.save((success) => {
 				console.log(success);
-				alert('saved');
+				alert('Your information has been successfully updated');
 		})
 	}
 
@@ -104,6 +138,11 @@ export default class Profile extends React.Component {
 
 
 
+
+
+					
+
+
 						<View style={STYLES.bottomSectionTitle}>
 							<Text style={STYLES.bottomSectionHeader}> Password </Text>
 						</View>
@@ -113,34 +152,37 @@ export default class Profile extends React.Component {
 							<Text style={STYLES.bottomTextStyle}>Current Password</Text>
 							<TextInput
 							 style={STYLES.textInputStyle}
+							 value={this.state.currentPassword}
+							 secureTextEntry={true}
 							 underlineColorAndroid = "transparent"
-               autoCapitalize = "none"
-               onChangeText = {this.handleEmail}/>
+               onChangeText = {(value) => this.setState({currentPassword: value})}/>
 
 						 <Text style={STYLES.bottomTextStyle}>New Password</Text>
 								<TextInput
 								 style={STYLES.textInputStyle}
+								 value={this.state.newPassword}
+								 secureTextEntry={true}
 								 underlineColorAndroid = "transparent"
-	               autoCapitalize = "none"
-	               onChangeText = {this.handleEmail}/>
+	               onChangeText = {(value) => this.setState({newPassword: value})}/>
 
-							 <Text style={STYLES.bottomTextStyle}>Confirm New Password</Text>
-								<TextInput
-								 style={STYLES.textInputStyle}
-								 underlineColorAndroid = "transparent"
-	               autoCapitalize = "none"
-	               onChangeText = {this.handleEmail}/>
+						 <Text style={STYLES.bottomTextStyle}>Confirm New Password</Text>
+							<TextInput
+							 style={STYLES.textInputStyle}
+							 value={this.state.confirmPassword}
+							 secureTextEntry={true}
+							 underlineColorAndroid = "transparent"
+               onChangeText = {(value) => this.setState({confirmPassword: value})}/>
 
-								 <View style={STYLES.buttonContainer}>
-									 <Button
-		 							  raised
-		 							  icon={{name: 'lock'}}
-		 							  title='Set Password'
-		 								buttonStyle = {STYLES.buttonStyle}
-		 							/>
-								 </View>
+						 <View style={STYLES.buttonContainer}>
+							 <Button
+ 							  raised
+ 							  icon={{name: 'lock'}}
+ 							  title='Set Password'
+ 								buttonStyle = {STYLES.buttonStyle}
+								onPress = {this.handlePasswordSubmit}
+ 							/>
+						 </View>
 						</View>
-
 
 
 					</View>
