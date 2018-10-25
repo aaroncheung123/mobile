@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../../assets/styles/styles';
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
-import InfoTab from '../../../../components/info-tab.js';
+import InfoTab from '../../../../components/account-information/info-tab';
 
 
 export default class AccountInformation extends React.Component {

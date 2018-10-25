@@ -36,10 +36,6 @@ export default class Profile extends React.Component {
 		this.setState({user: user});
 	}
 
-
-
-
-
 	handlePasswordSubmit() {
 		console.log("password: ", this.state.currentPassword);
 		if(this.state.newPassword != this.state.confirmPassword){
@@ -244,12 +240,3 @@ const STYLES = {
 		borderRadius: 5
 	}
 }
-
-
-
-
-// <TouchableHighlight style = {STYLES.buttonContainer} onPress={this.handlePersonalInformationSubmit}>
-// 		 <Text style = {STYLES.buttonStyle}>
-// 				Save
-// 		 </Text>
-//  </TouchableHighlight>
