@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableWithoutFeedback, TextInput} from 'react-native';
+import {View, Text, TouchableWithoutFeedback, TextInput, TouchableHighlight} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Profile extends React.Component {
@@ -66,6 +66,12 @@ export default class Profile extends React.Component {
 	               placeholderTextColor = "black"
 	               autoCapitalize = "none"
 	               onChangeText = {this.handleEmail}/>
+
+							 <TouchableHighlight style = {STYLES.buttonContainer}>
+				            <Text style = {STYLES.buttonStyle}>
+				               Save
+				            </Text>
+	         			</TouchableHighlight>
 						</View>
 
 
@@ -96,7 +102,15 @@ export default class Profile extends React.Component {
 								 underlineColorAndroid = "transparent"
 	               autoCapitalize = "none"
 	               onChangeText = {this.handleEmail}/>
+
+								 <TouchableHighlight style = {STYLES.buttonContainer}>
+		 								 <Text style = {STYLES.buttonStyle}>
+		 										Set Password
+		 								 </Text>
+		 						 </TouchableHighlight>
 						</View>
+
+
 
 					</View>
 
@@ -108,6 +122,22 @@ export default class Profile extends React.Component {
 const STYLES = {
 	wholeContainer:{
 		flex: 1
+	},
+	buttonStyle:{
+		color: 'white',
+		backgroundColor: 'orange',
+		fontSize: 16,
+		paddingTop: 10,
+		paddingBottom: 10,
+		paddingLeft: 25,
+		paddingRight: 25,
+		borderRadius: 5
+	},
+	buttonContainer:{
+		paddingTop: 30,
+		paddingBottom: 30,
+		flexDirection:'row',
+		justifyContent:'flex-end'
 	},
 	topMenu: {
 		flexDirection: 'row',
@@ -122,8 +152,7 @@ const STYLES = {
 		backgroundColor: '#E5E5E5',
 		width:'100%',
 		paddingLeft: 30,
-		paddingRight: 30,
-		paddingBottom: 60
+		paddingRight: 30
 	},
 	bottomSectionTitle: {
 		backgroundColor:'#c9c9c9',
@@ -142,7 +171,6 @@ const STYLES = {
 	bottomTextStyle: {
 		fontSize: 16,
 		paddingTop: 20,
-		paddingBottom: 10
 	},
 	textInputStyle: {
 		height: 40,
