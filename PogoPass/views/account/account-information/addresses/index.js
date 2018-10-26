@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import TopMenu from '../../../../components/account-information/top-menu';
 import ShippingAddressCard from '../../../../components/account-information/shipping-address-card';
 
-export default class Blurb extends React.Component {
+export default class Addresses extends React.Component {
 	constructor(props)
 	{
 		super(props);
@@ -38,13 +38,14 @@ export default class Blurb extends React.Component {
 		let shippingAddressCards = this.state.shippingAddresses.map(shippingAddress =>
 			<ShippingAddressCard key={shippingAddress.shipping_address_id } shippingAddress={shippingAddress}/>)
   	return (
+
+
       <View style={STYLES.container}>
       	<TopMenu title= 'Addresses' onPress={() => this.updatePath('/account-main')}/>
-
 				{shippingAddressCards}
-
-
       </View>
+
+
   	);
 	}
 }

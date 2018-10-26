@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import TextInputSection from '../text-input-section.js';
 import { Button } from 'react-native-elements'
 
-export default class ShippingAddressCard extends React.Component {
+export default class PaymentCard extends React.Component {
 
     constructor(props){
       super(props);
@@ -12,13 +12,9 @@ export default class ShippingAddressCard extends React.Component {
         title       : props.title,
         expanded    : true,
         animation   : new Animated.Value(),
-        shippingAddress : undefined
         };
-        this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
-        this.handleTextChange = this.handleTextChange.bind(this);
     }
     componentDidMount(){
-        this.setState({shippingAddress: this.props.shippingAddress});
     }
 
     _setMaxHeight(event){
@@ -50,23 +46,13 @@ export default class ShippingAddressCard extends React.Component {
         ).start();
     }
 
-    handleShippingAddressSubmit() {
-        this.state.shippingAddress.save((success) => {
-                alert('Your information has been successfully updated');
-        })
-    }
 
-    handleTextChange(property, value) {
-        let shippingAddress = this.state.shippingAddress;
-        shippingAddress[property] = value;
-        this.setState({shippingAddress: shippingAddress});
-    }
 
     render() {
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.iconContainer}>
-                    <Icon name='home' size= {35}/>
+                    <Icon name='credit-card' size= {35}/>
                 </View>
 
 
@@ -74,7 +60,10 @@ export default class ShippingAddressCard extends React.Component {
                 <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
                     <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
                         <View style={STYLES.bodyTextContainer}>
-                            <Text style={STYLES.textHeader}>{this.props.shippingAddress.address.formatted}</Text>
+                            <Text style={STYLES.textHeader}>Amazon - 4616</Text>
+                            <Text style={STYLES.textBody}>Kyle Paulson</Text>
+                            <Text style={STYLES.textBody}>213 W Ridge Road, Saratoga Springs, UT 84045</Text>
+                            <Text style={STYLES.textBody}>Card Ending In: 4616</Text>
                         </View>
 
 
@@ -91,16 +80,9 @@ export default class ShippingAddressCard extends React.Component {
 
                     <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
                         <TextInputSection
-                            title='Nickname'
-                            value={this.props.shippingAddress.description}
+                            title='Edit Card Name'
+                            value='Amazon - 4616'
                             onChangeText = {(value) => this.handleTextChange('description',value)}/>
-
-                        <Button
-                         raised
-                         icon={{name: 'save'}}
-                         title='Save'
-                           buttonStyle = {STYLES.buttonStyle}
-                           onPress = {this.handleShippingAddressSubmit}/>
                     </View>
 
                 </Animated.View>
@@ -143,6 +125,13 @@ const STYLES = {
         borderRadius: 5
     },
     textHeader: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        borderBottomWidth: 1,
+        marginBottom: 20,
+        paddingBottom: 20
+    },
+    textBody: {
         fontSize: 14
     },
     bodyTextContainer: {

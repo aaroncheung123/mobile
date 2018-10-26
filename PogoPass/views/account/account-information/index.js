@@ -7,6 +7,7 @@ import InfoTab from '../../../components/account-information/info-tab.js';
 import AccountMain from './account-main/index.js';
 import Profile from './profile/index.js';
 import Addresses from './addresses/index.js';
+import PaymentCredit from './payment-credit/index.js';
 
 
 export default class AccountInformation extends React.Component {
@@ -18,7 +19,7 @@ export default class AccountInformation extends React.Component {
   }
 
 	componentDidMount() {
-		this.updatePath('/addresses');
+		this.updatePath('/payment');
 	}
 
 	updatePath(path) {
@@ -34,6 +35,7 @@ export default class AccountInformation extends React.Component {
 					<Route path="/account-main" component={AccountMain} />
 					<Route path="/profile" component={Profile} />
 					<Route path="/addresses" component={Addresses} />
+					<Route path="/payment" component={PaymentCredit} />
 				</View>
 			</MemoryRouter>
 
