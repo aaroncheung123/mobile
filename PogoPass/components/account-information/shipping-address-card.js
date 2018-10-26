@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View , Image, TouchableHighlight, Animated, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TextInputSection from '../text-input-section.js';
+import { Button } from 'react-native-elements'
 
 export default class ShippingAddressCard extends React.Component {
 
@@ -14,7 +15,7 @@ export default class ShippingAddressCard extends React.Component {
         };
     }
     componentDidMount(){
-        console.log('TEST: ',this.props.shippingAddress.address.formatted);
+        //console.log('TEST: ',this.props.shippingAddress.address.formatted);
     }
 
     _setMaxHeight(event){
@@ -46,6 +47,19 @@ export default class ShippingAddressCard extends React.Component {
         ).start();
     }
 
+    handleShippingAddressSubmit() {
+        this.state.user.save((success) => {
+                console.log(success);
+                alert('Your information has been successfully updated');
+        })
+    }
+
+    handleTextChange(property, value) {
+        let user = this.state.user;
+        user[property] = value;
+        this.setState({user: user});
+    }
+
     render() {
         return (
             <View style={STYLES.container}>
@@ -74,7 +88,17 @@ export default class ShippingAddressCard extends React.Component {
                     </View>
 
                     <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
-                        <TextInputSection title='Ship To Name' information={this.props.shippingAddress}/>
+                        <TextInputSection
+                            title='Ship To Name'
+                            value={this.props.shippingAddress.ship_to_name}
+                            onChangeText = {(value) => this.handleTextChange(value)}/>
+
+                        <Button
+                         raised
+                         icon={{name: 'save'}}
+                         title='Save'
+                           buttonStyle = {STYLES.buttonStyle}
+                           onPress = {this.handleShippingAddressSubmit}/>
                     </View>
 
                 </Animated.View>
@@ -138,7 +162,10 @@ const STYLES = {
         marginTop: 2,
         padding: 20,
         overflow:'hidden'
-    }
+    },
+    buttonStyle:{
+        backgroundColor: 'orange',
+    },
 }
 
 
