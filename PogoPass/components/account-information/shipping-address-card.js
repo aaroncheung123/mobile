@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View , Image, TouchableHighlight, Animated} from 'react-native';
+import {StyleSheet, Text, View , Image, TouchableHighlight, Animated, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import TextInputSection from '../text-input-section.js';
 
 export default class ShippingAddressCard extends React.Component {
 
@@ -73,9 +74,7 @@ export default class ShippingAddressCard extends React.Component {
                     </View>
 
                     <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
-                        <Text>
-                            {this.props.address}
-                        </Text>
+                        <TextInputSection title='Ship To Name' information={this.props.shippingAddress}/>
                     </View>
 
                 </Animated.View>

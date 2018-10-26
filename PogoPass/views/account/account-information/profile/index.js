@@ -85,28 +85,28 @@ export default class Profile extends React.Component {
                onChangeText = {(value) => this.handleTextChange('first_name', value)}/>
 
 							<Text style={STYLES.bottomTextStyle}>Last Name</Text>
-								<TextInput
-								 style={STYLES.textInputStyle}
-								 underlineColorAndroid = "transparent"
-	               placeholder = "Last Name"
-	               placeholderTextColor = "black"
-								 value={this.state.user.last_name}
-	               onChangeText = {(value) => this.handleTextChange('last_name', value)}/>
+							<TextInput
+							 style={STYLES.textInputStyle}
+							 underlineColorAndroid = "transparent"
+               placeholder = "Last Name"
+               placeholderTextColor = "black"
+							 value={this.state.user.last_name}
+               onChangeText = {(value) => this.handleTextChange('last_name', value)}/>
 
 							<Text style={STYLES.bottomTextStyle}>Email</Text>
-								<TextInput
-								 style={STYLES.textInputStyle}
-								 underlineColorAndroid = "transparent"
-	               autoCapitalize = "none"
-								 value={this.state.user.email}
-	               onChangeText = {(value) => this.handleTextChange('email', value)}/>
+							<TextInput
+							 style={STYLES.textInputStyle}
+							 underlineColorAndroid = "transparent"
+               autoCapitalize = "none"
+							 value={this.state.user.email}
+               onChangeText = {(value) => this.handleTextChange('email', value)}/>
 
 							<Text style={STYLES.bottomTextStyle}>Phone</Text>
-								<TextInput
-								 style={STYLES.textInputStyle}
-								 underlineColorAndroid = "transparent"
-								 value={this.state.user.phone}
-	               onChangeText = {(value) => this.handleTextChange('phone', value)}/>
+							<TextInput
+							 style={STYLES.textInputStyle}
+							 underlineColorAndroid = "transparent"
+							 value={this.state.user.phone}
+               onChangeText = {(value) => this.handleTextChange('phone', value)}/>
 
 							 <View style={STYLES.buttonContainer}>
 								 <Button
@@ -142,15 +142,15 @@ export default class Profile extends React.Component {
 							 underlineColorAndroid = "transparent"
                onChangeText = {(value) => this.setState({currentPassword: value})}/>
 
-						 <Text style={STYLES.bottomTextStyle}>New Password</Text>
-								<TextInput
-								 style={STYLES.textInputStyle}
-								 value={this.state.newPassword}
-								 secureTextEntry={true}
-								 underlineColorAndroid = "transparent"
-	               onChangeText = {(value) => this.setState({newPassword: value})}/>
+						  <Text style={STYLES.bottomTextStyle}>New Password</Text>
+							<TextInput
+							 style={STYLES.textInputStyle}
+							 value={this.state.newPassword}
+							 secureTextEntry={true}
+							 underlineColorAndroid = "transparent"
+	             onChangeText = {(value) => this.setState({newPassword: value})}/>
 
-						 <Text style={STYLES.bottomTextStyle}>Confirm New Password</Text>
+						  <Text style={STYLES.bottomTextStyle}>Confirm New Password</Text>
 							<TextInput
 							 style={STYLES.textInputStyle}
 							 value={this.state.confirmPassword}
@@ -158,7 +158,7 @@ export default class Profile extends React.Component {
 							 underlineColorAndroid = "transparent"
                onChangeText = {(value) => this.setState({confirmPassword: value})}/>
 
-						 <View style={STYLES.buttonContainer}>
+						   <View style={STYLES.buttonContainer}>
 							 <Button
  							  raised
  							  icon={{name: 'lock'}}
