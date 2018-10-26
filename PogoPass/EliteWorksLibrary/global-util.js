@@ -244,12 +244,14 @@ class StrModels {
 // crm models
 import User from './models/crm/user';
 import TimeClock from './models/crm/time-clock';
+import Address from './models/crm/address';
 
 class CrmModels {
     constructor()
     {
         this.User = User;
         this.TimeClock = TimeClock;
+        this.Address = Address;
     }
 }
 

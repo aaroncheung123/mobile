@@ -6,6 +6,7 @@ export default class CrmApi {
     constructor() {
         this.User = new User();
         this.TimeClock = new TimeClock();
+        this.Address = new Address();
     }
 }
 
@@ -471,5 +472,62 @@ class TimeClock extends Model {
             if (success.data.time_clock) success.data.time_clock = new EliteAPI.Models.CRM.TimeClock(success.data.time_clock);
             if (success_callback) success_callback(success)
         }, failure_callback);
+    }
+}
+
+
+class Address {
+
+    // purpose
+    //   add an address into the system
+    // args
+    //   street_1 (required)
+    //   street_2 (optional)
+    //   city (required)
+    //   state (required)
+    //   country (required)
+    //   zipcode (required)
+    //   latitude (optional)
+    //   longitude (optional)
+    //   validate (optional) (defualt is false)
+    // returns
+    //   address
+    // error_codes
+    //   VALIDATION_ERROR (unable to validate address in api)
+    add (form_data, success_callback, failure_callback, block = false)
+    {
+        let url = '/global/crm/address/add';
+        if (!block) return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+        else return WebClient.blockPost(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   get a address
+    // args
+    //   address_id (required)
+    // returns
+    //   address
+    get (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/address';
+        return WebClient.basicGet(form_data, url, (success) => {
+            success.data.address = new EliteAPI.Models.CRM.EliteAddress(success.data.address);
+            if (success_callback !== undefined) success_callback(success);
+        }, failure_callback);
+    }
+
+    // purpose
+    //   validate an address
+    // args
+    //   (none)
+    // returns
+    //   address
+    validate (form_data, success_callback, failure_callback, async = true)
+    {
+        let url = '/global/crm/address/validate';
+        return WebClient.basicPost(form_data, url, (success) => {
+            success.data.address = new EliteAPI.Models.CRM.EliteAddress(success.data.address);
+            if (success_callback !== undefined) success_callback(success);
+        }, failure_callback, async);
     }
 }
