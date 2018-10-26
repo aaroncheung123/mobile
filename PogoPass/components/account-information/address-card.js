@@ -89,7 +89,7 @@ const STYLES = {
         flex: 1,
         flexDirection: 'row',
         paddingHorizontal: 20,
-        paddingTop: 20,
+        paddingTop: 25,
     },
     iconContainer:{
         position: 'absolute',
@@ -101,8 +101,9 @@ const STYLES = {
         marginLeft: 10
     },
     outsideContainer: {
-        // flexDirection: 'column',
-        // flex: 1
+        flexDirection: 'column',
+        flex: 1,
+        backgroundColor: 'transparent'
     },
     cardContainer: {
         flex: 1,
@@ -112,8 +113,7 @@ const STYLES = {
         backgroundColor: '#D9D9D9',
         opacity: .9,
         marginLeft: 25,
-        borderRadius: 5,
-        height: '100%'
+        borderRadius: 5
     },
     textHeader: {
         fontSize: 24
@@ -138,7 +138,8 @@ const STYLES = {
         opacity: .9,
         marginLeft: 25,
         marginTop: 2,
-        padding: 20
+        padding: 20,
+        overflow:'hidden'
     }
 }
 
