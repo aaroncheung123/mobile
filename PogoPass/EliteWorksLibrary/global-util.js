@@ -146,7 +146,7 @@ class GlobalUtil {
         var striptags = require('striptags');
         return striptags(html);
     }
-    
+
     padZeros (string, number_of_zeros)
     {
         string = String(string);
@@ -179,7 +179,7 @@ class GlobalUtil {
         return new Date(dateConvertedString);
     }
 
-    inputToBool (input) 
+    inputToBool (input)
     {
         if (input === 'true') return true;
         else if (input === true) return true;
@@ -187,7 +187,7 @@ class GlobalUtil {
         else if (input === 1) return true;
         else return false;
     }
-    isEmpty (input) 
+    isEmpty (input)
     {
         if (input === '') return true;
         else if (input === undefined) return true;
@@ -214,7 +214,7 @@ class GlobalUtil {
             for (var key in newObj) {
                 if (newObj.hasOwnProperty(key)) {
                     if(newObj[key] === null) delete newObj[key];
-                    else if(newObj[key] === undefined || Object.getPrototypeOf(newObj[key]).toString() === '[object Object]' || Array.isArray(newObj[key])) {
+                    else if(newObj[key] === undefined || Array.isArray(newObj[key])) {
                          newObj[key] = (function(){return})()
                     }
                 }

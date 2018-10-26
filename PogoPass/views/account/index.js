@@ -7,7 +7,7 @@ import {MemoryRouter, Route, IndexRedirect} from 'react-router';
 import PassManager from './pass-manager/index'
 import AccountInformation from './account-information/index'
 import Events from './events/index'
-import Notifications from './notifications/index'
+import Blog from './blog/index'
 import Refer from './refer/index'
 
 const ELITE_WORKS_ORANGE = '#faa31a'
@@ -20,7 +20,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/pass-manager');
+    this.updatePath('/account-information');
   }
 
   updatePath(path) {
@@ -35,12 +35,12 @@ export default class AccountNavigation extends React.Component {
     return (
 
       <MemoryRouter ref={e => this.router = e}>
-        <View>
-          <ScrollView style={STYLES.container}>
+        <View style={STYLES.fullScreenContainer}>
+          <ScrollView style={STYLES.scrollViewContainer}>
             <Route path="/pass-manager" component={PassManager} />
             <Route path="/account-information" component={AccountInformation} />
             <Route path="/events" component={Events} />
-            <Route path="/notifications" component={Notifications} />
+            <Route path="/blog" component={Blog} />
             <Route path="/refer" component={Refer} />
           </ScrollView>
 
@@ -48,9 +48,9 @@ export default class AccountNavigation extends React.Component {
           <View style={STYLES.accountMenu.container}>
             <View style={STYLES.accountMenu.menuContainer}>
               <AccountMenuItem
-                onPress={() => this.updatePath('/notifications')}
-                active={path === '/notifications'}
-                icon="bell"
+                onPress={() => this.updatePath('/blog')}
+                active={path === '/blog'}
+                icon="newspaper-o"
               />
               <AccountMenuItem
                 onPress={() => this.updatePath('/account-information')}
@@ -101,35 +101,36 @@ const AccountMenuItem = (props) => {
 
 
 const STYLES = {
+  fullScreenContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)'
+  },
+  scrollViewContainer:{
+    flex:1,
+    width: '100%'
+  },
   accountMenu: {
     container: {
-      flex: 1,
-      width: '100%',
-      maxHeight: 65,
-      alignItems: 'center',
-      justifyContent: 'center',
       backgroundColor:'white',
       borderTopLeftRadius: 30,
-      borderTopRightRadius: 30
+      borderTopRightRadius: 30,
+      width: "100%",
+      height: 60
     },
     menuContainer: {
       flexDirection: 'row',
-      flex: 1,
-      width: '100%'
+      flex: 1
     },
     menuItemContainer: {
       width: '20%',
-      height: '100%',
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'white',
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30
     }
-  },
-  container: {
-    flex: 1,
-    width: '100%'
   }
 }
 

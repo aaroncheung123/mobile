@@ -11,7 +11,7 @@ import {MemoryRouter, Route} from 'react-router';
 export default class BaseNavigation extends React.Component {
 
 	componentDidMount() {
-		AsyncStorage.getItem('customer_api_keys').then((value) => {
+		AsyncStorage.getItem('customer_api_key').then((value) => {
 			if (value != null){
 				this.defaultRoute = '/account';
 				GlobalUtil.webClientApiKey = value;

@@ -147,7 +147,6 @@ export default class Account extends React.Component {
 		return (
 			<View
 				style={{flex: 1, width: '100%'}}>
-				<NavigationBar title={{title: 'Pogo Pass'}} leftButton={{title: 'Logout', handler: this.logout}} statusBar={{hidden: true}}/>
 				<View style={Styles.overlay}>
 					<ScrollView
 						style={{width: '100%'}}
