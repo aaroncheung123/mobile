@@ -11,11 +11,15 @@ export default class ShippingAddressCard extends React.Component {
       this.state = {
         title       : props.title,
         expanded    : true,
-        animation   : new Animated.Value()
+        animation   : new Animated.Value(),
+        shippingAddress : undefined
         };
     }
     componentDidMount(){
-        //console.log('TEST: ',this.props.shippingAddress.address.formatted);
+        console.log('TEST: ',this.props.shippingAddress);
+        // this.setState({shippingAddress: this.props.shippingAddress}, function() {
+        //     console.log(this.state.shippingAddress);
+        // })
     }
 
     _setMaxHeight(event){
@@ -48,16 +52,16 @@ export default class ShippingAddressCard extends React.Component {
     }
 
     handleShippingAddressSubmit() {
-        this.state.user.save((success) => {
+        this.state.shippingAddress.save((success) => {
                 console.log(success);
                 alert('Your information has been successfully updated');
         })
     }
 
     handleTextChange(property, value) {
-        let user = this.state.user;
-        user[property] = value;
-        this.setState({user: user});
+        let shippingAddress = this.state.shippingAddress;
+        shippingAddress[property] = value;
+        this.setState({shippingAddress: shippingAddress});
     }
 
     render() {
@@ -89,9 +93,9 @@ export default class ShippingAddressCard extends React.Component {
 
                     <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
                         <TextInputSection
-                            title='Ship To Name'
-                            value={this.props.shippingAddress.ship_to_name}
-                            onChangeText = {(value) => this.handleTextChange(value)}/>
+                            title='Nickname'
+                            value={this.props.shippingAddress.description}
+                            onChangeText = {(value) => this.handleTextChange('description',value)}/>
 
                         <Button
                          raised
