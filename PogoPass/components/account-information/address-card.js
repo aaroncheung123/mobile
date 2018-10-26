@@ -6,14 +6,40 @@ export default class Blurb extends React.Component {
 
     constructor(props){
       super(props);
-      this.state = {       //Step 3
-        title: props.title,
-        expanded: true
+      this.state = {
+        title       : props.title,
+        expanded    : true,
+        animation   : new Animated.Value()
         };
     }
 
-    toggle(){
+    _setMaxHeight(event){
+        this.setState({
+            maxHeight   : event.nativeEvent.layout.height
+        });
+    }
 
+    _setMinHeight(event){
+        this.setState({
+            minHeight   : event.nativeEvent.layout.height
+        });
+    }
+
+    toggle(){
+        let initialValue= this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
+            finalValue= this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
+
+        this.setState({
+            expanded : !this.state.expanded
+        });
+
+        this.state.animation.setValue(initialValue);
+        Animated.spring(
+            this.state.animation,
+            {
+                toValue: finalValue
+            }
+        ).start();
     }
 
     render() {
@@ -25,8 +51,8 @@ export default class Blurb extends React.Component {
 
 
 
-                <View style={STYLES.outsideContainer}>
-                    <View style={STYLES.cardContainer}>
+                <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
+                    <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
                         <View style={STYLES.bodyTextContainer}>
                             <Text style={STYLES.textHeader}>{this.props.name}</Text>
                             <Text style={STYLES.textContent}>{this.props.address}</Text>
@@ -44,13 +70,13 @@ export default class Blurb extends React.Component {
                         </View>
                     </View>
 
-                    <View style={STYLES.hiddenBody}>
+                    <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
                         <Text>
                             {this.props.address}
                         </Text>
                     </View>
 
-                </View>
+                </Animated.View>
 
             </View>
 
@@ -75,8 +101,8 @@ const STYLES = {
         marginLeft: 10
     },
     outsideContainer: {
-        flexDirection: 'column',
-        flex: 1
+        // flexDirection: 'column',
+        // flex: 1
     },
     cardContainer: {
         flex: 1,
