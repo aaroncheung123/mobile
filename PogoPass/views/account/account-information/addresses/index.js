@@ -16,7 +16,6 @@ export default class Blurb extends React.Component {
 
 	componentDidMount(){
 		Service.User.get(user => {
-
 			EliteAPI.STR.ShippingAddress.search({
 				user_id: user.id,
 				include_classes: 'address'
@@ -55,14 +54,3 @@ const STYLES = {
 		flex: 1
 	},
 }
-
-
-// EliteAPI.CRM.User.setPassword ({
-// 	password: this.state.newPassword,
-// 	current_password: this.state.currentPassword},
-// 	success => {
-// 		alert('Password has been updated');
-// 	},
-// 	failure => {
-// 		alert(failure.error_message);
-// 	});

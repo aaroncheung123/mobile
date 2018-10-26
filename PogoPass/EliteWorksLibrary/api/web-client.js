@@ -35,7 +35,7 @@ export default class WebClient {
 			if (failureCallback !== undefined) failureCallback({result: 'failure', error_message: 'Unable to connect'});
 		})
 	}
-	static basicGet(args, url, successCallback, failureCallback) 
+	static basicGet(args, url, successCallback, failureCallback)
 	{
 		args = WebClient.addApiKey(args);
 		let paramsEncoded = "?" + Object.keys(args).map(prop => {return [prop, args[prop]].map(encodeURIComponent).join("=")}).join("&");

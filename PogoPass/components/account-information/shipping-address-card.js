@@ -14,12 +14,11 @@ export default class ShippingAddressCard extends React.Component {
         animation   : new Animated.Value(),
         shippingAddress : undefined
         };
+        this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
+        this.handleTextChange = this.handleTextChange.bind(this);
     }
     componentDidMount(){
-        console.log('TEST: ',this.props.shippingAddress);
-        // this.setState({shippingAddress: this.props.shippingAddress}, function() {
-        //     console.log(this.state.shippingAddress);
-        // })
+        this.setState({shippingAddress: this.props.shippingAddress});
     }
 
     _setMaxHeight(event){
@@ -53,7 +52,6 @@ export default class ShippingAddressCard extends React.Component {
 
     handleShippingAddressSubmit() {
         this.state.shippingAddress.save((success) => {
-                console.log(success);
                 alert('Your information has been successfully updated');
         })
     }
@@ -95,7 +93,7 @@ export default class ShippingAddressCard extends React.Component {
                         <TextInputSection
                             title='Nickname'
                             value={this.props.shippingAddress.description}
-                            onChangeText = {(value) => this.handleTextChange('description',value)}/>
+                            onChangeText = {(value) => this.handleTextChange1('description',value)}/>
 
                         <Button
                          raised
