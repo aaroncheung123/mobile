@@ -502,7 +502,7 @@ class Address {
     }
 
     // purpose
-    //   get a address
+    //   get an address
     // args
     //   address_id (required)
     // returns
@@ -511,7 +511,7 @@ class Address {
     {
         let url = '/global/crm/address';
         return WebClient.basicGet(form_data, url, (success) => {
-            success.data.address = new EliteAPI.Models.CRM.EliteAddress(success.data.address);
+            success.data.address = new EliteAPI.Models.CRM.Address(success.data.address);
             if (success_callback !== undefined) success_callback(success);
         }, failure_callback);
     }
@@ -526,7 +526,7 @@ class Address {
     {
         let url = '/global/crm/address/validate';
         return WebClient.basicPost(form_data, url, (success) => {
-            success.data.address = new EliteAPI.Models.CRM.EliteAddress(success.data.address);
+            success.data.address = new EliteAPI.Models.CRM.Address(success.data.address);
             if (success_callback !== undefined) success_callback(success);
         }, failure_callback, async);
     }

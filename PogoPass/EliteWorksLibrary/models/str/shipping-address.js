@@ -18,7 +18,7 @@ export default class EliteShippingAddress extends EliteModel {
 		if (!this.default) this.default = 0;
 		if (!this.active) this.active = 1;
 
-		this.address = new EliteAPI.Models.CRM.EliteAddress(this.address);
+		this.address = new EliteAPI.Models.CRM.Address(this.address);
 	}
 
 	save(successCallback, failureCallback){

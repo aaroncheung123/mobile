@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View , Image, TouchableHighlight, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default class Blurb extends React.Component {
+export default class ShippingAddressCard extends React.Component {
 
     constructor(props){
       super(props);
@@ -11,6 +11,9 @@ export default class Blurb extends React.Component {
         expanded    : true,
         animation   : new Animated.Value()
         };
+    }
+    componentDidMount(){
+        console.log('TEST: ',this.props.shippingAddress.address.formatted);
     }
 
     _setMaxHeight(event){
@@ -46,7 +49,7 @@ export default class Blurb extends React.Component {
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.iconContainer}>
-                    <Icon name='home' size= {45}/>
+                    <Icon name='home' size= {35}/>
                 </View>
 
 
@@ -54,8 +57,7 @@ export default class Blurb extends React.Component {
                 <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
                     <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
                         <View style={STYLES.bodyTextContainer}>
-                            <Text style={STYLES.textHeader}>{this.props.name}</Text>
-                            <Text style={STYLES.textContent}>{this.props.address}</Text>
+                            <Text style={STYLES.textHeader}>{this.props.shippingAddress.address.formatted}</Text>
                         </View>
 
 
@@ -96,9 +98,9 @@ const STYLES = {
         zIndex: 1,
         backgroundColor:'orange',
         borderRadius: 50,
-        padding: 15,
-        marginTop: 30,
-        marginLeft: 10
+        padding: 10,
+        marginTop: 35,
+        marginLeft: 20
     },
     outsideContainer: {
         flexDirection: 'column',
@@ -116,14 +118,11 @@ const STYLES = {
         borderRadius: 5
     },
     textHeader: {
-        fontSize: 24
-    },
-    textContent: {
-        fontSize: 12,
+        fontSize: 14
     },
     bodyTextContainer: {
         marginVertical: 20,
-        marginLeft: 65,
+        marginLeft: 55,
         flex: 4
     },
     editIconContainer: {
