@@ -230,14 +230,16 @@ window.GlobalUtil = new GlobalUtil();
 // str models
 import WorkOrder from './models/str/work-order';
 import WorkOrderProduct from './models/str/work-order-product';
+import ShippingAddress from './models/str/shipping-address';
 
 class StrModels {
     constructor()
     {
         this.WorkOrder = WorkOrder;
         this.WorkOrderProduct = WorkOrderProduct;
+        this.ShippingAddress = ShippingAddress;
     }
-}
+} 
 
 // crm models
 import User from './models/crm/user';
@@ -263,8 +265,6 @@ class CMSModels {
     }
 }
 
-
-
 // do all api declarations
 import StrApis from './api/str';
 import CrmApis from './api/crm';
@@ -288,8 +288,6 @@ window.EliteAPI.STR = new StrApis();
 window.EliteAPI.CRM = new CrmApis();
 window.EliteAPI.GEN = new GenApis();
 window.EliteAPI.CMS = new CmsApis();
-
-console.log(EliteAPI);
 
 import Service from './api/service';
 window.Service = new Service();
