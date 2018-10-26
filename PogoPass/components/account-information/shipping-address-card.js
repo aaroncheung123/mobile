@@ -1,35 +1,64 @@
 import React from 'react';
-import {StyleSheet, Text, View , Image, TouchableHighlight, Animated} from 'react-native';
+import {StyleSheet, Text, View , Image, TouchableHighlight, Animated, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import TextInputSection from '../text-input-section.js';
 
-export default class Blurb extends React.Component {
+export default class ShippingAddressCard extends React.Component {
 
     constructor(props){
       super(props);
-      this.state = {       //Step 3
-        title: props.title,
-        expanded: true
+      this.state = {
+        title       : props.title,
+        expanded    : true,
+        animation   : new Animated.Value()
         };
+    }
+    componentDidMount(){
+        console.log('TEST: ',this.props.shippingAddress.address.formatted);
+    }
+
+    _setMaxHeight(event){
+        this.setState({
+            maxHeight   : event.nativeEvent.layout.height
+        });
+    }
+
+    _setMinHeight(event){
+        this.setState({
+            minHeight   : event.nativeEvent.layout.height
+        });
     }
 
     toggle(){
+        let initialValue= this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
+            finalValue= this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
+        this.setState({
+            expanded : !this.state.expanded
+        });
+
+        this.state.animation.setValue(initialValue);
+        Animated.spring(
+            this.state.animation,
+            {
+                toValue: finalValue
+            }
+        ).start();
     }
 
     render() {
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.iconContainer}>
-                    <Icon name='home' size= {45}/>
+                    <Icon name='home' size= {35}/>
                 </View>
 
 
 
-                <View style={STYLES.outsideContainer}>
-                    <View style={STYLES.cardContainer}>
+                <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
+                    <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
                         <View style={STYLES.bodyTextContainer}>
-                            <Text style={STYLES.textHeader}>{this.props.name}</Text>
-                            <Text style={STYLES.textContent}>{this.props.address}</Text>
+                            <Text style={STYLES.textHeader}>{this.props.shippingAddress.address.formatted}</Text>
                         </View>
 
 
@@ -44,13 +73,11 @@ export default class Blurb extends React.Component {
                         </View>
                     </View>
 
-                    <View style={STYLES.hiddenBody}>
-                        <Text>
-                            {this.props.address}
-                        </Text>
+                    <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
+                        <TextInputSection title='Ship To Name' information={this.props.shippingAddress}/>
                     </View>
 
-                </View>
+                </Animated.View>
 
             </View>
 
@@ -63,20 +90,21 @@ const STYLES = {
         flex: 1,
         flexDirection: 'row',
         paddingHorizontal: 20,
-        paddingTop: 20,
+        paddingTop: 25,
     },
     iconContainer:{
         position: 'absolute',
         zIndex: 1,
         backgroundColor:'orange',
         borderRadius: 50,
-        padding: 15,
-        marginTop: 30,
-        marginLeft: 10
+        padding: 10,
+        marginTop: 35,
+        marginLeft: 20
     },
     outsideContainer: {
         flexDirection: 'column',
-        flex: 1
+        flex: 1,
+        backgroundColor: 'transparent'
     },
     cardContainer: {
         flex: 1,
@@ -86,18 +114,14 @@ const STYLES = {
         backgroundColor: '#D9D9D9',
         opacity: .9,
         marginLeft: 25,
-        borderRadius: 5,
-        height: '100%'
+        borderRadius: 5
     },
     textHeader: {
-        fontSize: 24
-    },
-    textContent: {
-        fontSize: 12,
+        fontSize: 14
     },
     bodyTextContainer: {
         marginVertical: 20,
-        marginLeft: 65,
+        marginLeft: 55,
         flex: 4
     },
     editIconContainer: {
@@ -112,7 +136,8 @@ const STYLES = {
         opacity: .9,
         marginLeft: 25,
         marginTop: 2,
-        padding: 20
+        padding: 20,
+        overflow:'hidden'
     }
 }
 
