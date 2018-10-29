@@ -35,6 +35,7 @@ const STYLES = {
 	title: {
 		color: 'white',
 		fontSize: 35,
-		paddingTop: 20
+		paddingTop: 20,
+		fontWeight: 'bold'
 	}
 }

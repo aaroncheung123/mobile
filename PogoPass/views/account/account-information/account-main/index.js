@@ -26,7 +26,7 @@ export default class AccountInformation extends React.Component {
 			<View style={STYLES.totalContainer}>
 				<View style={STYLES.titleContainer}>
 					<Text style={STYLES.title}>
-						Account Information
+						Account Info
 					</Text>
 				</View>
 				<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
@@ -51,10 +51,10 @@ const STYLES = {
 		textAlign: 'center',
 		color: 'white',
 		fontSize: 35,
+		fontWeight: 'bold',
 		paddingTop: 60,
 		paddingBottom: 60,
-		width:'100%',
-		fontSize: 24
+		width:'100%'
 	},
 	titleContainer: {
 		backgroundColor: '#faa31a',

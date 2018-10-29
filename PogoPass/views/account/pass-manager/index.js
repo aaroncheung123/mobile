@@ -155,7 +155,9 @@ export default class Account extends React.Component {
 								onRefresh={this.loadAccounts}
 							/>
 						}>
+
 						<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', 'marginBottom': 30}}>
+							<Text style={{color: 'white', fontWeight:'bold', fontSize: 35, marginTop: 25, marginBottom: 5}}>Pass Manager</Text>
 							{passViews}
 						</View>
 					</ScrollView>
