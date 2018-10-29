@@ -156,21 +156,51 @@ export const ShareStyles = StyleSheet.create({
 export const PassStyles = StyleSheet.create({
 	container: {
 		marginTop: 30,
-		width: '95%',
-		maxWidth: 320,
-		borderStyle: 'solid',
-		borderWidth: 2,
-		borderColor: PogoOrange,
-		borderRadius: 20,
-		padding: 30,
+		width: '90%',
+		height: 250,
+		borderRadius: 10,
+		padding: 10,
 		alignItems: 'center',
-		backgroundColor: 'rgba(0, 0, 0, 0.7)',
+		backgroundColor: 'orange',
+		justifyContent: 'center',
+		opacity: .9
+	},
+	innerContainer: {
+		flexDirection: 'row',
+		flex: 1,
+		padding: 10
+	},
+	leftContainer: {
+		flex: 1
+	},
+	rightContainer: {
+		flex: 1,
+		alignItems: 'center',
 		justifyContent: 'center'
 	},
+	detailButton: {
+		shadowColor: 'rgba(0,0,0, .4)', // IOS
+		shadowOffset: { height: 1, width: 1 }, // IOS
+		shadowOpacity: 2, // IOS
+		shadowRadius: 2, //IOS
+		backgroundColor: '#fff',
+		elevation: 5, // Android
+		height: 50,
+		width: 100,
+		borderRadius: 10,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	whiteSubBackground: {
+		backgroundColor: 'white',
+		width: '100%',
+		borderRadius: 10
+	},
 	textName: {
-		color: PogoOrange,
-		fontSize: 50,
-		textAlign: 'center'
+		color: 'white',
+		fontWeight: 'bold',
+		fontSize: 20,
+		textAlign: 'left'
 	},
 	textExpirationValid: {
 		color: 'white',
@@ -180,9 +210,8 @@ export const PassStyles = StyleSheet.create({
 	},
 	textCity: {
 		color: 'white',
-		fontSize: 20,
-		textAlign: 'center',
-		margin: 5
+		fontSize: 12,
+		textAlign: 'left'
 	},
 	textExpirationInvalid: {
 		color: 'red',
@@ -191,8 +220,8 @@ export const PassStyles = StyleSheet.create({
 		margin: 5
 	},
 	textBarcode: {
-		color: 'white',
-		fontSize: 20,
+		color: 'black',
+		fontSize: 13,
 		textAlign: 'center',
 		margin: 5
 	},

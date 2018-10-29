@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 
-import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
+import {View, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
 import {Icon, Button} from 'react-native-elements';
 
@@ -145,8 +145,7 @@ export default class Account extends React.Component {
 	render() {
 		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
 		return (
-			<View
-				style={{flex: 1, width: '100%'}}>
+			<View style={{flex: 1, width: '100%'}}>
 				<View style={Styles.overlay}>
 					<ScrollView
 						style={{width: '100%'}}
@@ -254,31 +253,39 @@ class Pass extends React.Component {
 
 		return (
 			<View style={PassStyles.container}>
-				<Text style={PassStyles.textName}>
-					{this.props.account.full_name}
-				</Text>
-				{
-					city != '' ?
-					<Text style={PassStyles.textCity}>
-						{city}
-					</Text> : null
-				}
-				{expirationText}
-				<View>
-					<Barcode width={1.5} value={this.props.account.account_key} format="CODE128" />
+				<View style={PassStyles.innerContainer}>
+					<View style={PassStyles.leftContainer}>
+						<Text style={PassStyles.textName}>
+							{this.props.account.full_name}
+						</Text>
+						{
+							city != '' ?
+							<Text style={PassStyles.textCity}>
+								{city}
+							</Text> : null
+						}
+					</View>
+					<View style={PassStyles.rightContainer}>
+						<TouchableOpacity style={PassStyles.detailButton}>
+							<Text>
+								Details
+							</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
-				<Text style={PassStyles.textBarcode}>
-					{this.props.account.account_key}
-				</Text>
-				{
-					!expired ?
-					<Button
-						buttonStyle={PassStyles.buttonUsage}
-						title="View Usage"
-						color="white"
-						onPress={() => this.setState({modalVisible: true})}
-					/> : null
-				}
+
+
+
+				<View style={PassStyles.whiteSubBackground}>
+					<View>
+						<Barcode width={1.75} value={this.props.account.account_key} format="CODE128" />
+					</View>
+					<Text style={PassStyles.textBarcode}>
+						{this.props.account.account_key}
+					</Text>
+				</View>
+
+
 				<Modal
 					animationType="slide"
 					transparent={true}
@@ -336,12 +343,12 @@ const VenueTotal = (props) => {
 }
 
 
-//This was the refer a friend button
-// <Button
-// 	buttonStyle={ShareStyles.buttonShare}
-// 	title={!this.state.referralCodeLoading ? "Refer a friend for $5" : ""}
-// 	color="white"
-// 	size="40"
-// 	onPress={this.share}
-// 	loading={this.state.referralCodeLoading}
-// />
+// {
+// 	!expired ?
+// 	<Button
+// 		buttonStyle={PassStyles.buttonUsage}
+// 		title="View Usage"
+// 		color="white"
+// 		onPress={() => this.setState({modalVisible: true})}
+// 	/> : null
+// }
