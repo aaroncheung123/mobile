@@ -21,7 +21,7 @@ export default class AccountInformation extends React.Component {
   }
 
 	componentDidMount() {
-		this.updatePath('/addresses');
+		this.updatePath('/subscriptions');
 	}
 
 	updatePath(path) {

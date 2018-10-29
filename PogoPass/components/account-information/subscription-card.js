@@ -61,27 +61,33 @@ export default class SubscriptionCard extends React.Component {
 
                     <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
 
-                        <TouchableHighlight
-                            onPress={this.toggle.bind(this)}
-                            underlayColor="transparent">
-                            <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
-                                <View style={STYLES.bodyTextContainer}>
-                                    <Text style={STYLES.textHeader}>Kyle Paulson</Text>
-                                    <Text style={STYLES.textHeaderSubtitle}>Pogo Pass Austin</Text>
-                                    <Text style={STYLES.textHeaderSubtitle}>Status: CANCELLED</Text>
+                        <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
+                            <View style={STYLES.bodyTextContainer}>
+                                <Text style={STYLES.textHeader}>Kyle Paulson</Text>
+                                <Text style={STYLES.textHeaderSubtitle}>Pogo Pass Austin</Text>
+                                <Text style={STYLES.textHeaderSubtitle}>Status: CANCELLED</Text>
 
-                                    <View style={STYLES.buttonContainer1}>
-                                        <Button
-                                         raised
-                                         icon={{name: 'refresh'}}
-                                         title='Renew - $34.98'
-                                           buttonStyle = {STYLES.buttonStyle}
-                                           onPress = {this.handleResendSubmit}
-                                       />
-                                    </View>
+                                <View style={STYLES.buttonContainer1}>
+                                    <Button
+                                     raised
+                                     icon={{name: 'refresh'}}
+                                     title='Renew - $34.98'
+                                       buttonStyle = {STYLES.buttonStyle}
+                                       onPress = {this.handleResendSubmit}
+                                   />
                                 </View>
                             </View>
-                        </TouchableHighlight>
+
+                            <View style={STYLES.editIconContainer}>
+                                <TouchableHighlight
+                                    style={STYLES.button}
+                                    onPress={this.toggle.bind(this)}
+                                    underlayColor="transparent">
+                                    <Icon name='edit' size= {35}/>
+
+                                </TouchableHighlight>
+                            </View>
+                        </View>
 
 
                         <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
@@ -263,7 +269,9 @@ export default class SubscriptionCard extends React.Component {
         bodyTextContainer: {
             marginVertical: 30,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            flex: 6,
+            marginLeft: 20
         },
         hiddenBody: {
             backgroundColor: 'white',
@@ -322,6 +330,12 @@ export default class SubscriptionCard extends React.Component {
             marginBottom: 10
         },
         pickerStyle: {
+        },
+        editIconContainer: {
+            marginTop: 10,
+            justifyContent:'center',
+            alignItems: 'center',
+            flex: 1
         }
     }
 
