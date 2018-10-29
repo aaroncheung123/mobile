@@ -8,6 +8,12 @@ export default class OrderCard extends React.Component {
 
     constructor(props){
       super(props);
+
+      this.icons = {
+          'up'    : require('../../assets/images/icons/up_arrow.png'),
+          'down'  : require('../../assets/images/icons/down_arrow.png')
+      };
+
       this.state = {
         title       : props.title,
         expanded    : true,
@@ -49,6 +55,11 @@ export default class OrderCard extends React.Component {
 
 
     render() {
+        let icon = this.icons['up'];
+
+        if(this.state.expanded){
+            icon = this.icons['down'];
+        }
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.iconContainer}>
@@ -66,6 +77,10 @@ export default class OrderCard extends React.Component {
                             <View style={STYLES.bodyTextContainer}>
                                 <Text style={STYLES.textHeader}>Order #: c6f134347</Text>
                             </View>
+                            <Image
+                              style={STYLES.buttonImage}
+                              source={icon}>
+                            </Image>
                         </View>
                     </TouchableHighlight>
 
@@ -186,8 +201,8 @@ const STYLES = {
     cardContainer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         backgroundColor: '#D9D9D9',
         opacity: .9,
         marginLeft: 25,
@@ -199,7 +214,8 @@ const STYLES = {
     bodyTextContainer: {
         marginVertical: 30,
         justifyContent: 'flex-start',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        marginLeft: 50
     },
     hiddenBody: {
         backgroundColor: 'white',
@@ -234,5 +250,13 @@ const STYLES = {
     },
     buttonContainer:{
         marginVertical: 30
-    }
+    },
+    buttonImage : {
+        width: 12,
+        height: 8,
+        opacity: .3,
+        marginRight: 30,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 }
