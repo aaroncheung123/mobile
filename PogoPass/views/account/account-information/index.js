@@ -8,6 +8,8 @@ import AccountMain from './account-main/index.js';
 import Profile from './profile/index.js';
 import Addresses from './addresses/index.js';
 import PaymentCredit from './payment-credit/index.js';
+import Orders from './orders/index.js';
+import Subscriptions from './subscriptions/index.js';
 
 
 export default class AccountInformation extends React.Component {
@@ -19,7 +21,7 @@ export default class AccountInformation extends React.Component {
   }
 
 	componentDidMount() {
-		this.updatePath('/payment');
+		this.updatePath('/subscriptions');
 	}
 
 	updatePath(path) {
@@ -36,6 +38,8 @@ export default class AccountInformation extends React.Component {
 					<Route path="/profile" component={Profile} />
 					<Route path="/addresses" component={Addresses} />
 					<Route path="/payment" component={PaymentCredit} />
+					<Route path="/orders" component={Orders} />
+					<Route path="/subscriptions" component={Subscriptions} />
 				</View>
 			</MemoryRouter>
 
