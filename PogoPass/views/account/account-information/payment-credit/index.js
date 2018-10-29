@@ -32,6 +32,27 @@ export default class PaymentCredit extends React.Component {
 								<View style={STYLES.bottomSectionTitle}>
 									<Text style={STYLES.bottomSectionHeader}> Credit </Text>
 								</View>
+
+								<View style={STYLES.bottomSection}>
+
+									<View style={STYLES.descriptionColumn}>
+										<Text style={STYLES.bottomTextStyle}>Date: 03/06/2018 12:10 PM</Text>
+										<Text style={STYLES.bottomTextStyle}>Description: Credit given for referring purchase of PogoPass Dallas - Gift Voucher. Order product id: 335054</Text>
+									  <Text style={STYLES.bottomTextStyle}>Amount: $5.00</Text>
+										<Text style={STYLES.bottomTextStyle}>Available: $15.00</Text>
+									</View>
+
+
+									<View style={STYLES.descriptionColumn}>
+										<Text style={STYLES.bottomTextStyle}>Date: 02/27/2018 12:26 PM</Text>
+										<Text style={STYLES.bottomTextStyle}>Description: Refund for transaction 2128</Text>
+									  <Text style={STYLES.bottomTextStyle}>Amount: $5.00</Text>
+										<Text style={STYLES.bottomTextStyle}>Available: $10.00</Text>
+									</View>
+
+
+								</View>
+
             </View>
         );
     }
@@ -64,4 +85,27 @@ const STYLES = {
 		fontSize: 20,
 		padding: 30
 	},
+	bottomSection: {
+		flexDirection:'column',
+		justifyContent:'space-evenly',
+		alignItems:'center',
+		opacity: .90,
+		backgroundColor: 'white',
+		width:'100%',
+		paddingLeft: 30,
+		paddingRight: 30
+	},
+	bottomTextStyle: {
+		fontSize: 16,
+		paddingTop: 20,
+	},
+	descriptionColumn: {
+		flex: 1,
+		flexDirection:'column',
+		justifyContent:'flex-start',
+		alignItems:'flex-start',
+		borderBottomWidth: 1,
+		marginBottom: 10,
+		paddingBottom: 30
+	}
 }
