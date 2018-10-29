@@ -87,7 +87,7 @@ export default class OrderCard extends React.Component {
 
                    <Text>Products</Text>
                         <View style={STYLES.productSectionContainer}>
-                            <View style={STYLES.productSectionRow1}>
+                            <View style={STYLES.productSectionRowHeader}>
                                 <View style={STYLES.productSectionLeft}>
                                     <Text>Name</Text>
                                 </View>
@@ -115,7 +115,7 @@ export default class OrderCard extends React.Component {
                             </View>
 
 
-                            <View style={STYLES.productSectionRow1}>
+                            <View style={STYLES.productSectionRowHeader}>
                                 <View style={STYLES.productSectionLeft}>
                                     <Text>Totals</Text>
                                 </View>
@@ -224,18 +224,13 @@ const STYLES = {
         flexDirection: 'row',
         margin: 5
     },
-    productSectionRow1: {
+    productSectionRowHeader: {
         flexDirection: 'row',
         margin: 5,
         borderBottomWidth: 1,
         borderTopWidth: 1,
         paddingVertical: 15,
         marginVertical: 15
-    },
-    headerText: {
-        borderBottomWidth: 1,
-        paddingBottom: 20,
-        marginBottom: 20
     },
     buttonContainer:{
         marginVertical: 30
