@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import TopMenu from '../../../../components/account-information/top-menu';
+import OrderCard from '../../../../components/account-information/order-card';
 
 export default class Orders extends React.Component {
 
@@ -12,7 +13,7 @@ export default class Orders extends React.Component {
         return (
             <View>
                 <TopMenu title= 'Orders' onPress={() => this.updatePath('/account-main')}/>
-                <Text>Test 123</Text>
+                <OrderCard/>
             </View>
         );
     }
