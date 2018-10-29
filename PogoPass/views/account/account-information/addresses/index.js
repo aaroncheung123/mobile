@@ -43,6 +43,9 @@ export default class Addresses extends React.Component {
       <View style={STYLES.container}>
       	<TopMenu title= 'Addresses' onPress={() => this.updatePath('/account-main')}/>
 				{shippingAddressCards}
+				<View style={STYLES.iconContainer}>
+						<Icon name='plus' size= {35}/>
+				</View>
       </View>
 
 
@@ -52,6 +55,20 @@ export default class Addresses extends React.Component {
 
 const STYLES = {
 	container:{
-		flex: 1
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	iconContainer:{
+		flex: 1,
+		backgroundColor:'orange',
+		borderRadius: 50,
+		padding: 10,
+		marginTop: 35,
+		marginBottom: 35,
+		marginLeft: 20,
+		justifyContent:'center',
+		alignItems:'center',
+		width: 55
 	},
 }

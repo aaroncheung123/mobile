@@ -72,7 +72,7 @@ export default class PaymentCard extends React.Component {
                             <TouchableHighlight
                                 style={STYLES.button}
                                 onPress={this.toggle.bind(this)}
-                                underlayColor="#f1f1f1">
+                                underlayColor="transparent">
                                 <Icon name='edit' size= {25}/>
                             </TouchableHighlight>
                         </View>

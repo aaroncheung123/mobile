@@ -83,7 +83,7 @@ export default class ShippingAddressCard extends React.Component {
                             <TouchableHighlight
                                 style={STYLES.button}
                                 onPress={this.toggle.bind(this)}
-                                underlayColor="#f1f1f1">
+                                underlayColor="transparent">
                                 <Icon name='edit' size= {25}/>
                             </TouchableHighlight>
                         </View>
@@ -95,12 +95,14 @@ export default class ShippingAddressCard extends React.Component {
                             value={this.props.shippingAddress.description}
                             onChangeText = {(value) => this.handleTextChange('description',value)}/>
 
-                        <Button
-                         raised
-                         icon={{name: 'save'}}
-                         title='Save'
-                           buttonStyle = {STYLES.buttonStyle}
-                           onPress = {this.handleShippingAddressSubmit}/>
+                        <View style={STYLES.buttonContainer} >
+                            <Button
+                                raised
+                                icon={{name: 'save'}}
+                                title='Save'
+                                buttonStyle = {STYLES.buttonStyle}
+                                onPress = {this.handleShippingAddressSubmit}/>
+                        </View>
                     </View>
 
                 </Animated.View>
@@ -168,4 +170,9 @@ const STYLES = {
     buttonStyle:{
         backgroundColor: 'orange',
     },
+    buttonContainer: {
+        marginTop: 20,
+        width: 125,
+        alignSelf: 'flex-end'
+    }
 }
