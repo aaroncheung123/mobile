@@ -73,7 +73,7 @@ export default class PaymentCard extends React.Component {
                                 style={STYLES.button}
                                 onPress={this.toggle.bind(this)}
                                 underlayColor="transparent">
-                                <Icon name='edit' size= {25}/>
+                                <Icon name='edit' size= {35}/>
                             </TouchableHighlight>
                         </View>
                     </View>
@@ -83,6 +83,14 @@ export default class PaymentCard extends React.Component {
                             title='Edit Card Name'
                             value='Amazon - 4616'
                             onChangeText = {(value) => this.handleTextChange('description',value)}/>
+                        <View style={STYLES.buttonContainer} >
+                            <Button
+                                raised
+                                icon={{name: 'save'}}
+                                title='Save'
+                                buttonStyle = {STYLES.buttonStyle}
+                                onPress = {this.handleShippingAddressSubmit}/>
+                        </View>
                     </View>
 
                 </Animated.View>
@@ -157,4 +165,9 @@ const STYLES = {
     buttonStyle:{
         backgroundColor: 'orange',
     },
+    buttonContainer: {
+        marginTop: 20,
+        width: 125,
+        alignSelf: 'flex-end'
+    }
 }

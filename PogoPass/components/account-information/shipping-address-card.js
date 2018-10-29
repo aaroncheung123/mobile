@@ -84,7 +84,8 @@ export default class ShippingAddressCard extends React.Component {
                                 style={STYLES.button}
                                 onPress={this.toggle.bind(this)}
                                 underlayColor="transparent">
-                                <Icon name='edit' size= {25}/>
+                                <Icon name='edit' size= {35}/>
+
                             </TouchableHighlight>
                         </View>
                     </View>
@@ -157,6 +158,10 @@ const STYLES = {
         justifyContent:'center',
         alignItems: 'center',
         flex: 1
+    },
+    innerEditContainer: {
+        width: 100,
+        height: 100
     },
     hiddenBody: {
         backgroundColor: 'white',

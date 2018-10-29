@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View , Image, TouchableHighlight, Animated, TextInput} from 'react-native';
+import {StyleSheet, Text, View , Image, TouchableHighlight, Animated, TextInput, Picker} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TextInputSection from '../text-input-section.js';
 import { Button } from 'react-native-elements'
@@ -12,6 +12,8 @@ export default class SubscriptionCard extends React.Component {
         title       : props.title,
         expanded    : true,
         animation   : new Animated.Value(),
+        storeCredit : 1,
+        paymentMethod : undefined
         };
     }
     componentDidMount(){
@@ -67,6 +69,16 @@ export default class SubscriptionCard extends React.Component {
                                     <Text style={STYLES.textHeader}>Kyle Paulson</Text>
                                     <Text style={STYLES.textHeaderSubtitle}>Pogo Pass Austin</Text>
                                     <Text style={STYLES.textHeaderSubtitle}>Status: CANCELLED</Text>
+
+                                    <View style={STYLES.buttonContainer1}>
+                                        <Button
+                                         raised
+                                         icon={{name: 'refresh'}}
+                                         title='Renew - $34.98'
+                                           buttonStyle = {STYLES.buttonStyle}
+                                           onPress = {this.handleResendSubmit}
+                                       />
+                                    </View>
                                 </View>
                             </View>
                         </TouchableHighlight>
@@ -99,7 +111,14 @@ export default class SubscriptionCard extends React.Component {
                                         <Text>Payment Method:</Text>
                                     </View>
                                     <View style={STYLES.productSectionRight1}>
-                                        <Text>None Selected - Please set up auto billing by editing subscription </Text>
+                                        <Picker
+                                          selectedValue={this.state.paymentMethod}
+                                          style={STYLES.pickerStyle}
+                                          onValueChange={(itemValue, itemIndex) => this.setState({paymentMethod: itemValue})}>
+                                          <Picker.Item label="None" value='0' />
+                                          <Picker.Item label="Visa - 3442" value='1' />
+                                          <Picker.Item label="Discover - 6213" value='2' />
+                                        </Picker>
                                     </View>
                                 </View>
 
@@ -118,7 +137,13 @@ export default class SubscriptionCard extends React.Component {
                                         <Text>Use Store Credit:</Text>
                                     </View>
                                     <View style={STYLES.productSectionRight1}>
-                                        <Text>ON</Text>
+                                        <Picker
+                                          selectedValue={this.state.storeCredit}
+                                          style={STYLES.pickerStyle}
+                                          onValueChange={(itemValue, itemIndex) => this.setState({storeCredit: itemValue})}>
+                                          <Picker.Item label="On" value='0' />
+                                          <Picker.Item label="Off" value='1' />
+                                        </Picker>
                                     </View>
                                 </View>
 
@@ -145,12 +170,14 @@ export default class SubscriptionCard extends React.Component {
                             <View style={STYLES.buttonContainer}>
                                 <Button
                                  raised
-                                 icon={{name: 'refresh'}}
-                                 title='Renew - $34.98'
+                                 icon={{name: 'save'}}
+                                 title='Save'
                                    buttonStyle = {STYLES.buttonStyle}
                                    onPress = {this.handleResendSubmit}
                                />
                             </View>
+
+
 
 
                        <Text>Renewals</Text>
@@ -235,8 +262,8 @@ export default class SubscriptionCard extends React.Component {
         },
         bodyTextContainer: {
             marginVertical: 30,
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start'
+            justifyContent: 'center',
+            alignItems: 'center'
         },
         hiddenBody: {
             backgroundColor: 'white',
@@ -271,7 +298,8 @@ export default class SubscriptionCard extends React.Component {
         },
         productSectionRow: {
             flexDirection: 'row',
-            margin: 5
+            marginVertical: 10,
+            marginHorizontal: 5
         },
         productSectionRowHeader: {
             flexDirection: 'row',
@@ -282,10 +310,18 @@ export default class SubscriptionCard extends React.Component {
             marginVertical: 15
         },
         buttonContainer:{
-            marginVertical: 30
+            marginVertical: 30,
+            width: 125,
+            alignSelf: 'center'
+        },
+        buttonContainer1:{
+            marginTop: 30,
+            alignSelf: 'center'
         },
         contentText: {
             marginBottom: 10
+        },
+        pickerStyle: {
         }
     }
 

@@ -56,10 +56,10 @@ export default class Blurb extends React.Component {
   }
 
   render() {
-		let icon = this.icons['down'];
+		let icon = this.icons['up'];
 
 		if(this.state.expanded){
-				icon = this.icons['up'];
+				icon = this.icons['down'];
 		}
 
     return (
