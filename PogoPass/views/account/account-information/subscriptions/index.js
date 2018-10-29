@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import TopMenu from '../../../../components/account-information/top-menu';
+import SubscriptionCard from '../../../../components/account-information/subscription-card';
 
 export default class Subscriptions extends React.Component {
 
@@ -12,7 +13,7 @@ export default class Subscriptions extends React.Component {
         return (
             <View>
                 <TopMenu title= 'Subscriptions' onPress={() => this.updatePath('/account-main')}/>
-                <Text>Test 1234</Text>
+                <SubscriptionCard/>
             </View>
         );
     }

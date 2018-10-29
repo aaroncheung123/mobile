@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import TextInputSection from '../text-input-section.js';
 import { Button } from 'react-native-elements'
 
-export default class OrderCard extends React.Component {
+export default class SubscriptionCard extends React.Component {
 
     constructor(props){
       super(props);
@@ -52,7 +52,7 @@ export default class OrderCard extends React.Component {
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.iconContainer}>
-                    <Icon name='hashtag' size= {35}/>
+                    <Icon name='refresh' size= {35}/>
                 </View>
 
 
@@ -64,7 +64,7 @@ export default class OrderCard extends React.Component {
                                 style={STYLES.button}
                                 onPress={this.toggle.bind(this)}
                                 underlayColor="#f1f1f1">
-                                <Text style={STYLES.textHeader}>c6f134347 - $42.68</Text>
+                                <Text style={STYLES.textHeader}>Status: Cancelled - Pogo Pass Phoenix - 12 months renewal - Sun Devil</Text>
                             </TouchableHighlight>
                         </View>
                     </View>
@@ -194,7 +194,7 @@ const STYLES = {
         padding: 10
     },
     bodyTextContainer: {
-        marginVertical: 20,
+        margin: 30,
         justifyContent: 'center',
         alignItems: 'center'
     },
