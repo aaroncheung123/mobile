@@ -260,8 +260,8 @@ export default class SubscriptionCard extends React.Component {
         textHeader: {
             fontSize: 22,
             borderBottomWidth:1,
-            marginBottom: 20,
-            paddingBottom: 20
+            marginBottom: 10,
+            paddingBottom: 10
         },
         textHeaderSubtitle: {
             fontSize: 14

@@ -20,7 +20,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/account-information');
+    this.updatePath('/pass-manager');
   }
 
   updatePath(path) {
@@ -37,10 +37,10 @@ export default class AccountNavigation extends React.Component {
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
           <ScrollView style={STYLES.scrollViewContainer}>
-            <Route path="/pass-manager" component={PassManager} />
-            <Route path="/account-information" component={AccountInformation} />
-            <Route path="/events" component={Events} />
             <Route path="/blog" component={Blog} />
+            <Route path="/account-information" component={AccountInformation} />
+            <Route path="/pass-manager" component={PassManager} />
+            <Route path="/events" component={Events} />
             <Route path="/refer" component={Refer} />
           </ScrollView>
 

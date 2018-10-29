@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import TopMenu from '../../../../components/account-information/top-menu';
 import SubscriptionCard from '../../../../components/account-information/subscription-card';
 
