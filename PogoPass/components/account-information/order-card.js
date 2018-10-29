@@ -52,36 +52,42 @@ export default class OrderCard extends React.Component {
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.iconContainer}>
-                    <Icon name='hashtag' size= {35}/>
+                    <Icon name='tasks' size= {35}/>
                 </View>
 
 
 
                 <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
-                    <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
-                        <View style={STYLES.bodyTextContainer}>
-                            <TouchableHighlight
-                                style={STYLES.button}
-                                onPress={this.toggle.bind(this)}
-                                underlayColor="#f1f1f1">
-                                <Text style={STYLES.textHeader}>c6f134347 - $42.68</Text>
-                            </TouchableHighlight>
+
+                    <TouchableHighlight
+                        onPress={this.toggle.bind(this)}
+                        underlayColor="transparent">
+                        <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
+                            <View style={STYLES.bodyTextContainer}>
+                                <Text style={STYLES.textHeader}>Order #: c6f134347</Text>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableHighlight>
+
 
                     <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
-                        <Text>Order # c6f12e6935</Text>
                         <Text>Placed At: 03/06/2018 12:10 PM</Text>
-                        <Button
-                         raised
-                         icon={{name: 'print'}}
-                         title='Resend Order Receipt'
-                           buttonStyle = {STYLES.buttonStyle}
-                           onPress = {this.handleResendSubmit}
-                       />
-                        <Text>Products</Text>
+                        <Text>Order # c6f12e6935</Text>
+
+                        <View style={STYLES.buttonContainer}>
+                            <Button
+                             raised
+                             icon={{name: 'print'}}
+                             title='Resend Order Receipt'
+                               buttonStyle = {STYLES.buttonStyle}
+                               onPress = {this.handleResendSubmit}
+                           />
+                        </View>
+
+
+                   <Text>Products</Text>
                         <View style={STYLES.productSectionContainer}>
-                            <View style={STYLES.productSectionRow}>
+                            <View style={STYLES.productSectionRow1}>
                                 <View style={STYLES.productSectionLeft}>
                                     <Text>Name</Text>
                                 </View>
@@ -109,7 +115,7 @@ export default class OrderCard extends React.Component {
                             </View>
 
 
-                            <View style={STYLES.productSectionRow}>
+                            <View style={STYLES.productSectionRow1}>
                                 <View style={STYLES.productSectionLeft}>
                                     <Text>Totals</Text>
                                 </View>
@@ -188,15 +194,12 @@ const STYLES = {
         borderRadius: 5
     },
     textHeader: {
-        fontSize: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 10
+        fontSize: 20
     },
     bodyTextContainer: {
-        marginVertical: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
+        marginVertical: 30,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start'
     },
     hiddenBody: {
         backgroundColor: 'white',
@@ -220,5 +223,21 @@ const STYLES = {
     productSectionRow: {
         flexDirection: 'row',
         margin: 5
+    },
+    productSectionRow1: {
+        flexDirection: 'row',
+        margin: 5,
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        paddingVertical: 15,
+        marginVertical: 15
+    },
+    headerText: {
+        borderBottomWidth: 1,
+        paddingBottom: 20,
+        marginBottom: 20
+    },
+    buttonContainer:{
+        marginVertical: 30
     }
 }
