@@ -1,49 +1,72 @@
 import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
-import {View, Button, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
-import SlidingUpPanel from 'rn-sliding-up-panel';
+import {View, Button, Text, AppRegistry, StyleSheet, Animated, Image, Easing} from 'react-native';
+
 
 export default class Refer extends React.Component {
 
-	state = {
-		visible: false
+	constructor () {
+	  super()
+	  this.animatedValue = new Animated.Value(0)
+	}
+
+	componentDidMount () {
+	  this.animate()
+	}
+	animate () {
+	  //this.animatedValue.setValue(0)
+	  Animated.timing(
+	    this.animatedValue,
+	    {
+	      toValue: 1,
+	      duration: 300,
+	      easing: Easing.linear
+	    }
+	  ).start(() => this.animate())
 	}
 
 	render() {
-		return (
-			<View style={styles.container}>
-				<Button title='Show panel' onPress={() => this.setState({visible: true})} />
-				<SlidingUpPanel
-					visible={this.state.visible}
-					onRequestClose={() => this.setState({visible: false})}>
-					<View style={styles.container}>
-						<Text>Here is the content inside panel</Text>
-						<Button title='Hide' onPress={() => this.setState({visible: false})} />
-					</View>
-				</SlidingUpPanel>
-			</View>
-		);
+		const height = this.animatedValue.interpolate({
+			inputRange: [0, 1],
+			outputRange: [0, 400]
+		})
+
+	  return (
+			<View style={STYLES.container}>
+
+				<Animated.View style={{
+					height,
+					position: 'absolute',
+			  	bottom:0,
+					flex: 1,
+					width: '100%',
+					backgroundColor: '#cccccc',
+					borderRadius: 20,
+					opacity: .95}} />
+
+
+	    </View>
+	  )
 	}
 }
 
-const styles = {
+
+const STYLES = {
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-		height: 700
-  }
+		height: 608,
+		width: '100%'
+  },
+	slidePanel: {
+		height: 30,
+		width: 40
+	}
 }
 
-//
-// class MyComponent extends React.Component {
-
-//
-//   render() {
-//     return (
-
-//     )
-//   }
-// }
+// <Animated.View style={{
+// 		height: 100,
+// 		width: 100,
+// 		flex: 1,
+// 		justifyContent: 'flex-end',
+// 		alignItems: 'flex-end'}} />
