@@ -27,7 +27,7 @@ export const Styles = StyleSheet.create({
 		height: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: 'rgba(0, 0, 0, 0.4)',
+		//backgroundColor: 'rgba(0, 0, 0, 0.4)',
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: 360

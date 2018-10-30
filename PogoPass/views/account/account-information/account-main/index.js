@@ -30,14 +30,15 @@ export default class AccountInformation extends React.Component {
 					</Text>
 				</View>
 
-				<View style={STYLES.infoTabContainer}>
+				<ScrollView style={STYLES.infoTabContainer}>
 					<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
 					<InfoTab onPress={() => this.updatePath('/addresses')} icon='truck' name='Addresses'/>
 					<InfoTab onPress={() => this.updatePath('/payment')} icon='credit-card' name='Payment / Credit'/>
 					<InfoTab onPress={() => this.updatePath('/orders')} icon='calendar' name='Orders'/>
 					<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
 					<InfoTab onPress={() => this.signOut()} icon='sign-out' name='Sign out'/>
-				</View>
+				</ScrollView>
+
 
 
 			</View>
@@ -66,10 +67,6 @@ const STYLES = {
 		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	},
 	infoTabContainer: {
-		width:'90%',
-		borderWidth: 5,
-		borderRadius: 20,
-		padding: 10,
-		borderColor: 'orange'
+		width:'100%',
 	}
 }

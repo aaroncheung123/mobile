@@ -147,6 +147,7 @@ export default class Account extends React.Component {
 		return (
 			<View style={{flex: 1, width: '100%'}}>
 				<View style={Styles.overlay}>
+					<Text style={{width: '100%', textAlign: 'center', color: 'white', fontWeight:'bold', fontSize: 35, padding: 25, backgroundColor: 'rgba(0, 0, 0, 0.6)'}}>Pass Manager</Text>
 					<ScrollView
 						style={{width: '100%'}}
 						refreshControl={
@@ -157,7 +158,7 @@ export default class Account extends React.Component {
 						}>
 
 						<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', 'marginBottom': 30}}>
-							<Text style={{color: 'white', fontWeight:'bold', fontSize: 35, marginTop: 25, marginBottom: 5}}>Pass Manager</Text>
+
 							{passViews}
 						</View>
 					</ScrollView>
