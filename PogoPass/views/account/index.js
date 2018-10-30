@@ -20,7 +20,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/refer');
+    this.updatePath('/events');
   }
 
   updatePath(path) {
