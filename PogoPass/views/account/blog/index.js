@@ -16,7 +16,9 @@ export default class Blog extends React.Component {
 							</Text>
 						</View>
 
-						<BlogDateSections/>
+						<ScrollView>
+							<BlogDateSections/>
+						</ScrollView>
 
 					</View>
 

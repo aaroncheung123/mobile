@@ -36,13 +36,13 @@ export default class AccountNavigation extends React.Component {
 
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
-          <ScrollView style={STYLES.scrollViewContainer}>
+          <View style={STYLES.scrollViewContainer}>
             <Route path="/blog" component={Blog} />
             <Route path="/account-information" component={AccountInformation} />
             <Route path="/pass-manager" component={PassManager} />
             <Route path="/events" component={Events} />
             <Route path="/refer" component={Refer} />
-          </ScrollView>
+          </View>
 
           {/*Bottom Menu*/}
           <View style={STYLES.accountMenu.container}>
@@ -109,7 +109,8 @@ const STYLES = {
   },
   scrollViewContainer:{
     flex:1,
-    width: '100%'
+    width: '100%',
+    height: '100%'
   },
   accountMenu: {
     container: {
@@ -117,7 +118,8 @@ const STYLES = {
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
       width: "100%",
-      height: 60
+      height: 60,
+      marginTop: -40
     },
     menuContainer: {
       flexDirection: 'row',

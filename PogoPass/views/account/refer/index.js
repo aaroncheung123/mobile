@@ -55,7 +55,6 @@ export default class Refer extends React.Component {
 const STYLES = {
   container: {
     flex: 1,
-		height: 608,
 		width: '100%'
   },
 	slidePanel: {

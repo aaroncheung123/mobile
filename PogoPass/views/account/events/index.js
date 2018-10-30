@@ -9,15 +9,15 @@ export default class Events extends React.Component {
 
 	constructor () {
 	  super()
-	  this.springValue = new Animated.Value(0.1)
+	  this.springValue = new Animated.Value(0)
 	}
 
 	spring () {
-	  this.springValue.setValue(0.1)
+	  this.springValue.setValue(0)
 	  Animated.spring(
 	    this.springValue,
 	    {
-	      toValue: 40,
+	      toValue: 450,
 	      friction: 6
 	    }
 	  ).start()
@@ -26,20 +26,14 @@ export default class Events extends React.Component {
 	render() {
 		return (
 			<View style={STYLES.container}>
-			  <Text
-			    style={{marginBottom: 100}}
-			    onPress={this.spring.bind(this)}>Spring</Text>
-					<Animated.View
-		        style={{
-							position: 'absolute',
-					  	bottom:0,
-							transform: [{scale: this.springValue}],
-		          width: '100%',
-		          backgroundColor: '#cccccc',
-							opacity: .95}}>
-		        <Text style={{color: 'white'}}>Hello World</Text>
-		      </Animated.View>
+			  <Text onPress={this.spring.bind(this)}>
+					TEST BUTTON
+				</Text>
 
+
+				<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
+	      	<Text style={{color: 'white'}}>Hello World</Text>
+	      </Animated.View>
 			</View>
 		);
 	}
@@ -48,10 +42,17 @@ export default class Events extends React.Component {
 
 const STYLES = {
   container: {
-    flex: 1,
-		height: 608,
-		width: '100%'
-  }
+		bottom: 0,
+		flex: 10
+  },
+	springContainer: {
+		position: 'absolute',
+		bottom: 0,
+		width: '100%',
+		backgroundColor: '#cccccc',
+		opacity: .95,
+		borderRadius: 30
+	}
 }
 
 // <Animated.Image
