@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableWithoutFeedback, TextInput, TouchableHighlight} from 'react-native';
+import {View, Text, TouchableWithoutFeedback, TextInput, TouchableHighlight, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-elements'
 import TopMenu from '../../../../components/account-information/top-menu';
@@ -71,103 +71,107 @@ export default class Profile extends React.Component {
 					<View style={STYLES.wholeContainer}>
 						<TopMenu title= 'Profile' onPress={() => this.updatePath('/account-main')}/>
 
-						<View style={STYLES.bottomSectionTitle}>
-							<Text style={STYLES.bottomSectionHeader}> Personal Information </Text>
-						</View>
+						<ScrollView>
+							<View style={STYLES.bottomSectionTitle}>
+								<Text style={STYLES.bottomSectionHeader}> Personal Information </Text>
+							</View>
 
-						<View style={STYLES.bottomSection}>
+							<View style={STYLES.bottomSection}>
 
-							<Text style={STYLES.bottomTextStyle}>First Name</Text>
-							<TextInput
-							 style={STYLES.textInputStyle}
-							 underlineColorAndroid = "transparent"
-							 value={this.state.user.first_name}
-               onChangeText = {(value) => this.handleTextChange('first_name', value)}/>
+								<Text style={STYLES.bottomTextStyle}>First Name</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 underlineColorAndroid = "transparent"
+								 value={this.state.user.first_name}
+	               onChangeText = {(value) => this.handleTextChange('first_name', value)}/>
 
-							<Text style={STYLES.bottomTextStyle}>Last Name</Text>
-							<TextInput
-							 style={STYLES.textInputStyle}
-							 underlineColorAndroid = "transparent"
-               placeholder = "Last Name"
-               placeholderTextColor = "black"
-							 value={this.state.user.last_name}
-               onChangeText = {(value) => this.handleTextChange('last_name', value)}/>
+								<Text style={STYLES.bottomTextStyle}>Last Name</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 underlineColorAndroid = "transparent"
+	               placeholder = "Last Name"
+	               placeholderTextColor = "black"
+								 value={this.state.user.last_name}
+	               onChangeText = {(value) => this.handleTextChange('last_name', value)}/>
 
-							<Text style={STYLES.bottomTextStyle}>Email</Text>
-							<TextInput
-							 style={STYLES.textInputStyle}
-							 underlineColorAndroid = "transparent"
-               autoCapitalize = "none"
-							 value={this.state.user.email}
-               onChangeText = {(value) => this.handleTextChange('email', value)}/>
+								<Text style={STYLES.bottomTextStyle}>Email</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 underlineColorAndroid = "transparent"
+	               autoCapitalize = "none"
+								 value={this.state.user.email}
+	               onChangeText = {(value) => this.handleTextChange('email', value)}/>
 
-							<Text style={STYLES.bottomTextStyle}>Phone</Text>
-							<TextInput
-							 style={STYLES.textInputStyle}
-							 underlineColorAndroid = "transparent"
-							 value={this.state.user.phone}
-               onChangeText = {(value) => this.handleTextChange('phone', value)}/>
+								<Text style={STYLES.bottomTextStyle}>Phone</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 underlineColorAndroid = "transparent"
+								 value={this.state.user.phone}
+	               onChangeText = {(value) => this.handleTextChange('phone', value)}/>
 
-							 <View style={STYLES.buttonContainer}>
+								 <View style={STYLES.buttonContainer}>
+									 <Button
+		 							  raised
+		 							  icon={{name: 'save'}}
+		 							  title='Save'
+		 								buttonStyle = {STYLES.buttonStyle}
+										onPress = {this.handlePersonalInformationSubmit}
+		 							/>
+								 </View>
+
+
+							</View>
+
+
+
+
+
+
+
+
+							<View style={STYLES.bottomSectionTitle}>
+								<Text style={STYLES.bottomSectionHeader}> Password </Text>
+							</View>
+
+							<View style={STYLES.bottomSection}>
+
+								<Text style={STYLES.bottomTextStyle}>Current Password</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 value={this.state.currentPassword}
+								 secureTextEntry={true}
+								 underlineColorAndroid = "transparent"
+	               onChangeText = {(value) => this.setState({currentPassword: value})}/>
+
+							  <Text style={STYLES.bottomTextStyle}>New Password</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 value={this.state.newPassword}
+								 secureTextEntry={true}
+								 underlineColorAndroid = "transparent"
+		             onChangeText = {(value) => this.setState({newPassword: value})}/>
+
+							  <Text style={STYLES.bottomTextStyle}>Confirm New Password</Text>
+								<TextInput
+								 style={STYLES.textInputStyle}
+								 value={this.state.confirmPassword}
+								 secureTextEntry={true}
+								 underlineColorAndroid = "transparent"
+	               onChangeText = {(value) => this.setState({confirmPassword: value})}/>
+
+							   <View style={STYLES.buttonContainer}>
 								 <Button
 	 							  raised
-	 							  icon={{name: 'save'}}
-	 							  title='Save'
+	 							  icon={{name: 'lock'}}
+	 							  title='Set Password'
 	 								buttonStyle = {STYLES.buttonStyle}
-									onPress = {this.handlePersonalInformationSubmit}
+									onPress = {this.handlePasswordSubmit}
 	 							/>
 							 </View>
+							</View>
 
+						</ScrollView>
 
-						</View>
-
-
-
-
-
-
-
-
-						<View style={STYLES.bottomSectionTitle}>
-							<Text style={STYLES.bottomSectionHeader}> Password </Text>
-						</View>
-
-						<View style={STYLES.bottomSection}>
-
-							<Text style={STYLES.bottomTextStyle}>Current Password</Text>
-							<TextInput
-							 style={STYLES.textInputStyle}
-							 value={this.state.currentPassword}
-							 secureTextEntry={true}
-							 underlineColorAndroid = "transparent"
-               onChangeText = {(value) => this.setState({currentPassword: value})}/>
-
-						  <Text style={STYLES.bottomTextStyle}>New Password</Text>
-							<TextInput
-							 style={STYLES.textInputStyle}
-							 value={this.state.newPassword}
-							 secureTextEntry={true}
-							 underlineColorAndroid = "transparent"
-	             onChangeText = {(value) => this.setState({newPassword: value})}/>
-
-						  <Text style={STYLES.bottomTextStyle}>Confirm New Password</Text>
-							<TextInput
-							 style={STYLES.textInputStyle}
-							 value={this.state.confirmPassword}
-							 secureTextEntry={true}
-							 underlineColorAndroid = "transparent"
-               onChangeText = {(value) => this.setState({confirmPassword: value})}/>
-
-						   <View style={STYLES.buttonContainer}>
-							 <Button
- 							  raised
- 							  icon={{name: 'lock'}}
- 							  title='Set Password'
- 								buttonStyle = {STYLES.buttonStyle}
-								onPress = {this.handlePasswordSubmit}
- 							/>
-						 </View>
-						</View>
 
 
 					</View>
@@ -188,7 +192,7 @@ const STYLES = {
 	},
 	buttonContainer:{
 		paddingTop: 30,
-		paddingBottom: 30,
+		paddingBottom: 50,
 		flexDirection:'row',
 		justifyContent:'flex-end'
 	},

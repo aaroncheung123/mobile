@@ -61,6 +61,6 @@ const STYLES = {
   },
 	totalDateSection: {
 		paddingTop: 25,
-		width: '85%'
+		width: '100%'
 	}
 }

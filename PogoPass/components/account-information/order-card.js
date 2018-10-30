@@ -100,7 +100,7 @@ export default class OrderCard extends React.Component {
                         </View>
 
 
-                   <Text>Products</Text>
+                        <Text>Products</Text>
                         <View style={STYLES.productSectionContainer}>
                             <View style={STYLES.productSectionRowHeader}>
                                 <View style={STYLES.productSectionLeft}>
@@ -219,7 +219,6 @@ const STYLES = {
     },
     hiddenBody: {
         backgroundColor: 'white',
-        borderRadius: 5,
         opacity: .9,
         marginLeft: 25,
         marginTop: 2,
@@ -229,6 +228,8 @@ const STYLES = {
         backgroundColor: 'orange'
     },
     productSectionContainer: {
+        flex: 1,
+        marginBottom: 30
     },
     productSectionLeft: {
         flex: 3

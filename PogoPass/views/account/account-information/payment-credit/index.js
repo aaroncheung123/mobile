@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import TopMenu from '../../../../components/account-information/top-menu';
 import PaymentCard from '../../../../components/account-information/payment-card';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -24,35 +24,36 @@ export default class PaymentCredit extends React.Component {
         return (
             <View style={STYLES.container}>
                 <TopMenu title= 'Payment/Credit' onPress={() => this.updatePath('/account-main')}/>
-								<PaymentCard/>
-								<View style={STYLES.iconContainer}>
-                    <Icon name='plus' size= {35}/>
-                </View>
-
-								<View style={STYLES.bottomSectionTitle}>
-									<Text style={STYLES.bottomSectionHeader}> Credit </Text>
-								</View>
-
-								<View style={STYLES.bottomSection}>
-
-									<View style={STYLES.descriptionColumn}>
-										<Text style={STYLES.bottomTextStyle}>Date: 03/06/2018 12:10 PM</Text>
-										<Text style={STYLES.bottomTextStyle}>Description: Credit given for referring purchase of PogoPass Dallas - Gift Voucher. Order product id: 335054</Text>
-									  <Text style={STYLES.bottomTextStyle}>Amount: $5.00</Text>
-										<Text style={STYLES.bottomTextStyle}>Available: $15.00</Text>
+								<ScrollView>
+									<PaymentCard/>
+									<View style={STYLES.iconContainer}>
+											<Icon name='plus' size= {35}/>
 									</View>
 
-
-									<View style={STYLES.descriptionColumn}>
-										<Text style={STYLES.bottomTextStyle}>Date: 02/27/2018 12:26 PM</Text>
-										<Text style={STYLES.bottomTextStyle}>Description: Refund for transaction 2128</Text>
-									  <Text style={STYLES.bottomTextStyle}>Amount: $5.00</Text>
-										<Text style={STYLES.bottomTextStyle}>Available: $10.00</Text>
+									<View style={STYLES.bottomSectionTitle}>
+										<Text style={STYLES.bottomSectionHeader}> Credit </Text>
 									</View>
 
+									<View style={STYLES.bottomSection}>
 
-								</View>
+										<View style={STYLES.descriptionColumn}>
+											<Text style={STYLES.bottomTextStyle}>Date: 03/06/2018 12:10 PM</Text>
+											<Text style={STYLES.bottomTextStyle}>Description: Credit given for referring purchase of PogoPass Dallas - Gift Voucher. Order product id: 335054</Text>
+											<Text style={STYLES.bottomTextStyle}>Amount: $5.00</Text>
+											<Text style={STYLES.bottomTextStyle}>Available Balance: $15.00</Text>
+										</View>
 
+
+										<View style={STYLES.descriptionColumn}>
+											<Text style={STYLES.bottomTextStyle}>Date: 02/27/2018 12:26 PM</Text>
+											<Text style={STYLES.bottomTextStyle}>Description: Refund for transaction 2128</Text>
+											<Text style={STYLES.bottomTextStyle}>Amount: $5.00</Text>
+											<Text style={STYLES.bottomTextStyle}>Available Balance: $10.00</Text>
+										</View>
+
+
+									</View>
+								</ScrollView>
             </View>
         );
     }
@@ -74,6 +75,7 @@ const STYLES = {
 		marginLeft: 20,
 		justifyContent:'center',
 		alignItems:'center',
+		alignSelf: 'center',
 		width: 55
 	},
 	bottomSectionTitle: {
@@ -106,6 +108,6 @@ const STYLES = {
 		alignItems:'flex-start',
 		borderBottomWidth: 1,
 		marginBottom: 10,
-		paddingBottom: 30
+		paddingBottom: 40
 	}
 }
