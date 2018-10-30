@@ -26,7 +26,7 @@ const STYLES = {
 		backgroundColor: '#E5E5E5',
 		opacity: .90,
 		width:'100%',
-		height: 80,
+		height: 70,
 		borderColor: 'gray',
 		borderTopWidth: 1,
 		paddingLeft: 30

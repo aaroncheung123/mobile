@@ -37,12 +37,13 @@ const STYLES = {
 	title: {
 		color: 'white',
 		minWidth: '100%',
-		fontSize: 30,
-		backgroundColor: 'orange',
+		fontSize: 35,
+		fontWeight: 'bold',
 		textAlign: 'center',
 		alignItems: 'center',
 		justifyContent: 'center',
 		padding: 20,
-		opacity: .95
+		opacity: .95,
+		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	}
 }

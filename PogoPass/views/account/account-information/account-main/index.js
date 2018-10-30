@@ -24,20 +24,20 @@ export default class AccountInformation extends React.Component {
 	render() {
 		return (
 			<View style={STYLES.totalContainer}>
-
-
 				<View style={STYLES.titleContainer}>
 					<Text style={STYLES.title}>
 						Account Info
 					</Text>
 				</View>
 
+				<View style={STYLES.infoTabContainer}>
 					<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
 					<InfoTab onPress={() => this.updatePath('/addresses')} icon='truck' name='Addresses'/>
 					<InfoTab onPress={() => this.updatePath('/payment')} icon='credit-card' name='Payment / Credit'/>
 					<InfoTab onPress={() => this.updatePath('/orders')} icon='calendar' name='Orders'/>
 					<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
 					<InfoTab onPress={() => this.signOut()} icon='sign-out' name='Sign out'/>
+				</View>
 
 
 			</View>
@@ -55,13 +55,21 @@ const STYLES = {
 	title: {
 		textAlign: 'center',
 		color: 'white',
-		fontSize: 30,
+		fontSize: 35,
+		fontWeight: 'bold',
 		width:'100%'
 	},
 	titleContainer: {
-		backgroundColor: 'orange',
 		width:'100%',
 		opacity: .95,
-		paddingVertical: 20
+		paddingVertical: 25,
+		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	},
+	infoTabContainer: {
+		width:'90%',
+		borderWidth: 5,
+		borderRadius: 20,
+		padding: 10,
+		borderColor: 'orange'
+	}
 }
