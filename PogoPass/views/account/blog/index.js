@@ -36,8 +36,13 @@ const STYLES = {
 	},
 	title: {
 		color: 'white',
-		fontSize: 35,
-		paddingTop: 20,
-		fontWeight: 'bold'
+		minWidth: '100%',
+		fontSize: 30,
+		backgroundColor: 'orange',
+		textAlign: 'center',
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: 20,
+		opacity: .95
 	}
 }

@@ -3,8 +3,6 @@ import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 import {View, Button, Text, AppRegistry, StyleSheet, Animated, Image, Easing, Dimensions} from 'react-native';
 
-const { height, width } = Dimensions.get("window");
-
 export default class Events extends React.Component {
 
 	constructor () {
@@ -32,7 +30,7 @@ export default class Events extends React.Component {
 
 
 				<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
-	      	<Text style={{color: 'white'}}>Hello World</Text>
+	      	<Text style={STYLES.innerSpringContainer}>Hello World</Text>
 	      </Animated.View>
 			</View>
 		);
@@ -42,16 +40,22 @@ export default class Events extends React.Component {
 
 const STYLES = {
   container: {
-		bottom: 0,
-		flex: 10
+		flex: 1,
+		bottom: 0
   },
 	springContainer: {
+		flex: 1,
 		position: 'absolute',
 		bottom: 0,
 		width: '100%',
 		backgroundColor: '#cccccc',
 		opacity: .95,
-		borderRadius: 30
+		borderRadius: 30,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	innerSpringContainer: {
+		flex: 1
 	}
 }
 

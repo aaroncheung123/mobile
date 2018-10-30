@@ -24,17 +24,22 @@ export default class AccountInformation extends React.Component {
 	render() {
 		return (
 			<View style={STYLES.totalContainer}>
+
+
 				<View style={STYLES.titleContainer}>
 					<Text style={STYLES.title}>
 						Account Info
 					</Text>
 				</View>
-				<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
-				<InfoTab onPress={() => this.updatePath('/addresses')} icon='truck' name='Addresses'/>
-				<InfoTab onPress={() => this.updatePath('/payment')} icon='credit-card' name='Payment / Credit'/>
-				<InfoTab onPress={() => this.updatePath('/orders')} icon='calendar' name='Orders'/>
-				<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
-				<InfoTab onPress={() => this.signOut()} icon='sign-out' name='Sign out'/>
+
+					<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
+					<InfoTab onPress={() => this.updatePath('/addresses')} icon='truck' name='Addresses'/>
+					<InfoTab onPress={() => this.updatePath('/payment')} icon='credit-card' name='Payment / Credit'/>
+					<InfoTab onPress={() => this.updatePath('/orders')} icon='calendar' name='Orders'/>
+					<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
+					<InfoTab onPress={() => this.signOut()} icon='sign-out' name='Sign out'/>
+
+
 			</View>
 		);
 	}
@@ -50,15 +55,13 @@ const STYLES = {
 	title: {
 		textAlign: 'center',
 		color: 'white',
-		fontSize: 35,
-		fontWeight: 'bold',
-		paddingTop: 60,
-		paddingBottom: 60,
+		fontSize: 30,
 		width:'100%'
 	},
 	titleContainer: {
-		backgroundColor: '#faa31a',
+		backgroundColor: 'orange',
 		width:'100%',
-		opacity: .95
-	}
+		opacity: .95,
+		paddingVertical: 20
+	},
 }

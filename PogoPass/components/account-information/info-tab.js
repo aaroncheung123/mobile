@@ -20,13 +20,13 @@ export default class InfoTab extends React.Component {
 
 const STYLES = {
 	container: {
-		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		backgroundColor: '#E5E5E5',
-		opacity: .9,
+		opacity: .90,
 		width:'100%',
+		height: 80,
 		borderColor: 'gray',
 		borderTopWidth: 1,
 		paddingLeft: 30
