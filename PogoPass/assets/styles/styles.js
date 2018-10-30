@@ -193,8 +193,7 @@ export const PassStyles = StyleSheet.create({
 	},
 	whiteSubBackground: {
 		backgroundColor: 'white',
-		width: '100%',
-		borderRadius: 10
+		width: '100%'
 	},
 	textName: {
 		color: 'white',
