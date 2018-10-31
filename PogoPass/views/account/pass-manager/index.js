@@ -146,7 +146,8 @@ export default class Account extends React.Component {
 		return expirationDate;
 	}
 
-	handlePressDetails () {
+	handlePressDetails (account) {
+		//console.log(account);
 		Animated.spring(
 			this.springValue,
 			{
@@ -161,7 +162,7 @@ export default class Account extends React.Component {
 	}
 
 	render() {
-		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onPressDetails={() => this.handlePressDetails()} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
+		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onPressDetails={() => this.handlePressDetails(account)} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
 		return (
 			<View style={{flex: 1, width: '100%'}}>
 				<View style={Styles.overlay}>
@@ -191,7 +192,17 @@ export default class Account extends React.Component {
 									</View>
 
 									<View style={STYLES.rightDetailsContainer}>
-										<Text style={STYLES.detailsText}> Sun Devil </Text>
+										<Text style={STYLES.detailsText}> Sun Devils </Text>
+									</View>
+								</View>
+
+								<View style={STYLES.outerDetailsContainer}>
+									<View style={STYLES.leftDetailsContainer}>
+										<Text style={STYLES.detailsText}> Account Type: </Text>
+									</View>
+
+									<View style={STYLES.rightDetailsContainer}>
+										<Text style={STYLES.detailsText}> Phoenix Pogo Pass </Text>
 									</View>
 								</View>
 
@@ -206,6 +217,7 @@ export default class Account extends React.Component {
 								</View>
 
 								<TouchableOpacity style={STYLES.renewButton}>
+										<Icon name='refresh' size= {25} style={STYLES.iconRenew}/>
 										<Text style={STYLES.detailsText}>Renew</Text>
 								</TouchableOpacity>
 							</View>
@@ -237,7 +249,12 @@ export default class Account extends React.Component {
 }
 
 const STYLES = {
+	iconRenew: {
+		color: 'white',
+		marginRight: 15
+	},
 	renewButton: {
+		flexDirection: 'row',
 		paddingVertical: 20,
 		paddingHorizontal: 40,
 		backgroundColor: 'orange',
@@ -253,7 +270,7 @@ const STYLES = {
 	outerDetailsContainer: {
 		flex: 1,
 		flexDirection: 'row',
-		marginHorizontal: 30,
+		marginHorizontal: 20,
 		marginVertical: 10
 	},
 	leftDetailsContainer: {
