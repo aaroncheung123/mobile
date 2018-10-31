@@ -5,6 +5,7 @@ import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets
 import {View, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
 import {Icon, Button} from 'react-native-elements';
+import VenueCard from '../../../components/pass-manager/venue-card.js';
 
 export default class Account extends React.Component {
 	constructor(props)
@@ -24,8 +25,7 @@ export default class Account extends React.Component {
 		this.handlePressDetails = this.handlePressDetails.bind(this);
 	}
 
-	componentDidMount()
-	{
+	componentDidMount() {
 		AsyncStorage.getItem('account_keys').then((value) => {
 
 			if (value != null) {
@@ -64,7 +64,6 @@ export default class Account extends React.Component {
 			this.props.history.push('/login');
 		})
 	}
-
 
 	share() {
 		if (this.state.referralCode) {
@@ -135,8 +134,7 @@ export default class Account extends React.Component {
 		}
 	}
 
-	getAccountExpiration(account)
-	{		// get the expiration date
+	getAccountExpiration(account) {		// get the expiration date
 		var expirationDate;
 		account.account_services.map((account_service) => {
 			var serviceExpires = GlobalUtil.convertMysqlToDate(account_service.valid_end);
@@ -160,7 +158,7 @@ export default class Account extends React.Component {
 			Animated.spring(
 				this.springValue,
 				{
-					toValue: 250,
+					toValue: 430,
 					friction: 6
 				}
 			).start()
@@ -184,13 +182,17 @@ export default class Account extends React.Component {
 						}>
 
 						<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', 'marginBottom': 30}}>
-
 							{passViews}
 						</View>
 					</ScrollView>
 
 					<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
-						<Text style={STYLES.innerSpringContainer}>Hello World</Text>
+						<ScrollView style={STYLES.innerSpringContainer}>
+							<Text style={STYLES.venueTitleText}>Venues</Text>
+							<VenueCard/>
+
+						</ScrollView>
+
 					</Animated.View>
 				</View>
 			</View>
@@ -199,10 +201,6 @@ export default class Account extends React.Component {
 }
 
 const STYLES = {
-  container1: {
-		flex: 1,
-		bottom: 0
-  },
 	springContainer: {
 		flex: 1,
 		position: 'absolute',
@@ -214,7 +212,12 @@ const STYLES = {
 		alignItems: 'center'
 	},
 	innerSpringContainer: {
-		flex: 1
+		flex: 1,
+		margin: 20
+	},
+	venueTitleText: {
+		textAlign: 'center',
+		fontSize: 18
 	}
 }
 
@@ -231,7 +234,7 @@ class Pass extends React.Component {
 	}
 
 	render() {
-
+		var expiration = GlobalUtil.convertMysqlToDateRaw(this.props.account.expire_at).formatDate('n/d/Y');
 		var city = this.props.account.account_type ? this.props.account.account_type.name : '';
 
 		// get the expiration date
@@ -293,7 +296,7 @@ class Pass extends React.Component {
 			})
 		})
 
-		var venueTotals = Object.keys(venueServiceAvailable).map((venue_service_id) => {
+			var venueTotals = Object.keys(venueServiceAvailable).map((venue_service_id) => {
 			var venueServiceIndividual = venueServiceAvailable[venue_service_id];
 
 			var title = venueServiceIndividual.venue_service.venue.name + ' ' + venueServiceIndividual.venue_service.name + ' - ' + GlobalUtil.htmlTextStripper(venueServiceIndividual.venue_service.inclusions);
@@ -308,15 +311,15 @@ class Pass extends React.Component {
 			<View style={PassStyles.container}>
 				<View style={PassStyles.innerContainer}>
 					<View style={PassStyles.leftContainer}>
-						<Text style={PassStyles.textName}>
-							{this.props.account.full_name}
-						</Text>
+						<Text style={PassStyles.textName}> {this.props.account.full_name} </Text>
 						{
 							city != '' ?
 							<Text style={PassStyles.textCity}>
 								{city}
 							</Text> : null
 						}
+
+						<Text style={PassStyles.textCity}>Expiration: {expiration}</Text>
 					</View>
 					<View style={PassStyles.rightContainer}>
 						<TouchableOpacity style={PassStyles.detailButton} onPress={this.props.onPressDetails}>

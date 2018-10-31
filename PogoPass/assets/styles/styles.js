@@ -155,7 +155,7 @@ export const ShareStyles = StyleSheet.create({
 
 export const PassStyles = StyleSheet.create({
 	container: {
-		marginTop: 30,
+		marginTop: 20,
 		width: '90%',
 		height: 250,
 		borderRadius: 10,
@@ -168,10 +168,10 @@ export const PassStyles = StyleSheet.create({
 	innerContainer: {
 		flexDirection: 'row',
 		flex: 1,
-		padding: 10
+		padding: 5
 	},
 	leftContainer: {
-		flex: 1
+		flex: 2
 	},
 	rightContainer: {
 		flex: 1,
@@ -210,7 +210,8 @@ export const PassStyles = StyleSheet.create({
 	textCity: {
 		color: 'white',
 		fontSize: 12,
-		textAlign: 'left'
+		textAlign: 'left',
+		marginLeft: 8
 	},
 	textExpirationInvalid: {
 		color: 'red',
