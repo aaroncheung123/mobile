@@ -18,7 +18,7 @@ export default VenueCard;
 const STYLES = {
     venueContainer: {
         borderRadius: 20,
-        backgroundColor: '#ededed',
+        backgroundColor: '#fcfcfc',
         borderWidth:1,
         borderColor:'orange',
         height: 80,

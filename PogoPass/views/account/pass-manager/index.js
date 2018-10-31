@@ -144,6 +144,7 @@ export default class Account extends React.Component {
 	}
 
 	handlePressDetails () {
+		//this.springValue.setValue(0.3)
 		if(this.state.showingDetails){
 			Animated.spring(
 				this.springValue,
@@ -171,7 +172,7 @@ export default class Account extends React.Component {
 		return (
 			<View style={{flex: 1, width: '100%'}}>
 				<View style={Styles.overlay}>
-					<Text style={{width: '100%', textAlign: 'center', color: 'white', fontWeight:'bold', fontSize: 35, padding: 25, backgroundColor: 'rgba(0, 0, 0, 0.6)'}}>Pass Manager</Text>
+					<Text style={STYLES.headerTitle}>Pass Manager</Text>
 					<ScrollView
 						style={{width: '100%'}}
 						refreshControl={
@@ -213,15 +214,26 @@ export default class Account extends React.Component {
 }
 
 const STYLES = {
+	headerTitle: {
+		width: '100%',
+		textAlign: 'center',
+		color: 'white',
+		fontWeight:'bold',
+		fontSize: 35,
+		padding: 25,
+		backgroundColor: 'rgba(0, 0, 0, 0.6)'
+	},
 	springContainer: {
 		flex: 1,
 		position: 'absolute',
 		bottom: 0,
 		width: '100%',
-		backgroundColor: '#cccccc',
+		//backgroundColor: '#cccccc',
 		borderRadius: 30,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		backgroundColor: 'black',
+		opacity: .85
 	},
 	innerSpringContainer: {
 		flex: 1,
@@ -231,7 +243,8 @@ const STYLES = {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		marginBottom: 35
 	},
 	venueTitleText: {
 		alignSelf: 'center',
@@ -242,7 +255,8 @@ const STYLES = {
 		marginTop: 10,
 		paddingBottom: 20,
 		borderBottomWidth: 2,
-		borderColor: 'gray'
+		borderColor: 'white',
+		color: 'white'
 	}
 }
 
