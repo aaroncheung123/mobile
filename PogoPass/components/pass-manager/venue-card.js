@@ -19,7 +19,7 @@ const STYLES = {
     venueContainer: {
         borderRadius: 20,
         backgroundColor: '#fcfcfc',
-        borderWidth:1,
+        borderWidth:2,
         borderColor:'orange',
         height: 80,
         width: 80,

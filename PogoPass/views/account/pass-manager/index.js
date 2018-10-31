@@ -154,31 +154,9 @@ export default class Account extends React.Component {
 				friction: 6
 			}
 		).start()
-		// if(this.state.showingDetails){
-		// 	this.springValue.setValue(0);
-		// 	// Animated.spring(
-		// 	// 	this.springValue,
-		// 	// 	{
-		// 	// 		toValue: 0,
-		// 	// 		friction: 6
-		// 	// 	}
-		// 	// ).start()
-		// 	this.setState({showingDetails : !this.state.showingDetails});
-		// }
-		// else{
-		// 	Animated.spring(
-		// 		this.springValue,
-		// 		{
-		// 			toValue: this.screenHeight - 160,
-		// 			friction: 6
-		// 		}
-		// 	).start()
-		// 	this.setState({showingDetails : !this.state.showingDetails});
-		// }
 	}
 
 	handleCloseDetails(){
-		console.log("Hello 1");
 		this.springValue.setValue(0);
 	}
 
@@ -204,28 +182,31 @@ export default class Account extends React.Component {
 
 					<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
 						<ScrollView style={STYLES.innerSpringContainer}>
-							<Text style={STYLES.venueTitleText}>Manage</Text>
+							<Text style={STYLES.venueTitleText}>Details</Text>
 							<Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleCloseDetails}/>
-							<View style={STYLES.venueContainer}>
-								<TouchableOpacity>
-										<View style={STYLES.manageContainer}>
-												<Icon name='refresh' size= {25}/>
-												<Text style={STYLES.title}>Renew</Text>
-										</View>
-								</TouchableOpacity>
+							<View style={STYLES.overallDetailContainer}>
+								<View style={STYLES.outerDetailsContainer}>
+									<View style={STYLES.leftDetailsContainer}>
+										<Text style={STYLES.detailsText}> Full Name: </Text>
+									</View>
 
-								<TouchableOpacity>
-										<View style={STYLES.manageContainer}>
-												<Icon name='gift' size= {25}/>
-												<Text style={STYLES.title}>Gift</Text>
-										</View>
-								</TouchableOpacity>
+									<View style={STYLES.rightDetailsContainer}>
+										<Text style={STYLES.detailsText}> Sun Devil </Text>
+									</View>
+								</View>
 
-								<TouchableOpacity>
-										<View style={STYLES.manageContainer}>
-												<Icon name='dollar' size= {25}/>
-												<Text style={STYLES.title}>Refer</Text>
-										</View>
+								<View style={STYLES.outerDetailsContainer}>
+									<View style={STYLES.leftDetailsContainer}>
+										<Text style={STYLES.detailsText}> Expiration Date: </Text>
+									</View>
+
+									<View style={STYLES.rightDetailsContainer}>
+										<Text style={STYLES.detailsText}> 9/21/2019 </Text>
+									</View>
+								</View>
+
+								<TouchableOpacity style={STYLES.renewButton}>
+										<Text style={STYLES.detailsText}>Renew</Text>
 								</TouchableOpacity>
 							</View>
 
@@ -256,6 +237,31 @@ export default class Account extends React.Component {
 }
 
 const STYLES = {
+	renewButton: {
+		paddingVertical: 20,
+		paddingHorizontal: 40,
+		backgroundColor: 'orange',
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: 10,
+		margin: 20
+	},
+	detailsText: {
+		color: 'white',
+		fontSize: 16
+	},
+	outerDetailsContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		marginHorizontal: 30,
+		marginVertical: 10
+	},
+	leftDetailsContainer: {
+		flex: 1
+	},
+	rightDetailsContainer: {
+		flex: 1
+	},
 	headerTitle: {
 		width: '100%',
 		textAlign: 'center',
@@ -288,6 +294,11 @@ const STYLES = {
 		alignItems: 'center',
 		marginBottom: 35
 	},
+	overallDetailContainer: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginBottom: 20
+	},
 	venueTitleText: {
 		alignSelf: 'center',
 		textAlign: 'center',
@@ -301,24 +312,24 @@ const STYLES = {
 		color: 'white'
 	},
 	manageContainer: {
-			borderRadius: 20,
-			backgroundColor: '#fcfcfc',
-			borderWidth:1,
-			borderColor:'orange',
-			height: 80,
-			width: 80,
-			justifyContent: 'center',
-			alignItems: 'center',
-			shadowColor: 'rgba(0,0,0, .4)', // IOS
-			shadowOffset: { height: 1, width: 1 }, // IOS
-			shadowOpacity: 1, // IOS
-			shadowRadius: 1, //IOS
-			elevation: 5, // Android
-			margin: 10
+		borderRadius: 20,
+		backgroundColor: '#fcfcfc',
+		borderWidth:2,
+		borderColor:'orange',
+		height: 80,
+		width: 80,
+		justifyContent: 'center',
+		alignItems: 'center',
+		shadowColor: 'rgba(0,0,0, .4)', // IOS
+		shadowOffset: { height: 1, width: 1 }, // IOS
+		shadowOpacity: 1, // IOS
+		shadowRadius: 1, //IOS
+		elevation: 5, // Android
+		margin: 10
 	},
 	title: {
-			fontSize: 14,
-			paddingTop: 10,
+		fontSize: 14,
+		paddingTop: 10,
 	},
 	iconX: {
 		color: 'white',
