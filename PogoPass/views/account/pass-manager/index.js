@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 
-import {View, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
+import {View, Dimensions, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
 import {Icon, Button} from 'react-native-elements';
 import VenueCard from '../../../components/pass-manager/venue-card.js';
@@ -18,6 +18,7 @@ export default class Account extends React.Component {
 			showingDetails: false
 		}
     this.springValue = new Animated.Value(0);
+		this.screenHeight = Dimensions.get('window').height;
 		this.logout = this.logout.bind(this);
 		this.loadAccounts = this.loadAccounts.bind(this);
 		this.loadReferralCode = this.loadReferralCode.bind(this);
@@ -144,22 +145,23 @@ export default class Account extends React.Component {
 	}
 
 	handlePressDetails () {
-		//this.springValue.setValue(0.3)
+		console.log("TEST: ", this.screenHeight);
 		if(this.state.showingDetails){
-			Animated.spring(
-				this.springValue,
-				{
-					toValue: 0,
-					friction: 6
-				}
-			).start()
+			this.springValue.setValue(0);
+			// Animated.spring(
+			// 	this.springValue,
+			// 	{
+			// 		toValue: 0,
+			// 		friction: 6
+			// 	}
+			// ).start()
 			this.setState({showingDetails : !this.state.showingDetails});
 		}
 		else{
 			Animated.spring(
 				this.springValue,
 				{
-					toValue: 430,
+					toValue: this.screenHeight - 160,
 					friction: 6
 				}
 			).start()
