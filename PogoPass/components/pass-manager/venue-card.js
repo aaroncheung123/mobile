@@ -6,7 +6,7 @@ const VenueCard = (props) => {
     return (
         <TouchableOpacity>
             <View style={STYLES.venueContainer}>
-                <Icon name='slideshare' size= {35}/>
+                <Icon name='slideshare' size= {25}/>
                 <Text style={STYLES.title}>2/4 visits</Text>
             </View>
         </TouchableOpacity>
@@ -18,11 +18,11 @@ export default VenueCard;
 const STYLES = {
     venueContainer: {
         borderRadius: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#ededed',
         borderWidth:1,
         borderColor:'orange',
-        height: 100,
-        width: 100,
+        height: 80,
+        width: 80,
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: 'rgba(0,0,0, .4)', // IOS
@@ -30,10 +30,11 @@ const STYLES = {
         shadowOpacity: 1, // IOS
         shadowRadius: 1, //IOS
         elevation: 5, // Android
-        margin: 20
+        margin: 10
     },
     title: {
         fontSize: 14,
         paddingTop: 10,
+
     }
 }

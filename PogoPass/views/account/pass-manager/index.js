@@ -189,8 +189,20 @@ export default class Account extends React.Component {
 					<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
 						<ScrollView style={STYLES.innerSpringContainer}>
 							<Text style={STYLES.venueTitleText}>Venues</Text>
-							<VenueCard/>
-
+							<View style={STYLES.venueContainer}>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+							</View>
 						</ScrollView>
 
 					</Animated.View>
@@ -215,9 +227,22 @@ const STYLES = {
 		flex: 1,
 		margin: 20
 	},
+	venueContainer: {
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
 	venueTitleText: {
+		alignSelf: 'center',
 		textAlign: 'center',
-		fontSize: 18
+		width: '40%',
+		fontSize: 24,
+		marginBottom: 20,
+		marginTop: 10,
+		paddingBottom: 20,
+		borderBottomWidth: 2,
+		borderColor: 'gray'
 	}
 }
 
