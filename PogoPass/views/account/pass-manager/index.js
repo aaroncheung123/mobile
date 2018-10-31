@@ -4,8 +4,9 @@ import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets
 
 import {View, Dimensions, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
-import {Icon, Button} from 'react-native-elements';
+import {Button} from 'react-native-elements';
 import VenueCard from '../../../components/pass-manager/venue-card.js';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Account extends React.Component {
 	constructor(props)
@@ -24,6 +25,7 @@ export default class Account extends React.Component {
 		this.loadReferralCode = this.loadReferralCode.bind(this);
 		this.share = this.share.bind(this);
 		this.handlePressDetails = this.handlePressDetails.bind(this);
+		this.handleCloseDetails = this.handleCloseDetails.bind(this);
 	}
 
 	componentDidMount() {
@@ -145,28 +147,39 @@ export default class Account extends React.Component {
 	}
 
 	handlePressDetails () {
-		console.log("TEST: ", this.screenHeight);
-		if(this.state.showingDetails){
-			this.springValue.setValue(0);
-			// Animated.spring(
-			// 	this.springValue,
-			// 	{
-			// 		toValue: 0,
-			// 		friction: 6
-			// 	}
-			// ).start()
-			this.setState({showingDetails : !this.state.showingDetails});
-		}
-		else{
-			Animated.spring(
-				this.springValue,
-				{
-					toValue: this.screenHeight - 160,
-					friction: 6
-				}
-			).start()
-			this.setState({showingDetails : !this.state.showingDetails});
-		}
+		Animated.spring(
+			this.springValue,
+			{
+				toValue: this.screenHeight - 160,
+				friction: 6
+			}
+		).start()
+		// if(this.state.showingDetails){
+		// 	this.springValue.setValue(0);
+		// 	// Animated.spring(
+		// 	// 	this.springValue,
+		// 	// 	{
+		// 	// 		toValue: 0,
+		// 	// 		friction: 6
+		// 	// 	}
+		// 	// ).start()
+		// 	this.setState({showingDetails : !this.state.showingDetails});
+		// }
+		// else{
+		// 	Animated.spring(
+		// 		this.springValue,
+		// 		{
+		// 			toValue: this.screenHeight - 160,
+		// 			friction: 6
+		// 		}
+		// 	).start()
+		// 	this.setState({showingDetails : !this.state.showingDetails});
+		// }
+	}
+
+	handleCloseDetails(){
+		console.log("Hello 1");
+		this.springValue.setValue(0);
 	}
 
 	render() {
@@ -191,6 +204,33 @@ export default class Account extends React.Component {
 
 					<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
 						<ScrollView style={STYLES.innerSpringContainer}>
+							<Text style={STYLES.venueTitleText}>Manage</Text>
+							<Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleCloseDetails}/>
+							<View style={STYLES.venueContainer}>
+								<TouchableOpacity>
+										<View style={STYLES.manageContainer}>
+												<Icon name='refresh' size= {25}/>
+												<Text style={STYLES.title}>Renew</Text>
+										</View>
+								</TouchableOpacity>
+
+								<TouchableOpacity>
+										<View style={STYLES.manageContainer}>
+												<Icon name='gift' size= {25}/>
+												<Text style={STYLES.title}>Gift</Text>
+										</View>
+								</TouchableOpacity>
+
+								<TouchableOpacity>
+										<View style={STYLES.manageContainer}>
+												<Icon name='dollar' size= {25}/>
+												<Text style={STYLES.title}>Refer</Text>
+										</View>
+								</TouchableOpacity>
+							</View>
+
+
+
 							<Text style={STYLES.venueTitleText}>Venues</Text>
 							<View style={STYLES.venueContainer}>
 								<VenueCard/>
@@ -259,6 +299,31 @@ const STYLES = {
 		borderBottomWidth: 2,
 		borderColor: 'white',
 		color: 'white'
+	},
+	manageContainer: {
+			borderRadius: 20,
+			backgroundColor: '#fcfcfc',
+			borderWidth:1,
+			borderColor:'orange',
+			height: 80,
+			width: 80,
+			justifyContent: 'center',
+			alignItems: 'center',
+			shadowColor: 'rgba(0,0,0, .4)', // IOS
+			shadowOffset: { height: 1, width: 1 }, // IOS
+			shadowOpacity: 1, // IOS
+			shadowRadius: 1, //IOS
+			elevation: 5, // Android
+			margin: 10
+	},
+	title: {
+			fontSize: 14,
+			paddingTop: 10,
+	},
+	iconX: {
+		color: 'white',
+		position: 'absolute',
+		right: 0
 	}
 }
 
