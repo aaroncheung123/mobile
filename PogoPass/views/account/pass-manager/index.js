@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 
-import {View, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
+import {View, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
 import {Icon, Button} from 'react-native-elements';
 
@@ -15,10 +15,12 @@ export default class Account extends React.Component {
 			accounts: [],
 			referralCodeLoading: true
 		}
+    this.springValue = new Animated.Value(0);
 		this.logout = this.logout.bind(this);
 		this.loadAccounts = this.loadAccounts.bind(this);
 		this.loadReferralCode = this.loadReferralCode.bind(this);
 		this.share = this.share.bind(this);
+		this.handlePressDetails = this.handlePressDetails.bind(this);
 	}
 
 	componentDidMount()
@@ -142,8 +144,19 @@ export default class Account extends React.Component {
 		return expirationDate;
 	}
 
+	handlePressDetails () {
+		this.springValue.setValue(0);
+		Animated.spring(
+			this.springValue,
+			{
+				toValue: 250,
+				friction: 6
+			}
+		).start()
+	}
+
 	render() {
-		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
+		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onPressDetails={() => this.handlePressDetails()} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
 		return (
 			<View style={{flex: 1, width: '100%'}}>
 				<View style={Styles.overlay}>
@@ -162,9 +175,33 @@ export default class Account extends React.Component {
 							{passViews}
 						</View>
 					</ScrollView>
+
+					<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
+						<Text style={STYLES.innerSpringContainer}>Hello World</Text>
+					</Animated.View>
 				</View>
 			</View>
 		);
+	}
+}
+
+const STYLES = {
+  container1: {
+		flex: 1,
+		bottom: 0
+  },
+	springContainer: {
+		flex: 1,
+		position: 'absolute',
+		bottom: 0,
+		width: '100%',
+		backgroundColor: '#cccccc',
+		borderRadius: 30,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	innerSpringContainer: {
+		flex: 1
 	}
 }
 
@@ -269,7 +306,7 @@ class Pass extends React.Component {
 						}
 					</View>
 					<View style={PassStyles.rightContainer}>
-						<TouchableOpacity style={PassStyles.detailButton}>
+						<TouchableOpacity style={PassStyles.detailButton} onPress={this.props.onPressDetails}>
 							<Text>
 								Details
 							</Text>

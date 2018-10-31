@@ -23,7 +23,7 @@ export default class Events extends React.Component {
 
 	render() {
 		return (
-			<View style={STYLES.container}>
+			<View style={STYLES.container1}>
 			  <Text onPress={this.spring.bind(this)}>
 					TEST BUTTON
 				</Text>
@@ -39,7 +39,7 @@ export default class Events extends React.Component {
 
 
 const STYLES = {
-  container: {
+  container1: {
 		flex: 1,
 		bottom: 0
   },
