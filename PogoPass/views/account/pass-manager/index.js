@@ -13,7 +13,8 @@ export default class Account extends React.Component {
 		this.state = {
 			refreshing: true,
 			accounts: [],
-			referralCodeLoading: true
+			referralCodeLoading: true,
+			showingDetails: false
 		}
     this.springValue = new Animated.Value(0);
 		this.logout = this.logout.bind(this);
@@ -145,14 +146,26 @@ export default class Account extends React.Component {
 	}
 
 	handlePressDetails () {
-		this.springValue.setValue(0);
-		Animated.spring(
-			this.springValue,
-			{
-				toValue: 250,
-				friction: 6
-			}
-		).start()
+		if(this.state.showingDetails){
+			Animated.spring(
+				this.springValue,
+				{
+					toValue: 0,
+					friction: 6
+				}
+			).start()
+			this.setState({showingDetails : !this.state.showingDetails});
+		}
+		else{
+			Animated.spring(
+				this.springValue,
+				{
+					toValue: 250,
+					friction: 6
+				}
+			).start()
+			this.setState({showingDetails : !this.state.showingDetails});
+		}
 	}
 
 	render() {
