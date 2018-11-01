@@ -70,7 +70,7 @@ export default class AccountNavigation extends React.Component {
               <AccountMenuItem
                 onPress={() => this.updatePath('/refer')}
                 active={path === '/refer'}
-                icon="dollar"
+                icon="shopping-cart"
               />
             </View>
           </View>
