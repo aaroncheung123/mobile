@@ -23,7 +23,7 @@ export default class VenueEventCard extends React.Component {
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight   : event.nativeEvent.layout.height + 20
         });
     }
 
@@ -34,6 +34,7 @@ export default class VenueEventCard extends React.Component {
     }
 
     toggle(){
+
         let initialValue= this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
             finalValue= this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
@@ -56,7 +57,7 @@ export default class VenueEventCard extends React.Component {
             <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
 
                 <TouchableOpacity onPress={this.toggle.bind(this)}>
-                    <View style={STYLES.venueContainer}>
+                    <View style={STYLES.venueContainer} onLayout={this._setMinHeight.bind(this)}>
                         <View style={STYLES.leftVenueContainer}>
                             <Icon name='slideshare' size= {45}/>
                         </View>
@@ -82,16 +83,18 @@ export default class VenueEventCard extends React.Component {
 
 const STYLES = {
     outsideContainer: {
-        flexDirection: 'column',
         flex: 1,
+        marginBottom: 20,
         backgroundColor: 'transparent'
     },
     hiddenBody: {
+        width: '90%',
         backgroundColor: 'white',
         opacity: .9,
-        marginLeft: 25,
         marginTop: 2,
-        padding: 20
+        marginLeft: 23,
+        padding: 20,
+        borderRadius: 10
     },
     venueContainer: {
         flexDirection: 'row',
@@ -105,7 +108,8 @@ const STYLES = {
         shadowRadius: 1, //IOS
         elevation: 5, // Android
         margin: 10,
-        opacity: .9
+        opacity: .9,
+        marginTop: 5
     },
     leftVenueContainer: {
         flex: 1,
