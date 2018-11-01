@@ -1,37 +1,51 @@
 import React from 'react';
 import NavigationBar from 'react-native-navbar';
-import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
-import {View, Button, Text, AppRegistry, StyleSheet, Animated, Image, Easing, Dimensions} from 'react-native';
+import {TouchableOpacity, Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
+import {Switch,View, Button, Text, AppRegistry, StyleSheet, Animated, Image, Easing, Dimensions} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Events extends React.Component {
 
 	constructor () {
-	  super()
-	  this.springValue = new Animated.Value(0)
+	  super();
+		this.state = {
+	 		switchValue: false,
+		}
 	}
 
-	spring () {
-	  this.springValue.setValue(0)
-	  Animated.spring(
-	    this.springValue,
-	    {
-	      toValue: 450,
-	      friction: 6
-	    }
-	  ).start()
+	toggleSwitch = (value) => {
+		this.setState({switchValue: value})
 	}
 
 	render() {
 		return (
-			<View style={STYLES.container1}>
-			  <Text onPress={this.spring.bind(this)}>
-					TEST BUTTON
-				</Text>
+			<View style={STYLES.container}>
+
+				<View>
+					<Text style={STYLES.title}>
+						Events
+					</Text>
+				</View>
+
+				<View style={STYLES.toggleContainer}>
+					<Text style={STYLES.toggleText}>Venue</Text>
+
+						<Switch
+							tintColor = 'orange'
+							thumbTintColor = 'white'
+							style = {STYLES.switchStyle}
+							onValueChange = {this.toggleSwitch}
+							value = {this.state.switchValue}/>
+
+					<Text style={STYLES.toggleText}>Date</Text>
+
+				</View>
+
+				<View style={STYLES.eventsContainer}>
+
+				</View>
 
 
-				<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
-	      	<Text style={STYLES.innerSpringContainer}>Hello World</Text>
-	      </Animated.View>
 			</View>
 		);
 	}
@@ -39,22 +53,45 @@ export default class Events extends React.Component {
 
 
 const STYLES = {
-  container1: {
-		flex: 1,
-		bottom: 0
-  },
-	springContainer: {
-		flex: 1,
-		position: 'absolute',
-		bottom: 0,
-		width: '100%',
-		backgroundColor: '#cccccc',
-		opacity: .95,
-		borderRadius: 30,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	innerSpringContainer: {
+  container: {
 		flex: 1
+  },
+	title: {
+		color: 'white',
+		minWidth: '100%',
+		fontSize: 35,
+		fontWeight: 'bold',
+		textAlign: 'center',
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: 20,
+		opacity: .95,
+		backgroundColor: 'rgba(0, 0, 0, 0.6)'
+	},
+	toggleContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: 30,
+		marginVertical: 20
+	},
+	eventsContainer: {
+		flex: 9
+	},
+	toggleWidgets:{
+		height:30,
+
+		margin: 15,
+		borderRadius: 20,
+		backgroundColor: 'orange'
+	},
+	toggleText: {
+		color: 'white',
+		fontSize: 24
+	},
+	switchStyle: {
+		marginHorizontal: 10,
+		//transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }]
 	}
 }

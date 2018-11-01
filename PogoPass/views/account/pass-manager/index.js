@@ -9,8 +9,7 @@ import VenueCard from '../../../components/pass-manager/venue-card.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Account extends React.Component {
-	constructor(props)
-	{
+	constructor(props){
 		super(props);
 		this.state = {
 			refreshing: true,

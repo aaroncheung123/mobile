@@ -20,7 +20,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/pass-manager');
+    this.updatePath('/events');
   }
 
   updatePath(path) {
