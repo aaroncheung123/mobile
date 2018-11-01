@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Button} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import UpcomingEventCard from './upcoming-event-card';
 
 export default class VenueEventCard extends React.Component {
 
@@ -69,8 +70,11 @@ export default class VenueEventCard extends React.Component {
 
 
                 <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
-                    <Text>Placed At: 03/06/2018 12:10 PM</Text>
-                    <Text>Order # c6f12e6935</Text>
+                    <Text style={STYLES.upcomingEventsText}>Upcoming Events: </Text>
+                    <UpcomingEventCard/>
+                    <UpcomingEventCard/>
+                    <UpcomingEventCard/>
+                    <UpcomingEventCard/>
                 </View>
 
             </Animated.View>
@@ -95,6 +99,13 @@ const STYLES = {
         marginLeft: 23,
         padding: 20,
         borderRadius: 10
+    },
+    upcomingEventsText: {
+        paddingTop: 10,
+        paddingBottom: 20,
+        borderBottomWidth: 2,
+        borderColor: '#bfbfbf',
+        marginBottom: 20
     },
     venueContainer: {
         flexDirection: 'row',
