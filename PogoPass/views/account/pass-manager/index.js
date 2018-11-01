@@ -177,6 +177,9 @@ export default class Account extends React.Component {
 						}>
 
 						<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', 'marginBottom': 30}}>
+							<View>
+								
+							</View>
 							{passViews}
 						</View>
 					</ScrollView>
@@ -187,32 +190,32 @@ export default class Account extends React.Component {
 							<Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleCloseDetails}/>
 							<View style={STYLES.overallDetailContainer}>
 								<View style={STYLES.outerDetailsContainer}>
-									<View style={STYLES.leftDetailsContainer}>
-										<Text style={STYLES.detailsText}> Full Name: </Text>
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>Full Name:</Text>
 									</View>
 
-									<View style={STYLES.rightDetailsContainer}>
-										<Text style={STYLES.detailsText}> Sun Devils </Text>
-									</View>
-								</View>
-
-								<View style={STYLES.outerDetailsContainer}>
-									<View style={STYLES.leftDetailsContainer}>
-										<Text style={STYLES.detailsText}> Account Type: </Text>
-									</View>
-
-									<View style={STYLES.rightDetailsContainer}>
-										<Text style={STYLES.detailsText}> Phoenix Pogo Pass </Text>
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>Sun Devils</Text>
 									</View>
 								</View>
 
 								<View style={STYLES.outerDetailsContainer}>
-									<View style={STYLES.leftDetailsContainer}>
-										<Text style={STYLES.detailsText}> Expiration Date: </Text>
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}> Account Type:</Text>
 									</View>
 
-									<View style={STYLES.rightDetailsContainer}>
-										<Text style={STYLES.detailsText}> 9/21/2019 </Text>
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>Phoenix Pogo Pass</Text>
+									</View>
+								</View>
+
+								<View style={STYLES.outerDetailsContainer}>
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>Expiration Date:</Text>
+									</View>
+
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>9/21/2019</Text>
 									</View>
 								</View>
 
@@ -273,10 +276,7 @@ const STYLES = {
 		marginHorizontal: 20,
 		marginVertical: 10
 	},
-	leftDetailsContainer: {
-		flex: 1
-	},
-	rightDetailsContainer: {
+	detailsContainer: {
 		flex: 1
 	},
 	headerTitle: {
