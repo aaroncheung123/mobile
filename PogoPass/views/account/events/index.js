@@ -1,8 +1,9 @@
 import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {TouchableOpacity, Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
-import {Switch,View, Button, Text, AppRegistry, StyleSheet, Animated, Image, Easing, Dimensions} from 'react-native';
+import {ScrollView, Switch,View, Button, Text, AppRegistry, StyleSheet, Animated, Image, Easing, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import VenueEventCard from '../../../components/events/venue-event-card.js'
 
 export default class Events extends React.Component {
 
@@ -42,6 +43,12 @@ export default class Events extends React.Component {
 				</View>
 
 				<View style={STYLES.eventsContainer}>
+					<ScrollView>
+						<VenueEventCard/>
+						<VenueEventCard/>
+						<VenueEventCard/>
+						<VenueEventCard/>
+					</ScrollView>
 
 				</View>
 
@@ -77,7 +84,9 @@ const STYLES = {
 		marginVertical: 20
 	},
 	eventsContainer: {
-		flex: 9
+		flex: 9,
+		justifyContent: 'flex-start',
+		alignItems: 'center'
 	},
 	toggleWidgets:{
 		height:30,
