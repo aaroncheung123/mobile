@@ -317,7 +317,7 @@ const STYLES = {
 		color: 'white',
 		fontWeight:'bold',
 		fontSize: 35,
-		padding: 25,
+		padding: 20,
 		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	},
 	springContainer: {

@@ -63,7 +63,7 @@ const STYLES = {
 	titleContainer: {
 		width:'100%',
 		opacity: .95,
-		paddingVertical: 25,
+		paddingVertical: 20,
 		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	},
 	infoTabContainer: {
