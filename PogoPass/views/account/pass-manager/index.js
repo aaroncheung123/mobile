@@ -177,8 +177,19 @@ export default class Account extends React.Component {
 						}>
 
 						<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', 'marginBottom': 30}}>
-							<View>
-								
+							<View style={STYLES.topButtonSection}>
+								<TouchableOpacity style={STYLES.iconContainer}>
+									<Icon name='plus' size={35}/>
+									<Text style={STYLES.topButtonSectionText}>Purchase Pass</Text>
+								</TouchableOpacity>
+								<TouchableOpacity style={STYLES.iconContainer}>
+									<Icon name='gift' size={35}/>
+									<Text style={STYLES.topButtonSectionText}>Purchase Gift</Text>
+								</TouchableOpacity>
+								<TouchableOpacity style={STYLES.iconContainer}>
+										<Icon name='dollar' size={35}/>
+										<Text style={STYLES.topButtonSectionText}>Refer a Friend</Text>
+								</TouchableOpacity>
 							</View>
 							{passViews}
 						</View>
@@ -201,7 +212,7 @@ export default class Account extends React.Component {
 
 								<View style={STYLES.outerDetailsContainer}>
 									<View style={STYLES.detailsContainer}>
-										<Text style={STYLES.detailsText}> Account Type:</Text>
+										<Text style={STYLES.detailsText}>Account Type:</Text>
 									</View>
 
 									<View style={STYLES.detailsContainer}>
@@ -252,6 +263,25 @@ export default class Account extends React.Component {
 }
 
 const STYLES = {
+	iconContainer:{
+		backgroundColor:'orange',
+		borderRadius: 50,
+		padding: 15,
+		marginVertical: 30,
+		justifyContent: 'center',
+		alignItems:'center',
+		width: 100
+	},
+	topButtonSection:{
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent:'space-evenly',
+		alignItems:'center',
+		width: '100%'
+	},
+	topButtonSectionText: {
+		textAlign: 'center'
+	},
 	iconRenew: {
 		color: 'white',
 		marginRight: 15
