@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Button} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Button, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import UpcomingEventCard from './upcoming-event-card';
 
@@ -24,13 +24,13 @@ export default class VenueEventCard extends React.Component {
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height + 20
+            maxHeight   : event.nativeEvent.layout.height + 10
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight   : event.nativeEvent.layout.height + 10
         });
     }
 
@@ -53,6 +53,11 @@ export default class VenueEventCard extends React.Component {
     }
 
     render(){
+        let icon = this.icons['up'];
+
+        if(this.state.expanded){
+            icon = this.icons['down'];
+        }
         return(
 
             <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
@@ -64,6 +69,10 @@ export default class VenueEventCard extends React.Component {
                         </View>
                         <View style={STYLES.rightVenueContainer}>
                             <Text style={STYLES.textStyle}>Enchanted Island</Text>
+                            <Image
+                              style={STYLES.buttonImage}
+                              source={icon}>
+                            </Image>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -141,6 +150,16 @@ const STYLES = {
         borderBottomRightRadius: 10
     },
     textStyle: {
-        fontSize: 14
-    }
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    buttonImage : {
+        width: 12,
+        height: 8,
+        opacity: .3,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 15
+    },
 }
