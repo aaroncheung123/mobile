@@ -19,7 +19,9 @@ export default class Cart extends React.Component {
 					</Text>
 
 					<ScrollView style={STYLES.productDetailsScrollContainer}>
+
 						<View style={STYLES.productDetailsContainer}>
+							<Text style={STYLES.productDetailsText}>Details</Text>
 							<ProductCard/>
 						</View>
 					</ScrollView>
@@ -51,10 +53,15 @@ const STYLES = {
 	productDetailsContainer: {
 		justifyContent: 'center',
 		width: '100%',
-		backgroundColor: 'white'
+		backgroundColor: 'white',
+		borderRadius: 10
 	},
 	productDetailsScrollContainer: {
 		padding: 20,
 		width: '100%'
+	},
+	productDetailsText: {
+		fontSize: 18,
+		margin: 20
 	}
 }
