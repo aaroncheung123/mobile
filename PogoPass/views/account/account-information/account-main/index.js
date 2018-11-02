@@ -34,20 +34,11 @@ export default class AccountInformation extends React.Component {
 					<View style={STYLES.rowContainer}>
 						<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
 						<InfoTab onPress={() => this.updatePath('/addresses')} icon='truck' name='Addresses'/>
-					</View>
-
-					<View style={STYLES.rowContainer}>
 						<InfoTab onPress={() => this.updatePath('/payment')} icon='credit-card' name='Payment / Credit'/>
 						<InfoTab onPress={() => this.updatePath('/orders')} icon='calendar' name='Orders'/>
-					</View>
-
-					<View style={STYLES.rowContainer}>
 						<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
 						<InfoTab onPress={() => this.signOut()} icon='sign-out' name='Sign out'/>
 					</View>
-
-
-
 				</ScrollView>
 
 
@@ -82,6 +73,7 @@ const STYLES = {
 	},
 	rowContainer: {
 		flexDirection: 'row',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		flexWrap: 'wrap'
 	}
 }
