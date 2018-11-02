@@ -8,7 +8,7 @@ import PassManager from './pass-manager/index'
 import AccountInformation from './account-information/index'
 import Events from './events/index'
 import Blog from './blog/index'
-import Refer from './refer/index'
+import Cart from './cart/index'
 
 const ELITE_WORKS_ORANGE = '#faa31a'
 
@@ -20,7 +20,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/events');
+    this.updatePath('/cart');
   }
 
   updatePath(path) {
@@ -41,7 +41,7 @@ export default class AccountNavigation extends React.Component {
             <Route path="/account-information" component={AccountInformation} />
             <Route path="/pass-manager" component={PassManager} />
             <Route path="/events" component={Events} />
-            <Route path="/refer" component={Refer} />
+            <Route path="/cart" component={Cart} />
           </View>
 
           {/*Bottom Menu*/}
@@ -68,8 +68,8 @@ export default class AccountNavigation extends React.Component {
                 icon="calendar"
               />
               <AccountMenuItem
-                onPress={() => this.updatePath('/refer')}
-                active={path === '/refer'}
+                onPress={() => this.updatePath('/cart')}
+                active={path === '/cart'}
                 icon="shopping-cart"
               />
             </View>
