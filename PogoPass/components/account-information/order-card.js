@@ -187,7 +187,9 @@ const STYLES = {
     iconContainer:{
         position: 'absolute',
         zIndex: 1,
-        backgroundColor:'orange',
+        backgroundColor:'white',
+        borderWidth: 2,
+        borderColor: 'orange',
         borderRadius: 50,
         padding: 10,
         marginTop: 40,
@@ -226,7 +228,7 @@ const STYLES = {
         borderRadius: 5
     },
     buttonStyle:{
-        //backgroundColor: 'orange'
+        backgroundColor: 'orange'
     },
     productSectionContainer: {
         flex: 1,

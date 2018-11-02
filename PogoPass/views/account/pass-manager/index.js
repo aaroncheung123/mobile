@@ -263,15 +263,14 @@ export default class Account extends React.Component {
 
 const STYLES = {
 	iconContainer:{
-		backgroundColor:'white',
+		backgroundColor: '#E5E5E5',
 		borderRadius: 20,
 		padding: 15,
 		marginVertical: 30,
 		justifyContent: 'center',
 		alignItems:'center',
 		width: 100,
-		borderWidth: 2,
-		borderColor: 'orange'
+		opacity: .9
 	},
 	topButtonSection:{
 		flex: 1,

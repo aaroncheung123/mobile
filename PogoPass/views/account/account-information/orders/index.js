@@ -17,9 +17,16 @@ export default class Orders extends React.Component {
                     <OrderCard/>
                     <OrderCard/>
                     <OrderCard/>
+                    <View style={STYLES.transparentFiller}></View>
                 </ScrollView>
 
             </View>
         );
+    }
+}
+
+const STYLES = {
+    transparentFiller: {
+        height: 450
     }
 }

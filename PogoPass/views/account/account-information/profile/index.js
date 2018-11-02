@@ -169,7 +169,7 @@ export default class Profile extends React.Component {
 	 							/>
 							 </View>
 							</View>
-
+							<View style={STYLES.transparentFiller}></View>
 						</ScrollView>
 
 
@@ -186,7 +186,7 @@ const STYLES = {
 		flex: 1
 	},
 	buttonStyle:{
-		//backgroundColor: 'orange',
+		backgroundColor: 'orange',
 		//paddingLeft: 15,
 		//paddingRight: 15
 	},
@@ -234,5 +234,8 @@ const STYLES = {
 		paddingLeft: 20,
 		borderWidth: 1,
 		borderRadius: 5
-	}
+	},
+  transparentFiller: {
+      height: 250,
+  }
 }

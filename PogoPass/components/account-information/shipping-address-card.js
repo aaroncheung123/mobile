@@ -124,11 +124,13 @@ const STYLES = {
     iconContainer:{
         position: 'absolute',
         zIndex: 1,
-        backgroundColor:'orange',
+        backgroundColor:'white',
         borderRadius: 50,
         padding: 10,
-        marginTop: 35,
-        marginLeft: 20
+        marginTop: 30,
+        marginLeft: 20,
+        borderWidth: 2,
+        borderColor: 'orange'
     },
     outsideContainer: {
         flexDirection: 'column',
@@ -173,7 +175,7 @@ const STYLES = {
         overflow:'hidden',
     },
     buttonStyle:{
-        //backgroundColor: '#D9D9D9',
+        backgroundColor: 'orange',
     },
     buttonContainer: {
         marginTop: 20,

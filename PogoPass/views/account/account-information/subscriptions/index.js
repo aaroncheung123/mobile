@@ -16,8 +16,7 @@ export default class Subscriptions extends React.Component {
                 <ScrollView>
                     <SubscriptionCard/>
                     <SubscriptionCard/>
-                    <View style={STYLES.transparentFiller}>
-                    </View>
+                    <View style={STYLES.transparentFiller}></View>
                 </ScrollView>
 
 
@@ -29,7 +28,6 @@ export default class Subscriptions extends React.Component {
 
 const STYLES = {
     transparentFiller: {
-        flex: 1,
-        height: 250,
+        height: 250
     }
 }

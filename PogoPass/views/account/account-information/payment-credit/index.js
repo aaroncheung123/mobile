@@ -55,8 +55,11 @@ export default class PaymentCredit extends React.Component {
 											<Text style={STYLES.bottomTextStyle}>Available Balance: $10.00</Text>
 										</View>
 
+										<View style={STYLES.transparentFiller1}></View>
 
 									</View>
+
+									<View style={STYLES.transparentFiller}></View>
 								</ScrollView>
             </View>
         );
@@ -71,7 +74,7 @@ const STYLES = {
 	},
 	iconContainer:{
 		flex: 1,
-		backgroundColor:'#D9D9D9',
+		backgroundColor:'white',
 		borderRadius: 15,
 		padding: 10,
 		marginTop: 35,
@@ -111,7 +114,13 @@ const STYLES = {
 		justifyContent:'flex-start',
 		alignItems:'flex-start',
 		borderBottomWidth: 1,
-		marginBottom: 10,
-		paddingBottom: 40
+		marginBottom: 30,
+		paddingBottom: 30
+	},
+	transparentFiller: {
+			height: 250,
+	},
+	transparentFiller1: {
+			height: 50,
 	}
 }

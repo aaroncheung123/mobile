@@ -111,7 +111,9 @@ const STYLES = {
     iconContainer:{
         position: 'absolute',
         zIndex: 1,
-        backgroundColor:'orange',
+        backgroundColor:'white',
+        borderWidth: 2,
+        borderColor: 'orange',
         borderRadius: 50,
         padding: 10,
         marginTop: 35,
@@ -163,7 +165,7 @@ const STYLES = {
         overflow:'hidden'
     },
     buttonStyle:{
-        //backgroundColor: 'orange',
+        backgroundColor: 'orange',
     },
     buttonContainer: {
         marginTop: 20,
