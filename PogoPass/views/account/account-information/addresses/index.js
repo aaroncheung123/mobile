@@ -67,7 +67,7 @@ const STYLES = {
 	},
 	iconContainer:{
 		flex: 1,
-		backgroundColor:'orange',
+		backgroundColor:'#D9D9D9',
 		borderRadius: 50,
 		padding: 10,
 		marginVertical: 35,

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 //import { Icon } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -7,12 +7,12 @@ export default class InfoTab extends React.Component {
 
     render() {
         return (
-			<TouchableWithoutFeedback onPress={this.props.onPress}>
+			<TouchableOpacity onPress={this.props.onPress}>
       	<View style={STYLES.container}>
 					<Icon name={this.props.icon} size= {30}/>
           <Text style={STYLES.textStyle}>{this.props.name}</Text>
         </View>
-			</TouchableWithoutFeedback>
+			</TouchableOpacity>
         );
     }
 }

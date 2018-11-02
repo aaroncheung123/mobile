@@ -21,13 +21,13 @@ export default class SubscriptionCard extends React.Component {
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight   : event.nativeEvent.layout.height + 5
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight   : event.nativeEvent.layout.height - 1
         });
     }
 
@@ -232,6 +232,7 @@ export default class SubscriptionCard extends React.Component {
             flexDirection: 'row',
             paddingHorizontal: 20,
             paddingTop: 25,
+            marginBottom: 30
         },
         iconContainer:{
             position: 'absolute',
@@ -282,7 +283,7 @@ export default class SubscriptionCard extends React.Component {
             padding: 20
         },
         buttonStyle:{
-            backgroundColor: 'orange'
+            //backgroundColor: 'orange'
         },
         productSectionContainer: {
         },
@@ -338,12 +339,3 @@ export default class SubscriptionCard extends React.Component {
             flex: 1
         }
     }
-
-
-    // <Text style={STYLES.contentText}>Subcription # 175956 - Pogo Pass Phoenix - 12 Months Renewal</Text>
-    // <Text style={STYLES.contentText}>Status: CANCELLED</Text>
-    // <Text style={STYLES.contentText}>Payment Method: None Selected - Please set up auto billing by editing subscription </Text>
-    // <Text style={STYLES.contentText}>Address: Home - 213 W Ridge Rd, Saratoga Springs, UT 84045 </Text>
-    // <Text style={STYLES.contentText}>Use Store Credit: ON</Text>
-    // <Text style={STYLES.contentText}>Account #: A0d29d037d</Text>
-    // <Text style={STYLES.contentText}>Name: Kyle Paulson</Text>

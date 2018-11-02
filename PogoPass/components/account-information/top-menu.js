@@ -40,7 +40,7 @@ const STYLES = {
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		width:'100%',
-		backgroundColor: 'orange',
+		backgroundColor: 'rgba(0, 0, 0, 0.6)',
 		opacity: .95,
 		padding: 17
 	},

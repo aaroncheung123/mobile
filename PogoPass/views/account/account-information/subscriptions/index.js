@@ -15,9 +15,21 @@ export default class Subscriptions extends React.Component {
                 <TopMenu title= 'Subscriptions' onPress={() => this.updatePath('/account-main')}/>
                 <ScrollView>
                     <SubscriptionCard/>
+                    <SubscriptionCard/>
+                    <View style={STYLES.transparentFiller}>
+                    </View>
                 </ScrollView>
+
+
 
             </View>
         );
+    }
+}
+
+const STYLES = {
+    transparentFiller: {
+        flex: 1,
+        height: 250,
     }
 }

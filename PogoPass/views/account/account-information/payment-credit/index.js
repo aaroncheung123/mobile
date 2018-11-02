@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import TopMenu from '../../../../components/account-information/top-menu';
 import PaymentCard from '../../../../components/account-information/payment-card';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -26,9 +26,13 @@ export default class PaymentCredit extends React.Component {
                 <TopMenu title= 'Payment/Credit' onPress={() => this.updatePath('/account-main')}/>
 								<ScrollView>
 									<PaymentCard/>
-									<View style={STYLES.iconContainer}>
+
+
+									<TouchableOpacity style={STYLES.iconContainer}>
 											<Icon name='plus' size= {35}/>
-									</View>
+									</TouchableOpacity>
+
+
 
 									<View style={STYLES.bottomSectionTitle}>
 										<Text style={STYLES.bottomSectionHeader}> Credit </Text>
@@ -67,8 +71,8 @@ const STYLES = {
 	},
 	iconContainer:{
 		flex: 1,
-		backgroundColor:'orange',
-		borderRadius: 50,
+		backgroundColor:'#D9D9D9',
+		borderRadius: 15,
 		padding: 10,
 		marginTop: 35,
 		marginBottom: 35,

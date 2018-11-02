@@ -25,7 +25,7 @@ export default class OrderCard extends React.Component {
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight   : event.nativeEvent.layout.height + 8
         });
     }
 
@@ -222,10 +222,11 @@ const STYLES = {
         opacity: .9,
         marginLeft: 25,
         marginTop: 2,
-        padding: 20
+        padding: 20,
+        borderRadius: 5
     },
     buttonStyle:{
-        backgroundColor: 'orange'
+        //backgroundColor: 'orange'
     },
     productSectionContainer: {
         flex: 1,

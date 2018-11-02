@@ -19,13 +19,13 @@ export default class PaymentCard extends React.Component {
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight   : event.nativeEvent.layout.height + 5
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight   : event.nativeEvent.layout.height - 1
         });
     }
 
@@ -163,7 +163,7 @@ const STYLES = {
         overflow:'hidden'
     },
     buttonStyle:{
-        backgroundColor: 'orange',
+        //backgroundColor: 'orange',
     },
     buttonContainer: {
         marginTop: 20,

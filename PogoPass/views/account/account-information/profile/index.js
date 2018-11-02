@@ -186,9 +186,9 @@ const STYLES = {
 		flex: 1
 	},
 	buttonStyle:{
-		backgroundColor: 'orange',
-		paddingLeft: 15,
-		paddingRight: 15
+		//backgroundColor: 'orange',
+		//paddingLeft: 15,
+		//paddingRight: 15
 	},
 	buttonContainer:{
 		paddingTop: 30,
