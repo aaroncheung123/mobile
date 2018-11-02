@@ -192,6 +192,7 @@ export default class Account extends React.Component {
 							</View>
 							{passViews}
 						</View>
+						<View style={STYLES.transparentFiller}></View>
 					</ScrollView>
 
 					<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
@@ -382,6 +383,9 @@ const STYLES = {
 		color: 'white',
 		position: 'absolute',
 		right: 0
+	},
+	transparentFiller: {
+			height: 250,
 	}
 }
 

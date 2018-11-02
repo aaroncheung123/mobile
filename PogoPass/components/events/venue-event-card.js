@@ -118,7 +118,7 @@ const STYLES = {
     },
     venueContainer: {
         flexDirection: 'row',
-        height: 120,
+        height: 80,
         width: 300,
         justifyContent: 'center',
         alignItems: 'center',

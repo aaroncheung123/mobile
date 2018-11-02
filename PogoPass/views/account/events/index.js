@@ -48,6 +48,7 @@ export default class Events extends React.Component {
 						<VenueEventCard/>
 						<VenueEventCard/>
 						<VenueEventCard/>
+						<View style={STYLES.transparentFiller}></View>
 					</ScrollView>
 
 				</View>
@@ -101,6 +102,8 @@ const STYLES = {
 	},
 	switchStyle: {
 		marginHorizontal: 10,
-		//transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }]
+	},
+	transparentFiller: {
+			height: 250,
 	}
 }
