@@ -1,11 +1,15 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ProductCard = (props) => {
     return (
-        <View style={STYLES.container}>
-            <View style={STYLES.innerContainer}>
-                <View style={STYLES.rowContainer}>
+        <View>
+            <TouchableOpacity style={STYLES.trashIcon}>
+                <Icon name='trash' size= {30}/>
+            </TouchableOpacity>
+            <View style={STYLES.container}>
+                <View style={STYLES.innerContainer}>
                     <View style={STYLES.leftContainer}>
                         <Text style={STYLES.title}>Product</Text>
                     </View>
@@ -14,18 +18,16 @@ const ProductCard = (props) => {
                     </View>
                 </View>
 
-
-                <View style={STYLES.rowContainer}>
+                <View style={STYLES.innerContainer}>
                     <View style={STYLES.leftContainer}>
                         <Text style={STYLES.title}>Price</Text>
                     </View>
                     <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.title1}>$99.95/1 year</Text>
+                        <Text style={STYLES.title1}>$99.95 / 1 year</Text>
                     </View>
                 </View>
 
-
-                <View style={STYLES.rowContainer}>
+                <View style={STYLES.innerContainer}>
                     <View style={STYLES.leftContainer}>
                         <Text style={STYLES.title}>Quantity</Text>
                     </View>
@@ -35,18 +37,21 @@ const ProductCard = (props) => {
                 </View>
 
 
-                <View style={STYLES.rowContainer}>
-                    <View style={STYLES.leftContainer}>
+                <View style={STYLES.innerContainer}>
+                    <View style={[STYLES.leftContainer, STYLES.bottomWidth]}>
                         <Text style={STYLES.title}>Total Price</Text>
                     </View>
-                    <View style={STYLES.rightContainer}>
+                    <View style={[STYLES.rightContainer, STYLES.bottomWidth]}>
                         <Text style={STYLES.title1}>$99.95</Text>
                     </View>
                 </View>
+
+
+
             </View>
-
-
         </View>
+
+
     );
 }
 
@@ -55,16 +60,14 @@ export default ProductCard;
 const STYLES = {
     container: {
         flex: 1,
-        margin: 10,
-        padding: 10,
-        borderTopWidth: 20,
+        borderTopWidth: 40,
         borderColor: 'orange',
-        borderRadius: 10
+        margin: 10,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
     },
     innerContainer: {
-        borderLeftWidth: 2,
-        borderRightWidth: 2,
-        borderBottomWidth: 2,
+        flexDirection: 'row'
     },
     rowContainer: {
         flex: 1,
@@ -73,15 +76,19 @@ const STYLES = {
     leftContainer: {
         flex: 1,
         justifyContent: 'center',
+        borderLeftWidth: 2,
         borderColor: '#bfbfbf',
         padding: 10
     },
     rightContainer: {
         flex: 3,
         justifyContent: 'center',
-        //borderLeftWidth: 2,
-        //borderColor: '#bfbfbf',
+        borderRightWidth: 2,
+        borderColor: '#bfbfbf',
         padding: 10
+    },
+    bottomWidth: {
+        borderBottomWidth: 2,
     },
     title: {
         fontSize: 14,
@@ -94,5 +101,12 @@ const STYLES = {
         textAlign: 'left',
         paddingBottom: 5,
         paddingLeft: 20
+    },
+    trashIcon: {
+        position: 'absolute',
+        right: 0,
+        zIndex: 1,
+        marginRight: 20,
+        marginTop: 15
     }
 }
