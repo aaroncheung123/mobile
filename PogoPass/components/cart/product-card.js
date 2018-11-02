@@ -1,61 +1,70 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ProductCard = (props) => {
-    return (
-        <View>
-            <TouchableOpacity style={STYLES.trashIcon}>
-                <Icon name='trash' size= {30}/>
-            </TouchableOpacity>
-            <View style={STYLES.container}>
-                <View style={STYLES.innerContainer}>
-                    <View style={STYLES.leftContainer}>
-                        <Text style={STYLES.title}>Product</Text>
+export default class ProductCard extends React.Component {
+
+    handleQuantity(){
+
+    }
+
+    render() {
+        return (
+            <View>
+                <TouchableOpacity style={STYLES.trashIcon}>
+                    <Icon name='trash' size= {30}/>
+                </TouchableOpacity>
+                <View style={STYLES.container}>
+                    <View style={STYLES.innerContainer}>
+                        <View style={STYLES.leftContainer}>
+                            <Text style={STYLES.title}>Product</Text>
+                        </View>
+                        <View style={STYLES.rightContainer}>
+                            <Text style={STYLES.title1}>Pogo Pass San Antonio - 12 Months</Text>
+                        </View>
                     </View>
-                    <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.title1}>Pogo Pass San Antonio - 12 Months</Text>
+
+                    <View style={STYLES.innerContainer}>
+                        <View style={STYLES.leftContainer}>
+                            <Text style={STYLES.title}>Price</Text>
+                        </View>
+                        <View style={STYLES.rightContainer}>
+                            <Text style={STYLES.title1}>$99.95 / 1 year</Text>
+                        </View>
                     </View>
+
+                    <View style={STYLES.innerContainer}>
+                        <View style={STYLES.leftContainer}>
+                            <Text style={STYLES.title}>Quantity</Text>
+                        </View>
+                        <View style={STYLES.rightContainer}>
+                            <TextInput
+                                style = {STYLES.textInputStyle}
+                                keyboardType = 'number-pad'
+                                underlineColorAndroid = "transparent"
+                                value = '1'
+                                onChangeText = {this.handleQuantity}/>
+                        </View>
+                    </View>
+
+
+                    <View style={STYLES.innerContainer}>
+                        <View style={[STYLES.leftContainer, STYLES.bottomWidth]}>
+                            <Text style={STYLES.title}>Total Price</Text>
+                        </View>
+                        <View style={[STYLES.rightContainer, STYLES.bottomWidth]}>
+                            <Text style={STYLES.title1}>$99.95</Text>
+                        </View>
+                    </View>
+
+
+
                 </View>
-
-                <View style={STYLES.innerContainer}>
-                    <View style={STYLES.leftContainer}>
-                        <Text style={STYLES.title}>Price</Text>
-                    </View>
-                    <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.title1}>$99.95 / 1 year</Text>
-                    </View>
-                </View>
-
-                <View style={STYLES.innerContainer}>
-                    <View style={STYLES.leftContainer}>
-                        <Text style={STYLES.title}>Quantity</Text>
-                    </View>
-                    <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.title1}>1</Text>
-                    </View>
-                </View>
-
-
-                <View style={STYLES.innerContainer}>
-                    <View style={[STYLES.leftContainer, STYLES.bottomWidth]}>
-                        <Text style={STYLES.title}>Total Price</Text>
-                    </View>
-                    <View style={[STYLES.rightContainer, STYLES.bottomWidth]}>
-                        <Text style={STYLES.title1}>$99.95</Text>
-                    </View>
-                </View>
-
-
-
             </View>
-        </View>
-
-
-    );
+        );
+    }
 }
 
-export default ProductCard;
 
 const STYLES = {
     container: {
@@ -108,5 +117,12 @@ const STYLES = {
         zIndex: 1,
         marginRight: 20,
         marginTop: 15
+    },
+    textInputStyle: {
+        textAlign: 'center',
+        marginLeft: 20,
+        borderWidth: 1,
+        width: 40,
+        borderRadius: 10
     }
 }
