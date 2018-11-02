@@ -315,8 +315,8 @@ const STYLES = {
 		textAlign: 'center',
 		color: 'white',
 		fontWeight:'bold',
-		fontSize: 35,
-		padding: 20,
+		fontSize: 25,
+		padding: 10,
 		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	},
 	springContainer: {

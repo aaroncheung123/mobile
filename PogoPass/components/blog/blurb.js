@@ -106,7 +106,7 @@ const STYLES = {
   },
   blurbSection: {
     backgroundColor:'white',
-    borderRadius: 20,
+    borderRadius: 10,
     opacity: 0.9,
 		marginTop: 5,
 		borderLeftWidth: 40,

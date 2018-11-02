@@ -59,15 +59,16 @@ const STYLES = {
 	title: {
 		textAlign: 'center',
 		color: 'white',
-		fontSize: 35,
+		fontSize: 25,
 		fontWeight: 'bold',
 		width:'100%'
 	},
 	titleContainer: {
 		width:'100%',
 		opacity: .95,
-		paddingVertical: 20,
-		backgroundColor: 'rgba(0, 0, 0, 0.6)'
+		paddingVertical: 10,
+		backgroundColor: 'rgba(0, 0, 0, 0.6)',
+		marginBottom: 30
 	},
 	infoTabContainer: {
 		width:'100%'

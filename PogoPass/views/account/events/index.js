@@ -67,12 +67,12 @@ const STYLES = {
 	title: {
 		color: 'white',
 		minWidth: '100%',
-		fontSize: 35,
+		fontSize: 25,
 		fontWeight: 'bold',
 		textAlign: 'center',
 		alignItems: 'center',
 		justifyContent: 'center',
-		padding: 20,
+		padding: 10,
 		opacity: .95,
 		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	},
@@ -98,7 +98,7 @@ const STYLES = {
 	},
 	toggleText: {
 		color: 'white',
-		fontSize: 24
+		fontSize: 18
 	},
 	switchStyle: {
 		marginHorizontal: 10,
