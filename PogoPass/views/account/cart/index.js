@@ -40,7 +40,7 @@ export default class Cart extends React.Component {
 									<TextInput
 									 underlineColorAndroid = "transparent"
 									 placeholder = "Promo, Referral, or Gift Code"
-									 placeholderTextColor = "black"/>
+									 placeholderTextColor = "gray"/>
 								</View>
 
 								<TouchableOpacity
@@ -120,7 +120,7 @@ const STYLES = {
 		color: 'white'
 	},
 	transparentFiller: {
-			height: 250,
+			height: 350,
 	},
 	orderSummaryContainer: {
 		height: 200,
