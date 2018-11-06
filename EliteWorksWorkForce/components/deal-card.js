@@ -64,10 +64,12 @@ export default class DealCard extends React.Component {
 
                 <View style={STYLES.elevatedContainer}>
 
-                    <Text style={STYLES.textStyle1}>Snow Removal Test</Text>
-                    <Text style={STYLES.textStyle}>Client: Logan Connors</Text>
-                    <Text style={STYLES.textStyle}>Status: Opportunity</Text>
-                    <Text style={STYLES.textStyle}>Date: 10/31/18</Text>
+                    <View style={STYLES.textContainer}>
+                        <Text style={STYLES.textStyle1}>Snow Removal</Text>
+                        <Text style={STYLES.textStyle}>Client: Logan Connors</Text>
+                        <Text style={STYLES.textStyle}>Status: Opportunity</Text>
+                        <Text style={STYLES.textStyle}>Date: 10/31/18</Text>
+                    </View>
                     <View style={STYLES.arrowContainer}>
                         <Image
                           style={STYLES.arrow}
@@ -78,11 +80,6 @@ export default class DealCard extends React.Component {
                 </View>
             </View>
 
-
-
-
-
-
         );
     }
 }
@@ -91,13 +88,12 @@ const STYLES = {
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 30
+        padding: 30,
+        width: '100%'
     },
     elevatedContainer: {
         flex: 1,
         backgroundColor: Blueberry,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
         borderRadius: 5,
         shadowOffset: { height: 1, width: 1 }, // IOS
         shadowOpacity: 2, // IOS
@@ -120,9 +116,9 @@ const STYLES = {
         borderBottomWidth: 2,
         borderColor: 'white'
     },
-    textStyle2: {
-        fontSize: 24,
-        fontWeight: 'bold',
+    textContainer: {
+        justifyContent: 'center',
+        alignItems: 'flex-start',
     },
     buttonImage: {
         height: 40,
@@ -135,6 +131,7 @@ const STYLES = {
     },
     arrowContainer: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 20
     }
 }

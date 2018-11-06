@@ -53,7 +53,8 @@ const STYLES = {
         marginVertical: 30
     },
     scrollViewContainer: {
-        flex: 14
+        flex: 14,
+        width: '100%'
     },
     iconContainer: {
         flex: 1,
