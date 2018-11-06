@@ -147,7 +147,7 @@ export default class Account extends React.Component {
 							<Icon
 								name='bars'
 								type='font-awesome'
-								color='#cc842f'
+								color='#F7882F'
 								size={25}
 								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
 							/>
@@ -156,13 +156,11 @@ export default class Account extends React.Component {
 					</View>
 
 					{/*content*/}
-					<TouchableWithoutFeedback onPress={() => this.setState({sideMenuOpen: false}, this.updateSideMenu)}>
 						<View style={CONTENT_STYLES.container}>
 							<Route path="/dashboard" component={AccountDashBoard} />
 							<Route path="/orders" component={AccountWorkOrders} />
 							<Route path="/time" component={AccountTimeClock} />
 						</View>
-					</TouchableWithoutFeedback>
 
 					{/*Bottom Menu*/}
 					<View style={ACCOUNT_MENU.container}>
@@ -357,7 +355,6 @@ const CONTENT_STYLES = {
 	container: {
 		flex: 1,
 		width: '100%',
-		//backgroundColor: AccountContentGrey
 	}
 }
 
@@ -365,7 +362,7 @@ const ACCOUNT_MENU = {
 	container: {
 		flex: 1,
 		width: '100%',
-		backgroundColor: AccountMenuGrey,
+		backgroundColor: 'white',
 		maxHeight: 65,
 		alignItems: 'center',
 		justifyContent: 'center',

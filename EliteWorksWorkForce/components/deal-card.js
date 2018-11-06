@@ -25,13 +25,13 @@ export default class DealCard extends React.Component {
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight   : event.nativeEvent.layout.height + 45
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight   : event.nativeEvent.layout.height + 45
         });
     }
 
@@ -61,23 +61,22 @@ export default class DealCard extends React.Component {
         }
         return(
             <Animated.View style={[STYLES.container,{height: this.state.animation}]}>
-                <View style={STYLES.elevatedContainer} onLayout={this._setMinHeight.bind(this)}>
-                    <TouchableOpacity onPress={this.toggle.bind(this)}>
-                        <View style={STYLES.textContainer}>
-                            <Text style={STYLES.textStyle1}>Snow Removal Test</Text>
-                            <Text style={STYLES.textStyle}>Client: Logan Connors</Text>
-                            <Text style={STYLES.textStyle}>Status: Opportunity</Text>
-                            <Text style={STYLES.textStyle}>Date: 10/31/18</Text>
+                <TouchableOpacity style={STYLES.elevatedContainer} onLayout={this._setMinHeight.bind(this)} onPress={this.toggle.bind(this)}>
+                        <View>
+                            <View style={STYLES.textContainer}>
+                                <Text style={STYLES.textStyle1}>Snow Removal Test</Text>
+                                <Text style={STYLES.textStyle}>Client: Logan Connors</Text>
+                                <Text style={STYLES.textStyle}>Status: Opportunity</Text>
+                                <Text style={STYLES.textStyle}>Date: 10/31/18</Text>
+                            </View>
+                            <View style={STYLES.arrowContainer}>
+                                <Image
+                                  style={STYLES.arrow}
+                                  source={icon}>
+                                </Image>
+                            </View>
                         </View>
-                        <View style={STYLES.arrowContainer}>
-                            <Image
-                              style={STYLES.arrow}
-                              source={icon}>
-                            </Image>
-                        </View>
-
-                    </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
 
                 <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
                     <View style={STYLES.descriptionContainer}>
@@ -100,10 +99,10 @@ export default class DealCard extends React.Component {
 
 const STYLES = {
     container: {
-        justifyContent: 'center',
-        alignItems: 'center',
         padding: 30,
-        width: '100%'
+        width: '100%',
+        flex: 1,
+        backgroundColor: 'transparent'
     },
     hiddenBody: {
         width: '100%',
@@ -126,7 +125,8 @@ const STYLES = {
         elevation: 10, // Android
         paddingHorizontal: 40,
         paddingVertical: 20,
-        width: '100%'
+        width: '100%',
+        marginBottom: 25
     },
     textStyle: {
         color: 'white'
