@@ -12,7 +12,6 @@ export default class DealCard extends React.Component {
       this.icons = {
           'up'    : require('../assets/images/icons/up_arrow.png'),
           'down'  : require('../assets/images/icons/down_arrow.png'),
-          'snowflake'  : require('../assets/images/icons/snowflake.png')
       };
 
       this.state = {
@@ -26,13 +25,13 @@ export default class DealCard extends React.Component {
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height + 10
+            maxHeight   : event.nativeEvent.layout.height
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height + 10
+            minHeight   : event.nativeEvent.layout.height
         });
     }
 
@@ -62,7 +61,7 @@ export default class DealCard extends React.Component {
         }
         return(
             <Animated.View style={[STYLES.container,{height: this.state.animation}]}>
-                <View style={STYLES.elevatedContainer}  onLayout={this._setMinHeight.bind(this)}>
+                <View style={STYLES.elevatedContainer} onLayout={this._setMinHeight.bind(this)}>
                     <TouchableOpacity onPress={this.toggle.bind(this)}>
                         <View style={STYLES.textContainer}>
                             <Text style={STYLES.textStyle1}>Snow Removal Test</Text>
@@ -86,10 +85,11 @@ export default class DealCard extends React.Component {
                         <Text style={STYLES.textStyle3}>This is a test for our meeting</Text>
                     </View>
 
+                    <View>
+                        <Text style={STYLES.textStyle2}>Work Orders</Text>
+                        <WorkOrderCard/>
+                    </View>
 
-                    <Text style={STYLES.textStyle2}>Work Orders</Text>
-                    <WorkOrderCard/>
-                    <WorkOrderCard/>
                 </View>
 
             </Animated.View>
@@ -106,10 +106,9 @@ const STYLES = {
         width: '100%'
     },
     hiddenBody: {
-        width: '90%',
+        width: '100%',
         backgroundColor: 'white',
         marginTop: 2,
-        marginLeft: 23,
         padding: 20,
         borderRadius: 10,
         elevation: 10,
