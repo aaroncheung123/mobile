@@ -147,7 +147,7 @@ export default class Account extends React.Component {
 							<Icon
 								name='bars'
 								type='font-awesome'
-								color='#F7882F'
+								color='#cc842f'
 								size={25}
 								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
 							/>
@@ -169,19 +169,16 @@ export default class Account extends React.Component {
 								onPress={() => this.updatePath('/dashboard')}
 								active={path === '/dashboard'}
 								icon="home"
-								title="Home"
 							/>
 							<AccountMenuItem
 								onPress={() => this.updatePath('/orders')}
 								active={path === '/orders'}
-								icon="clipboard"
-								title="Tasks"
+								icon="tasks"
 							/>
 							<AccountMenuItem
 								onPress={() => this.updatePath('/time')}
 								active={path === '/time'}
 								icon="clock-o"
-								title="Time Clock"
 							/>
 						</View>
 					</View>
@@ -366,6 +363,9 @@ const ACCOUNT_MENU = {
 		maxHeight: 65,
 		alignItems: 'center',
 		justifyContent: 'center',
+		elevation: 4,
+		borderTopLeftRadius: 20,
+		borderTopRightRadius: 20
 	},
 	menuContainer: {
 		flexDirection: 'row',

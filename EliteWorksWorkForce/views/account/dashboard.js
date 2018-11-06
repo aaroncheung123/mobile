@@ -46,7 +46,7 @@ const STYLES = {
     textInputStyle: {
         width: '100%',
         borderBottomWidth: 2,
-        borderColor: '#F7882F'
+        borderColor: '#6B7A8F'
     },
     searchContainer: {
         width: '80%',
