@@ -24,6 +24,7 @@ export default class Dashboard extends React.Component {
                 <View style={STYLES.scrollViewContainer}>
                     <ScrollView>
                         <DealCard/>
+                        <View style={STYLES.transparentFiller}></View>
                     </ScrollView>
                 </View>
 
@@ -43,7 +44,7 @@ const STYLES = {
     textInputStyle: {
         width: '100%',
         borderBottomWidth: 2,
-        borderColor: 'gray'
+        borderColor: '#cc842f'
     },
     searchContainer: {
         flex: 1,
@@ -66,5 +67,8 @@ const STYLES = {
         flex: 9,
         justifyContent: 'flex-start',
         alignItems: 'center'
+    },
+    transparentFiller: {
+        height: 250,
     }
 }

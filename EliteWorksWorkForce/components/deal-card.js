@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Button, Image, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry, AppleCore} from '../assets/styles/constants';
+import WorkOrderCard from './work-order-card';
 
 
 export default class DealCard extends React.Component {
@@ -62,10 +63,10 @@ export default class DealCard extends React.Component {
         return(
             <View style={STYLES.container}>
 
-                <View style={STYLES.elevatedContainer}>
 
+                <View style={STYLES.elevatedContainer}>
                     <View style={STYLES.textContainer}>
-                        <Text style={STYLES.textStyle1}>Snow Removal</Text>
+                        <Text style={STYLES.textStyle1}>Snow Removal Test</Text>
                         <Text style={STYLES.textStyle}>Client: Logan Connors</Text>
                         <Text style={STYLES.textStyle}>Status: Opportunity</Text>
                         <Text style={STYLES.textStyle}>Date: 10/31/18</Text>
@@ -76,8 +77,19 @@ export default class DealCard extends React.Component {
                           source={icon}>
                         </Image>
                     </View>
-
                 </View>
+
+                <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
+                    <View style={STYLES.descriptionContainer}>
+                        <Text style={STYLES.textStyle2}>Description:</Text>
+                        <Text style={STYLES.textStyle3}>This is a test for our meeting</Text>
+                    </View>
+
+
+                    <Text style={STYLES.textStyle2}>Work Orders</Text>
+                    <WorkOrderCard/>
+                </View>
+
             </View>
 
         );
@@ -90,6 +102,20 @@ const STYLES = {
         alignItems: 'center',
         padding: 30,
         width: '100%'
+    },
+    animatedContainer: {
+        flex: 1,
+        marginBottom: 20,
+        backgroundColor: 'transparent'
+    },
+    hiddenBody: {
+        width: '90%',
+        backgroundColor: 'white',
+        marginTop: 2,
+        marginLeft: 23,
+        padding: 20,
+        borderRadius: 10,
+        elevation: 10
     },
     elevatedContainer: {
         flex: 1,
@@ -110,11 +136,18 @@ const STYLES = {
         width: '100%',
         color: 'white',
         fontSize: 18,
-        fontWeight: 'bold',
         marginBottom: 15,
         paddingBottom: 15,
         borderBottomWidth: 2,
-        borderColor: 'white'
+        borderColor: 'white',
+        fontWeight: 'bold'
+    },
+    textStyle2: {
+        fontSize: 18,
+        color: 'black'
+    },
+    textStyle3: {
+        color: 'black'
     },
     textContainer: {
         justifyContent: 'center',
@@ -133,5 +166,9 @@ const STYLES = {
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 20
+    },
+    descriptionContainer: {
+        flex: 1,
+        marginBottom: 20
     }
 }

@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import {StyleSheet, View, ScrollView, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, AsyncStorage} from 'react-native';
 import {MemoryRouter, Route, Redirect} from "react-router-dom";
