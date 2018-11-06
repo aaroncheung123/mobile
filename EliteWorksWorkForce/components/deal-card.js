@@ -10,8 +10,8 @@ export default class DealCard extends React.Component {
 
       this.icons = {
           'up'    : require('../assets/images/icons/up_arrow.png'),
-          'down'  : require('../assets/images/icons/down_arrow.png')
-          //'snow'  : require('../assets/images/icons/snowflake.png')
+          'down'  : require('../assets/images/icons/down_arrow.png'),
+          'snowflake'  : require('../assets/images/icons/snowflake.png')
       };
 
       this.state = {
@@ -55,6 +55,7 @@ export default class DealCard extends React.Component {
 
     render(){
         let icon = this.icons['up'];
+        let snowflake = this.icons['snowflake'];
 
         if(this.state.expanded){
             icon = this.icons['down'];
@@ -63,13 +64,21 @@ export default class DealCard extends React.Component {
             <View style={STYLES.container}>
                 <View style={STYLES.elevatedContainer}>
                     <View style={STYLES.leftContainer}>
-
+                        <Text style={STYLES.textStyle2}>1</Text>
                     </View>
 
                     <View style={STYLES.rightContainer}>
+                        <Text style={STYLES.textStyle1}>Snow Removal</Text>
                         <Text style={STYLES.textStyle}>Client: Logan Connors</Text>
                         <Text style={STYLES.textStyle}>Status: Opportunity</Text>
                         <Text style={STYLES.textStyle}>Date: 10/31/18</Text>
+                        <View style={STYLES.arrowContainer}>
+                            <Image
+                              style={STYLES.arrow}
+                              source={icon}>
+                            </Image>
+                        </View>
+
                     </View>
                 </View>
             </View>
@@ -94,6 +103,8 @@ const STYLES = {
         flex: 1,
         flexDirection: 'row',
         backgroundColor: Blueberry,
+        justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: 5,
         shadowOffset: { height: 1, width: 1 }, // IOS
         shadowOpacity: 2, // IOS
@@ -102,15 +113,20 @@ const STYLES = {
         padding: 20
     },
     leftContainer: {
-        flex: 2,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRightWidth: 2,
-        borderColor: 'white'
+        backgroundColor: 'white',
+        borderRadius: 50,
+        padding: 5,
+        height: '70%'
     },
     rightContainer: {
-        flex: 3,
-        marginHorizontal: 10
+        flex: 2,
+        marginHorizontal: 10,
+        borderLeftWidth: 2,
+        borderColor: 'white',
+        paddingHorizontal: 20
     },
     textStyle: {
         color: 'white',
@@ -119,6 +135,24 @@ const STYLES = {
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
-        margin: 5
+        marginVertical: 5
+    },
+    textStyle2: {
+        fontSize: 32,
+        fontWeight: 'bold',
+    },
+    buttonImage: {
+        height: 40,
+        width: 40
+    },
+    arrow : {
+        width: 12,
+        height: 8,
+        opacity: .3,
+        marginTop: 15
+    },
+    arrowContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 }
