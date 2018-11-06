@@ -5,7 +5,7 @@ import {StyleSheet, View, ScrollView, TextInput, Image, Keyboard, TouchableWitho
 import {MemoryRouter, Route, Redirect} from "react-router-dom";
 import {Icon} from 'react-native-elements';
 import {Constants} from 'expo';
-import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey} from '../assets/styles/constants';
+import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry} from '../assets/styles/constants';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
 import AccountDashBoard from './account/dashboard';
@@ -159,11 +159,11 @@ export default class Account extends React.Component {
 
 					{/*content*/}
 					<TouchableWithoutFeedback onPress={() => this.setState({sideMenuOpen: false}, this.updateSideMenu)}>
-						<ScrollView style={CONTENT_STYLES.container}>
+						<View style={CONTENT_STYLES.container}>
 							<Route path="/dashboard" component={AccountDashBoard} />
 							<Route path="/orders" component={AccountWorkOrders} />
 							<Route path="/time" component={AccountTimeClock} />
-						</ScrollView>
+						</View>
 					</TouchableWithoutFeedback>
 
 					{/*Bottom Menu*/}
@@ -283,7 +283,7 @@ const TOP_MENU_STYLES = {
 		flex: 1,
 		width: '100%',
 		maxHeight: 70,
-		backgroundColor: 'white'
+		backgroundColor: Blueberry
 	},
 	leftMenuIconContainer: {
 		position: 'absolute',
@@ -297,7 +297,8 @@ const TOP_MENU_STYLES = {
 		fontSize: 18,
 		right: 35,
 		textAlign: 'center',
-		color: 'black'
+		color: 'white',
+		fontWeight: 'bold'
 	}
 }
 

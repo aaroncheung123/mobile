@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Button, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Button, Image, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry} from '../assets/styles/constants';
 
 
@@ -62,6 +62,7 @@ export default class DealCard extends React.Component {
         }
         return(
             <View style={STYLES.container}>
+
                 <View style={STYLES.elevatedContainer}>
                     <View style={STYLES.leftContainer}>
                         <Text style={STYLES.textStyle2}>2</Text>
@@ -91,7 +92,8 @@ export default class DealCard extends React.Component {
 
 const STYLES = {
     container: {
-        flex: 1,
+        height: 150,
+        width: 330,
         padding: 20,
         justifyContent: 'center',
         alignItems: 'center'
