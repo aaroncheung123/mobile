@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Button, Image, TextInput} from 'react-native';
-import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry} from '../assets/styles/constants';
+import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry, AppleCore} from '../assets/styles/constants';
 
 
 export default class DealCard extends React.Component {
@@ -90,7 +90,8 @@ export default class DealCard extends React.Component {
 const STYLES = {
     container: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 30
     },
     elevatedContainer: {
         flex: 1,
@@ -102,38 +103,22 @@ const STYLES = {
         shadowOpacity: 2, // IOS
         shadowRadius: 2, //IOS
         elevation: 10, // Android
-        padding: 20,
-        borderWidth: 2,
-        borderColor: Blueberry
-    },
-    leftContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        borderRadius: 50,
-        padding: 5,
-        margin: 5,
-        height: 70,
-        width: 70,
-    },
-    rightContainer: {
-        flex: 2,
-        marginHorizontal: 10,
-        borderLeftWidth: 2,
-        borderColor: 'white',
-        paddingHorizontal: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
+        paddingHorizontal: 60,
+        paddingVertical: 20,
+        width: '100%'
     },
     textStyle: {
         color: 'white'
     },
     textStyle1: {
+        width: '100%',
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
-        marginVertical: 10
+        marginBottom: 15,
+        paddingBottom: 15,
+        borderBottomWidth: 2,
+        borderColor: 'white'
     },
     textStyle2: {
         fontSize: 24,

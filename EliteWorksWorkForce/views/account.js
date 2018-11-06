@@ -5,7 +5,7 @@ import {StyleSheet, View, ScrollView, TextInput, Image, Keyboard, TouchableWitho
 import {MemoryRouter, Route, Redirect} from "react-router-dom";
 import {Icon} from 'react-native-elements';
 import {Constants} from 'expo';
-import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry} from '../assets/styles/constants';
+import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
 import AccountDashBoard from './account/dashboard';
@@ -149,7 +149,7 @@ export default class Account extends React.Component {
 							<Icon
 								name='bars'
 								type='font-awesome'
-								color='#dddddd'
+								color='#cc842f'
 								size={25}
 								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
 							/>
@@ -283,7 +283,8 @@ const TOP_MENU_STYLES = {
 		flex: 1,
 		width: '100%',
 		maxHeight: 70,
-		backgroundColor: Blueberry
+		backgroundColor: 'white',
+		elevation: 2
 	},
 	leftMenuIconContainer: {
 		position: 'absolute',
@@ -297,8 +298,7 @@ const TOP_MENU_STYLES = {
 		fontSize: 18,
 		right: 35,
 		textAlign: 'center',
-		color: 'white',
-		fontWeight: 'bold'
+		color: 'black'
 	}
 }
 
