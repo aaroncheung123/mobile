@@ -9,7 +9,7 @@ const WorkOrderCard = (props) => {
 
             <View style={STYLES.innerContainer}>
                 <View style={STYLES.leftContainer}>
-                    <Text style={STYLES.textStyle}>Name:</Text>
+                    <Text style={STYLES.textStyle}>Name</Text>
                 </View>
 
                 <View style={STYLES.rightContainer}>
@@ -19,7 +19,7 @@ const WorkOrderCard = (props) => {
 
             <View style={STYLES.innerContainer}>
                 <View style={STYLES.leftContainer}>
-                    <Text style={STYLES.textStyle}>Key:</Text>
+                    <Text style={STYLES.textStyle}>Key</Text>
                 </View>
 
                 <View style={STYLES.rightContainer}>
@@ -30,7 +30,7 @@ const WorkOrderCard = (props) => {
 
             <View style={STYLES.innerContainer}>
                 <View style={STYLES.leftContainer}>
-                    <Text style={STYLES.textStyle}>Status:</Text>
+                    <Text style={STYLES.textStyle}>Status</Text>
                 </View>
 
                 <View style={STYLES.rightContainer}>
@@ -40,7 +40,7 @@ const WorkOrderCard = (props) => {
 
             <View style={STYLES.innerContainer}>
                 <View style={STYLES.leftContainer}>
-                    <Text style={STYLES.textStyle}>Scheduled At:</Text>
+                    <Text style={STYLES.textStyle}>Scheduled</Text>
                 </View>
 
                 <View style={STYLES.rightContainer}>
@@ -50,7 +50,7 @@ const WorkOrderCard = (props) => {
 
             <View style={STYLES.innerContainer}>
                 <View style={STYLES.leftContainer}>
-                    <Text style={STYLES.textStyle}>Date:</Text>
+                    <Text style={STYLES.textStyle}>Date</Text>
                 </View>
 
                 <View style={STYLES.rightContainer}>
@@ -78,13 +78,15 @@ const STYLES = {
     },
     innerContainer: {
         flex: 1,
-        flexDirection:'row'
+        flexDirection:'row',
+        marginHorizontal: 10,
+        marginTop: 5
     },
     leftContainer: {
-        flex: 1
+        flex: 2
     },
     rightContainer: {
-        flex: 2
+        flex: 3
     },
     textStyle: {
         fontSize: 14,
