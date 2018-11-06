@@ -150,11 +150,11 @@ export default class Account extends React.Component {
 								name='bars'
 								type='font-awesome'
 								color='#dddddd'
-								size={35}
+								size={25}
 								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
 							/>
 						</View>
-						<Text style={TOP_MENU_STYLES.companyName}>{GlobalUtil.ulify(this.state.companyName, 25)}</Text>
+						<Text style={TOP_MENU_STYLES.companyName}>American Maintenance</Text>
 					</View>
 
 					{/*content*/}
@@ -273,7 +273,8 @@ const WorkSpaceSideBarRow = (props) => {
 const STYLES = {
 	container: {
 		flex: 1,
-		width: '100%'
+		width: '100%',
+		backgroundColor: 'white'
 	}
 }
 
@@ -282,21 +283,21 @@ const TOP_MENU_STYLES = {
 		flex: 1,
 		width: '100%',
 		maxHeight: 70,
-		backgroundColor: EliteWorksOrange
+		backgroundColor: 'white'
 	},
 	leftMenuIconContainer: {
 		position: 'absolute',
 		top: 25,
-		left: 14,
+		left: 20,
 	},
 	companyName: {
 		position: 'absolute',
 		top: 27,
 		left: 65,
-		fontSize: 24,
+		fontSize: 18,
 		right: 35,
 		textAlign: 'center',
-		color: '#dddddd'
+		color: 'black'
 	}
 }
 
