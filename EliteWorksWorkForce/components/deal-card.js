@@ -61,22 +61,23 @@ export default class DealCard extends React.Component {
             icon = this.icons['down'];
         }
         return(
-            <View style={STYLES.container}>
+            <Animated.View style={[STYLES.container,{height: this.state.animation}]}>
+                <View style={STYLES.elevatedContainer}  onLayout={this._setMinHeight.bind(this)}>
+                    <TouchableOpacity onPress={this.toggle.bind(this)}>
+                        <View style={STYLES.textContainer}>
+                            <Text style={STYLES.textStyle1}>Snow Removal Test</Text>
+                            <Text style={STYLES.textStyle}>Client: Logan Connors</Text>
+                            <Text style={STYLES.textStyle}>Status: Opportunity</Text>
+                            <Text style={STYLES.textStyle}>Date: 10/31/18</Text>
+                        </View>
+                        <View style={STYLES.arrowContainer}>
+                            <Image
+                              style={STYLES.arrow}
+                              source={icon}>
+                            </Image>
+                        </View>
 
-
-                <View style={STYLES.elevatedContainer}>
-                    <View style={STYLES.textContainer}>
-                        <Text style={STYLES.textStyle1}>Snow Removal Test</Text>
-                        <Text style={STYLES.textStyle}>Client: Logan Connors</Text>
-                        <Text style={STYLES.textStyle}>Status: Opportunity</Text>
-                        <Text style={STYLES.textStyle}>Date: 10/31/18</Text>
-                    </View>
-                    <View style={STYLES.arrowContainer}>
-                        <Image
-                          style={STYLES.arrow}
-                          source={icon}>
-                        </Image>
-                    </View>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
@@ -88,9 +89,10 @@ export default class DealCard extends React.Component {
 
                     <Text style={STYLES.textStyle2}>Work Orders</Text>
                     <WorkOrderCard/>
+                    <WorkOrderCard/>
                 </View>
 
-            </View>
+            </Animated.View>
 
         );
     }
@@ -103,11 +105,6 @@ const STYLES = {
         padding: 30,
         width: '100%'
     },
-    animatedContainer: {
-        flex: 1,
-        marginBottom: 20,
-        backgroundColor: 'transparent'
-    },
     hiddenBody: {
         width: '90%',
         backgroundColor: 'white',
@@ -115,7 +112,10 @@ const STYLES = {
         marginLeft: 23,
         padding: 20,
         borderRadius: 10,
-        elevation: 10
+        elevation: 10,
+        shadowOffset: { height: 1, width: 1 }, // IOS
+        shadowOpacity: 2, // IOS
+        shadowRadius: 2, //IOS
     },
     elevatedContainer: {
         flex: 1,
@@ -125,7 +125,7 @@ const STYLES = {
         shadowOpacity: 2, // IOS
         shadowRadius: 2, //IOS
         elevation: 10, // Android
-        paddingHorizontal: 60,
+        paddingHorizontal: 40,
         paddingVertical: 20,
         width: '100%'
     },

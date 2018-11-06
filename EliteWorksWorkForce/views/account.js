@@ -282,7 +282,10 @@ const TOP_MENU_STYLES = {
 		width: '100%',
 		maxHeight: 70,
 		backgroundColor: 'white',
-		elevation: 2
+		elevation: 2,
+		shadowOffset: { height: 1, width: 1 }, // IOS
+		shadowOpacity: 2, // IOS
+		shadowRadius: 2, //IOS
 	},
 	leftMenuIconContainer: {
 		position: 'absolute',
