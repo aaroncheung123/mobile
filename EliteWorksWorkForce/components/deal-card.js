@@ -64,14 +64,11 @@ export default class DealCard extends React.Component {
             <View style={STYLES.container}>
                 <View style={STYLES.elevatedContainer}>
                     <View style={STYLES.leftContainer}>
-                        <Text style={STYLES.textStyle2}>1</Text>
+                        <Text style={STYLES.textStyle2}>2</Text>
                     </View>
 
                     <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.textStyle1}>Snow Removal</Text>
-                        <Text style={STYLES.textStyle}>Client: Logan Connors</Text>
-                        <Text style={STYLES.textStyle}>Status: Opportunity</Text>
-                        <Text style={STYLES.textStyle}>Date: 10/31/18</Text>
+                        <Text style={STYLES.textStyle1}>EliteWorks Zone</Text>
                         <View style={STYLES.arrowContainer}>
                             <Image
                               style={STYLES.arrow}
@@ -119,14 +116,18 @@ const STYLES = {
         backgroundColor: 'white',
         borderRadius: 50,
         padding: 5,
-        height: '70%'
+        margin: 5,
+        height: 70,
+        width: 70,
     },
     rightContainer: {
         flex: 2,
         marginHorizontal: 10,
         borderLeftWidth: 2,
         borderColor: 'white',
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     textStyle: {
         color: 'white',
@@ -135,10 +136,10 @@ const STYLES = {
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
-        marginVertical: 5
+        marginVertical: 10
     },
     textStyle2: {
-        fontSize: 32,
+        fontSize: 24,
         fontWeight: 'bold',
     },
     buttonImage: {
@@ -148,8 +149,7 @@ const STYLES = {
     arrow : {
         width: 12,
         height: 8,
-        opacity: .3,
-        marginTop: 15
+        opacity: .3
     },
     arrowContainer: {
         justifyContent: 'center',
