@@ -55,7 +55,6 @@ export default class DealCard extends React.Component {
 
     render(){
         let icon = this.icons['up'];
-        let snowflake = this.icons['snowflake'];
 
         if(this.state.expanded){
             icon = this.icons['down'];
@@ -64,20 +63,18 @@ export default class DealCard extends React.Component {
             <View style={STYLES.container}>
 
                 <View style={STYLES.elevatedContainer}>
-                    <View style={STYLES.leftContainer}>
-                        <Text style={STYLES.textStyle2}>2</Text>
+
+                    <Text style={STYLES.textStyle1}>Snow Removal Test</Text>
+                    <Text style={STYLES.textStyle}>Client: Logan Connors</Text>
+                    <Text style={STYLES.textStyle}>Status: Opportunity</Text>
+                    <Text style={STYLES.textStyle}>Date: 10/31/18</Text>
+                    <View style={STYLES.arrowContainer}>
+                        <Image
+                          style={STYLES.arrow}
+                          source={icon}>
+                        </Image>
                     </View>
 
-                    <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.textStyle1}>EliteWorks Zone</Text>
-                        <View style={STYLES.arrowContainer}>
-                            <Image
-                              style={STYLES.arrow}
-                              source={icon}>
-                            </Image>
-                        </View>
-
-                    </View>
                 </View>
             </View>
 
@@ -92,24 +89,22 @@ export default class DealCard extends React.Component {
 
 const STYLES = {
     container: {
-        height: 150,
-        width: 330,
-        padding: 20,
         justifyContent: 'center',
         alignItems: 'center'
     },
     elevatedContainer: {
         flex: 1,
-        flexDirection: 'row',
         backgroundColor: Blueberry,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         borderRadius: 5,
         shadowOffset: { height: 1, width: 1 }, // IOS
         shadowOpacity: 2, // IOS
         shadowRadius: 2, //IOS
         elevation: 10, // Android
-        padding: 20
+        padding: 20,
+        borderWidth: 2,
+        borderColor: Blueberry
     },
     leftContainer: {
         flex: 1,
@@ -132,7 +127,7 @@ const STYLES = {
         alignItems: 'center',
     },
     textStyle: {
-        color: 'white',
+        color: 'white'
     },
     textStyle1: {
         color: 'white',
