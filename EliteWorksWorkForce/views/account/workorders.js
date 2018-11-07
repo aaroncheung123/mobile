@@ -29,21 +29,20 @@ export default class WorkOrders extends React.Component {
 			})
 		})
 	}
- 	
+
 	render() {
 		return (
 			<View>
 				<View style={PANEL.container}>
-					<Text style={{...PANEL.headerText, marginBottom: 0}}>Work Orders</Text>
 
 					<DatePicker
 						style={{width: '100%', marginTop: 10}}
 						date={this.state.selectedDay}
 						showIcon={false}
-        				onDateChange={(date) => {this.setState({selectedDay: new Date(date)}, this.loadWorkOrders)}}
-				        confirmBtnText="Confirm"
-				        cancelBtnText="Cancel"
-				        format="MM/DD/YYYY"
+    				onDateChange={(date) => {this.setState({selectedDay: new Date(date)}, this.loadWorkOrders)}}
+		        confirmBtnText="Confirm"
+		        cancelBtnText="Cancel"
+		        format="MM/DD/YYYY"
 
 					/>
 					<View style={PANEL.TableContainer}>
@@ -91,12 +90,12 @@ const TimeClockRowCell = (props) => {
 const WORK_ORDER_ROW = {
 	cellHeaderText: {
 		color: '#cccccc',
-		width: '100%', 
+		width: '100%',
 		textAlign: 'center'
 	},
 	cellValue: {
 		color: '#222222',
-		width: '100%', 
+		width: '100%',
 		textAlign: 'center',
 		fontSize: 20
 	},
@@ -126,7 +125,7 @@ const PANEL = {
 	headerText: {
 		margin: 15,
 		color: EliteWorksOrange,
-		fontSize: 25,	
+		fontSize: 25,
 		fontWeight: 'bold'
 	},
 	timeText: {

@@ -63,13 +63,7 @@ export default class Dashboard extends React.Component {
                             placeholder = "Search Deals by Zone"
                             underlineColorAndroid = "transparent"/>
                     </View>
-
                 </View>
-
-                <TouchableOpacity
-                    onPress={this.handleSpringPanel}>
-                    <Text>Details</Text>
-                </TouchableOpacity>
 
                 <View style={STYLES.scrollViewContainer}>
                     <ScrollView>
