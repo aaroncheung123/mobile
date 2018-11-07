@@ -89,30 +89,48 @@ export default class Dashboard extends React.Component {
 
                         <View style={STYLES.toggleContainer}>
                             <Text style={STYLES.toggleText}>Stop Driving</Text>
+                            <Switch
+                                onTintColor = '#F7882F'
+                                thumbTintColor = 'white'
+                                style = {STYLES.switchStyle}
+                                onValueChange = {this.toggleDriving}
+                                value = {this.state.drivingSwitch}/>
 
-                                <Switch
-                                    onTintColor = '#F7882F'
-                                    thumbTintColor = 'white'
-                                    style = {STYLES.switchStyle}
-                                    onValueChange = {this.toggleDriving}
-                                    value = {this.state.drivingSwitch}/>
-
-                                <Text style={STYLES.toggleText}>Start Driving</Text>
+                            <Text style={STYLES.toggleText}>Start Driving</Text>
                         </View>
 
 
                         <View style={STYLES.toggleContainer}>
                             <Text style={STYLES.toggleText}>Stop Job</Text>
+                            <Switch
+                                onTintColor = '#F7882F'
+                                thumbTintColor = 'white'
+                                style = {STYLES.switchStyle}
+                                onValueChange = {this.toggleJob}
+                                value = {this.state.jobSwitch}/>
 
-                                <Switch
-                                    onTintColor = '#F7882F'
-                                    thumbTintColor = 'white'
-                                    style = {STYLES.switchStyle}
-                                    onValueChange = {this.toggleJob}
-                                    value = {this.state.jobSwitch}/>
-
-                                <Text style={STYLES.toggleText}>Start Job</Text>
+                            <Text style={STYLES.toggleText}>Start Job</Text>
                         </View>
+
+
+                        <View style={STYLES.toggleContainer}>
+                            <Text>Upload Before Picture</Text>
+                            <Text>Upload After Picture</Text>
+                        </View>
+
+
+
+                        <View style={STYLES.notesContainer}>
+                            <TextInput
+                                style={STYLES.textInputStyle1}
+                                placeholder = "Enter notes here"
+                                underlineColorAndroid = "transparent"/>
+                        </View>
+                        <TouchableOpacity
+                            style={STYLES.saveNotes}
+                            onPress={this.handleSpringPanel}>
+                            <Text style={STYLES.toggleText}>Save</Text>
+                        </TouchableOpacity>
 
 
                     </View>
@@ -201,13 +219,28 @@ const STYLES = {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 20
+        marginVertical: 5
     },
     toggleText: {
         color: 'white',
-        fontSize: 18
+        fontSize: 16
     },
     switchStyle: {
         marginHorizontal: 10,
     },
+    notesContainer: {
+        width: 300,
+        height: 100,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 30
+    },
+    saveNotes: {
+        backgroundColor: EliteWorksOrange,
+        padding: 15,
+        margin: 10,
+        borderRadius: 5,
+        alignSelf: 'flex-end'
+    }
 }
