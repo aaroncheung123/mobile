@@ -81,50 +81,70 @@ export default class Dashboard extends React.Component {
                     <View style={STYLES.innerSpringContainer}>
                         <Text style={STYLES.springContainerText}>Snow Removal</Text>
 
-                        <View style={STYLES.toggleContainer}>
-                            <Text style={STYLES.toggleText}>Stop Driving</Text>
-                            <Switch
-                                onTintColor = '#F7882F'
-                                thumbTintColor = 'white'
-                                style = {STYLES.switchStyle}
-                                onValueChange = {this.toggleDriving}
-                                value = {this.state.drivingSwitch}/>
+                        <ScrollView>
+                            <View style={STYLES.filler}>
+                                <View style={STYLES.toggleContainer}>
+                                    <Text style={STYLES.toggleText}>Stop Driving</Text>
+                                    <Switch
+                                        onTintColor = '#F7882F'
+                                        thumbTintColor = 'white'
+                                        style = {STYLES.switchStyle}
+                                        onValueChange = {this.toggleDriving}
+                                        value = {this.state.drivingSwitch}/>
 
-                            <Text style={STYLES.toggleText}>Start Driving</Text>
-                        </View>
-
-
-                        <View style={STYLES.toggleContainer}>
-                            <Text style={STYLES.toggleText}>Stop Job</Text>
-                            <Switch
-                                onTintColor = '#F7882F'
-                                thumbTintColor = 'white'
-                                style = {STYLES.switchStyle}
-                                onValueChange = {this.toggleJob}
-                                value = {this.state.jobSwitch}/>
-
-                            <Text style={STYLES.toggleText}>Start Job</Text>
-                        </View>
+                                    <Text style={STYLES.toggleText}>Start Driving</Text>
+                                </View>
 
 
-                        <View style={STYLES.toggleContainer}>
-                            <Text>Upload Before Picture</Text>
-                            <Text>Upload After Picture</Text>
-                        </View>
+                                <View style={STYLES.toggleContainer}>
+                                    <Text style={STYLES.toggleText}>Stop Job</Text>
+                                    <Switch
+                                        onTintColor = '#F7882F'
+                                        thumbTintColor = 'white'
+                                        style = {STYLES.switchStyle}
+                                        onValueChange = {this.toggleJob}
+                                        value = {this.state.jobSwitch}/>
+
+                                    <Text style={STYLES.toggleText}>Start Job</Text>
+                                </View>
 
 
 
-                        <View style={STYLES.notesContainer}>
-                            <TextInput
-                                style={STYLES.textInputStyle1}
-                                placeholder = "Enter notes here"
-                                underlineColorAndroid = "transparent"/>
-                        </View>
-                        <TouchableOpacity
-                            style={STYLES.saveNotes}
-                            onPress={this.handleSpringPanel}>
-                            <Text style={STYLES.toggleText}>Save</Text>
-                        </TouchableOpacity>
+                                <View style={STYLES.outsidePhotoContainer}>
+                                    <Text style={STYLES.toggleText}>Before Photos</Text>
+                                    <View style={STYLES.photoRow}>
+                                        <View style={STYLES.photoContainer}></View>
+                                        <View style={STYLES.photoContainer}></View>
+                                        <View style={STYLES.photoContainer}></View>
+                                    </View>
+
+
+                                    <Text style={STYLES.toggleText}>After Photos</Text>
+                                    <View style={STYLES.photoRow}>
+                                        <View style={STYLES.photoContainer}></View>
+                                        <View style={STYLES.photoContainer}></View>
+                                        <View style={STYLES.photoContainer}></View>
+                                    </View>
+                                </View>
+
+
+
+                                <View style={STYLES.notesContainer}>
+                                    <TextInput
+                                        style={STYLES.textInputStyle1}
+                                        placeholder = "Enter notes here"
+                                        underlineColorAndroid = "transparent"/>
+                                </View>
+                                <TouchableOpacity
+                                    style={STYLES.saveNotes}
+                                    onPress={this.handleSpringPanel}>
+                                    <Text style={STYLES.toggleText}>Save</Text>
+                                </TouchableOpacity>
+                            </View>
+
+
+                        </ScrollView>
+
 
 
                     </View>
@@ -213,7 +233,7 @@ const STYLES = {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 5
+        marginVertical: 10
     },
     toggleText: {
         color: 'white',
@@ -224,7 +244,7 @@ const STYLES = {
     },
     notesContainer: {
         width: 300,
-        height: 100,
+        height: 300,
         backgroundColor: 'white',
         borderRadius: 10,
         padding: 10,
@@ -236,5 +256,21 @@ const STYLES = {
         margin: 10,
         borderRadius: 5,
         alignSelf: 'flex-end'
+    },
+    filler: {
+        marginBottom: 250
+    },
+    photoContainer: {
+        height: 80,
+        width: 60,
+        borderRadius: 5,
+        backgroundColor: 'white',
+        margin: 15
+    },
+    photoRow: {
+        flexDirection: 'row'
+    },
+    outsidePhotoContainer: {
+        marginVertical: 20
     }
 }
