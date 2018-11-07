@@ -152,7 +152,10 @@ export default class Account extends React.Component {
 								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
 							/>
 						</View>
-						<Text style={TOP_MENU_STYLES.companyName}>American Maintenance</Text>
+						<View style={TOP_MENU_STYLES.companyNameContainer}>
+							<Text style={TOP_MENU_STYLES.companyName}>Deals</Text>
+						</View>
+
 					</View>
 
 					{/*content*/}
@@ -288,13 +291,15 @@ const TOP_MENU_STYLES = {
 		left: 20,
 	},
 	companyName: {
-		position: 'absolute',
-		top: 27,
-		left: 65,
-		fontSize: 18,
-		right: 35,
 		textAlign: 'center',
-		color: 'black'
+		color: 'black',
+		fontSize: 20,
+		fontWeight: 'bold'
+	},
+	companyNameContainer: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
 	}
 }
 
