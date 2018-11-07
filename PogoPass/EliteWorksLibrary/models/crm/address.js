@@ -13,7 +13,7 @@ export default class EliteAddress extends EliteModel {
 		if (this.street_1 == undefined) this.street_1 = "";
 		if (this.street_2 == undefined) this.street_2 = "";
 		if (this.city == undefined) this.city = "";
-		if (this.state == undefined) this.state = "";
+		if (this.state == undefined) this.state = "AL";
 		if (this.zipcode == undefined) this.zipcode = "";
 		if (this.country == undefined) this.country = "US";
 		if (this.longitude == undefined) this.longitude = "";
