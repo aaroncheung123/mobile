@@ -91,7 +91,6 @@ const STYLES = {
         minHeight: 100
     },
     innerContainer: {
-        flex: 1,
         flexDirection:'row',
         marginHorizontal: 10,
         marginTop: 5

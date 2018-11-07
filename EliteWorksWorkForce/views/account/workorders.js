@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, TouchableHighlight} from 'react-native';
+import {StyleSheet, ScrollView, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, TouchableHighlight} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey} from '../../assets/styles/constants';
 import DatePicker from 'react-native-datepicker'
 import WorkOrderModal from './work-order-modal';
@@ -48,14 +48,18 @@ export default class WorkOrders extends React.Component {
 						/>
 					</View>
 
-					<View style={PANEL.workOrderContainer}>
-						<Text>Hello</Text>
-						<WorkOrderCard/>
-						<WorkOrderCard/>
-						<WorkOrderCard/>
-						<WorkOrderCard/>
-						<Text>Hello</Text>
-					</View>
+
+					<ScrollView style={PANEL.workOrderContainer}>
+						<View style={PANEL.filler}>
+							<WorkOrderCard/>
+							<WorkOrderCard/>
+							<WorkOrderCard/>
+							<WorkOrderCard/>
+						</View>
+
+					</ScrollView>
+
+
 
 
 
@@ -139,8 +143,8 @@ const PANEL = {
 	},
 	workOrderContainer: {
 		padding: 20,
-		backgroundColor: 'pink',
-		width: '100%'
+		backgroundColor: 'white',
+		width: '100%',
 	},
 	dateSearch: {
 		flexDirection: 'row',
@@ -175,6 +179,9 @@ const PANEL = {
 		height: 50,
 		borderRadius: 15,
 		width: 125
+	},
+	filler: {
+		marginBottom: 250
 	},
 	TableContainer: {
 		margin: 15,
