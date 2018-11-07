@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, TextInput} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated} from 'react-native';
 import DealCard from '../../components/deal-card.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../../assets/styles/constants';
 
 export default class Dashboard extends React.Component {
 
@@ -13,12 +14,30 @@ export default class Dashboard extends React.Component {
         this.state = {
             deals: []
         }
+        this.springValue = new Animated.Value(0);
+        this.screenHeight = Dimensions.get('window').height;
+        this.handleSpringPanel = this.handleSpringPanel.bind(this);
+        this.handleCloseSpringPanel = this.handleCloseSpringPanel.bind(this);
     }
 
     componentDidMount() {
         EliteAPI.CRM.Deal.search({take: 1000}, success => {
             console.log(success);
         })
+    }
+
+    handleSpringPanel() {
+        Animated.spring(
+            this.springValue,
+            {
+                toValue: this.screenHeight - 160,
+                friction: 6
+            }
+        ).start()
+    }
+
+    handleCloseSpringPanel(){
+        this.springValue.setValue(0);
     }
 
     render() {
@@ -37,15 +56,29 @@ export default class Dashboard extends React.Component {
 
                 </View>
 
+                <TouchableOpacity
+                    onPress={this.handleSpringPanel}>
+                    <Text>Click Me!</Text>
+                </TouchableOpacity>
+
                 <View style={STYLES.scrollViewContainer}>
                     <ScrollView>
-                        <DealCard/>
-                        <DealCard/>
-                        <DealCard/>
-                        <View style={STYLES.transparentFiller}></View>
+                        <View style={STYLES.transparentFiller}>
+                            <DealCard/>
+                            <DealCard/>
+                            <DealCard/>
+                        </View>
                     </ScrollView>
                 </View>
 
+
+                <Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
+                    <View style={STYLES.innerSpringContainer}>
+                        <Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleCloseSpringPanel}/>
+
+                    </View>
+
+                </Animated.View>
 
             </View>
         )
@@ -86,6 +119,27 @@ const STYLES = {
         alignItems: 'center'
     },
     transparentFiller: {
-        height: 250,
-    }
+        marginBottom: 200,
+    },
+    springContainer: {
+        flex: 1,
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Blueberry,
+        opacity: .9
+    },
+    innerSpringContainer: {
+        flex: 1,
+        margin: 20
+    },
+    iconX: {
+        color: 'white',
+        position: 'absolute',
+        right: 0
+    },
 }

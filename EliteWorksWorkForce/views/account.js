@@ -294,7 +294,8 @@ const TOP_MENU_STYLES = {
 		textAlign: 'center',
 		color: 'black',
 		fontSize: 20,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		marginTop: 5
 	},
 	companyNameContainer: {
 		flex: 1,
@@ -308,7 +309,10 @@ const SIDE_MENU_STYLES = {
 		position: 'absolute',
 		top: 70,
 		bottom: 65,
-		backgroundColor: '#222222'
+		backgroundColor: 'white',
+		elevation: 3,
+		borderTopRightRadius: 10,
+		borderBottomRightRadius: 10
 	},
 	innerContainer: {
 		minWidth: 300,
@@ -323,7 +327,7 @@ const SIDE_MENU_STYLES = {
 	text: {
 		flex: 1,
 		color: '#dddddd',
-		fontSize: 28,
+		fontSize: 14,
 		width: '100%',
 		textAlign: 'center',
 		padding: 15
@@ -368,7 +372,7 @@ const ACCOUNT_MENU = {
 		maxHeight: 65,
 		alignItems: 'center',
 		justifyContent: 'center',
-		elevation: 4,
+		elevation: 2,
 		borderTopLeftRadius: 20,
 		borderTopRightRadius: 20
 	},
