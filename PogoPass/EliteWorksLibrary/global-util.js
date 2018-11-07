@@ -245,6 +245,8 @@ class StrModels {
 import User from './models/crm/user';
 import TimeClock from './models/crm/time-clock';
 import Address from './models/crm/address';
+import Deal from './models/crm/deal';
+import Zone from './models/crm/zone';
 
 class CrmModels {
     constructor()
