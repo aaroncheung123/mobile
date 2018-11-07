@@ -16,7 +16,10 @@ export default class Blog extends React.Component {
 							</Text>
 						</View>
 
-						<BlogDateSections/>
+						<ScrollView>
+							<BlogDateSections/>
+							<View style={STYLES.transparentFiller}></View>
+						</ScrollView>
 
 					</View>
 
@@ -34,7 +37,17 @@ const STYLES = {
 	},
 	title: {
 		color: 'white',
-		fontSize: 35,
-		paddingTop: 20
+		minWidth: '100%',
+		fontSize: 25,
+		fontWeight: 'bold',
+		textAlign: 'center',
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: 10,
+		opacity: .95,
+		backgroundColor: 'rgba(0, 0, 0, 0.6)'
+	},
+	transparentFiller: {
+			height: 250,
 	}
 }

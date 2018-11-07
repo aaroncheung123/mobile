@@ -23,13 +23,13 @@ export default class ShippingAddressCard extends React.Component {
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight   : event.nativeEvent.layout.height + 5
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight   : event.nativeEvent.layout.height - 1
         });
     }
 
@@ -83,8 +83,9 @@ export default class ShippingAddressCard extends React.Component {
                             <TouchableHighlight
                                 style={STYLES.button}
                                 onPress={this.toggle.bind(this)}
-                                underlayColor="#f1f1f1">
-                                <Icon name='edit' size= {25}/>
+                                underlayColor="transparent">
+                                <Icon name='edit' size= {35}/>
+
                             </TouchableHighlight>
                         </View>
                     </View>
@@ -95,12 +96,14 @@ export default class ShippingAddressCard extends React.Component {
                             value={this.props.shippingAddress.description}
                             onChangeText = {(value) => this.handleTextChange('description',value)}/>
 
-                        <Button
-                         raised
-                         icon={{name: 'save'}}
-                         title='Save'
-                           buttonStyle = {STYLES.buttonStyle}
-                           onPress = {this.handleShippingAddressSubmit}/>
+                        <View style={STYLES.buttonContainer} >
+                            <Button
+                                raised
+                                icon={{name: 'save'}}
+                                title='Save'
+                                buttonStyle = {STYLES.buttonStyle}
+                                onPress = {this.handleShippingAddressSubmit}/>
+                        </View>
                     </View>
 
                 </Animated.View>
@@ -121,11 +124,13 @@ const STYLES = {
     iconContainer:{
         position: 'absolute',
         zIndex: 1,
-        backgroundColor:'orange',
+        backgroundColor:'white',
         borderRadius: 50,
         padding: 10,
-        marginTop: 35,
-        marginLeft: 20
+        marginTop: 30,
+        marginLeft: 20,
+        borderWidth: 2,
+        borderColor: 'orange'
     },
     outsideContainer: {
         flexDirection: 'column',
@@ -156,6 +161,10 @@ const STYLES = {
         alignItems: 'center',
         flex: 1
     },
+    innerEditContainer: {
+        width: 100,
+        height: 100
+    },
     hiddenBody: {
         backgroundColor: 'white',
         borderRadius: 5,
@@ -163,9 +172,14 @@ const STYLES = {
         marginLeft: 25,
         marginTop: 2,
         padding: 20,
-        overflow:'hidden'
+        overflow:'hidden',
     },
     buttonStyle:{
         backgroundColor: 'orange',
     },
+    buttonContainer: {
+        marginTop: 20,
+        width: 125,
+        alignSelf: 'flex-end'
+    }
 }

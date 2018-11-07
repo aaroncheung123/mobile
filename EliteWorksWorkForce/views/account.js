@@ -1,11 +1,9 @@
-
-
 import React from 'react';
 import {StyleSheet, View, ScrollView, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, AsyncStorage} from 'react-native';
 import {MemoryRouter, Route, Redirect} from "react-router-dom";
 import {Icon} from 'react-native-elements';
 import {Constants} from 'expo';
-import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey} from '../assets/styles/constants';
+import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
 import AccountDashBoard from './account/dashboard';
@@ -149,22 +147,23 @@ export default class Account extends React.Component {
 							<Icon
 								name='bars'
 								type='font-awesome'
-								color='#dddddd'
-								size={35}
+								color='#cc842f'
+								size={25}
 								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
 							/>
 						</View>
-						<Text style={TOP_MENU_STYLES.companyName}>{GlobalUtil.ulify(this.state.companyName, 25)}</Text>
+						<View style={TOP_MENU_STYLES.companyNameContainer}>
+							<Text style={TOP_MENU_STYLES.companyName}>Deals</Text>
+						</View>
+
 					</View>
 
 					{/*content*/}
-					<TouchableWithoutFeedback onPress={() => this.setState({sideMenuOpen: false}, this.updateSideMenu)}>
-						<ScrollView style={CONTENT_STYLES.container}>
+						<View style={CONTENT_STYLES.container}>
 							<Route path="/dashboard" component={AccountDashBoard} />
 							<Route path="/orders" component={AccountWorkOrders} />
 							<Route path="/time" component={AccountTimeClock} />
-						</ScrollView>
-					</TouchableWithoutFeedback>
+						</View>
 
 					{/*Bottom Menu*/}
 					<View style={ACCOUNT_MENU.container}>
@@ -173,19 +172,16 @@ export default class Account extends React.Component {
 								onPress={() => this.updatePath('/dashboard')}
 								active={path === '/dashboard'}
 								icon="home"
-								title="Home"
 							/>
 							<AccountMenuItem
 								onPress={() => this.updatePath('/orders')}
 								active={path === '/orders'}
-								icon="clipboard"
-								title="Tasks"
+								icon="tasks"
 							/>
 							<AccountMenuItem
 								onPress={() => this.updatePath('/time')}
 								active={path === '/time'}
 								icon="clock-o"
-								title="Time Clock"
 							/>
 						</View>
 					</View>
@@ -273,7 +269,8 @@ const WorkSpaceSideBarRow = (props) => {
 const STYLES = {
 	container: {
 		flex: 1,
-		width: '100%'
+		width: '100%',
+		backgroundColor: 'white'
 	}
 }
 
@@ -282,21 +279,27 @@ const TOP_MENU_STYLES = {
 		flex: 1,
 		width: '100%',
 		maxHeight: 70,
-		backgroundColor: EliteWorksOrange
+		backgroundColor: 'white',
+		elevation: 2,
+		shadowOffset: { height: 1, width: 1 }, // IOS
+		shadowOpacity: 2, // IOS
+		shadowRadius: 2, //IOS
 	},
 	leftMenuIconContainer: {
 		position: 'absolute',
 		top: 25,
-		left: 14,
+		left: 20,
 	},
 	companyName: {
-		position: 'absolute',
-		top: 27,
-		left: 65,
-		fontSize: 24,
-		right: 35,
 		textAlign: 'center',
-		color: '#dddddd'
+		color: 'black',
+		fontSize: 20,
+		fontWeight: 'bold'
+	},
+	companyNameContainer: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
 	}
 }
 
@@ -354,7 +357,6 @@ const CONTENT_STYLES = {
 	container: {
 		flex: 1,
 		width: '100%',
-		//backgroundColor: AccountContentGrey
 	}
 }
 
@@ -362,10 +364,13 @@ const ACCOUNT_MENU = {
 	container: {
 		flex: 1,
 		width: '100%',
-		backgroundColor: AccountMenuGrey,
+		backgroundColor: 'white',
 		maxHeight: 65,
 		alignItems: 'center',
 		justifyContent: 'center',
+		elevation: 4,
+		borderTopLeftRadius: 20,
+		borderTopRightRadius: 20
 	},
 	menuContainer: {
 		flexDirection: 'row',

@@ -19,13 +19,13 @@ export default class PaymentCard extends React.Component {
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight   : event.nativeEvent.layout.height + 5
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight   : event.nativeEvent.layout.height - 1
         });
     }
 
@@ -72,8 +72,8 @@ export default class PaymentCard extends React.Component {
                             <TouchableHighlight
                                 style={STYLES.button}
                                 onPress={this.toggle.bind(this)}
-                                underlayColor="#f1f1f1">
-                                <Icon name='edit' size= {25}/>
+                                underlayColor="transparent">
+                                <Icon name='edit' size= {35}/>
                             </TouchableHighlight>
                         </View>
                     </View>
@@ -83,6 +83,14 @@ export default class PaymentCard extends React.Component {
                             title='Edit Card Name'
                             value='Amazon - 4616'
                             onChangeText = {(value) => this.handleTextChange('description',value)}/>
+                        <View style={STYLES.buttonContainer} >
+                            <Button
+                                raised
+                                icon={{name: 'save'}}
+                                title='Save'
+                                buttonStyle = {STYLES.buttonStyle}
+                                onPress = {this.handleShippingAddressSubmit}/>
+                        </View>
                     </View>
 
                 </Animated.View>
@@ -103,7 +111,9 @@ const STYLES = {
     iconContainer:{
         position: 'absolute',
         zIndex: 1,
-        backgroundColor:'orange',
+        backgroundColor:'white',
+        borderWidth: 2,
+        borderColor: 'orange',
         borderRadius: 50,
         padding: 10,
         marginTop: 35,
@@ -157,4 +167,9 @@ const STYLES = {
     buttonStyle:{
         backgroundColor: 'orange',
     },
+    buttonContainer: {
+        marginTop: 20,
+        width: 125,
+        alignSelf: 'flex-end'
+    }
 }

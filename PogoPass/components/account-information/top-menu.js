@@ -19,12 +19,16 @@ export default class TopMenu extends React.Component {
       return (
 				<View style={STYLES.topMenu}>
 						<TouchableWithoutFeedback onPress={this.props.onPress}>
-										 <Icon name='arrow-left' size= {25} color='white'/>
+							<View style={STYLES.touchableBack}>
+								<Icon name='arrow-left' size= {25} color='white'/>
+								<Text style={STYLES.textStyle}>{this.props.title}</Text>
+							</View>
 						</TouchableWithoutFeedback>
+			  </View>
 
-						<Text style={STYLES.textStyle}>{this.props.title}</Text>
 
-				</View>
+
+
       );
 		}
 }
@@ -36,13 +40,16 @@ const STYLES = {
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		width:'100%',
-		backgroundColor: 'orange',
-		padding: 17,
-		opacity: .95
+		backgroundColor: 'rgba(0, 0, 0, 0.6)',
+		opacity: .95,
+		padding: 17
+	},
+	touchableBack: {
+		flexDirection: 'row'
 	},
 	textStyle: {
 		fontSize: 20,
 		color: 'white',
-		paddingLeft: 20
+		marginLeft: 20
 	},
 }

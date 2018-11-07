@@ -8,7 +8,7 @@ import PassManager from './pass-manager/index'
 import AccountInformation from './account-information/index'
 import Events from './events/index'
 import Blog from './blog/index'
-import Refer from './refer/index'
+import Cart from './cart/index'
 
 const ELITE_WORKS_ORANGE = '#faa31a'
 
@@ -20,7 +20,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/account-information');
+    this.updatePath('/cart');
   }
 
   updatePath(path) {
@@ -36,13 +36,13 @@ export default class AccountNavigation extends React.Component {
 
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
-          <ScrollView style={STYLES.scrollViewContainer}>
-            <Route path="/pass-manager" component={PassManager} />
-            <Route path="/account-information" component={AccountInformation} />
-            <Route path="/events" component={Events} />
+          <View style={STYLES.scrollViewContainer}>
             <Route path="/blog" component={Blog} />
-            <Route path="/refer" component={Refer} />
-          </ScrollView>
+            <Route path="/account-information" component={AccountInformation} />
+            <Route path="/pass-manager" component={PassManager} />
+            <Route path="/events" component={Events} />
+            <Route path="/cart" component={Cart} />
+          </View>
 
           {/*Bottom Menu*/}
           <View style={STYLES.accountMenu.container}>
@@ -68,9 +68,9 @@ export default class AccountNavigation extends React.Component {
                 icon="calendar"
               />
               <AccountMenuItem
-                onPress={() => this.updatePath('/refer')}
-                active={path === '/refer'}
-                icon="dollar"
+                onPress={() => this.updatePath('/cart')}
+                active={path === '/cart'}
+                icon="shopping-cart"
               />
             </View>
           </View>
@@ -109,7 +109,8 @@ const STYLES = {
   },
   scrollViewContainer:{
     flex:1,
-    width: '100%'
+    width: '100%',
+    height: '100%'
   },
   accountMenu: {
     container: {
@@ -117,7 +118,8 @@ const STYLES = {
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
       width: "100%",
-      height: 60
+      height: 60,
+      marginTop: -40
     },
     menuContainer: {
       flexDirection: 'row',

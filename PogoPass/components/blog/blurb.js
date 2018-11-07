@@ -56,10 +56,10 @@ export default class Blurb extends React.Component {
   }
 
   render() {
-		let icon = this.icons['down'];
+		let icon = this.icons['up'];
 
 		if(this.state.expanded){
-				icon = this.icons['up'];
+				icon = this.icons['down'];
 		}
 
     return (
@@ -106,7 +106,7 @@ const STYLES = {
   },
   blurbSection: {
     backgroundColor:'white',
-    borderRadius: 20,
+    borderRadius: 10,
     opacity: 0.9,
 		marginTop: 5,
 		borderLeftWidth: 40,

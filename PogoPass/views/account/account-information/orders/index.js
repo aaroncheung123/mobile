@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import TopMenu from '../../../../components/account-information/top-menu';
 import OrderCard from '../../../../components/account-information/order-card';
 
@@ -13,8 +13,20 @@ export default class Orders extends React.Component {
         return (
             <View>
                 <TopMenu title= 'Orders' onPress={() => this.updatePath('/account-main')}/>
-                <OrderCard/>
+                <ScrollView>
+                    <OrderCard/>
+                    <OrderCard/>
+                    <OrderCard/>
+                    <View style={STYLES.transparentFiller}></View>
+                </ScrollView>
+
             </View>
         );
+    }
+}
+
+const STYLES = {
+    transparentFiller: {
+        height: 450
     }
 }

@@ -33,30 +33,3 @@ export default class BaseNavigation extends React.Component {
 		)
 	}
 }
-
-/*
-const AppNavigator = createSwitchNavigator({
-
-	Login: {
-		screen: Login,
-		navigationOptions: {
-		    header: null,
-		}
-	},
-	Forgot: {
-		screen: Forgot,
-		navigationOptions: {
-		    header: null,
-		}
-	},
-	Account: {
-		screen: Account,
-		navigationOptions: {
-		    header: null,
-		}
-	},
-});
-
-export default AppNavigator;
-
-*/

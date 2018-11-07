@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableWithoutFeedback, TextInput, TouchableHighlight} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput, TouchableHighlight, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TopMenu from '../../../../components/account-information/top-menu';
 import ShippingAddressCard from '../../../../components/account-information/shipping-address-card';
@@ -42,7 +42,13 @@ export default class Addresses extends React.Component {
 
       <View style={STYLES.container}>
       	<TopMenu title= 'Addresses' onPress={() => this.updatePath('/account-main')}/>
-				{shippingAddressCards}
+				<ScrollView style={STYLES.scrollViewContainer}>
+					{shippingAddressCards}
+					<TouchableOpacity style={STYLES.iconContainer}>
+							<Icon name='plus' size= {35}/>
+					</TouchableOpacity>
+					<View style={STYLES.transparentFiller}></View>
+				</ScrollView>
       </View>
 
 
@@ -52,6 +58,27 @@ export default class Addresses extends React.Component {
 
 const STYLES = {
 	container:{
-		flex: 1
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '100%'
 	},
+	scrollViewContainer: {
+		width: '100%',
+	},
+	iconContainer:{
+		flex: 1,
+		backgroundColor:'white',
+		borderRadius: 15,
+		padding: 10,
+		marginVertical: 35,
+		marginLeft: 20,
+		justifyContent:'center',
+		alignItems:'center',
+		alignSelf: 'center',
+		width: 55
+	},
+	transparentFiller: {
+			height: 250,
+	}
 }

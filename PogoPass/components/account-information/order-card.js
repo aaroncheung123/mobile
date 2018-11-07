@@ -8,6 +8,12 @@ export default class OrderCard extends React.Component {
 
     constructor(props){
       super(props);
+
+      this.icons = {
+          'up'    : require('../../assets/images/icons/up_arrow.png'),
+          'down'  : require('../../assets/images/icons/down_arrow.png')
+      };
+
       this.state = {
         title       : props.title,
         expanded    : true,
@@ -19,7 +25,7 @@ export default class OrderCard extends React.Component {
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height
+            maxHeight   : event.nativeEvent.layout.height + 8
         });
     }
 
@@ -49,39 +55,54 @@ export default class OrderCard extends React.Component {
 
 
     render() {
+        let icon = this.icons['up'];
+
+        if(this.state.expanded){
+            icon = this.icons['down'];
+        }
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.iconContainer}>
-                    <Icon name='hashtag' size= {35}/>
+                    <Icon name='tasks' size= {35}/>
                 </View>
 
 
 
                 <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
-                    <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
-                        <View style={STYLES.bodyTextContainer}>
-                            <TouchableHighlight
-                                style={STYLES.button}
-                                onPress={this.toggle.bind(this)}
-                                underlayColor="#f1f1f1">
-                                <Text style={STYLES.textHeader}>c6f134347 - $42.68</Text>
-                            </TouchableHighlight>
+
+                    <TouchableHighlight
+                        onPress={this.toggle.bind(this)}
+                        underlayColor="transparent">
+                        <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
+                            <View style={STYLES.bodyTextContainer}>
+                                <Text style={STYLES.textHeader}>Order #: c6f134347</Text>
+                            </View>
+                            <Image
+                              style={STYLES.buttonImage}
+                              source={icon}>
+                            </Image>
                         </View>
-                    </View>
+                    </TouchableHighlight>
+
 
                     <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
-                        <Text>Order # c6f12e6935</Text>
                         <Text>Placed At: 03/06/2018 12:10 PM</Text>
-                        <Button
-                         raised
-                         icon={{name: 'print'}}
-                         title='Resend Order Receipt'
-                           buttonStyle = {STYLES.buttonStyle}
-                           onPress = {this.handleResendSubmit}
-                       />
+                        <Text>Order # c6f12e6935</Text>
+
+                        <View style={STYLES.buttonContainer}>
+                            <Button
+                             raised
+                             icon={{name: 'print'}}
+                             title='Resend Order Receipt'
+                               buttonStyle = {STYLES.buttonStyle}
+                               onPress = {this.handleResendSubmit}
+                           />
+                        </View>
+
+
                         <Text>Products</Text>
                         <View style={STYLES.productSectionContainer}>
-                            <View style={STYLES.productSectionRow}>
+                            <View style={STYLES.productSectionRowHeader}>
                                 <View style={STYLES.productSectionLeft}>
                                     <Text>Name</Text>
                                 </View>
@@ -109,7 +130,7 @@ export default class OrderCard extends React.Component {
                             </View>
 
 
-                            <View style={STYLES.productSectionRow}>
+                            <View style={STYLES.productSectionRowHeader}>
                                 <View style={STYLES.productSectionLeft}>
                                     <Text>Totals</Text>
                                 </View>
@@ -166,7 +187,9 @@ const STYLES = {
     iconContainer:{
         position: 'absolute',
         zIndex: 1,
-        backgroundColor:'orange',
+        backgroundColor:'white',
+        borderWidth: 2,
+        borderColor: 'orange',
         borderRadius: 50,
         padding: 10,
         marginTop: 40,
@@ -180,36 +203,36 @@ const STYLES = {
     cardContainer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         backgroundColor: '#D9D9D9',
         opacity: .9,
         marginLeft: 25,
         borderRadius: 5
     },
     textHeader: {
-        fontSize: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 10
+        fontSize: 20
     },
     bodyTextContainer: {
-        marginVertical: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
+        marginVertical: 30,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        marginLeft: 50
     },
     hiddenBody: {
         backgroundColor: 'white',
-        borderRadius: 5,
         opacity: .9,
         marginLeft: 25,
         marginTop: 2,
-        padding: 20
+        padding: 20,
+        borderRadius: 5
     },
     buttonStyle:{
         backgroundColor: 'orange'
     },
     productSectionContainer: {
+        flex: 1,
+        marginBottom: 30
     },
     productSectionLeft: {
         flex: 3
@@ -220,5 +243,24 @@ const STYLES = {
     productSectionRow: {
         flexDirection: 'row',
         margin: 5
-    }
+    },
+    productSectionRowHeader: {
+        flexDirection: 'row',
+        margin: 5,
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        paddingVertical: 15,
+        marginVertical: 15
+    },
+    buttonContainer:{
+        marginVertical: 30
+    },
+    buttonImage : {
+        width: 12,
+        height: 8,
+        opacity: .3,
+        marginRight: 30,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 }
