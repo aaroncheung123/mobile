@@ -4,6 +4,7 @@ import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, 
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey} from '../../assets/styles/constants';
 import DatePicker from 'react-native-datepicker'
 import WorkOrderModal from './work-order-modal';
+import WorkOrderCard from '../../components/work-order-card.js';
 
 export default class WorkOrders extends React.Component {
 
@@ -34,17 +35,32 @@ export default class WorkOrders extends React.Component {
 		return (
 			<View>
 				<View style={PANEL.container}>
+					<View style={PANEL.dateSearch}>
+						<Text>Search by date</Text>
+						<DatePicker
+							style={PANEL.datePickerContainer}
+							date={this.state.selectedDay}
+							showIcon={false}
+	    				onDateChange={(date) => {this.setState({selectedDay: new Date(date)}, this.loadWorkOrders)}}
+			        confirmBtnText="Confirm"
+			        cancelBtnText="Cancel"
+			        format="MM/DD/YYYY"
+						/>
+					</View>
 
-					<DatePicker
-						style={{width: '100%', marginTop: 10}}
-						date={this.state.selectedDay}
-						showIcon={false}
-    				onDateChange={(date) => {this.setState({selectedDay: new Date(date)}, this.loadWorkOrders)}}
-		        confirmBtnText="Confirm"
-		        cancelBtnText="Cancel"
-		        format="MM/DD/YYYY"
+					<View style={PANEL.workOrderContainer}>
+						<Text>Hello</Text>
+						<WorkOrderCard/>
+						<WorkOrderCard/>
+						<WorkOrderCard/>
+						<WorkOrderCard/>
+						<Text>Hello</Text>
+					</View>
 
-					/>
+
+
+
+
 					<View style={PANEL.TableContainer}>
 						{ this.state.workOrders.map( (workOrder) => <WorkOrderRow key={workOrder.work_order_id} workOrder={workOrder} onSelect={() => this.setState({selectedWorkOrder: workOrder})}/> ) }
 					</View>
@@ -113,14 +129,27 @@ const WORK_ORDER_ROW = {
 		flexDirection: 'row'
 	}
 }
+
 const PANEL = {
 	container: {
 		backgroundColor: 'white',
 		borderRadius: 10,
 		alignItems: 'center',
-		marginTop: 15,
-		marginLeft: 15,
-		marginRight: 15
+		margin: 10
+	},
+	workOrderContainer: {
+		padding: 20,
+		backgroundColor: 'pink',
+		width: '100%'
+	},
+	dateSearch: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		padding: 10
+	},
+	datePickerContainer: {
+		margin: 10
 	},
 	headerText: {
 		margin: 15,
@@ -148,7 +177,7 @@ const PANEL = {
 		width: 125
 	},
 	TableContainer: {
-		margin: 15
+		margin: 15,
 	},
 	SelectPicker: {
 		inputIOS: {

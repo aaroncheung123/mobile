@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+
 const WorkOrderCard = (props) => {
     return (
         <View>
@@ -11,7 +12,6 @@ const WorkOrderCard = (props) => {
             </TouchableOpacity>
 
             <View style={STYLES.container}>
-
                 <View style={STYLES.innerContainer}>
                     <View style={STYLES.leftContainer}>
                         <Text style={STYLES.textStyle}>Name</Text>
@@ -81,14 +81,14 @@ export default WorkOrderCard;
 
 const STYLES = {
     container: {
-        flex: 1,
         borderTopWidth: 30,
         borderLeftWidth: 1,
         borderRightWidth: 1,
         borderBottomWidth: 1,
         borderColor: Blueberry,
         borderRadius: 5,
-        margin: 10
+        margin: 10,
+        minHeight: 100
     },
     innerContainer: {
         flex: 1,
