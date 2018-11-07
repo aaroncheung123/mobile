@@ -68,15 +68,15 @@ export default class Dashboard extends React.Component {
 
                 <TouchableOpacity
                     onPress={this.handleSpringPanel}>
-                    <Text>Click Me!</Text>
+                    <Text>Details</Text>
                 </TouchableOpacity>
 
                 <View style={STYLES.scrollViewContainer}>
                     <ScrollView>
                         <View style={STYLES.transparentFiller}>
-                            <DealCard/>
-                            <DealCard/>
-                            <DealCard/>
+                            <DealCard onPressDetails={() => this.handleSpringPanel()}/>
+                            <DealCard onPressDetails={() => this.handleSpringPanel()}/>
+                            <DealCard onPressDetails={() => this.handleSpringPanel()}/>
                         </View>
                     </ScrollView>
                 </View>

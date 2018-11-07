@@ -63,6 +63,11 @@ const WorkOrderCard = (props) => {
                     </View>
                 </View>
 
+                <TouchableOpacity
+                    style={STYLES.detailsButton}
+                    onPress={props.onPressDetails}>
+                    <Text>Details</Text>
+                </TouchableOpacity>
 
 
             </View>
@@ -107,5 +112,15 @@ const STYLES = {
         zIndex: 1,
         marginRight: 20,
         marginTop: 15
+    },
+    detailsButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        width: 120,
+        padding: 10,
+        backgroundColor: EliteWorksOrange,
+        borderRadius: 5,
+        margin: 10
     }
 }
