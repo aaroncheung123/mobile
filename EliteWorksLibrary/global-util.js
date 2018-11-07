@@ -140,14 +140,13 @@ class GlobalUtil {
     constructor() {
         this.webClientKey = 'www';
         this.webClientApiKey = '';
-        this.Form = new Form();
     }
 
     htmlTextStripper (html){
         var striptags = require('striptags');
         return striptags(html);
     }
-    
+
     padZeros (string, number_of_zeros)
     {
         string = String(string);
@@ -180,7 +179,7 @@ class GlobalUtil {
         return new Date(dateConvertedString);
     }
 
-    inputToBool (input) 
+    inputToBool (input)
     {
         if (input === 'true') return true;
         else if (input === true) return true;
@@ -188,7 +187,7 @@ class GlobalUtil {
         else if (input === 1) return true;
         else return false;
     }
-    isEmpty (input) 
+    isEmpty (input)
     {
         if (input === '') return true;
         else if (input === undefined) return true;
@@ -215,7 +214,7 @@ class GlobalUtil {
             for (var key in newObj) {
                 if (newObj.hasOwnProperty(key)) {
                     if(newObj[key] === null) delete newObj[key];
-                    else if(newObj[key] === undefined || Object.getPrototypeOf(newObj[key]).toString() === '[object Object]' || Array.isArray(newObj[key])) {
+                    else if(newObj[key] === undefined || Array.isArray(newObj[key])) {
                          newObj[key] = (function(){return})()
                     }
                 }
@@ -226,104 +225,64 @@ class GlobalUtil {
     }
 }
 
-class Form {
-    constructor() {
-        this.states = {
-            "AL": "Alabama",
-            "AK": "Alaska",
-            "AZ": "Arizona",
-            "AR": "Arkansas",
-            "CA": "California",
-            "CO": "Colorado",
-            "CT": "Connecticut",
-            "DE": "Delaware",
-            "DC": "District Of Columbia",
-            "FL": "Florida",
-            "GA": "Georgia",
-            "HI": "Hawaii",
-            "ID": "Idaho",
-            "IL": "Illinois",
-            "IN": "Indiana",
-            "IA": "Iowa",
-            "KS": "Kansas",
-            "KY": "Kentucky",
-            "LA": "Louisiana",
-            "ME": "Maine",
-            "MD": "Maryland",
-            "MA": "Massachusetts",
-            "MI": "Michigan",
-            "MN": "Minnesota",
-            "MS": "Mississippi",
-            "MO": "Missouri",
-            "MT": "Montana",
-            "NE": "Nebraska",
-            "NV": "Nevada",
-            "NH": "New Hampshire",
-            "NJ": "New Jersey",
-            "NM": "New Mexico",
-            "NY": "New York",
-            "NC": "North Carolina",
-            "ND": "North Dakota",
-            "OH": "Ohio",
-            "OK": "Oklahoma",
-            "OR": "Oregon",
-            "PA": "Pennsylvania",
-            "PR": "Puerto Rico",
-            "RI": "Rhode Island",
-            "SC": "South Carolina",
-            "SD": "South Dakota",
-            "TN": "Tennessee",
-            "TX": "Texas",
-            "UT": "Utah",
-            "VT": "Vermont",
-            "VI": "Virgin Islands",
-            "VA": "Virginia",
-            "WA": "Washington",
-            "WV": "West Virginia",
-            "WI": "Wisconsin",
-            "WY": "Wyoming"
-        }
-    }
-}
-
 window.GlobalUtil = new GlobalUtil();
 
 // str models
 import WorkOrder from './models/str/work-order';
 import WorkOrderProduct from './models/str/work-order-product';
+import ShippingAddress from './models/str/shipping-address';
 
 class StrModels {
     constructor()
     {
         this.WorkOrder = WorkOrder;
         this.WorkOrderProduct = WorkOrderProduct;
+        this.ShippingAddress = ShippingAddress;
     }
-}
+} 
 
 // crm models
 import User from './models/crm/user';
 import TimeClock from './models/crm/time-clock';
+import Address from './models/crm/address';
+import Deal from './models/crm/deal';
+import Zone from './models/crm/zone';
 
 class CrmModels {
     constructor()
     {
         this.User = User;
         this.TimeClock = TimeClock;
+        this.Address = Address;
     }
 }
 
+import Blog from './models/cms/blog';
+import Post from './models/cms/post';
+
+// cms models
+class CMSModels {
+    constructor()
+    {
+        this.Blog = Blog;
+        this.Post = Post;
+    }
+}
 
 // do all api declarations
 import StrApis from './api/str';
 import CrmApis from './api/crm';
 import GenApis from './api/gen';
+import CmsApis from './api/cms';
 
 class EliteAPI {
     constructor() {
         this.Models = {
             STR: new StrModels(),
-            CRM: new CrmModels()
+            CRM: new CrmModels(),
+            CMS: new CMSModels()
         };
+
     }
 }
 
@@ -332,8 +291,7 @@ window.EliteAPI = new EliteAPI();
 window.EliteAPI.STR = new StrApis();
 window.EliteAPI.CRM = new CrmApis();
 window.EliteAPI.GEN = new GenApis();
-
-
+window.EliteAPI.CMS = new CmsApis();
 
 import Service from './api/service';
 window.Service = new Service();

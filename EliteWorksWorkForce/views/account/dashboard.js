@@ -5,6 +5,22 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Dashboard extends React.Component {
 
+
+    constructor(props)
+    {
+        super(props)
+
+        this.state = {
+            deals: []
+        }
+    }
+
+    componentDidMount() {
+        EliteAPI.CRM.Deal.search({take: 1000}, success => {
+            console.log(success);
+        })
+    }
+
     render() {
         return (
             <View style={STYLES.container}>

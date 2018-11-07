@@ -3,7 +3,7 @@ export default class WebClient {
 
 	static getFullUrl(url)
 	{
-		return `http://${GlobalUtil.webClientKey}.staging.eliteworks.com${url}`;
+		return `https://${GlobalUtil.webClientKey}.eliteworks.com${url}`;
 	}
 
 	static addApiKey(args)
@@ -23,7 +23,7 @@ export default class WebClient {
 				'Content-Type': 'application/json'
 			}
 		}).then((response) => {
-			var json = response.json().then((data) => {
+			let json = response.json().then((data) => {
 				if (data.result == 'success') {
 					if (successCallback !== undefined) successCallback(data);
 				}
@@ -35,11 +35,10 @@ export default class WebClient {
 			if (failureCallback !== undefined) failureCallback({result: 'failure', error_message: 'Unable to connect'});
 		})
 	}
-	static basicGet(args, url, successCallback, failureCallback) 
+	static basicGet(args, url, successCallback, failureCallback)
 	{
 		args = WebClient.addApiKey(args);
-		var paramsEncoded = "?" + Object.keys(args).map(prop => {return [prop, args[prop]].map(encodeURIComponent).join("=")}).join("&");
-
+		let paramsEncoded = "?" + Object.keys(args).map(prop => {return [prop, args[prop]].map(encodeURIComponent).join("=")}).join("&");
 
 		fetch(WebClient.getFullUrl(url) + paramsEncoded, {
 			method: "GET",
@@ -47,7 +46,7 @@ export default class WebClient {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
 		}).then((response) => {
-			var json = response.json().then((data) => {
+			let json = response.json().then((data) => {
 				if (data.result == 'success') {
 				  	if (successCallback !== undefined) successCallback(data);
 				}
