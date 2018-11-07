@@ -1,7 +1,7 @@
 
 
 //export const EliteWorksOrange = '#e06b24';
-export const EliteWorksOrange = '#cc842f';
+export const EliteWorksOrange = '#F7882F';
 export const Blueberry = '#6B7A8F';
 export const AppleCore = '#DCC7AA';
 export const AccountContentGrey = '#dadada';

@@ -147,7 +147,7 @@ export default class Account extends React.Component {
 							<Icon
 								name='bars'
 								type='font-awesome'
-								color='#cc842f'
+								color='#F7882F'
 								size={25}
 								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
 							/>

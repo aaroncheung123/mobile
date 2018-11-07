@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated, Switch} from 'react-native';
 import DealCard from '../../components/deal-card.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../../assets/styles/constants';
@@ -12,7 +12,9 @@ export default class Dashboard extends React.Component {
         super(props)
 
         this.state = {
-            deals: []
+            deals: [],
+            drivingSwitch: false,
+            jobSwitch: false,
         }
         this.springValue = new Animated.Value(0);
         this.screenHeight = Dimensions.get('window').height;
@@ -38,6 +40,14 @@ export default class Dashboard extends React.Component {
 
     handleCloseSpringPanel(){
         this.springValue.setValue(0);
+    }
+
+    toggleDriving = (value) => {
+        this.setState({drivingSwitch: value})
+    }
+
+    toggleJob = (value) => {
+        this.setState({jobSwitch: value})
     }
 
     render() {
@@ -73,8 +83,37 @@ export default class Dashboard extends React.Component {
 
 
                 <Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
+                    <Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleCloseSpringPanel}/>
                     <View style={STYLES.innerSpringContainer}>
-                        <Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleCloseSpringPanel}/>
+                        <Text style={STYLES.springContainerText}>Snow Removal</Text>
+
+                        <View style={STYLES.toggleContainer}>
+                            <Text style={STYLES.toggleText}>Stop Driving</Text>
+
+                                <Switch
+                                    onTintColor = '#F7882F'
+                                    thumbTintColor = 'white'
+                                    style = {STYLES.switchStyle}
+                                    onValueChange = {this.toggleDriving}
+                                    value = {this.state.drivingSwitch}/>
+
+                                <Text style={STYLES.toggleText}>Start Driving</Text>
+                        </View>
+
+
+                        <View style={STYLES.toggleContainer}>
+                            <Text style={STYLES.toggleText}>Stop Job</Text>
+
+                                <Switch
+                                    onTintColor = '#F7882F'
+                                    thumbTintColor = 'white'
+                                    style = {STYLES.switchStyle}
+                                    onValueChange = {this.toggleJob}
+                                    value = {this.state.jobSwitch}/>
+
+                                <Text style={STYLES.toggleText}>Start Job</Text>
+                        </View>
+
 
                     </View>
 
@@ -135,11 +174,40 @@ const STYLES = {
     },
     innerSpringContainer: {
         flex: 1,
-        margin: 20
+        margin: 20,
+        justifyContent: 'flex-start',
+        alignItems: 'center'
     },
     iconX: {
         color: 'white',
         position: 'absolute',
-        right: 0
+        right: 0,
+        top: 0,
+        margin: 15
+    },
+    springContainerText: {
+        color: 'white',
+        fontSize: 24,
+        fontWeight: 'bold',
+        borderBottomWidth: 2,
+        marginBottom: 20,
+        paddingBottom: 20,
+        borderColor: 'white',
+    },
+    toggleOutsideContainer: {
+        flex: 1
+    },
+    toggleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 20
+    },
+    toggleText: {
+        color: 'white',
+        fontSize: 18
+    },
+    switchStyle: {
+        marginHorizontal: 10,
     },
 }
