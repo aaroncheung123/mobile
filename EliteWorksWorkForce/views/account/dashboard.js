@@ -12,14 +12,8 @@ export default class Dashboard extends React.Component {
         super(props)
 
         this.state = {
-            deals: [],
-            drivingSwitch: false,
-            jobSwitch: false,
+            deals: []
         }
-        this.springValue = new Animated.Value(0);
-        this.screenHeight = Dimensions.get('window').height;
-        this.handleSpringPanel = this.handleSpringPanel.bind(this);
-        this.handleCloseSpringPanel = this.handleCloseSpringPanel.bind(this);
     }
 
     componentDidMount() {
@@ -28,31 +22,9 @@ export default class Dashboard extends React.Component {
         })
     }
 
-    handleSpringPanel() {
-        Animated.spring(
-            this.springValue,
-            {
-                toValue: this.screenHeight - 160,
-                friction: 6
-            }
-        ).start()
-    }
-
-    handleCloseSpringPanel(){
-        this.springValue.setValue(0);
-    }
-
-    toggleDriving = (value) => {
-        this.setState({drivingSwitch: value})
-    }
-
-    toggleJob = (value) => {
-        this.setState({jobSwitch: value})
-    }
-
     render() {
 
-        let deals = this.state.deals.map(deal => <DealCard deal={deal} key={deal.deal_id} onPressDetails={() => this.handleSpringPanel}/>);
+        let deals = this.state.deals.map(deal => <DealCard deal={deal} key={deal.deal_id} onShowSpringPanel={this.props.onShowSpringPanel}/>);
 
         return (
             <View style={STYLES.container}>
@@ -75,83 +47,6 @@ export default class Dashboard extends React.Component {
                         </View>
                     </ScrollView>
                 </View>
-
-
-                <Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
-                    <Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleCloseSpringPanel}/>
-                    <View style={STYLES.innerSpringContainer}>
-                        <Text style={STYLES.springContainerText}>Snow Removal</Text>
-
-                        <ScrollView>
-                            <View style={STYLES.filler}>
-                                <View style={STYLES.toggleContainer}>
-                                    <Text style={STYLES.toggleText}>Stop Driving</Text>
-                                    <Switch
-                                        onTintColor = '#F7882F'
-                                        thumbTintColor = 'white'
-                                        style = {STYLES.switchStyle}
-                                        onValueChange = {this.toggleDriving}
-                                        value = {this.state.drivingSwitch}/>
-
-                                    <Text style={STYLES.toggleText}>Start Driving</Text>
-                                </View>
-
-
-                                <View style={STYLES.toggleContainer}>
-                                    <Text style={STYLES.toggleText}>Stop Job</Text>
-                                    <Switch
-                                        onTintColor = '#F7882F'
-                                        thumbTintColor = 'white'
-                                        style = {STYLES.switchStyle}
-                                        onValueChange = {this.toggleJob}
-                                        value = {this.state.jobSwitch}/>
-
-                                    <Text style={STYLES.toggleText}>Start Job</Text>
-                                </View>
-
-
-
-                                <View style={STYLES.outsidePhotoContainer}>
-                                    <Text style={STYLES.toggleText}>Before Photos</Text>
-                                    <View style={STYLES.photoRow}>
-                                        <View style={STYLES.photoContainer}></View>
-                                        <View style={STYLES.photoContainer}></View>
-                                        <View style={STYLES.photoContainer}></View>
-                                    </View>
-
-
-                                    <Text style={STYLES.toggleText}>After Photos</Text>
-                                    <View style={STYLES.photoRow}>
-                                        <View style={STYLES.photoContainer}></View>
-                                        <View style={STYLES.photoContainer}></View>
-                                        <View style={STYLES.photoContainer}></View>
-                                    </View>
-                                </View>
-
-
-
-                                <View style={STYLES.notesContainer}>
-                                    <TextInput
-                                        style={STYLES.textInputStyle1}
-                                        placeholder = "Enter notes here"
-                                        underlineColorAndroid = "transparent"/>
-                                </View>
-                                <TouchableOpacity
-                                    style={STYLES.saveNotes}
-                                    onPress={this.handleSpringPanel}>
-                                    <Text style={STYLES.toggleText}>Save</Text>
-                                </TouchableOpacity>
-                            </View>
-
-
-                        </ScrollView>
-
-
-
-                    </View>
-
-                </Animated.View>
-
             </View>
         )
     }
@@ -194,7 +89,6 @@ const STYLES = {
         marginBottom: 200,
     },
     springContainer: {
-        flex: 1,
         position: 'absolute',
         bottom: 0,
         width: '100%',
@@ -204,74 +98,5 @@ const STYLES = {
         alignItems: 'center',
         backgroundColor: Blueberry,
         opacity: .9
-    },
-    innerSpringContainer: {
-        flex: 1,
-        margin: 20,
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
-    iconX: {
-        color: 'white',
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        margin: 15
-    },
-    springContainerText: {
-        color: 'white',
-        fontSize: 24,
-        fontWeight: 'bold',
-        borderBottomWidth: 2,
-        marginBottom: 20,
-        paddingBottom: 20,
-        borderColor: 'white',
-    },
-    toggleOutsideContainer: {
-        flex: 1
-    },
-    toggleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginVertical: 10
-    },
-    toggleText: {
-        color: 'white',
-        fontSize: 16
-    },
-    switchStyle: {
-        marginHorizontal: 10,
-    },
-    notesContainer: {
-        width: 300,
-        height: 300,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        padding: 10,
-        marginTop: 30
-    },
-    saveNotes: {
-        backgroundColor: EliteWorksOrange,
-        padding: 15,
-        margin: 10,
-        borderRadius: 5,
-        alignSelf: 'flex-end'
-    },
-    filler: {
-        marginBottom: 250
-    },
-    photoContainer: {
-        height: 80,
-        width: 60,
-        borderRadius: 5,
-        backgroundColor: 'white',
-        margin: 15
-    },
-    photoRow: {
-        flexDirection: 'row'
-    },
-    outsidePhotoContainer: {
-        marginVertical: 20
     }
 }

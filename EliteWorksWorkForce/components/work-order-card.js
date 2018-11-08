@@ -1,35 +1,63 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-const WorkOrderCard = (props) => {
+import WorkOrderSpringContent from './work-order-spring-content';
 
 
-    let scheduledDate = props.workOrder.scheduled_at ? GlobalUtil.convertMysqlToDate(props.workOrder.scheduled_at).formatDate('n/d/y H:m A') : '-'
+export default class WorkOrderCard extends React.Component {
 
-    return (
-        <View>
-            <TouchableOpacity style={STYLES.trashIcon}>
-                <Icon name='trash' size= {20} color= 'white'/>
-            </TouchableOpacity>
 
-            <View style={STYLES.container}>
-                <DisplayLabel label="Name" value={props.workOrder.name}/>
-                <DisplayLabel label="Work Order #" value={props.workOrder.key}/>
-                <DisplayLabel label="Status" value={props.workOrder.status}/>
-                <DisplayLabel label="Scheduled" value={scheduledDate}/>
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            drivingSwitch: false,
+            jobSwitch: false,
+        }
+        this.springValue = new Animated.Value(0);
 
-                <TouchableOpacity
-                    style={STYLES.detailsButton}
-                    onPress={props.onPressDetails}>
-                    <Text>Details</Text>
+        this.handleDetailsPress = this.handleDetailsPress.bind(this);
+    }
+
+    handleDetailsPress() {
+        if (this.props.onShowSpringPanel) 
+        {
+            this.props.onShowSpringPanel(
+                this.props.workOrder.name, 
+                <WorkOrderSpringContent workOrder={this.props.workOrder} />
+            )
+        }
+    }
+
+    render() {
+
+        let scheduledDate = this.props.workOrder.scheduled_at ? GlobalUtil.convertMysqlToDate(this.props.workOrder.scheduled_at).formatDate('n/d/y H:m A') : '-';
+
+        return (
+            <View>
+                <TouchableOpacity style={STYLES.trashIcon}>
+                    <Icon name='trash' size= {20} color= 'white'/>
                 </TouchableOpacity>
-            </View>
-        </View>
 
-    );
+                <View style={STYLES.container}>
+                    <DisplayLabel label="Name" value={this.props.workOrder.name}/>
+                    <DisplayLabel label="Work Order #" value={this.props.workOrder.key}/>
+                    <DisplayLabel label="Status" value={this.props.workOrder.status}/>
+                    <DisplayLabel label="Scheduled" value={scheduledDate}/>
+
+                    <TouchableOpacity
+                        style={STYLES.detailsButton}
+                        onPress={this.handleDetailsPress}>
+                        <Text>Details</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+
+        );
+    }
 }
 
 
@@ -48,7 +76,6 @@ const DisplayLabel = (props) =>
     )
 }
 
-export default WorkOrderCard;
 
 const STYLES = {
     container: {
@@ -58,7 +85,7 @@ const STYLES = {
         borderBottomWidth: 1,
         borderColor: Blueberry,
         borderRadius: 5,
-        margin: 10,
+        padding: 10,
         minHeight: 100
     },
     innerContainer: {
@@ -77,7 +104,7 @@ const STYLES = {
         margin: 5,
     },
     trashIcon: {
-        position: 'absolute',
+        position: 'fixed',
         right: 0,
         zIndex: 1,
         marginRight: 20,
@@ -87,10 +114,14 @@ const STYLES = {
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        width: 120,
+        width: '90%',
         padding: 10,
-        backgroundColor: EliteWorksOrange,
+        borderColor: Blueberry,
+        borderWidth: 1,
         borderRadius: 5,
         margin: 10
-    }
+    },
+
+
 }
+

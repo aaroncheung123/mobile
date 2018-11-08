@@ -10,6 +10,7 @@ import AccountDashBoard from './account/dashboard';
 import AccountTimeClock from './account/timeclock';
 import AccountWorkOrders from './account/workorders';
 import LoginModal from './account/login-modal';
+import SpringPanel from '../components/spring-panel';
 
 const SIDE_MENU_WIDTH = 300;
 
@@ -26,13 +27,18 @@ export default class Account extends React.Component {
 			companyName: '',
 			user: new EliteAPI.Models.CRM.User(),
 			workSpaces: {},
-			showLoginModal: false
+			showLoginModal: false,
+			showSpringPanel: true,
+			springPanelTitle: '',
+			springPanelContent: null
 		}
 
 		this.updateSideMenu = this.updateSideMenu.bind(this);
 		this.updatePath = this.updatePath.bind(this);
 		this.populateData = this.populateData.bind(this);
 		this.handleLogout = this.handleLogout.bind(this);
+		this.handleShowSpringPanel = this.handleShowSpringPanel.bind(this);
+		this.handleSpringPanelClose = this.handleSpringPanelClose.bind(this);
 	}
 
 
@@ -77,6 +83,25 @@ export default class Account extends React.Component {
 			if (Object.keys(workspaces).length > 0) this.setState({workSpaces: workspaces});
 			else this.props.history.push('/login');
 		});
+	}
+
+	handleSpringPanelClose()
+	{
+		this.setState({
+			springPanelTitle: '',
+			springPanelContent: null
+		})
+	}
+
+	handleShowSpringPanel(title, content) {
+		this.setState({
+			springPanelTitle: title,
+			springPanelContent: content
+		}, () => {
+			if (this.springPanel) {
+				this.springPanel.open();
+			}
+		})
 	}
 
 	handleLogout() {
@@ -160,9 +185,12 @@ export default class Account extends React.Component {
 
 					{/*content*/}
 						<View style={CONTENT_STYLES.container}>
-							<Route path="/dashboard" component={AccountDashBoard} />
-							<Route path="/orders" component={AccountWorkOrders} />
-							<Route path="/time" component={AccountTimeClock} />
+							<Route path="/dashboard" render={(props) => <AccountDashBoard {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+							<Route path="/orders" render={(props) => <AccountWorkOrders {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+							<Route path="/time" render={(props) => <AccountTimeClock {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+
+							{/* slide up model */}
+							<SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent} onClose={this.handleSpringPanelClose}/>
 						</View>
 
 					{/*Bottom Menu*/}

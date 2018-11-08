@@ -32,6 +32,11 @@ export default class WorkOrders extends React.Component {
 	}
 
 	render() {
+
+
+		let workOrderCards = this.state.workOrders.map(workOrder => {
+			return <WorkOrderCard key={workOrder.work_order_id} workOrder={workOrder} onShowSpringPanel={this.props.onShowSpringPanel} />
+		})
 		return (
 			<View>
 				<View style={PANEL.container}>
@@ -41,34 +46,20 @@ export default class WorkOrders extends React.Component {
 							style={PANEL.datePickerContainer}
 							date={this.state.selectedDay}
 							showIcon={false}
-	    				onDateChange={(date) => {this.setState({selectedDay: new Date(date)}, this.loadWorkOrders)}}
-			        confirmBtnText="Confirm"
-			        cancelBtnText="Cancel"
-			        format="MM/DD/YYYY"
+							onDateChange={(date) => {this.setState({selectedDay: new Date(date)}, this.loadWorkOrders)}}
+							confirmBtnText="Confirm"
+							cancelBtnText="Cancel"
+							format="MM/DD/YYYY"
 						/>
 					</View>
 
 
 					<ScrollView style={PANEL.workOrderContainer}>
 						<View style={PANEL.filler}>
-							<WorkOrderCard/>
-							<WorkOrderCard/>
-							<WorkOrderCard/>
-							<WorkOrderCard/>
+							{workOrderCards}
 						</View>
 
 					</ScrollView>
-
-
-
-
-
-
-
-					<View style={PANEL.TableContainer}>
-						{ this.state.workOrders.map( (workOrder) => <WorkOrderRow key={workOrder.work_order_id} workOrder={workOrder} onSelect={() => this.setState({selectedWorkOrder: workOrder})}/> ) }
-					</View>
-					<WorkOrderModal onClose={() => this.setState({selectedWorkOrder: undefined})} onUpdate={() => this.loadWorkOrders()} workOrder={this.state.selectedWorkOrder}/>
 				</View>
 			</View>
 		)
@@ -188,17 +179,17 @@ const PANEL = {
 	},
 	SelectPicker: {
 		inputIOS: {
-	        fontSize: 24,
-	        paddingTop: 13,
-	        paddingHorizontal: 10,
-	        paddingBottom: 12,
-	        borderTopWidth: 1,
-	        borderBottomWidth: 1,
-	        borderTopColor: 'gray',
-	        borderBottomColor: 'gray',
-	        color: 'black',
-	        textAlign: 'center',
-	        marginTop: 15
-	    },
+					fontSize: 24,
+					paddingTop: 13,
+					paddingHorizontal: 10,
+					paddingBottom: 12,
+					borderTopWidth: 1,
+					borderBottomWidth: 1,
+					borderTopColor: 'gray',
+					borderBottomColor: 'gray',
+					color: 'black',
+					textAlign: 'center',
+					marginTop: 15
+			},
 	}
 }

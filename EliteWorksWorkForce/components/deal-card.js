@@ -16,13 +16,12 @@ export default class DealCard extends React.Component {
 		super(props);
 
 		this.state = {
-			expanded: true,
-			animation: new Animated.Value(),
+			expanded: false,
+			opacity: new Animated.Value(0),
+			maxHeight: new Animated.Value(0),
 			workOrders: []
 		};
 	
-		this.handleMaxHeight = this.handleMaxHeight.bind(this);
-		this.handleMinHeight = this.handleMinHeight.bind(this);
 		this.toggle = this.toggle.bind(this);
 	}
 
@@ -34,34 +33,36 @@ export default class DealCard extends React.Component {
 		})
 	}
 
-	handleMaxHeight(event){
-		this.setState({
-			maxHeight   : event.nativeEvent.layout.height + 45
-		});
-	}
 
-	handleMinHeight(event){
-		this.setState({
-			minHeight   : event.nativeEvent.layout.height + 45
-		});
-	}
 
 	toggle(){
 
-		let initialValue = this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
-			finalValue = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
+		this.state.opacity.setValue(0);
+		this.state.maxHeight.setValue(0);
 
 		this.setState({
 			expanded : !this.state.expanded
-		});
+		}, () => {
 
-		this.state.animation.setValue(initialValue);
-		Animated.spring(
-			this.state.animation,
-			{
-				toValue: finalValue
+			if (this.state.expanded) {
+
+				Animated.timing(
+					this.state.opacity,
+					{
+						toValue: 1,
+						duration: 1000
+					},
+				).start();
+
+				Animated.spring(
+					this.state.maxHeight,
+					{
+						toValue: 500,
+                		friction: 6
+					}
+				).start();
 			}
-		).start();
+		});
 	}
 
 	render(){
@@ -72,11 +73,11 @@ export default class DealCard extends React.Component {
 			lastScheduledService = <Text style={STYLES.textStyle}>Latest Service: {GlobalUtil.convertMysqlToDate(this.props.deal.lastest_scheduled_work_order).formatDate('n/d/y H:m A')}</Text>
 		}
 
-		let workOrders = this.state.workOrders.map(workOrder => <WorkOrderCard workOrder={workOrder} key={workOrder.work_order_id}/>)
+		let workOrders = this.state.workOrders.map(workOrder => <WorkOrderCard workOrder={workOrder} key={workOrder.work_order_id} onShowSpringPanel={this.props.onShowSpringPanel}/>)
 
 		return(
-			<Animated.View style={[STYLES.container, {height: this.state.animation}]}>
-				<TouchableOpacity style={STYLES.elevatedContainer} onLayout={this.handleMinHeight} onPress={this.toggle}>
+			<View style={STYLES.container}>
+				<TouchableOpacity style={STYLES.elevatedContainer} onPress={this.toggle}>
 						<View>
 							<View style={STYLES.textContainer}>
 								<Text style={STYLES.textStyleTitle}>{this.props.deal.name}</Text>
@@ -91,24 +92,24 @@ export default class DealCard extends React.Component {
 							</View>
 						</View>
 				</TouchableOpacity>
+				{
+					this.state.expanded ?
+					<Animated.View style={{...STYLES.hiddenBody, opacity: this.state.opacity, maxHeight: this.state.maxHeight < 500 ? this.state.maxHeight : 100000}}>
+						<View style={STYLES.descriptionContainer}>
+							<Text style={STYLES.textStyle2}>Description:</Text>
+							<Text style={STYLES.textStyle3}>{GlobalUtil.htmlTextStripper(this.props.deal.description)}</Text>
+						</View>
 
-				<View style={STYLES.hiddenBody} onLayout={this.handleMaxHeight}>
-					<View style={STYLES.descriptionContainer}>
-						<Text style={STYLES.textStyle2}>Description:</Text>
-						<Text style={STYLES.textStyle3}>{GlobalUtil.htmlTextStripper(this.props.deal.description)}</Text>
-					</View>
-
-					{
-						this.state.workOrders.length > 0 ?
-						<View>
-							<Text style={STYLES.textStyle2}>Work Orders</Text>
-							{workOrders}
-						</View> : null
-					}
-
-				</View>
-
-			</Animated.View>
+						{
+							this.state.workOrders.length > 0 ?
+							<View>
+								<Text style={STYLES.textStyle2}>Work Orders</Text>
+								{workOrders}
+							</View> : null
+						}
+					</Animated.View> : null
+				}
+			</View>
 
 		);
 	}
@@ -116,24 +117,25 @@ export default class DealCard extends React.Component {
 
 const STYLES = {
 	container: {
-		padding: 30,
 		width: '100%',
 		flex: 1,
-		backgroundColor: 'transparent'
+		backgroundColor: 'transparent',
+		overflow: 'hidden',
+		paddingLeft: 20,
+		paddingRight: 20
 	},
 	hiddenBody: {
 		width: '100%',
 		backgroundColor: 'white',
-		marginTop: 2,
 		padding: 20,
 		borderRadius: 10,
 		elevation: 10,
 		shadowOffset: { height: 1, width: 1 }, // IOS
 		shadowOpacity: 2, // IOS
-		shadowRadius: 2, //IOS
+		shadowRadius: 2, //IOS,
+		marginBottom: 20
 	},
 	elevatedContainer: {
-		flex: 1,
 		backgroundColor: Blueberry,
 		borderRadius: 5,
 		shadowOffset: { height: 1, width: 1 }, // IOS
@@ -183,7 +185,6 @@ const STYLES = {
 		marginTop: 20
 	},
 	descriptionContainer: {
-		flex: 1,
 		marginBottom: 20
 	}
 }
