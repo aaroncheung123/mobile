@@ -43,7 +43,7 @@ export default class Account extends React.Component {
 
 
 	componentDidMount() {
-		this.updatePath('/time');
+		this.updatePath('/dashboard');
 		this.populateData();
 	}
 
