@@ -104,7 +104,7 @@ const STYLES = {
         margin: 5,
     },
     trashIcon: {
-        position: 'fixed',
+        position: 'absolute',
         right: 0,
         zIndex: 1,
         marginRight: 20,
