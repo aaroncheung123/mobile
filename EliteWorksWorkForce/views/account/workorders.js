@@ -1,9 +1,10 @@
 
 import React from 'react';
-import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, TouchableHighlight} from 'react-native';
+import {StyleSheet, ScrollView, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, TouchableHighlight} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey} from '../../assets/styles/constants';
 import DatePicker from 'react-native-datepicker'
 import WorkOrderModal from './work-order-modal';
+import WorkOrderCard from '../../components/work-order-card.js';
 
 export default class WorkOrders extends React.Component {
 
@@ -29,23 +30,41 @@ export default class WorkOrders extends React.Component {
 			})
 		})
 	}
- 	
+
 	render() {
 		return (
 			<View>
 				<View style={PANEL.container}>
-					<Text style={{...PANEL.headerText, marginBottom: 0}}>Work Orders</Text>
+					<View style={PANEL.dateSearch}>
+						<Text>Search by date</Text>
+						<DatePicker
+							style={PANEL.datePickerContainer}
+							date={this.state.selectedDay}
+							showIcon={false}
+	    				onDateChange={(date) => {this.setState({selectedDay: new Date(date)}, this.loadWorkOrders)}}
+			        confirmBtnText="Confirm"
+			        cancelBtnText="Cancel"
+			        format="MM/DD/YYYY"
+						/>
+					</View>
 
-					<DatePicker
-						style={{width: '100%', marginTop: 10}}
-						date={this.state.selectedDay}
-						showIcon={false}
-        				onDateChange={(date) => {this.setState({selectedDay: new Date(date)}, this.loadWorkOrders)}}
-				        confirmBtnText="Confirm"
-				        cancelBtnText="Cancel"
-				        format="MM/DD/YYYY"
 
-					/>
+					<ScrollView style={PANEL.workOrderContainer}>
+						<View style={PANEL.filler}>
+							<WorkOrderCard/>
+							<WorkOrderCard/>
+							<WorkOrderCard/>
+							<WorkOrderCard/>
+						</View>
+
+					</ScrollView>
+
+
+
+
+
+
+
 					<View style={PANEL.TableContainer}>
 						{ this.state.workOrders.map( (workOrder) => <WorkOrderRow key={workOrder.work_order_id} workOrder={workOrder} onSelect={() => this.setState({selectedWorkOrder: workOrder})}/> ) }
 					</View>
@@ -91,12 +110,12 @@ const TimeClockRowCell = (props) => {
 const WORK_ORDER_ROW = {
 	cellHeaderText: {
 		color: '#cccccc',
-		width: '100%', 
+		width: '100%',
 		textAlign: 'center'
 	},
 	cellValue: {
 		color: '#222222',
-		width: '100%', 
+		width: '100%',
 		textAlign: 'center',
 		fontSize: 20
 	},
@@ -114,19 +133,32 @@ const WORK_ORDER_ROW = {
 		flexDirection: 'row'
 	}
 }
+
 const PANEL = {
 	container: {
 		backgroundColor: 'white',
 		borderRadius: 10,
 		alignItems: 'center',
-		marginTop: 15,
-		marginLeft: 15,
-		marginRight: 15
+		margin: 10
+	},
+	workOrderContainer: {
+		padding: 20,
+		backgroundColor: 'white',
+		width: '100%',
+	},
+	dateSearch: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		padding: 10
+	},
+	datePickerContainer: {
+		margin: 10
 	},
 	headerText: {
 		margin: 15,
 		color: EliteWorksOrange,
-		fontSize: 25,	
+		fontSize: 25,
 		fontWeight: 'bold'
 	},
 	timeText: {
@@ -148,8 +180,11 @@ const PANEL = {
 		borderRadius: 15,
 		width: 125
 	},
+	filler: {
+		marginBottom: 250
+	},
 	TableContainer: {
-		margin: 15
+		margin: 15,
 	},
 	SelectPicker: {
 		inputIOS: {

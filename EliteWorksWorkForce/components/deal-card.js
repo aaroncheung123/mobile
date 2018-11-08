@@ -86,8 +86,8 @@ export default class DealCard extends React.Component {
 
                     <View>
                         <Text style={STYLES.textStyle2}>Work Orders</Text>
-                        <WorkOrderCard/>
-                        <WorkOrderCard/>
+                        <WorkOrderCard onPressDetails={this.props.onPressDetails}/>
+                        <WorkOrderCard onPressDetails={this.props.onPressDetails}/>
                     </View>
 
                 </View>
