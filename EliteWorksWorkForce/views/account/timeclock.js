@@ -316,12 +316,12 @@ const TIME_CLOCK_HISTORY_ROW = {
 		marginRight: 5
 	},
 	cellHeaderText: {
-		color: 'white',
+		color: 'black',
 		width: '100%',
 		textAlign: 'left'
 	},
 	cellValue: {
-		color: 'white',
+		color: 'black',
 		width: '100%',
 		textAlign: 'left',
 		fontSize: 16,
@@ -330,8 +330,7 @@ const TIME_CLOCK_HISTORY_ROW = {
 	container: {
 		padding: 10,
 		margin: 5,
-		borderWidth: 1,
-		borderColor: 'white',
+		backgroundColor: 'white',
 		width: '100%',
 		borderRadius: 5,
 		flexDirection: 'row',
@@ -380,7 +379,7 @@ const PANEL = {
 		borderColor: 'white',
 		width: '50%',
 		paddingBottom: 30,
-		marginBottom: 30
+		marginBottom: 10
 	},
 	timeText: {
 		marginBottom: 15,
@@ -402,19 +401,20 @@ const PANEL = {
 		width: 125
 	},
 	historyTableContainer: {
-		margin: 0
 	},
 	historySelectPicker: {
-		backgroundColor: 'pink',
+		inputAndroid: {
+			color: 'white',
+			borderWidth: 2,
+			borderColor: 'white',
+			borderRadius: 5
+		},
 		inputIOS: {
-	        fontSize: 24,
-	        paddingTop: 13,
-	        paddingHorizontal: 10,
-	        paddingBottom: 12,
-	        backgroundColor: 'blue',
-	        textAlign: 'center',
-	        marginTop: 15
-	    },
+			color: 'white',
+			borderWidth: 2,
+			borderColor: 'white',
+			borderRadius: 5
+    },
 	}
 }
 
