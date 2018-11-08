@@ -238,18 +238,21 @@ export default class TimeClock extends React.Component {
 						</View>
 
 						<View style={PANEL.container}>
-							<Text style={{...PANEL.headerText, marginBottom: 0}}>History</Text>
+							<Text style={PANEL.headerText}>History</Text>
 
-							<SelectPicker
-								placeholder={{}}
-								style={PANEL.historySelectPicker}
-								label='Week'
-								value={this.state.historyWeekDropdownSelected.value}
-								items={this.state.historyWeekDropdownData}
-								hideDoneBar={true}
-								hideIcon={true}
-								onValueChange={(value, index) => {this.setState({historyWeekDropdownSelected: this.state.historyWeekDropdownData[index]}, this.populateData)}}
-							/>
+
+								<SelectPicker
+									placeholder={{}}
+									style={PANEL.historySelectPicker}
+									label='Week'
+									value={this.state.historyWeekDropdownSelected.value}
+									items={this.state.historyWeekDropdownData}
+									hideDoneBar={true}
+									hideIcon={true}
+									onValueChange={(value, index) => {this.setState({historyWeekDropdownSelected: this.state.historyWeekDropdownData[index]}, this.populateData)}}
+								/>
+
+
 							<View style={PANEL.historyTableContainer}>
 								{ this.state.historyTimeClocks.map( (timeClock) => <TimeClockHistoryRow key={timeClock.time_clock_id} timeClock={timeClock}/> ) }
 							</View>
@@ -300,7 +303,7 @@ const TimeClockRowCell = (props) => {
 	}
 	return (
 
-		<View style={containerStyle}>
+		<View style={TIME_CLOCK_HISTORY_ROW.containerStyle}>
 			<Text style={TIME_CLOCK_HISTORY_ROW.cellHeaderText}>{props.header}</Text>
 			<Text style={TIME_CLOCK_HISTORY_ROW.cellValue}>{props.value}</Text>
 		</View>
@@ -308,26 +311,26 @@ const TimeClockRowCell = (props) => {
 }
 
 const TIME_CLOCK_HISTORY_ROW = {
+	containerStyle: {
+		marginRight: 10
+	},
 	cellHeaderText: {
-		color: '#cccccc',
+		color: 'white',
 		width: '100%',
-		textAlign: 'center'
+		textAlign: 'left'
 	},
 	cellValue: {
-		color: '#222222',
+		color: 'white',
 		width: '100%',
-		textAlign: 'center',
-		fontSize: 20
+		textAlign: 'left',
+		fontSize: 16,
 	},
 
 	container: {
-		marginTop: 10,
-		paddingTop: 2.5,
+		padding: 10,
+		margin: 5,
 		borderWidth: 1,
-		borderColor: '#f5f5f5',
-		borderLeftColor: EliteWorksOrange,
-		borderLeftWidth: 4,
-		height: 45,
+		borderColor: 'white',
 		minWidth: '100%',
 		borderRadius: 5,
 		flexDirection: 'row'
@@ -388,7 +391,7 @@ const PANEL = {
 		width: 125
 	},
 	historyTableContainer: {
-		margin: 15
+		margin: 0
 	},
 	historySelectPicker: {
 		inputIOS: {
@@ -400,7 +403,7 @@ const PANEL = {
 	        borderBottomWidth: 1,
 	        borderTopColor: 'gray',
 	        borderBottomColor: 'gray',
-	        color: 'black',
+	        color: 'white',
 	        textAlign: 'center',
 	        marginTop: 15
 	    },
