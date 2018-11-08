@@ -257,15 +257,29 @@ class CrmModels {
     }
 }
 
+// cms models
 import Blog from './models/cms/blog';
 import Post from './models/cms/post';
 
-// cms models
 class CMSModels {
     constructor()
     {
         this.Blog = Blog;
         this.Post = Post;
+    }
+}
+
+// gen models
+import ModelActivity from './models/gen/model-activity';
+import ModelFile from './models/gen/model-file';
+import ModelTimeSpan from './models/gen/model-time-span';
+
+class GenModels {
+    constructor()
+    {
+        this.ModelActivity = ModelActivity;
+        this.ModelFile = ModelFile;
+        this.ModelTimeSpan = ModelTimeSpan;
     }
 }
 
@@ -280,7 +294,8 @@ class EliteAPI {
         this.Models = {
             STR: new StrModels(),
             CRM: new CrmModels(),
-            CMS: new CMSModels()
+            CMS: new CMSModels(),
+            GEN: new GenModels()
         };
 
     }
@@ -292,6 +307,7 @@ window.EliteAPI.STR = new StrApis();
 window.EliteAPI.CRM = new CrmApis();
 window.EliteAPI.GEN = new GenApis();
 window.EliteAPI.CMS = new CmsApis();
+window.EliteAPI.GEN = new GenApis();
 
 import Service from './api/service';
 window.Service = new Service();
