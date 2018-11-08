@@ -185,7 +185,7 @@ export default class TimeClock extends React.Component {
 			'CLOCKED IN - ' + GlobalUtil.convertMysqlToDate(this.state.clockedInTimeClock.start).formatDate('H:m A') :
 			'CLOCKED OUT'
 		return (
-			<View>
+			<View style={PANEL.tester}>
 
 				<View style={PANEL.toggleContainer}>
 						<Text style={PANEL.toggleText}>Clock Out</Text>
@@ -200,78 +200,65 @@ export default class TimeClock extends React.Component {
 				</View>
 
 
+
+
 				<ScrollView>
-					<View style={PANEL.container}>
-						<View style={PANEL.sectionContainer}>
+					<View style={PANEL.filler}>
+						<View style={PANEL.container}>
+
+
+							<View style={PANEL.sectionContainer}>
+									<View style={PANEL.innerContainer}>
+										<Text style={PANEL.headerText}>Current Time:</Text>
+									</View>
+									<View style={PANEL.innerContainer}>
+										<Text style={PANEL.headerText}>{this.state.currentTime}</Text>
+									</View>
+							</View>
+
+							<View style={PANEL.sectionContainer}>
 								<View style={PANEL.innerContainer}>
-									<Text style={PANEL.headerText}>Current Time:</Text>
+									<Text style={PANEL.headerText}>Week Total:</Text>
 								</View>
 								<View style={PANEL.innerContainer}>
-									<Text style={PANEL.headerText}>{this.state.currentTime}</Text>
+									<Text style={PANEL.headerText}>{`${this.state.weekClockedInHours} Hours - ${this.state.weekClockedInMinutes} Minutes`}</Text>
 								</View>
-
-
-						</View>
-
-						<View style={PANEL.sectionContainer}>
-							<View style={PANEL.innerContainer}>
-								<Text style={PANEL.headerText}>Week Total:</Text>
 							</View>
-							<View style={PANEL.innerContainer}>
-								<Text style={PANEL.headerText}>{`${this.state.weekClockedInHours} Hours - ${this.state.weekClockedInMinutes} Minutes`}</Text>
+
+							<View style={PANEL.sectionContainer}>
+									<View style={PANEL.innerContainer}>
+										<Text style={PANEL.headerText}>Status:</Text>
+									</View>
+									<View style={PANEL.innerContainer}>
+										<Text style={PANEL.headerText}>{ClockedStatusMessage}</Text>
+									</View>
 							</View>
+
+
 						</View>
 
+						<View style={PANEL.container}>
+							<Text style={{...PANEL.headerText, marginBottom: 0}}>History</Text>
 
-
-					</View>
-
-					<View style={PANEL.container}>
-						<Text style={PANEL.headerText}>Clock-In Status</Text>
-						{
-							this.state.clockedInStatus ?
-							<Text style={{...PANEL.statusText, color: ((this.state.clockedInStatus === 'IN') ? 'green' : '#222222')}}>{ClockedStatusMessage}</Text> : null
-						}
-						<View style={PANEL.clockInButtonContainer}>
-							<Button
-								onPress={this.handleClockIn}
-								title="Clock In"
-								color="white"
-								accessibilityLabel="Clock In"
-								disabled={!this.state.clockedInStatus || this.state.clockedInStatus === 'IN'}
-								buttonStyle={{...PANEL.clockInButton, backgroundColor: 'green'}}
-								loading={this.state.loadingClockIn}
+							<SelectPicker
+								placeholder={{}}
+								style={PANEL.historySelectPicker}
+								label='Week'
+								value={this.state.historyWeekDropdownSelected.value}
+								items={this.state.historyWeekDropdownData}
+								hideDoneBar={true}
+								hideIcon={true}
+								onValueChange={(value, index) => {this.setState({historyWeekDropdownSelected: this.state.historyWeekDropdownData[index]}, this.populateData)}}
 							/>
-							<Button
-								onPress={this.handleClockOut}
-								title="Clock Out"
-								color="white"
-								accessibilityLabel="Clock Out"
-								disabled={!this.state.clockedInStatus || this.state.clockedInStatus === 'OUT'}
-								buttonStyle={{...PANEL.clockInButton, backgroundColor: '#cc4444'}}
-								loading={this.state.loadingClockOut}
-							/>
-						</View>
-					</View>
-
-					<View style={PANEL.container}>
-						<Text style={{...PANEL.headerText, marginBottom: 0}}>History</Text>
-
-						<SelectPicker
-							placeholder={{}}
-							style={PANEL.historySelectPicker}
-							label='Week'
-							value={this.state.historyWeekDropdownSelected.value}
-							items={this.state.historyWeekDropdownData}
-							hideDoneBar={true}
-							hideIcon={true}
-							onValueChange={(value, index) => {this.setState({historyWeekDropdownSelected: this.state.historyWeekDropdownData[index]}, this.populateData)}}
-						/>
-						<View style={PANEL.historyTableContainer}>
-							{ this.state.historyTimeClocks.map( (timeClock) => <TimeClockHistoryRow key={timeClock.time_clock_id} timeClock={timeClock}/> ) }
+							<View style={PANEL.historyTableContainer}>
+								{ this.state.historyTimeClocks.map( (timeClock) => <TimeClockHistoryRow key={timeClock.time_clock_id} timeClock={timeClock}/> ) }
+							</View>
 						</View>
 					</View>
 				</ScrollView>
+
+
+
 
 
 
@@ -374,6 +361,9 @@ const PANEL = {
 	switchStyle: {
 			marginHorizontal: 10,
 	},
+	filler: {
+		marginBottom: 200
+	},
 	headerText: {
 		color: 'white',
 		fontSize: 16,
@@ -416,3 +406,32 @@ const PANEL = {
 	    },
 	}
 }
+
+
+// <View style={PANEL.container}>
+// 	<Text style={PANEL.headerText}>Clock-In Status</Text>
+// 	{
+// 		this.state.clockedInStatus ?
+// 		<Text style={{...PANEL.statusText, color: ((this.state.clockedInStatus === 'IN') ? 'green' : '#222222')}}>{ClockedStatusMessage}</Text> : null
+// 	}
+// 	<View style={PANEL.clockInButtonContainer}>
+// 		<Button
+// 			onPress={this.handleClockIn}
+// 			title="Clock In"
+// 			color="white"
+// 			accessibilityLabel="Clock In"
+// 			disabled={!this.state.clockedInStatus || this.state.clockedInStatus === 'IN'}
+// 			buttonStyle={{...PANEL.clockInButton, backgroundColor: 'green'}}
+// 			loading={this.state.loadingClockIn}
+// 		/>
+// 		<Button
+// 			onPress={this.handleClockOut}
+// 			title="Clock Out"
+// 			color="white"
+// 			accessibilityLabel="Clock Out"
+// 			disabled={!this.state.clockedInStatus || this.state.clockedInStatus === 'OUT'}
+// 			buttonStyle={{...PANEL.clockInButton, backgroundColor: '#cc4444'}}
+// 			loading={this.state.loadingClockOut}
+// 		/>
+// 	</View>
+// </View>
