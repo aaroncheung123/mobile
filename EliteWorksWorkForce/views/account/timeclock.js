@@ -312,7 +312,7 @@ const TimeClockRowCell = (props) => {
 
 const TIME_CLOCK_HISTORY_ROW = {
 	containerStyle: {
-		marginRight: 10
+		marginRight: 5
 	},
 	cellHeaderText: {
 		color: 'white',
@@ -331,9 +331,10 @@ const TIME_CLOCK_HISTORY_ROW = {
 		margin: 5,
 		borderWidth: 1,
 		borderColor: 'white',
-		minWidth: '100%',
+		width: '100%',
 		borderRadius: 5,
-		flexDirection: 'row'
+		flexDirection: 'row',
+		justifyContent: 'space-evenly'
 	}
 }
 
@@ -395,17 +396,7 @@ const PANEL = {
 	},
 	historySelectPicker: {
 		inputIOS: {
-	        fontSize: 24,
-	        paddingTop: 13,
-	        paddingHorizontal: 10,
-	        paddingBottom: 12,
-	        borderTopWidth: 1,
-	        borderBottomWidth: 1,
-	        borderTopColor: 'gray',
-	        borderBottomColor: 'gray',
-	        color: 'white',
-	        textAlign: 'center',
-	        marginTop: 15
+
 	    },
 	}
 }
