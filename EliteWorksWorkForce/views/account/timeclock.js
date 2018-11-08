@@ -238,7 +238,7 @@ export default class TimeClock extends React.Component {
 						</View>
 
 						<View style={PANEL.container}>
-							<Text style={PANEL.headerText}>History</Text>
+							<Text style={PANEL.headerHistoryText}>History</Text>
 
 
 								<SelectPicker
@@ -251,6 +251,7 @@ export default class TimeClock extends React.Component {
 									hideIcon={true}
 									onValueChange={(value, index) => {this.setState({historyWeekDropdownSelected: this.state.historyWeekDropdownData[index]}, this.populateData)}}
 								/>
+
 
 
 							<View style={PANEL.historyTableContainer}>
@@ -372,6 +373,15 @@ const PANEL = {
 		color: 'white',
 		fontSize: 16,
 	},
+	headerHistoryText: {
+		color: 'white',
+		fontSize: 16,
+		borderBottomWidth: 2,
+		borderColor: 'white',
+		width: '50%',
+		paddingBottom: 30,
+		marginBottom: 30
+	},
 	timeText: {
 		marginBottom: 15,
 		color: 'white',
@@ -395,11 +405,23 @@ const PANEL = {
 		margin: 0
 	},
 	historySelectPicker: {
+		backgroundColor: 'pink',
 		inputIOS: {
-
+	        fontSize: 24,
+	        paddingTop: 13,
+	        paddingHorizontal: 10,
+	        paddingBottom: 12,
+	        backgroundColor: 'blue',
+	        textAlign: 'center',
+	        marginTop: 15
 	    },
 	}
 }
+
+
+
+
+
 
 
 // <View style={PANEL.container}>
