@@ -5,6 +5,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 const WorkOrderCard = (props) => {
+
+
+    let scheduledDate = props.workOrder.scheduled_at ? GlobalUtil.convertMysqlToDate(props.workOrder.scheduled_at).formatDate('n/d/y H:m A') : '-'
+
     return (
         <View>
             <TouchableOpacity style={STYLES.trashIcon}>
@@ -12,69 +16,36 @@ const WorkOrderCard = (props) => {
             </TouchableOpacity>
 
             <View style={STYLES.container}>
-                <View style={STYLES.innerContainer}>
-                    <View style={STYLES.leftContainer}>
-                        <Text style={STYLES.textStyle}>Name</Text>
-                    </View>
-
-                    <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.textStyle}>Snow Removal</Text>
-                    </View>
-                </View>
-
-                <View style={STYLES.innerContainer}>
-                    <View style={STYLES.leftContainer}>
-                        <Text style={STYLES.textStyle}>Key</Text>
-                    </View>
-
-                    <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.textStyle}>d938012cf4</Text>
-                    </View>
-                </View>
-
-
-                <View style={STYLES.innerContainer}>
-                    <View style={STYLES.leftContainer}>
-                        <Text style={STYLES.textStyle}>Status</Text>
-                    </View>
-
-                    <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.textStyle}>PROCESSED</Text>
-                    </View>
-                </View>
-
-                <View style={STYLES.innerContainer}>
-                    <View style={STYLES.leftContainer}>
-                        <Text style={STYLES.textStyle}>Scheduled</Text>
-                    </View>
-
-                    <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.textStyle}>9/21/19</Text>
-                    </View>
-                </View>
-
-                <View style={STYLES.innerContainer}>
-                    <View style={STYLES.leftContainer}>
-                        <Text style={STYLES.textStyle}>Date</Text>
-                    </View>
-
-                    <View style={STYLES.rightContainer}>
-                        <Text style={STYLES.textStyle}>9/21/19</Text>
-                    </View>
-                </View>
+                <DisplayLabel label="Name" value={props.workOrder.name}/>
+                <DisplayLabel label="Work Order #" value={props.workOrder.key}/>
+                <DisplayLabel label="Status" value={props.workOrder.status}/>
+                <DisplayLabel label="Scheduled" value={scheduledDate}/>
 
                 <TouchableOpacity
                     style={STYLES.detailsButton}
                     onPress={props.onPressDetails}>
                     <Text>Details</Text>
                 </TouchableOpacity>
-
-
             </View>
-
         </View>
 
     );
+}
+
+
+const DisplayLabel = (props) =>
+{
+    return (
+        <View style={STYLES.innerContainer}>
+            <View style={STYLES.leftContainer}>
+                <Text style={STYLES.textStyle}>{props.label}</Text>
+            </View>
+
+            <View style={STYLES.rightContainer}>
+                <Text style={STYLES.textStyle}>{props.value}</Text>
+            </View>
+        </View>
+    )
 }
 
 export default WorkOrderCard;

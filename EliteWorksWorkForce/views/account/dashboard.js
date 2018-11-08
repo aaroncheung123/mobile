@@ -23,8 +23,8 @@ export default class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        EliteAPI.CRM.Deal.search({take: 1000}, success => {
-            console.log(success);
+        EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
+            this.setState({deals: success.data.models})
         })
     }
 
@@ -51,6 +51,9 @@ export default class Dashboard extends React.Component {
     }
 
     render() {
+
+        let deals = this.state.deals.map(deal => <DealCard deal={deal} key={deal.deal_id} onPressDetails={() => this.handleSpringPanel}/>);
+
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.searchContainer}>
@@ -68,9 +71,7 @@ export default class Dashboard extends React.Component {
                 <View style={STYLES.scrollViewContainer}>
                     <ScrollView>
                         <View style={STYLES.transparentFiller}>
-                            <DealCard onPressDetails={() => this.handleSpringPanel()}/>
-                            <DealCard onPressDetails={() => this.handleSpringPanel()}/>
-                            <DealCard onPressDetails={() => this.handleSpringPanel()}/>
+                            {deals}
                         </View>
                     </ScrollView>
                 </View>
