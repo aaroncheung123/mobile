@@ -4,6 +4,14 @@ import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBl
 import Icon from 'react-native-vector-icons/FontAwesome';
 import WorkOrderSpringContent from './work-order-spring-content';
 
+const STATUS_COLOR = {
+	'SCHEDULED' : Blueberry,
+	'PENDING' : Blueberry,
+	'TRAVELLING' : EliteWorksOrange,
+	'IN PROGRESS' : EliteWorksOrange,
+	'COMPLETED' : AccountMenuGrey
+}
+
 
 export default class WorkOrderCard extends React.Component {
 
@@ -34,20 +42,14 @@ export default class WorkOrderCard extends React.Component {
 
         let scheduledDate = this.props.workOrder.scheduled_at ? GlobalUtil.convertMysqlToDate(this.props.workOrder.scheduled_at).formatDate('n/d/y H:m A') : '-';
 
+		let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry
+
         return (
             <View style={STYLES.outsideContainer}>
-                <View style={STYLES.borderTopContainer}>
+
+                <View style={{...STYLES.borderTopContainer, backgroundColor: activeColor}}>
                     <Text style={STYLES.workOrderTitleText}>STATUS: {this.props.workOrder.status}</Text>
-
-
-                    <TouchableOpacity>
-                        <Icon name='trash' size= {20} color= 'white'/>
-                    </TouchableOpacity>
                 </View>
-
-
-
-
 
 
                 <View style={STYLES.container}>
@@ -124,7 +126,6 @@ const STYLES = {
         flex: 3
     },
     borderTopContainer: {
-        backgroundColor: Blueberry,
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
         padding: 10,
