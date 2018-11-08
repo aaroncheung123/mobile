@@ -46,10 +46,27 @@ export default class WorkOrderCard extends React.Component {
                 </View>
 
 
+
+
+
+
                 <View style={STYLES.container}>
                     <DisplayLabel label="Name" value={this.props.workOrder.name}/>
                     <DisplayLabel label="Work Order #" value={this.props.workOrder.key}/>
                     <DisplayLabel label="Scheduled" value={scheduledDate}/>
+
+
+                    <View style={STYLES.buttonSectionContainer}>
+                        <TouchableOpacity style={STYLES.buttonContainer}>
+                            <Icon name='phone' size= {20} color='black'/>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={STYLES.buttonContainer}>
+                            <Icon name='map-o' size= {20} color='black'/>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={STYLES.buttonContainer}>
+                            <Icon name='user' size= {20} color='black'/>
+                        </TouchableOpacity>
+                    </View>
 
                     <TouchableOpacity
                         style={STYLES.detailsButton}
@@ -57,6 +74,7 @@ export default class WorkOrderCard extends React.Component {
                         <Text>Details</Text>
                     </TouchableOpacity>
                 </View>
+
             </View>
 
         );
@@ -132,6 +150,21 @@ const STYLES = {
         borderRadius: 5,
         margin: 10
     },
-
+    buttonContainer: {
+        padding: 10,
+        //backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: Blueberry,
+        borderRadius: 5,
+        height: 50,
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonSectionContainer: {
+        marginVertical: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    }
 
 }
