@@ -3,7 +3,7 @@ import React from 'react';
 import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, TouchableHighlight, ScrollView} from 'react-native';
 import SelectPicker from 'react-native-picker-select';
 import {Button} from 'react-native-elements';
-import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey} from '../../assets/styles/constants';
+import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry} from '../../assets/styles/constants';
 
 export default class TimeClock extends React.Component {
 
@@ -46,7 +46,7 @@ export default class TimeClock extends React.Component {
 
 		this.updateThisWeekTime();
 
-		this.timeUpdater = setTimeout(this.updateTime, 5000) 
+		this.timeUpdater = setTimeout(this.updateTime, 5000)
 	}
 
 
@@ -88,7 +88,7 @@ export default class TimeClock extends React.Component {
 		let start = new Date().getStartOfWeek();
 		Service.User.get((user) => {
 			EliteAPI.CRM.TimeClock.search({user_id: user.id, take: 1000, start_start: GlobalUtil.convertDateToMysql(start)}, (success) => {
-				
+
 				this.setState({timeClocksThisWeek: success.data.time_clocks}, () => {
 					this.updateThisWeekTime();
 				})
@@ -174,15 +174,15 @@ export default class TimeClock extends React.Component {
 		})
 	}
 
-	render() {	
+	render() {
 
-		let ClockedStatusMessage = (this.state.clockedInStatus === 'IN') ? 
+		let ClockedStatusMessage = (this.state.clockedInStatus === 'IN') ?
 			'CLOCKED IN - ' + GlobalUtil.convertMysqlToDate(this.state.clockedInTimeClock.start).formatDate('H:m A') :
 			'CLOCKED OUT'
 		return (
-			<View style={{paddingBottom: 200}}>
+			<ScrollView>
 				<View style={PANEL.container}>
-					<Text style={PANEL.headerText}>Current Time</Text>
+					<Text style={PANEL.headerText}>Current Time:</Text>
 					<Text style={PANEL.timeText}>{this.state.currentTime}</Text>
 				</View>
 				<View style={PANEL.container}>
@@ -236,7 +236,7 @@ export default class TimeClock extends React.Component {
 						{ this.state.historyTimeClocks.map( (timeClock) => <TimeClockHistoryRow key={timeClock.time_clock_id} timeClock={timeClock}/> ) }
 					</View>
 				</View>
-			</View>
+			</ScrollView>
 		)
 	}
 
@@ -281,12 +281,12 @@ const TimeClockRowCell = (props) => {
 const TIME_CLOCK_HISTORY_ROW = {
 	cellHeaderText: {
 		color: '#cccccc',
-		width: '100%', 
+		width: '100%',
 		textAlign: 'center'
 	},
 	cellValue: {
 		color: '#222222',
-		width: '100%', 
+		width: '100%',
 		textAlign: 'center',
 		fontSize: 20
 	},
@@ -307,7 +307,7 @@ const TIME_CLOCK_HISTORY_ROW = {
 
 const PANEL = {
 	container: {
-		backgroundColor: 'white',
+		backgroundColor: Blueberry,
 		borderRadius: 10,
 		alignItems: 'center',
 		marginTop: 15,
@@ -316,14 +316,13 @@ const PANEL = {
 	},
 	headerText: {
 		margin: 15,
-		color: EliteWorksOrange,
-		fontSize: 25,	
-		fontWeight: 'bold'
+		color: 'white',
+		fontSize: 18,
 	},
 	timeText: {
 		marginBottom: 15,
-		color: '#222222',
-		fontSize: 25
+		color: 'white',
+		fontSize: 12
 	},
 	statusText: {
 		marginBottom: 15,
