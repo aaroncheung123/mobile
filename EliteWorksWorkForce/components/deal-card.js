@@ -21,7 +21,7 @@ export default class DealCard extends React.Component {
 			maxHeight: new Animated.Value(0),
 			workOrders: []
 		};
-	
+
 		this.toggle = this.toggle.bind(this);
 	}
 

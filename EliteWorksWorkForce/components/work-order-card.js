@@ -2,8 +2,6 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-
 import WorkOrderSpringContent from './work-order-spring-content';
 
 
@@ -23,10 +21,10 @@ export default class WorkOrderCard extends React.Component {
     }
 
     handleDetailsPress() {
-        if (this.props.onShowSpringPanel) 
+        if (this.props.onShowSpringPanel)
         {
             this.props.onShowSpringPanel(
-                this.props.workOrder.name, 
+                this.props.workOrder.name,
                 <WorkOrderSpringContent workOrder={this.props.workOrder} />
             )
         }
@@ -37,15 +35,20 @@ export default class WorkOrderCard extends React.Component {
         let scheduledDate = this.props.workOrder.scheduled_at ? GlobalUtil.convertMysqlToDate(this.props.workOrder.scheduled_at).formatDate('n/d/y H:m A') : '-';
 
         return (
-            <View>
-                <TouchableOpacity style={STYLES.trashIcon}>
-                    <Icon name='trash' size= {20} color= 'white'/>
-                </TouchableOpacity>
+            <View style={STYLES.outsideContainer}>
+                <View style={STYLES.borderTopContainer}>
+                    <Text style={STYLES.workOrderTitleText}>STATUS: {this.props.workOrder.status}</Text>
+
+
+                    <TouchableOpacity>
+                        <Icon name='trash' size= {20} color= 'white'/>
+                    </TouchableOpacity>
+                </View>
+
 
                 <View style={STYLES.container}>
                     <DisplayLabel label="Name" value={this.props.workOrder.name}/>
                     <DisplayLabel label="Work Order #" value={this.props.workOrder.key}/>
-                    <DisplayLabel label="Status" value={this.props.workOrder.status}/>
                     <DisplayLabel label="Scheduled" value={scheduledDate}/>
 
                     <TouchableOpacity
@@ -78,13 +81,16 @@ const DisplayLabel = (props) =>
 
 
 const STYLES = {
+    outsideContainer: {
+        marginVertical: 10
+    },
     container: {
-        borderTopWidth: 30,
         borderLeftWidth: 1,
         borderRightWidth: 1,
         borderBottomWidth: 1,
         borderColor: Blueberry,
-        borderRadius: 5,
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5,
         padding: 10,
         minHeight: 100
     },
@@ -99,16 +105,21 @@ const STYLES = {
     rightContainer: {
         flex: 3
     },
+    borderTopContainer: {
+        backgroundColor: Blueberry,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
     textStyle: {
         fontSize: 14,
         margin: 5,
     },
-    trashIcon: {
-        position: 'absolute',
-        right: 0,
-        zIndex: 1,
-        marginRight: 20,
-        marginTop: 15
+    workOrderTitleText: {
+        color: 'white',
+        fontSize: 14,
     },
     detailsButton: {
         justifyContent: 'center',
@@ -124,4 +135,3 @@ const STYLES = {
 
 
 }
-
