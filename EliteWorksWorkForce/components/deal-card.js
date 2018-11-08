@@ -87,7 +87,7 @@ export default class DealCard extends React.Component {
 							<View style={STYLES.arrowContainer}>
 								<Image
 								  style={STYLES.arrow}
-								  source={ICONS[this.state.expanded ? 'up' : 'down']}>
+								  source={ICONS[this.state.expanded ? 'down' : 'up']}>
 								</Image>
 							</View>
 						</View>
