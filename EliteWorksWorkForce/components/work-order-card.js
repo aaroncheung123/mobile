@@ -2,9 +2,15 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-
 import WorkOrderSpringContent from './work-order-spring-content';
+
+const STATUS_COLOR = {
+	'SCHEDULED' : Blueberry,
+	'PENDING' : Blueberry,
+	'TRAVELLING' : EliteWorksOrange,
+	'IN PROGRESS' : EliteWorksOrange,
+	'COMPLETED' : AccountMenuGrey
+}
 
 
 export default class WorkOrderCard extends React.Component {
@@ -24,11 +30,16 @@ export default class WorkOrderCard extends React.Component {
 
 
     handleDetailsPress() {
-        if (this.props.onShowSpringPanel) 
+        if (this.props.onShowSpringPanel)
         {
             this.props.onShowSpringPanel(
+<<<<<<< HEAD
                 this.props.workOrder.name, 
                 <WorkOrderSpringContent workOrder={this.props.workOrder} onWorkOrderUpdated={() => this.forceUpdate()}/>
+=======
+                this.props.workOrder.name,
+                <WorkOrderSpringContent workOrder={this.props.workOrder} />
+>>>>>>> cdb3fd9e9949217f8a2353bb79e78a7666a9d700
             )
         }
     }
@@ -37,17 +48,33 @@ export default class WorkOrderCard extends React.Component {
 
         let scheduledDate = this.props.workOrder.scheduled_at ? GlobalUtil.convertMysqlToDate(this.props.workOrder.scheduled_at).formatDate('n/d/y H:m A') : '-';
 
+		let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry
+
         return (
-            <View>
-                <TouchableOpacity style={STYLES.trashIcon}>
-                    <Icon name='trash' size= {20} color= 'white'/>
-                </TouchableOpacity>
+            <View style={STYLES.outsideContainer}>
+
+                <View style={{...STYLES.borderTopContainer, backgroundColor: activeColor}}>
+                    <Text style={STYLES.workOrderTitleText}>STATUS: {this.props.workOrder.status}</Text>
+                </View>
+
 
                 <View style={STYLES.container}>
                     <DisplayLabel label="Name" value={this.props.workOrder.name}/>
                     <DisplayLabel label="Work Order #" value={this.props.workOrder.key}/>
-                    <DisplayLabel label="Status" value={this.props.workOrder.status}/>
                     <DisplayLabel label="Scheduled" value={scheduledDate}/>
+
+
+                    <View style={STYLES.buttonSectionContainer}>
+                        <TouchableOpacity style={STYLES.buttonContainer}>
+                            <Icon name='phone' size= {20} color='black'/>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={STYLES.buttonContainer}>
+                            <Icon name='map-o' size= {20} color='black'/>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={STYLES.buttonContainer}>
+                            <Icon name='user' size= {20} color='black'/>
+                        </TouchableOpacity>
+                    </View>
 
                     <TouchableOpacity
                         style={STYLES.detailsButton}
@@ -55,6 +82,7 @@ export default class WorkOrderCard extends React.Component {
                         <Text>Details</Text>
                     </TouchableOpacity>
                 </View>
+
             </View>
 
         );
@@ -79,13 +107,16 @@ const DisplayLabel = (props) =>
 
 
 const STYLES = {
+    outsideContainer: {
+        marginVertical: 10
+    },
     container: {
-        borderTopWidth: 30,
         borderLeftWidth: 1,
         borderRightWidth: 1,
         borderBottomWidth: 1,
         borderColor: Blueberry,
-        borderRadius: 5,
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5,
         padding: 10,
         minHeight: 100
     },
@@ -100,16 +131,20 @@ const STYLES = {
     rightContainer: {
         flex: 3
     },
+    borderTopContainer: {
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
     textStyle: {
         fontSize: 14,
         margin: 5,
     },
-    trashIcon: {
-        position: 'absolute',
-        right: 0,
-        zIndex: 1,
-        marginRight: 20,
-        marginTop: 15
+    workOrderTitleText: {
+        color: 'white',
+        fontSize: 14,
     },
     detailsButton: {
         justifyContent: 'center',
@@ -122,7 +157,21 @@ const STYLES = {
         borderRadius: 5,
         margin: 10
     },
-
+    buttonContainer: {
+        padding: 10,
+        //backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: Blueberry,
+        borderRadius: 5,
+        height: 50,
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonSectionContainer: {
+        marginVertical: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    }
 
 }
-
