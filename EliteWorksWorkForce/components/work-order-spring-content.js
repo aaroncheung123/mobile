@@ -1,9 +1,12 @@
  
 
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
+
+import { RNCamera } from 'react-native-camera';
 
 const TIMESPAN_STATUS_TO_WORK_ORDER_STATUS = {
 	TRAVELLING: 'TRAVELLING',
@@ -34,6 +37,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.addNewTimeSpan = this.addNewTimeSpan.bind(this);
 		this.loadData = this.loadData.bind(this);
 		this.updateTime = this.updateTime.bind(this);
+		this.handleUploadPhoto = this.handleUploadPhoto.bind(this);
 	}	
 
 	componentDidMount() {
@@ -184,6 +188,11 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
+
+	handleUploadPhoto(type) {
+		console.log('uploading image for ' + type);
+	}
+
 	render() {
 		return (
 
@@ -217,15 +226,33 @@ export default class WorkOrderSpringContent extends React.Component {
 				<View style={STYLES.outsidePhotoContainer}>
 					<Text style={STYLES.toggleText}>Before Photos</Text>
 					<View style={STYLES.photoRow}>
-						<View style={STYLES.photoContainer}></View>
-						<View style={STYLES.photoContainer}></View>
-						<View style={STYLES.photoContainer}></View>
+						<TouchableOpacity style={STYLES.photoAddContainer} onPress={() => this.handleUploadPhoto('BEFORE')}>
+							<RNCamera
+								style={styles.preview}
+								type={RNCamera.Constants.Type.back}
+								flashMode={RNCamera.Constants.FlashMode.on}
+								permissionDialogTitle={'Permission to use camera'}
+								permissionDialogMessage={'We need your permission to use your camera phone'}
+							>
+								{({ camera, status }) => {
+									if (status !== 'READY') return <PendingView />;
+									return (
+										<View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+											<TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
+												<Text style={{ fontSize: 14 }}> SNAP </Text>
+											</TouchableOpacity>
+										</View>
+									);
+								}}
+							</RNCamera>
+							<Icon name='plus' size={30} color='black'/>
+						</TouchableOpacity>
 					</View>
 					<Text style={STYLES.toggleText}>After Photos</Text>
 					<View style={STYLES.photoRow}>
-						<View style={STYLES.photoContainer}></View>
-						<View style={STYLES.photoContainer}></View>
-						<View style={STYLES.photoContainer}></View>
+						<TouchableOpacity style={STYLES.photoAddContainer}>
+								<Icon name='plus' size={30} color='white' onPress={() => this.handleUploadPhoto('AFTER')}/>
+						</TouchableOpacity>
 					</View>
 				</View>
 
@@ -250,51 +277,55 @@ export default class WorkOrderSpringContent extends React.Component {
 const STYLES = {
 	container: {
 		justifyContent: 'center',
-        alignItems: 'center',
+				alignItems: 'center',
 	},
-    toggleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginVertical: 10
-    },
-    toggleText: {
-        color: 'white',
-        fontSize: 16
-    },
-    switchStyle: {
-        marginHorizontal: 10,
-    },
-    notesContainer: {
-        width: 300,
-        height: 300,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        padding: 10,
-        marginTop: 30
-    },
-    saveNotes: {
-        backgroundColor: EliteWorksOrange,
-        padding: 15,
-        margin: 10,
-        borderRadius: 5,
-        alignSelf: 'flex-end'
-    },
-    photoContainer: {
-        height: 80,
-        width: 60,
-        borderRadius: 5,
-        backgroundColor: 'white',
-        margin: 15
-    },
-    photoRow: {
-        flexDirection: 'row'
-    },
-    outsidePhotoContainer: {
-        marginVertical: 20
-    },
-    timeTotal: {
-    	color: 'white',
-    	marginBottom: 20
-    }
+	toggleContainer: {
+			flexDirection: 'row',
+			justifyContent: 'center',
+			alignItems: 'center',
+			marginVertical: 10
+	},
+	toggleText: {
+			color: 'white',
+			fontSize: 16
+	},
+	switchStyle: {
+			marginHorizontal: 10,
+	},
+	notesContainer: {
+			width: 300,
+			height: 300,
+			backgroundColor: 'white',
+			borderRadius: 10,
+			padding: 10,
+			marginTop: 30
+	},
+	saveNotes: {
+			backgroundColor: EliteWorksOrange,
+			padding: 15,
+			margin: 10,
+			borderRadius: 5,
+			alignSelf: 'flex-end'
+	},
+	photoAddContainer: {
+			height: 80,
+			width: 60,
+			borderRadius: 5,
+			borderStyle: 'dashed',
+			borderColor: 'white',
+			borderWidth: 1,
+			margin: 15,
+	justifyContent: 'center',
+			alignItems: 'center'
+	},
+	photoRow: {
+			flexDirection: 'row'
+	},
+	outsidePhotoContainer: {
+			marginVertical: 20
+	},
+	timeTotal: {
+		color: 'white',
+		marginBottom: 20
+	}
 }
