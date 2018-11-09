@@ -29,7 +29,7 @@ export default class WorkOrderModal extends React.Component {
 					<View style={MODAL_STYLES.modalContainer}>
 						<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false} style={{maxWidth: '100%'}}>
 							<KeyboardAwareScrollView
-								keyboardShouldPersistTaps='always' 
+								keyboardShouldPersistTaps='always'
 								>
 								<WorkOrderContent {...this.props}/>
 							</KeyboardAwareScrollView>
@@ -66,7 +66,7 @@ class WorkOrderContent extends React.Component {
 
 	callCustomer = () => {
 		let args = {
-			number: this.props.workOrder.user.phone, 
+			number: this.props.workOrder.user.phone,
 			prompt: true
 		}
 
@@ -75,7 +75,7 @@ class WorkOrderContent extends React.Component {
 
 
 	render() {
-		if (this.props.workOrder === undefined) return null; 
+		if (this.props.workOrder === undefined) return null;
 		let products = this.props.workOrder.work_order_products.map(workOrderProduct => {
 			return (
 				<View key={workOrderProduct.work_order_product_id}>
@@ -193,7 +193,7 @@ export const STYLES = StyleSheet.create({
 
 export const ICON_INPUT_STYLES = StyleSheet.create({
 	text: {
-		height: 25, 
+		height: 25,
 		width: '80%',
 		lineHeight: 25,
 		color: '#222222',
@@ -201,14 +201,14 @@ export const ICON_INPUT_STYLES = StyleSheet.create({
 		fontSize: 18,
 		marginLeft: 10
 
-	}, 
+	},
 	container:  {
 		width: '80%',
 		maxWidth: 350,
 		borderStyle: 'solid',
 		borderBottomColor: '#dddddd',
 		borderBottomWidth: 2,
-		flex: 1, 
+		flex: 1,
 		alignItems: 'center',
 		flexDirection: 'row',
 		height: 50,
@@ -217,7 +217,7 @@ export const ICON_INPUT_STYLES = StyleSheet.create({
 	icon: {
 		width: 20
 	}
-}); 
+});
 
 const MODAL_STYLES = {
 

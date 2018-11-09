@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} f
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import WorkOrderSpringContent from './work-order-spring-content';
+import Call from 'react-native-phone-call';
 
 const STATUS_COLOR = {
 	'SCHEDULED' : Blueberry,
@@ -26,6 +27,7 @@ export default class WorkOrderCard extends React.Component {
         this.springValue = new Animated.Value(0);
 
         this.handleDetailsPress = this.handleDetailsPress.bind(this);
+		this.callCustomer = this.callCustomer.bind(this);
     }
 
     handleDetailsPress() {
@@ -37,6 +39,16 @@ export default class WorkOrderCard extends React.Component {
             )
         }
     }
+
+	callCustomer(){
+		console.log("call Customer: ", this.props.workOrder.user.phone);
+		// let args = {
+		// 	number: this.props.workOrder.user.phone,
+		// 	prompt: true
+		// }
+		//
+		// call(args).catch(console.error)
+	}
 
     render() {
 
@@ -59,7 +71,7 @@ export default class WorkOrderCard extends React.Component {
 
 
                     <View style={STYLES.buttonSectionContainer}>
-                        <TouchableOpacity style={STYLES.buttonContainer}>
+                        <TouchableOpacity style={STYLES.buttonContainer} onPress={this.callCustomer}>
                             <Icon name='phone' size= {20} color='black'/>
                         </TouchableOpacity>
                         <TouchableOpacity style={STYLES.buttonContainer}>
