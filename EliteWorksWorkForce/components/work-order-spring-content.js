@@ -1,4 +1,4 @@
- 
+
 
 import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} from 'react-native';
@@ -25,7 +25,7 @@ export default class WorkOrderSpringContent extends React.Component {
 			travellingTotalHours: 0,
 			travellingTotalMinutes: 0,
 			workingTotalHours: 0,
-			workingTotalMinutes: 0 
+			workingTotalMinutes: 0
 		}
 
 		this.timeSpans = {
@@ -38,9 +38,14 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.loadData = this.loadData.bind(this);
 		this.updateTime = this.updateTime.bind(this);
 		this.handleUploadPhoto = this.handleUploadPhoto.bind(this);
+<<<<<<< HEAD
 		this.handleNoteChange = this.handleNoteChange.bind(this);
 		this.handleWorkOrderSave = this.handleWorkOrderSave.bind(this);
 	}	
+=======
+		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
+	}
+>>>>>>> bc571f41297475579acc4f17f1774884bf70b2b0
 
 	componentDidMount() {
 		this.loadData();
@@ -195,6 +200,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		console.log('uploading image for ' + type);
 	}
 
+<<<<<<< HEAD
 	handleNoteChange(value) {
 		this.props.workOrder.notes = value;
 		this.forceUpdate();
@@ -204,6 +210,16 @@ export default class WorkOrderSpringContent extends React.Component {
 	{
 		this.props.workOrder.save();
 		alert('Work order saved');
+=======
+	handleCompleteWorkOrder() {
+		this.props.workOrder.complete((success) => {
+			this.props.workOrder.status = "COMPLETED";
+			if (this.props.onWorkOrderUpdated) this.props.onWorkOrderUpdated()
+			alert('Work order marked as complete');
+		}, (failure) => {
+			alert(failure.error_message);
+		})
+>>>>>>> bc571f41297475579acc4f17f1774884bf70b2b0
 	}
 
 	render() {
@@ -282,12 +298,19 @@ export default class WorkOrderSpringContent extends React.Component {
 					onPress={this.handleWorkOrderSave}>
 					<Text style={STYLES.toggleText}>Save</Text>
 				</TouchableOpacity>
+
+
+				<TouchableOpacity
+					style={STYLES.completeButton}
+					onPress={this.handleCompleteWorkOrder}>
+					<Text style={STYLES.toggleText}>Complete</Text>
+				</TouchableOpacity>
 			</View>
 		)
 	}
 }
 
-				
+
 
 const STYLES = {
 	container: {
@@ -342,5 +365,14 @@ const STYLES = {
 	timeTotal: {
 		color: 'white',
 		marginBottom: 20
+	},
+	completeButton: {
+		padding: 15,
+		marginVertical: 20,
+		width: '90%',
+		backgroundColor: EliteWorksOrange,
+		borderRadius: 5,
+		justifyContent: 'center',
+		alignItems: 'center'
 	}
 }
