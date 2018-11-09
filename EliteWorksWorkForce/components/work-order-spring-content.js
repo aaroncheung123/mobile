@@ -1,7 +1,7 @@
- 
+
 
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -25,7 +25,7 @@ export default class WorkOrderSpringContent extends React.Component {
 			travellingTotalHours: 0,
 			travellingTotalMinutes: 0,
 			workingTotalHours: 0,
-			workingTotalMinutes: 0 
+			workingTotalMinutes: 0
 		}
 
 		this.timeSpans = {
@@ -38,7 +38,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.loadData = this.loadData.bind(this);
 		this.updateTime = this.updateTime.bind(this);
 		this.handleUploadPhoto = this.handleUploadPhoto.bind(this);
-	}	
+	}
 
 	componentDidMount() {
 		this.loadData();
@@ -272,7 +272,7 @@ export default class WorkOrderSpringContent extends React.Component {
 	}
 }
 
-				
+
 
 const STYLES = {
 	container: {
