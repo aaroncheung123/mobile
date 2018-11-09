@@ -38,6 +38,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.loadData = this.loadData.bind(this);
 		this.updateTime = this.updateTime.bind(this);
 		this.handleUploadPhoto = this.handleUploadPhoto.bind(this);
+		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
 	}
 
 	componentDidMount() {
@@ -193,6 +194,16 @@ export default class WorkOrderSpringContent extends React.Component {
 		console.log('uploading image for ' + type);
 	}
 
+	handleCompleteWorkOrder() {
+		this.props.workOrder.complete((success) => {
+			this.props.workOrder.status = "COMPLETED";
+			if (this.props.onWorkOrderUpdated) this.props.onWorkOrderUpdated()
+			alert('Work order marked as complete');
+		}, (failure) => {
+			alert(failure.error_message);
+		})
+	}
+
 	render() {
 		return (
 
@@ -270,7 +281,8 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
 				<TouchableOpacity
-					style={STYLES.completeButton}>
+					style={STYLES.completeButton}
+					onPress={this.handleCompleteWorkOrder}>
 					<Text style={STYLES.toggleText}>Complete</Text>
 				</TouchableOpacity>
 			</View>
