@@ -28,7 +28,7 @@ export default class DealCard extends React.Component {
 	componentDidMount() {
 		let startOfDay = (new Date()).getStartOfDay();
 
-		EliteAPI.STR.WorkOrder.search({include_classes: 'user', take: 1000, deal_id: this.props.deal.deal_id, scheduled_after: GlobalUtil.convertDateToMysql(startOfDay)}, success => {
+		EliteAPI.STR.WorkOrder.search({include_classes: 'user,address', take: 1000, deal_id: this.props.deal.deal_id, scheduled_after: GlobalUtil.convertDateToMysql(startOfDay)}, success => {
 			this.setState({workOrders: success.data.models})
 		})
 	}

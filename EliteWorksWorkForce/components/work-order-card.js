@@ -4,6 +4,7 @@ import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBl
 import Icon from 'react-native-vector-icons/FontAwesome';
 import WorkOrderSpringContent from './work-order-spring-content';
 import Call from 'react-native-phone-call';
+import OpenMap from 'react-native-open-maps';
 
 const STATUS_COLOR = {
 	'SCHEDULED' : Blueberry,
@@ -28,6 +29,8 @@ export default class WorkOrderCard extends React.Component {
 
         this.handleDetailsPress = this.handleDetailsPress.bind(this);
 		this.callCustomer = this.callCustomer.bind(this);
+		this.loadMap = this.loadMap.bind(this);
+		this.handleCustomerInfoPress = this.handleCustomerInfoPress.bind(this);
     }
 
 
@@ -35,26 +38,38 @@ export default class WorkOrderCard extends React.Component {
         if (this.props.onShowSpringPanel)
         {
             this.props.onShowSpringPanel(
-                this.props.workOrder.name, 
+                this.props.workOrder.name,
                 <WorkOrderSpringContent workOrder={this.props.workOrder} onWorkOrderUpdated={() => this.forceUpdate()}/>
             )
         }
     }
 
 	callCustomer(){
-		console.log("call Customer: ", this.props.workOrder.user.phone);
-		// let args = {
-		// 	number: this.props.workOrder.user.phone,
-		// 	prompt: true
-		// }
-		//
-		// call(args).catch(console.error)
+		let args = {
+			number: this.props.workOrder.user.phone,
+			prompt: true
+		}
+
+		Call(args).catch(console.error)
+	}
+
+	loadMap() {
+		OpenMap({end: this.props.workOrder.address.formatted})
+	}
+
+	handleCustomerInfoPress() {
+		console.log('handleCustomerInfoPress');
+		this.props.onShowSpringPanel(
+			'Customer Information',
+			<View>
+				<Text>{this.props.workOrder.user.full_name}</Text>
+			</View>
+		)
 	}
 
     render() {
 
         let scheduledDate = this.props.workOrder.scheduled_at ? GlobalUtil.convertMysqlToDate(this.props.workOrder.scheduled_at).formatDate('n/d/y H:m A') : '-';
-
 		let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry
 
         return (
@@ -75,10 +90,10 @@ export default class WorkOrderCard extends React.Component {
                         <TouchableOpacity style={STYLES.buttonContainer} onPress={this.callCustomer}>
                             <Icon name='phone' size= {20} color='black'/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={STYLES.buttonContainer}>
+                        <TouchableOpacity style={STYLES.buttonContainer} onPress={this.loadMap}>
                             <Icon name='map-o' size= {20} color='black'/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={STYLES.buttonContainer}>
+                        <TouchableOpacity style={STYLES.buttonContainer} onPress={this.handleCustomerInfoPress}>
                             <Icon name='user' size= {20} color='black'/>
                         </TouchableOpacity>
                     </View>
