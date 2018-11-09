@@ -38,14 +38,10 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.loadData = this.loadData.bind(this);
 		this.updateTime = this.updateTime.bind(this);
 		this.handleUploadPhoto = this.handleUploadPhoto.bind(this);
-<<<<<<< HEAD
 		this.handleNoteChange = this.handleNoteChange.bind(this);
 		this.handleWorkOrderSave = this.handleWorkOrderSave.bind(this);
-	}	
-=======
 		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
 	}
->>>>>>> bc571f41297475579acc4f17f1774884bf70b2b0
 
 	componentDidMount() {
 		this.loadData();
@@ -200,7 +196,6 @@ export default class WorkOrderSpringContent extends React.Component {
 		console.log('uploading image for ' + type);
 	}
 
-<<<<<<< HEAD
 	handleNoteChange(value) {
 		this.props.workOrder.notes = value;
 		this.forceUpdate();
@@ -210,7 +205,7 @@ export default class WorkOrderSpringContent extends React.Component {
 	{
 		this.props.workOrder.save();
 		alert('Work order saved');
-=======
+	}
 	handleCompleteWorkOrder() {
 		this.props.workOrder.complete((success) => {
 			this.props.workOrder.status = "COMPLETED";
@@ -219,7 +214,6 @@ export default class WorkOrderSpringContent extends React.Component {
 		}, (failure) => {
 			alert(failure.error_message);
 		})
->>>>>>> bc571f41297475579acc4f17f1774884bf70b2b0
 	}
 
 	render() {
