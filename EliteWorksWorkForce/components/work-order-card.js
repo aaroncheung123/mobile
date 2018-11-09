@@ -22,12 +22,13 @@ export default class WorkOrderCard extends React.Component {
         this.handleDetailsPress = this.handleDetailsPress.bind(this);
     }
 
+
     handleDetailsPress() {
         if (this.props.onShowSpringPanel) 
         {
             this.props.onShowSpringPanel(
                 this.props.workOrder.name, 
-                <WorkOrderSpringContent workOrder={this.props.workOrder} />
+                <WorkOrderSpringContent workOrder={this.props.workOrder} onWorkOrderUpdated={() => this.forceUpdate()}/>
             )
         }
     }
