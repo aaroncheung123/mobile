@@ -263,7 +263,7 @@ export class ModelTimeSpan extends Model {
     //   model_time_span
     stop (form_data, success_callback, failure_callback)
     {
-        let url = '/global/gen/model/time/span/stop';
+        let url = '/global/gen/model/time/span/stop'; 
         return WebClient.basicPost(form_data, url, success => {
         	success.data.model_time_span = new EliteAPI.Models.GEN.ModelTimeSpan(success.data.model_time_span);
         	if (success_callback) success_callback(success);

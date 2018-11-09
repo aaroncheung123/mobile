@@ -30,12 +30,13 @@ export default class WorkOrderCard extends React.Component {
 		this.callCustomer = this.callCustomer.bind(this);
     }
 
+
     handleDetailsPress() {
         if (this.props.onShowSpringPanel)
         {
             this.props.onShowSpringPanel(
-                this.props.workOrder.name,
-                <WorkOrderSpringContent workOrder={this.props.workOrder} />
+                this.props.workOrder.name, 
+                <WorkOrderSpringContent workOrder={this.props.workOrder} onWorkOrderUpdated={() => this.forceUpdate()}/>
             )
         }
     }
