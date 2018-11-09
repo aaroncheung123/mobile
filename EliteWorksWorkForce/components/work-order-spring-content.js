@@ -267,6 +267,12 @@ export default class WorkOrderSpringContent extends React.Component {
 					onPress={this.handleSpringPanel}>
 					<Text style={STYLES.toggleText}>Save</Text>
 				</TouchableOpacity>
+
+
+				<TouchableOpacity
+					style={STYLES.completeButton}>
+					<Text style={STYLES.toggleText}>Complete</Text>
+				</TouchableOpacity>
 			</View>
 		)
 	}
@@ -327,5 +333,14 @@ const STYLES = {
 	timeTotal: {
 		color: 'white',
 		marginBottom: 20
+	},
+	completeButton: {
+		padding: 15,
+		marginVertical: 20,
+		width: '90%',
+		backgroundColor: EliteWorksOrange,
+		borderRadius: 5,
+		justifyContent: 'center',
+		alignItems: 'center'
 	}
 }
