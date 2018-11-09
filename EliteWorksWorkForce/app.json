@@ -19,9 +19,9 @@
               "NSIncludesSubdomains": true
             }
           }
-        },
-        "NSCameraUsageDescription": "EliteWorks would like access to use your camera",
-        "NSPhotoLibraryUsageDescription": "EliteWorks would like access to use your camera roll"
+        }//,
+        /*"NSCameraUsageDescription": "EliteWorks would like access to use your camera",
+        "NSPhotoLibraryUsageDescription": "EliteWorks would like access to use your camera roll"*/
       },
       "buildNumber": "1.0"
     },

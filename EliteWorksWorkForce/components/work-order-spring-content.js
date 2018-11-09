@@ -1,12 +1,12 @@
  
 
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-import { RNCamera } from 'react-native-camera';
+//import { RNCamera } from 'react-native-camera';
 
 const TIMESPAN_STATUS_TO_WORK_ORDER_STATUS = {
 	TRAVELLING: 'TRAVELLING',
@@ -227,7 +227,7 @@ export default class WorkOrderSpringContent extends React.Component {
 					<Text style={STYLES.toggleText}>Before Photos</Text>
 					<View style={STYLES.photoRow}>
 						<TouchableOpacity style={STYLES.photoAddContainer} onPress={() => this.handleUploadPhoto('BEFORE')}>
-							<RNCamera
+							{/*<RNCamera
 								style={styles.preview}
 								type={RNCamera.Constants.Type.back}
 								flashMode={RNCamera.Constants.FlashMode.on}
@@ -244,7 +244,7 @@ export default class WorkOrderSpringContent extends React.Component {
 										</View>
 									);
 								}}
-							</RNCamera>
+							</RNCamera>*/}
 							<Icon name='plus' size={30} color='black'/>
 						</TouchableOpacity>
 					</View>
