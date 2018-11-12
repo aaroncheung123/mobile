@@ -23,8 +23,16 @@ export default class Cart extends React.Component {
 						Cart
 					</Text>
 
+					<ScrollView style={STYLES.productDetailsScrollContainer}>
+						<View style={STYLES.productDetailsContainer}>
+							<Text style={STYLES.productDetailsText}>Product Details (2)</Text>
+							<ProductCard/>
+							<ProductCard/>
+						</View>
+					</ScrollView>
+
+
 					<View style={STYLES.orderSummaryContainer}>
-							<Text style={STYLES.orderSummaryText}>Order Summary</Text>
 
 							<View style={STYLES.subtTotal}>
 									<Text style={STYLES.bodyText}>Subtotal: $99.95</Text>
@@ -51,15 +59,6 @@ export default class Cart extends React.Component {
 							</View>
 					</View>
 
-					<ScrollView style={STYLES.productDetailsScrollContainer}>
-						<View style={STYLES.productDetailsContainer}>
-							<Text style={STYLES.productDetailsText}>Product Details (2)</Text>
-							<ProductCard/>
-							<ProductCard/>
-						</View>
-						<View style={STYLES.transparentFiller}></View>
-					</ScrollView>
-
 				</View>
 
 			</View>
@@ -70,7 +69,6 @@ export default class Cart extends React.Component {
 
 const STYLES = {
 	container: {
-		flex: 1
 	},
 	title: {
 		color: 'white',
@@ -90,11 +88,11 @@ const STYLES = {
 		backgroundColor: 'white',
 		opacity: .9,
 		borderRadius: 10,
-		borderWidth: 2,
-		borderColor: '#bfbfbf',
 		padding: 10,
+		marginBottom: 100
 	},
 	productDetailsScrollContainer: {
+		height: '65%',
 		padding: 15,
 		width: '100%'
 	},
@@ -109,23 +107,14 @@ const STYLES = {
 		paddingBottom: 20,
 		marginBottom: 20,
 	},
-	orderSummaryText: {
-		width: '50%',
-		fontSize: 18,
-		fontWeight: 'bold',
-		borderBottomWidth: 2,
-		borderColor: '#bfbfbf',
-		paddingBottom: 20,
-		marginBottom: 20,
-		color: 'white'
-	},
-	transparentFiller: {
-			height: 350,
-	},
 	orderSummaryContainer: {
 		height: 200,
-		opacity: .9,
-		padding: 20
+		padding: 20,
+		backgroundColor: '#e0e0e0',
+		paddingBottom: 90,
+		borderTopLeftRadius: 15,
+		borderTopRightRadius: 15,
+		opacity: .95
 	},
 	bodyText: {
 		fontSize: 18,
@@ -133,7 +122,8 @@ const STYLES = {
 	},
 	bodyText1: {
 		fontSize: 14,
-		color: 'white'
+		color: 'white',
+		textAlign: 'center'
 	},
 	subtTotal: {
 		flex: 1,
@@ -145,6 +135,7 @@ const STYLES = {
 		backgroundColor: 'orange',
 		borderRadius: 5,
 		padding: 10,
+		width: 90
 	},
 
 	textInputContainer: {
