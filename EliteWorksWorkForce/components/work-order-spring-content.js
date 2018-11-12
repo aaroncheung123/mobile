@@ -38,6 +38,8 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.loadData = this.loadData.bind(this);
 		this.updateTime = this.updateTime.bind(this);
 		this.handleUploadPhoto = this.handleUploadPhoto.bind(this);
+		this.handleNoteChange = this.handleNoteChange.bind(this);
+		this.handleWorkOrderSave = this.handleWorkOrderSave.bind(this);
 		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
 	}
 
@@ -194,6 +196,16 @@ export default class WorkOrderSpringContent extends React.Component {
 		console.log('uploading image for ' + type);
 	}
 
+	handleNoteChange(value) {
+		this.props.workOrder.notes = value;
+		this.forceUpdate();
+	}
+
+	handleWorkOrderSave()
+	{
+		this.props.workOrder.save();
+		alert('Work order saved');
+	}
 	handleCompleteWorkOrder() {
 		this.props.workOrder.complete((success) => {
 			this.props.workOrder.status = "COMPLETED";
@@ -256,7 +268,7 @@ export default class WorkOrderSpringContent extends React.Component {
 									);
 								}}
 							</RNCamera>*/}
-							<Icon name='plus' size={30} color='black'/>
+							<Icon name='plus' size={30} color='white'/>
 						</TouchableOpacity>
 					</View>
 					<Text style={STYLES.toggleText}>After Photos</Text>
@@ -269,13 +281,15 @@ export default class WorkOrderSpringContent extends React.Component {
 
 				<View style={STYLES.notesContainer}>
 					<TextInput
-						style={STYLES.textInputStyle1}
 						placeholder = "Enter notes here"
-						underlineColorAndroid = "transparent"/>
+						underlineColorAndroid = "transparent"
+						value={this.props.workOrder.notes}
+						onChangeText={this.handleNoteChange}
+						multiline={true}/>
 				</View>
 				<TouchableOpacity
 					style={STYLES.saveNotes}
-					onPress={this.handleSpringPanel}>
+					onPress={this.handleWorkOrderSave}>
 					<Text style={STYLES.toggleText}>Save</Text>
 				</TouchableOpacity>
 
@@ -295,52 +309,52 @@ export default class WorkOrderSpringContent extends React.Component {
 const STYLES = {
 	container: {
 		justifyContent: 'center',
-				alignItems: 'center',
+		alignItems: 'center',
 	},
 	toggleContainer: {
-			flexDirection: 'row',
-			justifyContent: 'center',
-			alignItems: 'center',
-			marginVertical: 10
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginVertical: 10
 	},
 	toggleText: {
-			color: 'white',
-			fontSize: 16
+		color: 'white',
+		fontSize: 16
 	},
 	switchStyle: {
-			marginHorizontal: 10,
+		marginHorizontal: 10,
 	},
 	notesContainer: {
-			width: 300,
-			height: 300,
-			backgroundColor: 'white',
-			borderRadius: 10,
-			padding: 10,
-			marginTop: 30
+		width: 300,
+		minHeight: 300,
+		backgroundColor: 'white',
+		borderRadius: 10,
+		padding: 10,
+		marginTop: 30
 	},
 	saveNotes: {
-			backgroundColor: EliteWorksOrange,
-			padding: 15,
-			margin: 10,
-			borderRadius: 5,
-			alignSelf: 'flex-end'
+		backgroundColor: EliteWorksOrange,
+		padding: 15,
+		margin: 10,
+		borderRadius: 5,
+		alignSelf: 'flex-end'
 	},
 	photoAddContainer: {
-			height: 80,
-			width: 60,
-			borderRadius: 5,
-			borderStyle: 'dashed',
-			borderColor: 'white',
-			borderWidth: 1,
-			margin: 15,
-	justifyContent: 'center',
-			alignItems: 'center'
+		height: 80,
+		width: 60,
+		borderRadius: 5,
+		borderStyle: 'dashed',
+		borderColor: 'white',
+		borderWidth: 1,
+		margin: 15,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	photoRow: {
-			flexDirection: 'row'
+		flexDirection: 'row'
 	},
 	outsidePhotoContainer: {
-			marginVertical: 20
+		marginVertical: 20
 	},
 	timeTotal: {
 		color: 'white',
