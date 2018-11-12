@@ -34,29 +34,31 @@ export default class Cart extends React.Component {
 
 					<View style={STYLES.orderSummaryContainer}>
 
-							<View style={STYLES.subtTotal}>
-									<Text style={STYLES.bodyText}>Subtotal: $99.95</Text>
-									<TouchableOpacity
-										onPress={this.handleCheckout}
-										style={STYLES.buttonStyle}>
-										<Text style={STYLES.bodyText1}>Checkout</Text>
-									</TouchableOpacity>
+						<View style={STYLES.subtTotal}>
+							<View style={STYLES.textInputContainer}>
+								<TextInput
+								 underlineColorAndroid = "transparent"
+								 placeholder = "Promo, Referral, or Gift Code"
+								 placeholderTextColor = "gray"/>
 							</View>
 
-							<View style={STYLES.subtTotal}>
-								<View style={STYLES.textInputContainer}>
-									<TextInput
-									 underlineColorAndroid = "transparent"
-									 placeholder = "Promo, Referral, or Gift Code"
-									 placeholderTextColor = "gray"/>
-								</View>
+							<TouchableOpacity
+								onPress={this.handleCheckout}
+								style={STYLES.buttonStyle}>
+								<Text style={STYLES.bodyText1}>Apply</Text>
+							</TouchableOpacity>
+						</View>
 
+						<View style={STYLES.subtTotal}>
+								<Text style={STYLES.bodyText}>Subtotal: $99.95</Text>
 								<TouchableOpacity
 									onPress={this.handleCheckout}
 									style={STYLES.buttonStyle}>
-									<Text style={STYLES.bodyText1}>Apply</Text>
+									<Text style={STYLES.bodyText1}>Checkout</Text>
 								</TouchableOpacity>
-							</View>
+						</View>
+
+
 					</View>
 
 				</View>
@@ -110,11 +112,10 @@ const STYLES = {
 	orderSummaryContainer: {
 		height: 200,
 		padding: 20,
-		backgroundColor: '#e0e0e0',
+		backgroundColor: 'rgba(0, 0, 0, 0.6)',
 		paddingBottom: 90,
 		borderTopLeftRadius: 15,
-		borderTopRightRadius: 15,
-		opacity: .95
+		borderTopRightRadius: 15
 	},
 	bodyText: {
 		fontSize: 18,

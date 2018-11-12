@@ -14,10 +14,11 @@ export default class Orders extends React.Component {
             <View>
                 <TopMenu title= 'Orders' onPress={() => this.updatePath('/account-main')}/>
                 <ScrollView>
-                    <OrderCard/>
-                    <OrderCard/>
-                    <OrderCard/>
-                    <View style={STYLES.transparentFiller}></View>
+                    <View style={STYLES.transparentFiller}>
+                        <OrderCard/>
+                        <OrderCard/>
+                        <OrderCard/>
+                    </View>
                 </ScrollView>
 
             </View>
@@ -27,6 +28,6 @@ export default class Orders extends React.Component {
 
 const STYLES = {
     transparentFiller: {
-        height: 450
+        marginBottom: 200
     }
 }

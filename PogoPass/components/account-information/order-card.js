@@ -16,22 +16,25 @@ export default class OrderCard extends React.Component {
 
       this.state = {
         title       : props.title,
-        expanded    : true,
-        animation   : new Animated.Value(),
+        expanded    : false
         };
     }
     componentDidMount(){
+        this.setState({
+            minHeight   : 90,
+            animation   : new Animated.Value(90)
+        });
     }
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height + 8
+            maxHeight   : 570
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height
+            minHeight   : 90
         });
     }
 
@@ -179,7 +182,6 @@ export default class OrderCard extends React.Component {
 
 const STYLES = {
     container: {
-        flex: 1,
         flexDirection: 'row',
         paddingHorizontal: 20,
         paddingTop: 25,
@@ -201,14 +203,15 @@ const STYLES = {
         backgroundColor: 'transparent'
     },
     cardContainer: {
-        flex: 1,
+        height: 90,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: '#D9D9D9',
         opacity: .9,
         marginLeft: 25,
-        borderRadius: 5
+        borderRadius: 5,
+        marginBottom: 10
     },
     textHeader: {
         fontSize: 20
@@ -231,7 +234,6 @@ const STYLES = {
         backgroundColor: 'orange'
     },
     productSectionContainer: {
-        flex: 1,
         marginBottom: 30
     },
     productSectionLeft: {

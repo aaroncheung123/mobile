@@ -55,11 +55,7 @@ export default class PaymentCredit extends React.Component {
 											<Text style={STYLES.bottomTextStyle}>Available Balance: $10.00</Text>
 										</View>
 
-										<View style={STYLES.transparentFiller1}></View>
-
 									</View>
-
-									<View style={STYLES.transparentFiller}></View>
 								</ScrollView>
             </View>
         );

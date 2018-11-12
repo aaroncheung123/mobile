@@ -10,22 +10,25 @@ export default class PaymentCard extends React.Component {
       super(props);
       this.state = {
         title       : props.title,
-        expanded    : true,
-        animation   : new Animated.Value(),
+        expanded    : false
         };
     }
     componentDidMount(){
+        this.setState({
+            minHeight   : 200,
+            animation   : new Animated.Value(200)
+        });
     }
 
     _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height + 5
+            maxHeight   : event.nativeEvent.layout.height + 15
         });
     }
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height - 1
+            minHeight   : 200
         });
     }
 
@@ -125,14 +128,15 @@ const STYLES = {
         backgroundColor: 'transparent'
     },
     cardContainer: {
-        flex: 1,
+        height: 200,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-start',
         backgroundColor: '#D9D9D9',
         opacity: .9,
         marginLeft: 25,
-        borderRadius: 5
+        borderRadius: 5,
+        marginBottom: 10
     },
     textHeader: {
         fontSize: 20,

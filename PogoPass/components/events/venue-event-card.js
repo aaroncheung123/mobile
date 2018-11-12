@@ -16,10 +16,7 @@ export default class VenueEventCard extends React.Component {
       this.state = {
         title       : props.title,
         expanded    : false,
-        //animation   : new Animated.Value(),
         };
-        this.deviceWidth = Dimensions.get('window').width;
-        this.deviceHeight = Dimensions.get('window').height;
     }
     componentDidMount(){
         this.setState({
@@ -45,8 +42,6 @@ export default class VenueEventCard extends React.Component {
         let initialValue= this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
             finalValue= this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
-        console.log("IV: ", initialValue);
-        console.log("FV: ", finalValue);
         this.setState({
             expanded : !this.state.expanded
         });
