@@ -13,9 +13,15 @@ export default class Blurb extends React.Component {
 
 			this.state = {
 					title       : props.title,
-					expanded    : true,
-					animation   : new Animated.Value()
+					expanded    : false
 			};
+	}
+
+	componentDidMount(){
+			this.setState({
+					minHeight   : 80,
+					animation   : new Animated.Value(80)
+			});
 	}
 
 	toggle(){
@@ -37,13 +43,13 @@ export default class Blurb extends React.Component {
 
 	_setMaxHeight(event){
 			this.setState({
-					maxHeight   : event.nativeEvent.layout.height
+					maxHeight   : event.nativeEvent.layout.height + 100
 			});
 	}
 
 	_setMinHeight(event){
 			this.setState({
-					minHeight   : event.nativeEvent.layout.height
+					minHeight   : 80
 			});
 	}
 
@@ -81,7 +87,8 @@ export default class Blurb extends React.Component {
 
 						</View>
 
-						<View style={STYLES.body} onLayout={this._setMaxHeight.bind(this)}>
+						<View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
+							<Text>Hello</Text>
 							<WebView
 								source={{html:this.props.post.content}}
 								style={STYLES.webViewStyle}
@@ -132,11 +139,12 @@ const STYLES = {
 		justifyContent: 'center'
 	},
 	titleContainer : {
-			flexDirection: 'row',
-			justifyContent: 'space-between',
-			alignItems: 'center'
+		height: 80,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center'
 	},
-	body: {
+	hiddenBody: {
 		flex: 1,
 		padding: 30
   },

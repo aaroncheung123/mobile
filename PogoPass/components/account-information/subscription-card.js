@@ -10,13 +10,16 @@ export default class SubscriptionCard extends React.Component {
       super(props);
       this.state = {
         title       : props.title,
-        expanded    : true,
-        animation   : new Animated.Value(),
+        expanded    : false,
         storeCredit : 1,
         paymentMethod : undefined
         };
     }
     componentDidMount(){
+        this.setState({
+            minHeight   : 220,
+            animation   : new Animated.Value(220)
+        });
     }
 
     _setMaxHeight(event){
@@ -27,7 +30,7 @@ export default class SubscriptionCard extends React.Component {
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height - 1
+            minHeight   : 220
         });
     }
 
@@ -251,7 +254,7 @@ export default class SubscriptionCard extends React.Component {
             backgroundColor: 'transparent'
         },
         cardContainer: {
-            flex: 1,
+            height: 220,
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-start',

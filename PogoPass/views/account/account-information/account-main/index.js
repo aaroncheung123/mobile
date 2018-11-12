@@ -39,7 +39,6 @@ export default class AccountInformation extends React.Component {
 						<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
 						<InfoTab onPress={() => this.signOut()} icon='sign-out' name='Sign out'/>
 					</View>
-					<View style={STYLES.transparentFiller}></View>
 				</ScrollView>
 
 
@@ -77,8 +76,5 @@ const STYLES = {
 		flexDirection: 'row',
 		justifyContent: 'center',
 		flexWrap: 'wrap'
-	},
-	transparentFiller: {
-			height: 250,
 	}
 }
