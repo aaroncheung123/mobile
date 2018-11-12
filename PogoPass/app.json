@@ -8,7 +8,7 @@
     "description": "View Pogo Pass directly from your phone",
     "slug": "PogoPass",
     "privacy": "public",
-    "sdkVersion": "30.0.0",
+    "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
     "version": "2.5",
     "orientation": "portrait",
