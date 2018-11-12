@@ -88,7 +88,6 @@ export default class Blurb extends React.Component {
 						</View>
 
 						<View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
-							<Text>Hello</Text>
 							<WebView
 								source={{html:this.props.post.content}}
 								style={STYLES.webViewStyle}
@@ -146,9 +145,11 @@ const STYLES = {
 	},
 	hiddenBody: {
 		flex: 1,
-		padding: 30
+		paddingHorizontal: 30,
+		paddingBottom: 30
   },
 	webViewStyle: {
+		backgroundColor: 'transparent',
 		height: 200,
 		width: 200
 	}
