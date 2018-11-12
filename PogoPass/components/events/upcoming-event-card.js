@@ -19,7 +19,6 @@ export default UpcomingEventCard;
 
 const STYLES = {
     container: {
-        flex: 1,
         flexDirection: 'row',
         borderTopWidth: 20,
         borderColor: 'orange',

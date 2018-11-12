@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Button, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Button, Image, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import UpcomingEventCard from './upcoming-event-card';
 
@@ -15,22 +15,28 @@ export default class VenueEventCard extends React.Component {
 
       this.state = {
         title       : props.title,
-        expanded    : true,
-        animation   : new Animated.Value(),
+        expanded    : false,
+        //animation   : new Animated.Value(),
         };
+        this.deviceWidth = Dimensions.get('window').width;
+        this.deviceHeight = Dimensions.get('window').height;
     }
     componentDidMount(){
-    }
-
-    _setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height + 10
+            minHeight   : 90,
+            animation   : new Animated.Value(90)
         });
     }
 
-    _setMinHeight(event){
+    setMaxHeight(event){
         this.setState({
-            minHeight   : event.nativeEvent.layout.height + 10
+            maxHeight   : event.nativeEvent.layout.height + 80
+        });
+    }
+
+    setMinHeight(event){
+        this.setState({
+            minHeight   : 90
         });
     }
 
@@ -39,6 +45,8 @@ export default class VenueEventCard extends React.Component {
         let initialValue= this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
             finalValue= this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
 
+        console.log("IV: ", initialValue);
+        console.log("FV: ", finalValue);
         this.setState({
             expanded : !this.state.expanded
         });
@@ -63,7 +71,7 @@ export default class VenueEventCard extends React.Component {
             <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
 
                 <TouchableOpacity onPress={this.toggle.bind(this)}>
-                    <View style={STYLES.venueContainer} onLayout={this._setMinHeight.bind(this)}>
+                    <View style={STYLES.venueContainer} onLayout={this.setMinHeight.bind(this)}>
                         <View style={STYLES.leftVenueContainer}>
                             <Icon name='slideshare' size= {45}/>
                         </View>
@@ -78,7 +86,7 @@ export default class VenueEventCard extends React.Component {
                 </TouchableOpacity>
 
 
-                <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
+                <View style={STYLES.hiddenBody} onLayout={this.setMaxHeight.bind(this)}>
                     <Text style={STYLES.upcomingEventsText}>Upcoming Events: </Text>
                     <UpcomingEventCard/>
                     <UpcomingEventCard/>
