@@ -9,6 +9,7 @@ import AccountInformation from './account-information/index'
 import Events from './events/index'
 import Blog from './blog/index'
 import Cart from './cart/index'
+import SpringPanel from '../../components/spring-panel.js'
 
 const ELITE_WORKS_ORANGE = '#faa31a'
 
@@ -17,6 +18,12 @@ export default class AccountNavigation extends React.Component {
   constructor(props)
   {
     super(props);
+    this.state = {
+      showSpringPanel: true,
+      springPanelTitle: '',
+      springPanelContent: null
+    }
+    this.handleShowSpringPanel = this.handleShowSpringPanel.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +33,17 @@ export default class AccountNavigation extends React.Component {
   updatePath(path) {
     this.router.history.push(path);
     this.forceUpdate();
+  }
+
+  handleShowSpringPanel(){
+    this.setState({
+      springPanelTitle: title,
+      springPanelContent: content
+    }, () => {
+      if (this.springPanel) {
+        this.springPanel.open();
+      }
+    })
   }
 
   render()
@@ -43,6 +61,8 @@ export default class AccountNavigation extends React.Component {
             <Route path="/events" component={Events} />
             <Route path="/cart" component={Cart} />
           </View>
+
+          <SpringPanel ref={e => this.springPanel = e} />
 
           {/*Bottom Menu*/}
           <View style={STYLES.accountMenu.container}>
