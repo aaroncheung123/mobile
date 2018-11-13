@@ -372,9 +372,8 @@ class User {
     //   (none)
     getReferralCode (form_data, success_callback, failure_callback)
     {
-
         var url = '/global/crm/user/code/referral/system';
-        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+        return WebClient.basicGet(form_data, url, success_callback, failure_callback);
     }
 }
 

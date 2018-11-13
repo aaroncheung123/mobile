@@ -28,7 +28,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/cart');
+    this.updatePath('/pass-manager');
   }
 
   updatePath(path) {

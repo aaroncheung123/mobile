@@ -82,8 +82,10 @@ export default class Account extends React.Component {
 	loadReferralCode() {
 		EliteAPI.CRM.User.getReferralCode({}, (success) => {
 			this.setState({referralCodeLoading: false});
-			this.setState({referralCode: success.data.user_code})
+			this.setState({referralCode: success.data.user_code});
 			AsyncStorage.setItem('customer_referral_code', JSON.stringify(success.data.user_code));
+		}, (failure) => {
+			console.log('fail: ',failure);
 		})
 	}
 
@@ -167,7 +169,7 @@ export default class Account extends React.Component {
 									<Icon name='gift' size={35}/>
 									<Text style={STYLES.topButtonSectionText}>Purchase Gift</Text>
 								</TouchableOpacity>
-								<TouchableOpacity style={STYLES.iconContainer}>
+								<TouchableOpacity style={STYLES.iconContainer} onPress={this.share}>
 										<Icon name='dollar' size={35}/>
 										<Text style={STYLES.topButtonSectionText}>Refer a Friend</Text>
 								</TouchableOpacity>
