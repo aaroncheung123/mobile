@@ -23,8 +23,6 @@ export default class Account extends React.Component {
 		this.loadAccounts = this.loadAccounts.bind(this);
 		this.loadReferralCode = this.loadReferralCode.bind(this);
 		this.share = this.share.bind(this);
-		this.handlePressDetails = this.handlePressDetails.bind(this);
-		this.handleCloseDetails = this.handleCloseDetails.bind(this);
 	}
 
 	componentDidMount() {
@@ -145,29 +143,13 @@ export default class Account extends React.Component {
 		return expirationDate;
 	}
 
-	handlePressDetails (account) {
-		//console.log(account);
-		Animated.spring(
-			this.springValue,
-			{
-				toValue: this.screenHeight - 160,
-				friction: 6
-			}
-		).start()
-	}
-
-	handleCloseDetails(){
-		this.springValue.setValue(0);
-	}
 
 	render() {
 		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onShowSpringPanel={this.props.onShowSpringPanel} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
 		return (
-			<View style={{flex: 1, width: '100%'}}>
-				<View style={Styles.overlay}>
+			<View>
 					<Text style={STYLES.headerTitle}>Pass Manager</Text>
 					<ScrollView
-						style={{width: '100%'}}
 						refreshControl={
 							<RefreshControl
 								refreshing={this.state.refreshing}
@@ -175,7 +157,7 @@ export default class Account extends React.Component {
 							/>
 						}>
 
-						<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', 'marginBottom': 100}}>
+						<View style={STYLES.passContainer}>
 							<View style={STYLES.topButtonSection}>
 								<TouchableOpacity style={STYLES.iconContainer}>
 									<Icon name='plus' size={35}/>
@@ -193,15 +175,17 @@ export default class Account extends React.Component {
 							{passViews}
 						</View>
 					</ScrollView>
-
-
-				</View>
 			</View>
 		);
 	}
 }
 
 const STYLES = {
+	passContainer: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginBottom: 200
+	},
 	iconContainer:{
 		backgroundColor: '#E5E5E5',
 		borderRadius: 20,
@@ -213,7 +197,6 @@ const STYLES = {
 		opacity: .9
 	},
 	topButtonSection:{
-		flex: 1,
 		flexDirection: 'row',
 		justifyContent:'space-evenly',
 		alignItems:'center',
@@ -230,42 +213,6 @@ const STYLES = {
 		fontSize: 25,
 		padding: 10,
 		backgroundColor: 'rgba(0, 0, 0, 0.6)'
-	},
-	springContainer: {
-		flex: 1,
-		position: 'absolute',
-		bottom: 0,
-		width: '100%',
-		borderRadius: 30,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'black',
-		opacity: .85
-	},
-	manageContainer: {
-		borderRadius: 20,
-		backgroundColor: '#fcfcfc',
-		borderWidth:2,
-		borderColor:'orange',
-		height: 80,
-		width: 80,
-		justifyContent: 'center',
-		alignItems: 'center',
-		shadowColor: 'rgba(0,0,0, .4)', // IOS
-		shadowOffset: { height: 1, width: 1 }, // IOS
-		shadowOpacity: 1, // IOS
-		shadowRadius: 1, //IOS
-		elevation: 5, // Android
-		margin: 10
-	},
-	title: {
-		fontSize: 14,
-		paddingTop: 10,
-	},
-	iconX: {
-		color: 'white',
-		position: 'absolute',
-		right: 0
 	}
 }
 
@@ -402,7 +349,7 @@ class Pass extends React.Component {
 					transparent={true}
 					visible={this.state.modalVisible}
 					onRequestClose={() => this.setState({modelVisible: false})}>
-					<View style={Styles.overlay}>
+					<View>
 					<View style={PassStyles.modalContainer}>
 						<View style={PassStyles.modalTextContainer}>
 							<Text style={PassStyles.modalTextName}>

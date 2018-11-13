@@ -7,7 +7,7 @@ import {MemoryRouter, Route, IndexRedirect} from 'react-router';
 import PassManager from './pass-manager/index'
 import AccountInformation from './account-information/index'
 import Events from './events/index'
-import Blog from './blog/index'
+import News from './news/index'
 import Cart from './cart/index'
 import SpringPanel from '../../components/spring-panel.js'
 
@@ -64,7 +64,7 @@ export default class AccountNavigation extends React.Component {
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
           <View style={STYLES.scrollViewContainer}>
-            <Route path="/blog" render={(props) => <Blog {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+            <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/account-information" component={AccountInformation} />
             <Route path="/pass-manager"  render={(props) => <PassManager {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/events" component={Events} />
@@ -77,8 +77,8 @@ export default class AccountNavigation extends React.Component {
           <View style={STYLES.accountMenu.container}>
             <View style={STYLES.accountMenu.menuContainer}>
               <AccountMenuItem
-                onPress={() => this.updatePath('/blog')}
-                active={path === '/blog'}
+                onPress={() => this.updatePath('/news')}
+                active={path === '/news'}
                 icon="newspaper-o"
               />
               <AccountMenuItem

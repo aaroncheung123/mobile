@@ -1,7 +1,7 @@
 import React from 'react';
 import {AppRegistry,StyleSheet,Text,ScrollView, View,TouchableHighlight, Image, Animated, WebView, Dimensions} from 'react-native';
 
-export default class Blurb extends React.Component {
+export default class Post extends React.Component {
 
 	constructor(props){
 			super(props);

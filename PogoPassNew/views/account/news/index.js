@@ -2,9 +2,9 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
-import BlogDateSections from '../../../components/blog/blog-date-sections';
+import NewsDateSections from '../../../components/news/news-date-sections';
 
-export default class Blog extends React.Component {
+export default class News extends React.Component {
 
 	render() {
 		return (
@@ -18,7 +18,7 @@ export default class Blog extends React.Component {
 
 						<ScrollView>
 							<View style={STYLES.filler}>
-								<BlogDateSections onShowSpringPanel={this.props.onShowSpringPanel}/>
+								<NewsDateSections onShowSpringPanel={this.props.onShowSpringPanel}/>
 							</View>
 						</ScrollView>
 

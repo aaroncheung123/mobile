@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import Blurb from './blurb';
+import Post from './post';
 
-export default class BlogDateSections extends React.Component {
+export default class NewsDateSections extends React.Component {
 
   constructor(props){
     super(props);
@@ -32,7 +32,7 @@ export default class BlogDateSections extends React.Component {
 
   render() {
 		let dateSections = Object.keys(this.state.datedPosts).map(key => {
-			let postElements = this.state.datedPosts[key].map(post => <Blurb key={post.post_id} post={post} onShowSpringPanel={this.props.onShowSpringPanel}/>)
+			let postElements = this.state.datedPosts[key].map(post => <Post key={post.post_id} post={post} onShowSpringPanel={this.props.onShowSpringPanel}/>)
 
 			return (
 				<View key={key} style={STYLES.totalDateSection}>
