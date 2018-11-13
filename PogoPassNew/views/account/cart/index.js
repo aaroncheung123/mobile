@@ -88,8 +88,6 @@ const STYLES = {
 	productDetailsContainer: {
 		justifyContent: 'center',
 		width: '100%',
-		//backgroundColor: 'white',
-		//opacity: .9,
 		borderRadius: 10,
 		padding: 10,
 		marginBottom: 100
@@ -100,9 +98,8 @@ const STYLES = {
 		width: '100%'
 	},
 	productDetailsText: {
-		flex: 1,
-		width: '60%',
-		fontSize: 18,
+		width: '80%',
+		fontSize: 24,
 		fontWeight: 'bold',
 		margin: 20,
 		borderBottomWidth: 2,
@@ -115,10 +112,9 @@ const STYLES = {
 		height: 200,
 		padding: 20,
 		paddingBottom: 90,
-		//borderTopLeftRadius: 15,
-		//borderTopRightRadius: 15,
-		// borderTopWidth: 2,
-		// borderColor: 'white'
+		borderTopLeftRadius: 15,
+		borderTopRightRadius: 15,
+		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	},
 	bodyText: {
 		fontSize: 18,
