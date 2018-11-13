@@ -35,7 +35,7 @@ export default class AccountNavigation extends React.Component {
     this.forceUpdate();
   }
 
-  handleShowSpringPanel(){
+  handleShowSpringPanel(title, content){
     this.setState({
       springPanelTitle: title,
       springPanelContent: content
@@ -55,7 +55,7 @@ export default class AccountNavigation extends React.Component {
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
           <View style={STYLES.scrollViewContainer}>
-            <Route path="/blog" component={Blog} />
+            <Route path="/blog" component={Blog} onShowSpringPanel={this.handleShowSpringPanel}/>
             <Route path="/account-information" component={AccountInformation} />
             <Route path="/pass-manager" component={PassManager} />
             <Route path="/events" component={Events} />

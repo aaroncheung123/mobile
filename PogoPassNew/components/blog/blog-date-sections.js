@@ -32,7 +32,7 @@ export default class BlogDateSections extends React.Component {
 
   render() {
 		let dateSections = Object.keys(this.state.datedPosts).map(key => {
-			let postElements = this.state.datedPosts[key].map(post => <Blurb key={post.post_id} post={post}/>)
+			let postElements = this.state.datedPosts[key].map(post => <Blurb key={post.post_id} post={post} onShowSpringPanel={this.props.onShowSpringPanel}/>)
 
 			return (
 				<View key={key} style={STYLES.totalDateSection}>

@@ -18,7 +18,7 @@ export default class Blog extends React.Component {
 
 						<ScrollView>
 							<View style={STYLES.filler}>
-								<BlogDateSections/>
+								<BlogDateSections onShowSpringPanel={this.props.onShowSpringPanel}/>
 							</View>
 						</ScrollView>
 

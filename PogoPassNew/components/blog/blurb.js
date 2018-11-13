@@ -19,6 +19,12 @@ export default class Blurb extends React.Component {
 
 	readMore(){
 		console.log("Read More");
+		this.props.onShowSpringPanel(
+			'Customer Information',
+			<View>
+				<Text>Hello</Text>
+			</View>
+		)
 	}
 
 

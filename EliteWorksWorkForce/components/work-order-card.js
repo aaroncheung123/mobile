@@ -55,7 +55,7 @@ export default class WorkOrderCard extends React.Component {
 	}
 
 	handleCustomerInfoPress() {
-		console.log('handleCustomerInfoPress',this.props.workOrder);
+		//console.log('handleCustomerInfoPress',this.props.workOrder);
 		this.props.onShowSpringPanel(
 			'Customer Information',
 			<View>
