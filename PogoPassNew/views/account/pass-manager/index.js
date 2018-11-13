@@ -5,7 +5,7 @@ import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets
 import {View, Dimensions, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
 import {Button} from 'react-native-elements';
-import VenueCard from '../../../components/pass-manager/venue-card.js';
+import SpringPanelDetails from '../../../components/pass-manager/spring-panel-details.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Account extends React.Component {
@@ -222,33 +222,6 @@ const STYLES = {
 	topButtonSectionText: {
 		textAlign: 'center'
 	},
-	iconRenew: {
-		color: 'white',
-		marginRight: 15
-	},
-	renewButton: {
-		flexDirection: 'row',
-		paddingVertical: 20,
-		paddingHorizontal: 40,
-		backgroundColor: 'orange',
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderRadius: 10,
-		margin: 20
-	},
-	detailsText: {
-		color: 'white',
-		fontSize: 16
-	},
-	outerDetailsContainer: {
-		flex: 1,
-		flexDirection: 'row',
-		marginHorizontal: 20,
-		marginVertical: 10
-	},
-	detailsContainer: {
-		flex: 1
-	},
 	headerTitle: {
 		width: '100%',
 		textAlign: 'center',
@@ -263,36 +236,11 @@ const STYLES = {
 		position: 'absolute',
 		bottom: 0,
 		width: '100%',
-		//backgroundColor: '#cccccc',
 		borderRadius: 30,
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: 'black',
 		opacity: .85
-	},
-	venueContainer: {
-		flexDirection: 'row',
-		flexWrap: 'wrap',
-		justifyContent: 'center',
-		alignItems: 'center',
-		marginBottom: 35
-	},
-	overallDetailContainer: {
-		justifyContent: 'center',
-		alignItems: 'center',
-		marginBottom: 20
-	},
-	venueTitleText: {
-		alignSelf: 'center',
-		textAlign: 'center',
-		width: '40%',
-		fontSize: 18,
-		marginBottom: 20,
-		marginTop: 10,
-		paddingBottom: 20,
-		borderBottomWidth: 2,
-		borderColor: 'white',
-		color: 'white'
 	},
 	manageContainer: {
 		borderRadius: 20,
@@ -318,9 +266,6 @@ const STYLES = {
 		color: 'white',
 		position: 'absolute',
 		right: 0
-	},
-	transparentFiller: {
-			height: 250,
 	}
 }
 
@@ -339,62 +284,7 @@ class Pass extends React.Component {
 	onPressDetails(){
 		this.props.onShowSpringPanel(
 			'Details',
-			<ScrollView>
-				<View style={STYLES.overallDetailContainer}>
-					<View style={STYLES.outerDetailsContainer}>
-						<View style={STYLES.detailsContainer}>
-							<Text style={STYLES.detailsText}>Full Name:</Text>
-						</View>
-
-						<View style={STYLES.detailsContainer}>
-							<Text style={STYLES.detailsText}>Sun Devils</Text>
-						</View>
-					</View>
-
-					<View style={STYLES.outerDetailsContainer}>
-						<View style={STYLES.detailsContainer}>
-							<Text style={STYLES.detailsText}>Account Type:</Text>
-						</View>
-
-						<View style={STYLES.detailsContainer}>
-							<Text style={STYLES.detailsText}>Phoenix Pogo Pass</Text>
-						</View>
-					</View>
-
-					<View style={STYLES.outerDetailsContainer}>
-						<View style={STYLES.detailsContainer}>
-							<Text style={STYLES.detailsText}>Expiration Date:</Text>
-						</View>
-
-						<View style={STYLES.detailsContainer}>
-							<Text style={STYLES.detailsText}>9/21/2019</Text>
-						</View>
-					</View>
-
-					<TouchableOpacity style={STYLES.renewButton}>
-							<Icon name='refresh' size= {25} style={STYLES.iconRenew}/>
-							<Text style={STYLES.detailsText}>Renew</Text>
-					</TouchableOpacity>
-				</View>
-
-
-
-				<Text style={STYLES.venueTitleText}>Venues</Text>
-				<View style={STYLES.venueContainer}>
-					<VenueCard/>
-					<VenueCard/>
-					<VenueCard/>
-					<VenueCard/>
-					<VenueCard/>
-					<VenueCard/>
-					<VenueCard/>
-					<VenueCard/>
-					<VenueCard/>
-					<VenueCard/>
-					<VenueCard/>
-					<VenueCard/>
-				</View>
-			</ScrollView>
+			<SpringPanelDetails/>
 		)
 	}
 

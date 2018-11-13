@@ -70,7 +70,8 @@ const STYLES = {
         alignItems: 'center',
 				backgroundColor: 'black',
 				opacity: .85,
-        overflow: 'hidden'
+        overflow: 'hidden',
+				width: '100%'
     },
     springContainerText: {
         color: 'white',

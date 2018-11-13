@@ -47,7 +47,8 @@ export default class Account extends React.Component {
 		this.populateData();
 	}
 
-	updateSideMenu(){
+	updateSideMenu()
+	{
 		if (this.state.sideMenuOpen) Animated.timing(this.state.sideMenuWidth, {toValue: SIDE_MENU_WIDTH, duration: 200}).start(() => this.setState({sideMenuShowContent: true}));
 		else this.setState({sideMenuShowContent: false}, () => {Animated.timing(this.state.sideMenuWidth, {toValue: 0, duration: 200}).start()});
 	}
@@ -84,7 +85,8 @@ export default class Account extends React.Component {
 		});
 	}
 
-	handleSpringPanelClose(){
+	handleSpringPanelClose()
+	{
 		this.setState({
 			springPanelTitle: '',
 			springPanelContent: null
