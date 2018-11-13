@@ -49,10 +49,10 @@ export default class ProductCard extends React.Component {
 
 
                     <View style={STYLES.innerContainer}>
-                        <View style={[STYLES.leftContainer, STYLES.bottomWidth]}>
+                        <View style={STYLES.leftContainer}>
                             <Text style={STYLES.title}>Total Price</Text>
                         </View>
-                        <View style={[STYLES.rightContainer, STYLES.bottomWidth]}>
+                        <View style={STYLES.rightContainer}>
                             <Text style={STYLES.title1}>$99.95</Text>
                         </View>
                     </View>
@@ -72,8 +72,12 @@ const STYLES = {
         borderTopWidth: 40,
         borderColor: 'orange',
         margin: 10,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        // borderTopLeftRadius: 10,
+        // borderTopRightRadius: 10,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        opacity: .9,
+        paddingHorizontal: 10
     },
     innerContainer: {
         flexDirection: 'row'
@@ -85,19 +89,12 @@ const STYLES = {
     leftContainer: {
         flex: 1,
         justifyContent: 'center',
-        borderLeftWidth: 2,
-        borderColor: '#bfbfbf',
         padding: 10
     },
     rightContainer: {
         flex: 3,
         justifyContent: 'center',
-        borderRightWidth: 2,
-        borderColor: '#bfbfbf',
         padding: 10
-    },
-    bottomWidth: {
-        borderBottomWidth: 2,
     },
     title: {
         fontSize: 14,
