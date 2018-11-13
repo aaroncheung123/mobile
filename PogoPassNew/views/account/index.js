@@ -28,7 +28,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/blog');
+    this.updatePath('/pass-manager');
   }
 
   updatePath(path) {
@@ -66,7 +66,7 @@ export default class AccountNavigation extends React.Component {
           <View style={STYLES.scrollViewContainer}>
             <Route path="/blog" render={(props) => <Blog {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/account-information" component={AccountInformation} />
-            <Route path="/pass-manager" component={PassManager} />
+            <Route path="/pass-manager"  render={(props) => <PassManager {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/events" component={Events} />
             <Route path="/cart" component={Cart} />
           </View>

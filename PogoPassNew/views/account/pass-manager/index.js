@@ -161,7 +161,7 @@ export default class Account extends React.Component {
 	}
 
 	render() {
-		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onPressDetails={() => this.handlePressDetails(account)} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
+		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onShowSpringPanel={this.props.onShowSpringPanel} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
 		return (
 			<View style={{flex: 1, width: '100%'}}>
 				<View style={Styles.overlay}>
@@ -175,7 +175,7 @@ export default class Account extends React.Component {
 							/>
 						}>
 
-						<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', 'marginBottom': 30}}>
+						<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', 'marginBottom': 100}}>
 							<View style={STYLES.topButtonSection}>
 								<TouchableOpacity style={STYLES.iconContainer}>
 									<Icon name='plus' size={35}/>
@@ -192,70 +192,9 @@ export default class Account extends React.Component {
 							</View>
 							{passViews}
 						</View>
-						<View style={STYLES.transparentFiller}></View>
 					</ScrollView>
 
-					<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
-						<ScrollView style={STYLES.innerSpringContainer}>
-							<Text style={STYLES.venueTitleText}>Details</Text>
-							<Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleCloseDetails}/>
-							<View style={STYLES.overallDetailContainer}>
-								<View style={STYLES.outerDetailsContainer}>
-									<View style={STYLES.detailsContainer}>
-										<Text style={STYLES.detailsText}>Full Name:</Text>
-									</View>
 
-									<View style={STYLES.detailsContainer}>
-										<Text style={STYLES.detailsText}>Sun Devils</Text>
-									</View>
-								</View>
-
-								<View style={STYLES.outerDetailsContainer}>
-									<View style={STYLES.detailsContainer}>
-										<Text style={STYLES.detailsText}>Account Type:</Text>
-									</View>
-
-									<View style={STYLES.detailsContainer}>
-										<Text style={STYLES.detailsText}>Phoenix Pogo Pass</Text>
-									</View>
-								</View>
-
-								<View style={STYLES.outerDetailsContainer}>
-									<View style={STYLES.detailsContainer}>
-										<Text style={STYLES.detailsText}>Expiration Date:</Text>
-									</View>
-
-									<View style={STYLES.detailsContainer}>
-										<Text style={STYLES.detailsText}>9/21/2019</Text>
-									</View>
-								</View>
-
-								<TouchableOpacity style={STYLES.renewButton}>
-										<Icon name='refresh' size= {25} style={STYLES.iconRenew}/>
-										<Text style={STYLES.detailsText}>Renew</Text>
-								</TouchableOpacity>
-							</View>
-
-
-
-							<Text style={STYLES.venueTitleText}>Venues</Text>
-							<View style={STYLES.venueContainer}>
-								<VenueCard/>
-								<VenueCard/>
-								<VenueCard/>
-								<VenueCard/>
-								<VenueCard/>
-								<VenueCard/>
-								<VenueCard/>
-								<VenueCard/>
-								<VenueCard/>
-								<VenueCard/>
-								<VenueCard/>
-								<VenueCard/>
-							</View>
-						</ScrollView>
-
-					</Animated.View>
 				</View>
 			</View>
 		);
@@ -331,10 +270,6 @@ const STYLES = {
 		backgroundColor: 'black',
 		opacity: .85
 	},
-	innerSpringContainer: {
-		flex: 1,
-		margin: 20
-	},
 	venueContainer: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
@@ -351,7 +286,7 @@ const STYLES = {
 		alignSelf: 'center',
 		textAlign: 'center',
 		width: '40%',
-		fontSize: 24,
+		fontSize: 18,
 		marginBottom: 20,
 		marginTop: 10,
 		paddingBottom: 20,
@@ -393,12 +328,74 @@ const STYLES = {
 
 
 class Pass extends React.Component {
-	constructor(props)
-	{
+	constructor(props){
 		super(props);
 		this.state = {
 			modalVisible: false
 		}
+		this.onPressDetails = this.onPressDetails.bind(this);
+	}
+
+	onPressDetails(){
+		this.props.onShowSpringPanel(
+			'Details',
+			<ScrollView>
+				<View style={STYLES.overallDetailContainer}>
+					<View style={STYLES.outerDetailsContainer}>
+						<View style={STYLES.detailsContainer}>
+							<Text style={STYLES.detailsText}>Full Name:</Text>
+						</View>
+
+						<View style={STYLES.detailsContainer}>
+							<Text style={STYLES.detailsText}>Sun Devils</Text>
+						</View>
+					</View>
+
+					<View style={STYLES.outerDetailsContainer}>
+						<View style={STYLES.detailsContainer}>
+							<Text style={STYLES.detailsText}>Account Type:</Text>
+						</View>
+
+						<View style={STYLES.detailsContainer}>
+							<Text style={STYLES.detailsText}>Phoenix Pogo Pass</Text>
+						</View>
+					</View>
+
+					<View style={STYLES.outerDetailsContainer}>
+						<View style={STYLES.detailsContainer}>
+							<Text style={STYLES.detailsText}>Expiration Date:</Text>
+						</View>
+
+						<View style={STYLES.detailsContainer}>
+							<Text style={STYLES.detailsText}>9/21/2019</Text>
+						</View>
+					</View>
+
+					<TouchableOpacity style={STYLES.renewButton}>
+							<Icon name='refresh' size= {25} style={STYLES.iconRenew}/>
+							<Text style={STYLES.detailsText}>Renew</Text>
+					</TouchableOpacity>
+				</View>
+
+
+
+				<Text style={STYLES.venueTitleText}>Venues</Text>
+				<View style={STYLES.venueContainer}>
+					<VenueCard/>
+					<VenueCard/>
+					<VenueCard/>
+					<VenueCard/>
+					<VenueCard/>
+					<VenueCard/>
+					<VenueCard/>
+					<VenueCard/>
+					<VenueCard/>
+					<VenueCard/>
+					<VenueCard/>
+					<VenueCard/>
+				</View>
+			</ScrollView>
+		)
 	}
 
 	render() {
@@ -490,7 +487,7 @@ class Pass extends React.Component {
 						<Text style={PassStyles.textCity}>Expiration: {expiration}</Text>
 					</View>
 					<View style={PassStyles.rightContainer}>
-						<TouchableOpacity style={PassStyles.detailButton} onPress={this.props.onPressDetails}>
+						<TouchableOpacity style={PassStyles.detailButton} onPress={this.onPressDetails}>
 							<Text>
 								Details
 							</Text>
@@ -565,14 +562,3 @@ const VenueTotal = (props) => {
 		</View>
 	)
 }
-
-
-// {
-// 	!expired ?
-// 	<Button
-// 		buttonStyle={PassStyles.buttonUsage}
-// 		title="View Usage"
-// 		color="white"
-// 		onPress={() => this.setState({modalVisible: true})}
-// 	/> : null
-// }
