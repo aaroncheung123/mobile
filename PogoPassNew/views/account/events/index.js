@@ -1,27 +1,37 @@
 import React from 'react';
 import NavigationBar from 'react-native-navbar';
-import {TouchableOpacity, Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
-import {ScrollView, Switch,View, Button, Text, AppRegistry, StyleSheet, Animated, Image, Easing, Dimensions} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import VenueEventCard from '../../../components/events/venue-event-card.js'
+import {View, Text, ScrollView, Switch} from 'react-native';
+import {MemoryRouter, Route, IndexRedirect} from 'react-router';
+import Venue from './venue/index.js';
+
 
 export default class Events extends React.Component {
-
+	
 	constructor () {
 	  super();
 		this.state = {
 	 		switchValue: false,
 		}
+		this.toggleSwitch = this.toggleSwitch.bind(this);
+		this.updatePath = this.updatePath.bind(this);
 	}
 
-	toggleSwitch = (value) => {
+	componentDidMount() {
+		this.updatePath('/venue');
+	}
+
+	toggleSwitch(value){
 		this.setState({switchValue: value})
+	}
+
+	updatePath(path) {
+		this.router.history.push(path);
+		this.forceUpdate();
 	}
 
 	render() {
 		return (
-			<View style={STYLES.container}>
-
+			<View>
 				<View>
 					<Text style={STYLES.title}>
 						Events
@@ -42,16 +52,11 @@ export default class Events extends React.Component {
 
 				</View>
 
-				<View style={STYLES.eventsContainer}>
-					<ScrollView>
-						<VenueEventCard/>
-						<VenueEventCard/>
-						<VenueEventCard/>
-						<VenueEventCard/>
-						<View style={STYLES.transparentFiller}></View>
-					</ScrollView>
-
-				</View>
+				<MemoryRouter ref={e => this.router = e}>
+					<View style={STYLES.routerContainer}>
+						<Route path="/venue" component={Venue} />
+					</View>
+				</MemoryRouter>
 
 
 			</View>
@@ -61,9 +66,6 @@ export default class Events extends React.Component {
 
 
 const STYLES = {
-  container: {
-		flex: 1
-  },
 	title: {
 		color: 'white',
 		minWidth: '100%',
@@ -82,7 +84,7 @@ const STYLES = {
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: 30,
-		marginVertical: 20
+		marginVertical: 40
 	},
 	eventsContainer: {
 		flex: 9,
