@@ -1,8 +1,4 @@
 {
-  "packagerOpts": {
-    "projectRoots": "",
-    "config": "rn-cli.config.js"
-  },
   "expo": {
     "name": "Pogo Pass",
     "description": "View Pogo Pass directly from your phone",
@@ -48,5 +44,9 @@
       "barStyle": "light-content",
       "backgroundColor": "#000000"
     }
+  },
+  "packagerOpts": {
+    "projectRoots": "",
+    "config": "metro.config.js"
   }
 }
