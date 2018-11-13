@@ -49,6 +49,7 @@ export default class Cart extends React.Component {
 							</TouchableOpacity>
 						</View>
 
+
 						<View style={STYLES.subtTotal}>
 								<Text style={STYLES.bodyText}>Subtotal: $99.95</Text>
 								<TouchableOpacity
@@ -112,10 +113,11 @@ const STYLES = {
 	orderSummaryContainer: {
 		height: 200,
 		padding: 20,
-		backgroundColor: 'rgba(0, 0, 0, 0.6)',
 		paddingBottom: 90,
 		borderTopLeftRadius: 15,
-		borderTopRightRadius: 15
+		borderTopRightRadius: 15,
+		borderWidth: 2,
+		borderColor: 'white'
 	},
 	bodyText: {
 		fontSize: 18,

@@ -1,14 +1,14 @@
 {
   "expo": {
     "name": "PogoPassNew",
-    "description": "This project is really great.",
+    "description": "View Pogo Pass directly from your phone",
     "slug": "PogoPassNew",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icons/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -21,7 +21,31 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "pogopass.mobile.eliteworks",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSExceptionDomains": {
+            "pogopass.com": {
+              "NSTemporaryExceptionAllowsInsecureHTTPLoads": true,
+              "NSTemporaryExceptionMinimumTLSVersion": "TLSv1.1",
+              "NSIncludesSubdomains": true
+            }
+          }
+        }
+      },
+      "buildNumber": "2.5.1"
+    },
+    "android": {
+      "versionCode": 25000,
+      "package": "eliteworks.pogopass.mobile",
+      "permissions": [
+        "INTERNET"
+      ],
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#000000"
     }
   },
   "packagerOpts": {
