@@ -23,6 +23,7 @@ export default class AccountNavigation extends React.Component {
       springPanelTitle: '',
       springPanelContent: null
     }
+		this.handleSpringPanelClose = this.handleSpringPanelClose.bind(this);
     this.handleShowSpringPanel = this.handleShowSpringPanel.bind(this);
   }
 
@@ -34,6 +35,14 @@ export default class AccountNavigation extends React.Component {
     this.router.history.push(path);
     this.forceUpdate();
   }
+
+  handleSpringPanelClose()
+	{
+		this.setState({
+			springPanelTitle: '',
+			springPanelContent: null
+		})
+	}
 
   handleShowSpringPanel(title, content){
     this.setState({
@@ -55,14 +64,14 @@ export default class AccountNavigation extends React.Component {
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
           <View style={STYLES.scrollViewContainer}>
-            <Route path="/blog" component={Blog} onShowSpringPanel={this.handleShowSpringPanel}/>
+            <Route path="/blog" render={(props) => <Blog {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/account-information" component={AccountInformation} />
             <Route path="/pass-manager" component={PassManager} />
             <Route path="/events" component={Events} />
             <Route path="/cart" component={Cart} />
           </View>
 
-          <SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent}/>
+          <SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent} onClose={this.handleSpringPanelClose}/>
 
           {/*Bottom Menu*/}
           <View style={STYLES.accountMenu.container}>

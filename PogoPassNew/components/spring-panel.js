@@ -6,17 +6,13 @@ export default class SpringPanel extends React.Component {
 
 	constructor(props){
 		super(props);
-
 		this.state = {
 			open: false
 		}
-
 		this.springValue = new Animated.Value(0);
-        this.screenHeight = Dimensions.get('window').height;
-
-
-        this.open = this.open.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+    this.screenHeight = Dimensions.get('window').height;
+		this.open = this.open.bind(this);
+    this.handleClose = this.handleClose.bind(this);
 	}
 
 	open() {
@@ -24,7 +20,7 @@ export default class SpringPanel extends React.Component {
 	        Animated.spring(
 	            this.springValue,
 	            {
-	                toValue: this.screenHeight - 160,
+	                toValue: this.screenHeight - 100,
 	                friction: 6
 	            }
 	        ).start()
@@ -67,18 +63,17 @@ const STYLES = {
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue',
-        opacity: .9,
+				backgroundColor: 'black',
+				opacity: .85,
         overflow: 'hidden'
     },
     springContainerText: {
         color: 'white',
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontSize: 18,
         borderBottomWidth: 2,
         marginBottom: 20,
         paddingBottom: 20,

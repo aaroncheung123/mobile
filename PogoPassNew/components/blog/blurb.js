@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppRegistry,StyleSheet,Text,ScrollView, View,TouchableHighlight, Image, Animated, WebView} from 'react-native';
+import {AppRegistry,StyleSheet,Text,ScrollView, View,TouchableHighlight, Image, Animated, WebView, Dimensions} from 'react-native';
 
 export default class Blurb extends React.Component {
 
@@ -14,15 +14,20 @@ export default class Blurb extends React.Component {
 					title       : props.title,
 					expanded    : false
 			};
+			this.screenHeight = Dimensions.get('window').height - 275;
+			this.screenWidth = Dimensions.get('window').width;
 			this.readMore = this.readMore.bind(this);
 	}
 
 	readMore(){
-		console.log("Read More");
 		this.props.onShowSpringPanel(
-			'Customer Information',
+			this.props.post.name,
 			<View>
-				<Text>Hello</Text>
+				<WebView
+					source={{html:this.props.post.content}}
+					style={{height: this.screenHeight, width: this.screenWidth}}
+					scrollEnabled={false}
+					/>
 			</View>
 		)
 	}
@@ -96,12 +101,7 @@ const STYLES = {
 		flex: 1,
 		paddingHorizontal: 30,
 		paddingBottom: 30
-  },
-	webViewStyle: {
-		backgroundColor: 'transparent',
-		height: 200,
-		width: 200
-	}
+  }
 }
 
 // <View style={STYLES.hiddenBody}>
