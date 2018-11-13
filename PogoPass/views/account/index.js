@@ -62,7 +62,7 @@ export default class AccountNavigation extends React.Component {
             <Route path="/cart" component={Cart} />
           </View>
 
-          <SpringPanel ref={e => this.springPanel = e} />
+          <SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent}/>
 
           {/*Bottom Menu*/}
           <View style={STYLES.accountMenu.container}>
