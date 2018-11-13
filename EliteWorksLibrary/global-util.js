@@ -1,6 +1,5 @@
 
 
-
 Date.prototype.getWeekDay = function() {
     var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return weekday[this.getDay()];
@@ -133,6 +132,7 @@ Date.prototype.formatDate = function(format_string)
 };
 
 import CLASS_STRING_MAP from './class-string-map';
+
 
 
 class GlobalUtil {
