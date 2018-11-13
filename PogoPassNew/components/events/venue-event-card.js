@@ -101,7 +101,8 @@ const STYLES = {
     outsideContainer: {
         flex: 1,
         marginBottom: 20,
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        overflow: 'hidden'
     },
     hiddenBody: {
         width: '90%',

@@ -200,7 +200,8 @@ const STYLES = {
     outsideContainer: {
         flexDirection: 'column',
         flex: 1,
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        overflow: 'hidden'
     },
     cardContainer: {
         height: 90,

@@ -114,9 +114,9 @@ const STYLES = {
 		height: 200,
 		padding: 20,
 		paddingBottom: 90,
-		borderTopLeftRadius: 15,
-		borderTopRightRadius: 15,
-		borderWidth: 2,
+		//borderTopLeftRadius: 15,
+		//borderTopRightRadius: 15,
+		borderTopWidth: 2,
 		borderColor: 'white'
 	},
 	bodyText: {

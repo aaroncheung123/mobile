@@ -251,7 +251,8 @@ export default class SubscriptionCard extends React.Component {
         outsideContainer: {
             flexDirection: 'column',
             flex: 1,
-            backgroundColor: 'transparent'
+            backgroundColor: 'transparent',
+            overflow: 'hidden'
         },
         cardContainer: {
             height: 220,

@@ -32,8 +32,8 @@ export default class Events extends React.Component {
 					<Text style={STYLES.toggleText}>Venue</Text>
 
 						<Switch
-							trackColor = 'orange'
-							_thumbColor = 'white'
+							trackColor = {{false: 'white', true: 'orange'}}
+							thumbColor = 'orange'
 							style = {STYLES.switchStyle}
 							onValueChange = {this.toggleSwitch}
 							value = {this.state.switchValue}/>
