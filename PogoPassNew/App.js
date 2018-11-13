@@ -1,29 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TextInput, AsyncStorage, StatusBar, WebView} from 'react-native';
+
+import Login from './views/login';
+import Forgot from './views/forgot';
+import Account from './views/account';
+import {Styles} from './assets/styles/styles'
+import BaseNavigation from './views/index';
+import { MemoryRouter, Route, Redirect } from "react-router-dom";
 
 import '../EliteWorksLibrary/global-util'
 
 export default class App extends React.Component {
 
-  componentDidMount() {
-    let structure = new EliteAPI.Models.CRM.User();
-    console.log(structure);
-  }
+  constructor(props) {
+		super(props)
+		GlobalUtil.webClientKey = '0000000676';
+	}
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
-  }
+	render() {
+		return (
+			<View style={Styles.container} >
+				<StatusBar barStyle="dark-content"/>
+				<ImageBackground
+				source={require('./assets/images/backgrounds/rollercoaster_background.jpg')}
+				style={Styles.backgroundImage}>
+					<BaseNavigation/>
+				</ImageBackground>
+			</View>
+
+		);
+	}
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
