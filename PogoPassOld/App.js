@@ -1,18 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground, TextInput, AsyncStorage, StatusBar, WebView} from 'react-native';
-
 import Login from './views/login';
 import Forgot from './views/forgot';
 import Account from './views/account';
 import {Styles} from './assets/styles/styles'
-import BaseNavigation from './views/index';
 import { MemoryRouter, Route, Redirect } from "react-router-dom";
-
 import '../EliteWorksLibrary/global-util'
+import BaseNavigation from './views/index';
+
 
 export default class App extends React.Component {
 
-  constructor(props) {
+	constructor(props) {
 		super(props)
 		GlobalUtil.webClientKey = '0000000676';
 	}

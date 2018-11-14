@@ -7,7 +7,7 @@ import {MemoryRouter, Route, IndexRedirect} from 'react-router';
 import PassManager from './pass-manager/index'
 import AccountInformation from './account-information/index'
 import Events from './events/index'
-import News from './news/index'
+import Blog from './blog/index'
 import Cart from './cart/index'
 import SpringPanel from '../../components/spring-panel.js'
 
@@ -23,12 +23,11 @@ export default class AccountNavigation extends React.Component {
       springPanelTitle: '',
       springPanelContent: null
     }
-		this.handleSpringPanelClose = this.handleSpringPanelClose.bind(this);
     this.handleShowSpringPanel = this.handleShowSpringPanel.bind(this);
   }
 
   componentDidMount() {
-    this.updatePath('/account-information');
+    this.updatePath('/blog');
   }
 
   updatePath(path) {
@@ -36,15 +35,7 @@ export default class AccountNavigation extends React.Component {
     this.forceUpdate();
   }
 
-  handleSpringPanelClose()
-	{
-		this.setState({
-			springPanelTitle: '',
-			springPanelContent: null
-		})
-	}
-
-  handleShowSpringPanel(title, content){
+  handleShowSpringPanel(){
     this.setState({
       springPanelTitle: title,
       springPanelContent: content
@@ -64,21 +55,21 @@ export default class AccountNavigation extends React.Component {
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
           <View style={STYLES.scrollViewContainer}>
-            <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+            <Route path="/blog" component={Blog} />
             <Route path="/account-information" component={AccountInformation} />
-            <Route path="/pass-manager"  render={(props) => <PassManager {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+            <Route path="/pass-manager" component={PassManager} />
             <Route path="/events" component={Events} />
             <Route path="/cart" component={Cart} />
           </View>
 
-          <SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent} onClose={this.handleSpringPanelClose}/>
+          <SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent}/>
 
           {/*Bottom Menu*/}
           <View style={STYLES.accountMenu.container}>
             <View style={STYLES.accountMenu.menuContainer}>
               <AccountMenuItem
-                onPress={() => this.updatePath('/news')}
-                active={path === '/news'}
+                onPress={() => this.updatePath('/blog')}
+                active={path === '/blog'}
                 icon="newspaper-o"
               />
               <AccountMenuItem

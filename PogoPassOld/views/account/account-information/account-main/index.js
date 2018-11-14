@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../../assets/styles/styles';
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
-import InfoTab from './info-tab';
+import InfoTab from '../../../../components/account-information/info-tab';
 
 
 export default class AccountInformation extends React.Component {
@@ -40,6 +40,9 @@ export default class AccountInformation extends React.Component {
 						<InfoTab onPress={() => this.signOut()} icon='sign-out' name='Sign out'/>
 					</View>
 				</ScrollView>
+
+
+
 			</View>
 		);
 	}

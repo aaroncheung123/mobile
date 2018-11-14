@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, TextInput, TouchableHighlight, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import TopMenu from '../top-menu';
-import ShippingAddressCard from './shipping-address-card';
+import TopMenu from '../../../../components/account-information/top-menu';
+import ShippingAddressCard from '../../../../components/account-information/shipping-address-card';
 
 export default class Addresses extends React.Component {
 	constructor(props)

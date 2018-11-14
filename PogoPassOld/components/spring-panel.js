@@ -6,13 +6,17 @@ export default class SpringPanel extends React.Component {
 
 	constructor(props){
 		super(props);
+
 		this.state = {
 			open: false
 		}
+
 		this.springValue = new Animated.Value(0);
-    this.screenHeight = Dimensions.get('window').height;
-		this.open = this.open.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+        this.screenHeight = Dimensions.get('window').height;
+
+
+        this.open = this.open.bind(this);
+        this.handleClose = this.handleClose.bind(this);
 	}
 
 	open() {
@@ -20,7 +24,7 @@ export default class SpringPanel extends React.Component {
 	        Animated.spring(
 	            this.springValue,
 	            {
-	                toValue: this.screenHeight - 100,
+	                toValue: this.screenHeight - 160,
 	                friction: 6
 	            }
 	        ).start()
@@ -47,8 +51,7 @@ export default class SpringPanel extends React.Component {
 	        <Animated.View style={{...STYLES.springContainer, height: this.springValue}}>
 	            <Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleClose}/>
 	            <View style={STYLES.innerSpringContainer}>
-									<Text style={STYLES.springContainerText}>{this.props.title}</Text>
-
+	                <Text style={STYLES.springContainerText}>{this.props.title}</Text>
 	                <ScrollView>
 	                	{this.props.content}
 	                </ScrollView>
@@ -64,32 +67,32 @@ const STYLES = {
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-				backgroundColor: 'black',
-				opacity: .85,
-        overflow: 'hidden',
-				width: '100%'
+        backgroundColor: 'blue',
+        opacity: .9,
+        overflow: 'hidden'
     },
     springContainerText: {
         color: 'white',
-        fontSize: 18,
+        fontSize: 24,
+        fontWeight: 'bold',
         borderBottomWidth: 2,
         marginBottom: 20,
         paddingBottom: 20,
-				paddingHorizontal: 30,
-        borderColor: 'white'
-		},
+        borderColor: 'white',
+    },
     toggleText: {
         color: 'white',
         fontSize: 16
     },
     innerSpringContainer: {
+        flex: 1,
         margin: 20,
         justifyContent: 'flex-start',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     iconX: {
         color: 'white',

@@ -5,7 +5,7 @@ import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets
 import {View, Dimensions, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
 import {Button} from 'react-native-elements';
-import SpringPanelDetails from './spring-panel-details.js';
+import VenueCard from '../../../components/pass-manager/venue-card.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Account extends React.Component {
@@ -23,6 +23,8 @@ export default class Account extends React.Component {
 		this.loadAccounts = this.loadAccounts.bind(this);
 		this.loadReferralCode = this.loadReferralCode.bind(this);
 		this.share = this.share.bind(this);
+		this.handlePressDetails = this.handlePressDetails.bind(this);
+		this.handleCloseDetails = this.handleCloseDetails.bind(this);
 	}
 
 	componentDidMount() {
@@ -82,10 +84,8 @@ export default class Account extends React.Component {
 	loadReferralCode() {
 		EliteAPI.CRM.User.getReferralCode({}, (success) => {
 			this.setState({referralCodeLoading: false});
-			this.setState({referralCode: success.data.user_code});
+			this.setState({referralCode: success.data.user_code})
 			AsyncStorage.setItem('customer_referral_code', JSON.stringify(success.data.user_code));
-		}, (failure) => {
-			console.log('fail: ',failure);
 		})
 	}
 
@@ -145,13 +145,29 @@ export default class Account extends React.Component {
 		return expirationDate;
 	}
 
+	handlePressDetails (account) {
+		//console.log(account);
+		Animated.spring(
+			this.springValue,
+			{
+				toValue: this.screenHeight - 160,
+				friction: 6
+			}
+		).start()
+	}
+
+	handleCloseDetails(){
+		this.springValue.setValue(0);
+	}
 
 	render() {
-		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onShowSpringPanel={this.props.onShowSpringPanel} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
+		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onPressDetails={() => this.handlePressDetails(account)} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
 		return (
-			<View>
+			<View style={{flex: 1, width: '100%'}}>
+				<View style={Styles.overlay}>
 					<Text style={STYLES.headerTitle}>Pass Manager</Text>
 					<ScrollView
+						style={{width: '100%'}}
 						refreshControl={
 							<RefreshControl
 								refreshing={this.state.refreshing}
@@ -159,7 +175,7 @@ export default class Account extends React.Component {
 							/>
 						}>
 
-						<View style={STYLES.passContainer}>
+						<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', 'marginBottom': 30}}>
 							<View style={STYLES.topButtonSection}>
 								<TouchableOpacity style={STYLES.iconContainer}>
 									<Icon name='plus' size={35}/>
@@ -169,25 +185,84 @@ export default class Account extends React.Component {
 									<Icon name='gift' size={35}/>
 									<Text style={STYLES.topButtonSectionText}>Purchase Gift</Text>
 								</TouchableOpacity>
-								<TouchableOpacity style={STYLES.iconContainer} onPress={this.share}>
+								<TouchableOpacity style={STYLES.iconContainer}>
 										<Icon name='dollar' size={35}/>
 										<Text style={STYLES.topButtonSectionText}>Refer a Friend</Text>
 								</TouchableOpacity>
 							</View>
 							{passViews}
 						</View>
+						<View style={STYLES.transparentFiller}></View>
 					</ScrollView>
+
+					<Animated.View style={[STYLES.springContainer, {height: this.springValue}]}>
+						<ScrollView style={STYLES.innerSpringContainer}>
+							<Text style={STYLES.venueTitleText}>Details</Text>
+							<Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleCloseDetails}/>
+							<View style={STYLES.overallDetailContainer}>
+								<View style={STYLES.outerDetailsContainer}>
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>Full Name:</Text>
+									</View>
+
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>Sun Devils</Text>
+									</View>
+								</View>
+
+								<View style={STYLES.outerDetailsContainer}>
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>Account Type:</Text>
+									</View>
+
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>Phoenix Pogo Pass</Text>
+									</View>
+								</View>
+
+								<View style={STYLES.outerDetailsContainer}>
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>Expiration Date:</Text>
+									</View>
+
+									<View style={STYLES.detailsContainer}>
+										<Text style={STYLES.detailsText}>9/21/2019</Text>
+									</View>
+								</View>
+
+								<TouchableOpacity style={STYLES.renewButton}>
+										<Icon name='refresh' size= {25} style={STYLES.iconRenew}/>
+										<Text style={STYLES.detailsText}>Renew</Text>
+								</TouchableOpacity>
+							</View>
+
+
+
+							<Text style={STYLES.venueTitleText}>Venues</Text>
+							<View style={STYLES.venueContainer}>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+								<VenueCard/>
+							</View>
+						</ScrollView>
+
+					</Animated.View>
+				</View>
 			</View>
 		);
 	}
 }
 
 const STYLES = {
-	passContainer: {
-		alignItems: 'center',
-		justifyContent: 'center',
-		marginBottom: 200
-	},
 	iconContainer:{
 		backgroundColor: '#E5E5E5',
 		borderRadius: 20,
@@ -199,6 +274,7 @@ const STYLES = {
 		opacity: .9
 	},
 	topButtonSection:{
+		flex: 1,
 		flexDirection: 'row',
 		justifyContent:'space-evenly',
 		alignItems:'center',
@@ -206,6 +282,33 @@ const STYLES = {
 	},
 	topButtonSectionText: {
 		textAlign: 'center'
+	},
+	iconRenew: {
+		color: 'white',
+		marginRight: 15
+	},
+	renewButton: {
+		flexDirection: 'row',
+		paddingVertical: 20,
+		paddingHorizontal: 40,
+		backgroundColor: 'orange',
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: 10,
+		margin: 20
+	},
+	detailsText: {
+		color: 'white',
+		fontSize: 16
+	},
+	outerDetailsContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		marginHorizontal: 20,
+		marginVertical: 10
+	},
+	detailsContainer: {
+		flex: 1
 	},
 	headerTitle: {
 		width: '100%',
@@ -215,6 +318,74 @@ const STYLES = {
 		fontSize: 25,
 		padding: 10,
 		backgroundColor: 'rgba(0, 0, 0, 0.6)'
+	},
+	springContainer: {
+		flex: 1,
+		position: 'absolute',
+		bottom: 0,
+		width: '100%',
+		//backgroundColor: '#cccccc',
+		borderRadius: 30,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'black',
+		opacity: .85
+	},
+	innerSpringContainer: {
+		flex: 1,
+		margin: 20
+	},
+	venueContainer: {
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginBottom: 35
+	},
+	overallDetailContainer: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginBottom: 20
+	},
+	venueTitleText: {
+		alignSelf: 'center',
+		textAlign: 'center',
+		width: '40%',
+		fontSize: 24,
+		marginBottom: 20,
+		marginTop: 10,
+		paddingBottom: 20,
+		borderBottomWidth: 2,
+		borderColor: 'white',
+		color: 'white'
+	},
+	manageContainer: {
+		borderRadius: 20,
+		backgroundColor: '#fcfcfc',
+		borderWidth:2,
+		borderColor:'orange',
+		height: 80,
+		width: 80,
+		justifyContent: 'center',
+		alignItems: 'center',
+		shadowColor: 'rgba(0,0,0, .4)', // IOS
+		shadowOffset: { height: 1, width: 1 }, // IOS
+		shadowOpacity: 1, // IOS
+		shadowRadius: 1, //IOS
+		elevation: 5, // Android
+		margin: 10
+	},
+	title: {
+		fontSize: 14,
+		paddingTop: 10,
+	},
+	iconX: {
+		color: 'white',
+		position: 'absolute',
+		right: 0
+	},
+	transparentFiller: {
+			height: 250,
 	}
 }
 
@@ -222,19 +393,12 @@ const STYLES = {
 
 
 class Pass extends React.Component {
-	constructor(props){
+	constructor(props)
+	{
 		super(props);
 		this.state = {
 			modalVisible: false
 		}
-		this.onPressDetails = this.onPressDetails.bind(this);
-	}
-
-	onPressDetails(){
-		this.props.onShowSpringPanel(
-			'Details',
-			<SpringPanelDetails/>
-		)
 	}
 
 	render() {
@@ -326,7 +490,7 @@ class Pass extends React.Component {
 						<Text style={PassStyles.textCity}>Expiration: {expiration}</Text>
 					</View>
 					<View style={PassStyles.rightContainer}>
-						<TouchableOpacity style={PassStyles.detailButton} onPress={this.onPressDetails}>
+						<TouchableOpacity style={PassStyles.detailButton} onPress={this.props.onPressDetails}>
 							<Text>
 								Details
 							</Text>
@@ -351,7 +515,7 @@ class Pass extends React.Component {
 					transparent={true}
 					visible={this.state.modalVisible}
 					onRequestClose={() => this.setState({modelVisible: false})}>
-					<View>
+					<View style={Styles.overlay}>
 					<View style={PassStyles.modalContainer}>
 						<View style={PassStyles.modalTextContainer}>
 							<Text style={PassStyles.modalTextName}>
@@ -401,3 +565,14 @@ const VenueTotal = (props) => {
 		</View>
 	)
 }
+
+
+// {
+// 	!expired ?
+// 	<Button
+// 		buttonStyle={PassStyles.buttonUsage}
+// 		title="View Usage"
+// 		color="white"
+// 		onPress={() => this.setState({modalVisible: true})}
+// 	/> : null
+// }

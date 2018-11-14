@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableWithoutFeedback, TextInput, TouchableHighlight, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-elements'
-import TopMenu from '../top-menu';
+import TopMenu from '../../../../components/account-information/top-menu';
 
 export default class Profile extends React.Component {
 

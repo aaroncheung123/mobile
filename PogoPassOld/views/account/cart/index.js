@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 import {View, Text,ScrollView, TouchableOpacity, TextInput} from 'react-native';
-import ProductCard from './product-card.js';
+import ProductCard from '../../../components/cart/product-card.js';
 import { Button } from 'react-native-elements';
 
 
@@ -11,6 +11,7 @@ export default class Cart extends React.Component {
 	handleCheckout(){
 
 	}
+
 
 	render() {
 
@@ -24,6 +25,7 @@ export default class Cart extends React.Component {
 
 					<ScrollView style={STYLES.productDetailsScrollContainer}>
 						<View style={STYLES.productDetailsContainer}>
+							<Text style={STYLES.productDetailsText}>Product Details (2)</Text>
 							<ProductCard/>
 							<ProductCard/>
 						</View>
@@ -46,7 +48,6 @@ export default class Cart extends React.Component {
 								<Text style={STYLES.bodyText1}>Apply</Text>
 							</TouchableOpacity>
 						</View>
-
 
 						<View style={STYLES.subtTotal}>
 								<Text style={STYLES.bodyText}>Subtotal: $99.95</Text>
@@ -86,6 +87,8 @@ const STYLES = {
 	productDetailsContainer: {
 		justifyContent: 'center',
 		width: '100%',
+		backgroundColor: 'white',
+		opacity: .9,
 		borderRadius: 10,
 		padding: 10,
 		marginBottom: 100
@@ -95,13 +98,24 @@ const STYLES = {
 		padding: 15,
 		width: '100%'
 	},
+	productDetailsText: {
+		flex: 1,
+		width: '60%',
+		fontSize: 18,
+		fontWeight: 'bold',
+		margin: 20,
+		borderBottomWidth: 2,
+		borderColor: '#bfbfbf',
+		paddingBottom: 20,
+		marginBottom: 20,
+	},
 	orderSummaryContainer: {
 		height: 200,
 		padding: 20,
+		backgroundColor: 'rgba(0, 0, 0, 0.6)',
 		paddingBottom: 90,
 		borderTopLeftRadius: 15,
-		borderTopRightRadius: 15,
-		backgroundColor: 'rgba(0, 0, 0, 0.6)'
+		borderTopRightRadius: 15
 	},
 	bodyText: {
 		fontSize: 18,
