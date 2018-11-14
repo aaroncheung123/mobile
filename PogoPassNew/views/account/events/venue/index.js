@@ -13,10 +13,12 @@ export default class Venue extends React.Component {
 		return (
 				<View style={STYLES.eventsContainer}>
 					<ScrollView>
-						<VenueEventCard/>
-						<VenueEventCard/>
-						<VenueEventCard/>
-						<VenueEventCard/>
+						<View style={STYLES.filler}>
+							<VenueEventCard/>
+							<VenueEventCard/>
+							<VenueEventCard/>
+							<VenueEventCard/>
+						</View>
 					</ScrollView>
 				</View>
 		);
@@ -28,5 +30,8 @@ const STYLES = {
 	eventsContainer: {
 		justifyContent: 'flex-start',
 		alignItems: 'center'
+	},
+	filler: {
+		marginBottom: 450
 	}
 }

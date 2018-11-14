@@ -40,9 +40,6 @@ export default class AccountInformation extends React.Component {
 						<InfoTab onPress={() => this.signOut()} icon='sign-out' name='Sign out'/>
 					</View>
 				</ScrollView>
-
-
-
 			</View>
 		);
 	}

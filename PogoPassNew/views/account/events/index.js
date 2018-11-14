@@ -3,10 +3,11 @@ import NavigationBar from 'react-native-navbar';
 import {View, Text, ScrollView, Switch} from 'react-native';
 import {MemoryRouter, Route, IndexRedirect} from 'react-router';
 import Venue from './venue/index.js';
+import Date from './date/index.js';
 
 
 export default class Events extends React.Component {
-	
+
 	constructor () {
 	  super();
 		this.state = {
@@ -21,6 +22,12 @@ export default class Events extends React.Component {
 	}
 
 	toggleSwitch(value){
+		if(value){
+			this.updatePath('/date');
+		}
+		else{
+			this.updatePath('/venue');
+		}
 		this.setState({switchValue: value})
 	}
 
@@ -32,11 +39,9 @@ export default class Events extends React.Component {
 	render() {
 		return (
 			<View>
-				<View>
-					<Text style={STYLES.title}>
-						Events
-					</Text>
-				</View>
+				<Text style={STYLES.title}>
+					Events
+				</Text>
 
 				<View style={STYLES.toggleContainer}>
 					<Text style={STYLES.toggleText}>Venue</Text>
@@ -55,6 +60,7 @@ export default class Events extends React.Component {
 				<MemoryRouter ref={e => this.router = e}>
 					<View style={STYLES.routerContainer}>
 						<Route path="/venue" component={Venue} />
+						<Route path="/date" component={Date} />
 					</View>
 				</MemoryRouter>
 
@@ -79,24 +85,11 @@ const STYLES = {
 		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	},
 	toggleContainer: {
-		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: 30,
 		marginVertical: 40
-	},
-	eventsContainer: {
-		flex: 9,
-		justifyContent: 'flex-start',
-		alignItems: 'center'
-	},
-	toggleWidgets:{
-		height:30,
-
-		margin: 15,
-		borderRadius: 20,
-		backgroundColor: 'orange'
 	},
 	toggleText: {
 		color: 'white',
@@ -104,8 +97,5 @@ const STYLES = {
 	},
 	switchStyle: {
 		marginHorizontal: 10,
-	},
-	transparentFiller: {
-			height: 250,
 	}
 }
