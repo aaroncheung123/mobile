@@ -2,6 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {View, Text, ScrollView, Switch} from 'react-native';
 import {MemoryRouter, Route, IndexRedirect} from 'react-router';
+
 import Venue from './venue/index.js';
 import Date from './date/index.js';
 
