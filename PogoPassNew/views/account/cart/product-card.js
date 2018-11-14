@@ -11,19 +11,16 @@ export default class ProductCard extends React.Component {
     render() {
         return (
             <View>
-                <TouchableOpacity style={STYLES.trashIcon}>
-                    <Icon name='trash' size= {30}/>
-                </TouchableOpacity>
-                <View style={STYLES.container}>
-                    <View style={STYLES.innerContainer}>
-                        <View style={STYLES.leftContainer}>
-                            <Text style={STYLES.title}>Product</Text>
-                        </View>
-                        <View style={STYLES.rightContainer}>
-                            <Text style={STYLES.title1}>Pogo Pass San Antonio - 12 Months</Text>
-                        </View>
-                    </View>
 
+
+                <View style={STYLES.orangeBoxContainer}>
+                    <Text style={STYLES.productTitleText}>Pogo Pass San Antonio - 12 Months</Text>
+                    <TouchableOpacity style={STYLES.trashIcon}>
+                        <Icon name='trash' size= {25}/>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={STYLES.container}>
                     <View style={STYLES.innerContainer}>
                         <View style={STYLES.leftContainer}>
                             <Text style={STYLES.title}>Price</Text>
@@ -68,16 +65,20 @@ export default class ProductCard extends React.Component {
 
 const STYLES = {
     container: {
-        flex: 1,
-        borderTopWidth: 40,
-        borderColor: 'orange',
-        margin: 10,
-        // borderTopLeftRadius: 10,
-        // borderTopRightRadius: 10,
-        borderRadius: 10,
+        marginBottom: 30,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
         backgroundColor: 'white',
         opacity: .9,
-        paddingHorizontal: 10
+        padding: 10
+    },
+    orangeBoxContainer: {
+        flexDirection: 'row',
+        backgroundColor: 'orange',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 20
     },
     innerContainer: {
         flexDirection: 'row'
@@ -92,7 +93,7 @@ const STYLES = {
         padding: 10
     },
     rightContainer: {
-        flex: 3,
+        flex: 2,
         justifyContent: 'center',
         padding: 10
     },
@@ -107,6 +108,11 @@ const STYLES = {
         textAlign: 'left',
         paddingBottom: 5,
         paddingLeft: 20
+    },
+    productTitleText: {
+        fontSize: 14,
+        color: 'white',
+        fontWeight: 'bold'
     },
     trashIcon: {
         position: 'absolute',

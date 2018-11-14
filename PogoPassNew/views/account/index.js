@@ -28,7 +28,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/events');
+    this.updatePath('/cart');
   }
 
   updatePath(path) {

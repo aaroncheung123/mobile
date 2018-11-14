@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 import {View, Text,ScrollView, TouchableOpacity, TextInput} from 'react-native';
-import ProductCard from '../../../components/cart/product-card.js';
+import ProductCard from './product-card.js';
 import { Button } from 'react-native-elements';
 
 
@@ -11,7 +11,6 @@ export default class Cart extends React.Component {
 	handleCheckout(){
 
 	}
-
 
 	render() {
 
