@@ -74,8 +74,8 @@ export default class OrderCard extends React.Component {
                 </View>
 
 
-
                 <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
+
 
                     <TouchableHighlight
                         onPress={this.toggle.bind(this)}
@@ -105,64 +105,15 @@ export default class OrderCard extends React.Component {
                                onPress = {this.handleResendSubmit}
                            />
                         </View>
-
-
                         <Text>Products</Text>
                         <View style={STYLES.productSectionContainer}>
-                            <View style={STYLES.productSectionRowHeader}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Name</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>Charged</Text>
-                                </View>
-                            </View>
-
+                            <ProductSectionHeader left='Name' right='Charged'/>
                             {productsSectionList}
-
-                            <View style={STYLES.productSectionRow}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Sub Total</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>{this.props.order.price_sub_total}</Text>
-                                </View>
-                            </View>
-
-
-                            <View style={STYLES.productSectionRowHeader}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Totals</Text>
-                                </View>
-                            </View>
-
-                            <View style={STYLES.productSectionRow}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Sub Total</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>{this.props.order.price_sub_total}</Text>
-                                </View>
-                            </View>
-
-                            <View style={STYLES.productSectionRow}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Tax</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>{this.props.order.price_tax}</Text>
-                                </View>
-                            </View>
-
-                            <View style={STYLES.productSectionRow}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Total Charged</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>{this.props.order.price_total_charged}</Text>
-                                </View>
-                            </View>
-
+                            <ProductsSection left='Sub Total' right={this.props.order.price_sub_total}/>
+                            <ProductSectionHeader left='Totals'/>
+                            <ProductsSection left='Sub Total' right={this.props.order.price_sub_total}/>
+                            <ProductsSection left='Tax' right={this.props.order.price_tax}/>
+                            <ProductsSection left='Total Charged' right={this.props.order.price_total_charged}/>
                         </View>
                     </View>
                 </Animated.View>
@@ -180,6 +131,30 @@ const ProductsSectionList = (props) => {
             </View>
             <View style={STYLES.productSectionRight}>
                 <Text>{props.orderProduct.price_charged}</Text>
+            </View>
+        </View>
+    );
+}
+const ProductsSection = (props) => {
+    return (
+        <View style={STYLES.productSectionRow}>
+            <View style={STYLES.productSectionLeft}>
+                <Text>{props.left}</Text>
+            </View>
+            <View style={STYLES.productSectionRight}>
+                <Text>{props.right}</Text>
+            </View>
+        </View>
+    );
+}
+const ProductSectionHeader = (props) => {
+    return (
+        <View style={STYLES.productSectionRowHeader}>
+            <View style={STYLES.productSectionLeft}>
+                <Text>{props.left}</Text>
+            </View>
+            <View style={STYLES.productSectionRight}>
+                <Text>{props.right}</Text>
             </View>
         </View>
     );
