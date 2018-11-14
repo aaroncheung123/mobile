@@ -14,8 +14,8 @@ export default class Orders extends React.Component {
 
     componentDidMount() {
         Service.User.get( user => {
-            EliteAPI.STR.Order.search({take: 1000, user_id: user.id}, (success) => {
-                this.setState({orders: success.data.models});   
+            EliteAPI.STR.Order.search({take: 1000, user_id: user.id, include_classes: 'orderproduct'}, (success) => {
+                this.setState({orders: success.data.models});
             })
         })
     }
@@ -26,7 +26,6 @@ export default class Orders extends React.Component {
 
 
     render() {
-
         let orderComponents = this.state.orders.map(order => <OrderCard key={order.order_id} order={order}/>)
         return (
             <View>

@@ -7,32 +7,35 @@ import { Button } from 'react-native-elements'
 export default class OrderCard extends React.Component {
 
     constructor(props){
-      super(props);
+        super(props);
 
-      this.icons = {
-          'up'    : require('../../../../assets/images/icons/up_arrow.png'),
-          'down'  : require('../../../../assets/images/icons/down_arrow.png')
-      };
-
-      this.state = {
-        title       : props.title,
-        expanded    : false
+        this.icons = {
+            'up'    : require('../../../../assets/images/icons/up_arrow.png'),
+            'down'  : require('../../../../assets/images/icons/down_arrow.png')
         };
+
+        this.state = {
+            title       : props.title,
+            expanded    : false
+        };
+        this.handleResendSubmit = this.handleResendSubmit.bind(this)
     }
+
     componentDidMount(){
         this.setState({
             minHeight   : 90,
             animation   : new Animated.Value(90)
         });
+        //console.log('name: ', this.props.order);
     }
 
-    _setMaxHeight(event){
+    handleMaxHeight(event){
         this.setState({
             maxHeight   : 570
         });
     }
 
-    _setMinHeight(event){
+    handleMinHeight(event){
         this.setState({
             minHeight   : 90
         });
@@ -55,14 +58,23 @@ export default class OrderCard extends React.Component {
         ).start();
     }
 
+    handleResendSubmit(){
+        EliteAPI.STR.Order.sendConfirmation({order_id: this.props.order.order_id}, (success) => {
+        }, (failure) => {
+        })
+    }
+
 
 
     render() {
-        let icon = this.icons['up'];
+        let icon = this.icons['down'];
 
         if(this.state.expanded){
-            icon = this.icons['down'];
+            icon = this.icons['up'];
         }
+
+        let productsSectionList = this.props.order.order_products.map(order_product => <ProductsSectionList key={order_product.order_product_id} orderProduct={order_product}/>)
+        let placedAt = GlobalUtil.convertMysqlToDate(this.props.order.created_at).formatDate('n/d/y h:m A');
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.iconContainer}>
@@ -70,13 +82,13 @@ export default class OrderCard extends React.Component {
                 </View>
 
 
-
                 <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
+
 
                     <TouchableHighlight
                         onPress={this.toggle.bind(this)}
                         underlayColor="transparent">
-                        <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
+                        <View style={STYLES.cardContainer}  onLayout={this.handleMinHeight.bind(this)}>
                             <View style={STYLES.bodyTextContainer}>
                                 <Text style={STYLES.textHeader}>Order #: c6f134347</Text>
                             </View>
@@ -88,9 +100,9 @@ export default class OrderCard extends React.Component {
                     </TouchableHighlight>
 
 
-                    <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
-                        <Text>Placed At: 03/06/2018 12:10 PM</Text>
-                        <Text>Order # c6f12e6935</Text>
+                    <View style={STYLES.hiddenBody} onLayout={this.handleMaxHeight.bind(this)}>
+                        <Text>Placed At: {placedAt}</Text>
+                        <Text>Order # {this.props.order.order_key}</Text>
 
                         <View style={STYLES.buttonContainer}>
                             <Button
@@ -101,84 +113,62 @@ export default class OrderCard extends React.Component {
                                onPress = {this.handleResendSubmit}
                            />
                         </View>
-
-
                         <Text>Products</Text>
                         <View style={STYLES.productSectionContainer}>
-                            <View style={STYLES.productSectionRowHeader}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Name</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>Charged</Text>
-                                </View>
-                            </View>
-
-                            <View style={STYLES.productSectionRow}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Pogo Pass Phoenix - 12 Months</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>$124.95</Text>
-                                </View>
-                            </View>
-
-                            <View style={STYLES.productSectionRow}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Sub Total</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>$124.95</Text>
-                                </View>
-                            </View>
-
-
-                            <View style={STYLES.productSectionRowHeader}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Totals</Text>
-                                </View>
-                            </View>
-
-                            <View style={STYLES.productSectionRow}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Sub Total</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>$124.95</Text>
-                                </View>
-                            </View>
-
-                            <View style={STYLES.productSectionRow}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Discount</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>$124.95</Text>
-                                </View>
-                            </View>
-
-                            <View style={STYLES.productSectionRow}>
-                                <View style={STYLES.productSectionLeft}>
-                                    <Text>Total Charged</Text>
-                                </View>
-                                <View style={STYLES.productSectionRight}>
-                                    <Text>$0.00</Text>
-                                </View>
-                            </View>
-
+                            <ProductSectionHeader left='Name' right='Charged'/>
+                            {productsSectionList}
+                            <ProductsSection left='Sub Total' right={this.props.order.price_sub_total}/>
+                            <ProductSectionHeader left='Totals'/>
+                            <ProductsSection left='Sub Total' right={this.props.order.price_sub_total}/>
+                            <ProductsSection left='Tax' right={this.props.order.price_tax}/>
+                            <ProductsSection left='Total Charged' right={this.props.order.price_total_charged}/>
                         </View>
-
-
-
                     </View>
-
                 </Animated.View>
-
             </View>
 
         );
     }
 }
+
+const ProductsSectionList = (props) => {
+    return (
+        <View style={STYLES.productSectionRow}>
+            <View style={STYLES.productSectionLeft}>
+                <Text>{props.orderProduct.name}</Text>
+            </View>
+            <View style={STYLES.productSectionRight}>
+                <Text>{props.orderProduct.price_charged}</Text>
+            </View>
+        </View>
+    );
+}
+const ProductsSection = (props) => {
+    return (
+        <View style={STYLES.productSectionRow}>
+            <View style={STYLES.productSectionLeft}>
+                <Text>{props.left}</Text>
+            </View>
+            <View style={STYLES.productSectionRight}>
+                <Text>{props.right}</Text>
+            </View>
+        </View>
+    );
+}
+const ProductSectionHeader = (props) => {
+    return (
+        <View style={STYLES.productSectionRowHeader}>
+            <View style={STYLES.productSectionLeft}>
+                <Text>{props.left}</Text>
+            </View>
+            <View style={STYLES.productSectionRight}>
+                <Text>{props.right}</Text>
+            </View>
+        </View>
+    );
+}
+
+
 
 const STYLES = {
     container: {
