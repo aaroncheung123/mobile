@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import TextInputSection from '../../../../components/text-input-section.js';
 import { Button } from 'react-native-elements'
 
+import AddressSelect from '../../../../../EliteWorksLibrary/components/address/address-select';
+
 export default class ShippingAddressCard extends React.Component {
 
     constructor(props){
@@ -54,9 +56,18 @@ export default class ShippingAddressCard extends React.Component {
     }
 
     handleShippingAddressSubmit() {
-        this.state.shippingAddress.save((success) => {
+
+        let address = this.addressSelect.getAddress((address) => {
+
+            if (address === undefined) return
+
+            this.state.shippingAddress.address_id = address.address_id;
+            this.state.shippingAddress.address = address;
+            this.state.shippingAddress.save((success) => {
                 alert('Your information has been successfully updated');
-        })
+                this.forceUpdate();
+            }) 
+        });
     }
 
     handleTextChange(property, value) {
@@ -99,6 +110,8 @@ export default class ShippingAddressCard extends React.Component {
                             value={this.props.shippingAddress.description}
                             onChangeText = {(value) => this.handleTextChange('description',value)}/>
 
+
+                        <AddressSelect ref={e => this.addressSelect = e} address={this.props.shippingAddress.address} /> 
                         <View style={STYLES.buttonContainer} >
                             <Button
                                 raised

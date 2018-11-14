@@ -34,14 +34,13 @@ export default class Addresses extends React.Component {
 		this.props.history.push(path);
 	}
 
-  render() {
-		let shippingAddressCards = this.state.shippingAddresses.map(shippingAddress =>
-			<ShippingAddressCard key={shippingAddress.shipping_address_id } shippingAddress={shippingAddress}/>)
-  	return (
+	render() {
+		let shippingAddressCards = this.state.shippingAddresses.map(shippingAddress => <ShippingAddressCard key={shippingAddress.shipping_address_id } shippingAddress={shippingAddress}/>)
+		return (
 
 
-      <View style={STYLES.container}>
-      	<TopMenu title= 'Addresses' onPress={() => this.updatePath('/account-main')}/>
+			<View style={STYLES.container}>
+				<TopMenu title= 'Addresses' onPress={() => this.updatePath('/account-main')}/>
 				<ScrollView style={STYLES.scrollViewContainer}>
 					{shippingAddressCards}
 					<TouchableOpacity style={STYLES.iconContainer}>
@@ -49,10 +48,10 @@ export default class Addresses extends React.Component {
 					</TouchableOpacity>
 					<View style={STYLES.transparentFiller}></View>
 				</ScrollView>
-      </View>
+			</View>
 
 
-  	);
+		);
 	}
 }
 

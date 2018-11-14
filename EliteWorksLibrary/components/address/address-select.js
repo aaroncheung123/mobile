@@ -1,10 +1,9 @@
 
 
 import React from 'react';
-import SelectPicker from 'react-native-picker-select';
 
-import {View, Text} from 'react-native';
-import {Button} from 'react-native-elements';
+import {View, Text, Picker, TextInput} from 'react-native';
+
 
 // purpose
 //   inputs for address editing fields
@@ -28,11 +27,19 @@ import {Button} from 'react-native-elements';
 // returns
 //   component for editing addresses
 
+
+const MERGE_STYLES = (styleObject, styleObject2) =>
+{
+  let styles = styleObject ? {...styleObject} : {};
+  if (styleObject2) styles = {...styles, ...styleObject2};
+  return styles;
+}
+
 export default class AddressSelect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      address: this.props.address ? new EliteAPI.Models.CRM.Address(this.props.address) : new EliteAPI.Models.CRM.Address(),
+      address: this.props.address ? new EliteAPI.Models.CRM.Address(this.props.address) : new EliteAPI.Models.CRM.Address({state: 'AL'}),
       setCoordinates: false,
       addressValidating: false
     };
@@ -46,12 +53,7 @@ export default class AddressSelect extends React.Component {
 
 
     let states = GlobalUtil.Form.states;
-    this.stateList = Object.keys(states).map(state => {
-      return {
-        value: state,
-        label: states[state]
-      }
-    });
+    this.stateList = Object.keys(states).map(state => <Picker.Item key={state} label={states[state]} value={state} />);
   }
 
   componentDidMount() {
@@ -76,21 +78,22 @@ export default class AddressSelect extends React.Component {
     this.forceUpdate();
   }
 
-  getAddress() {
+  getAddress(callback) {
     if (this.state.address.address_id === undefined) {
       if (GlobalUtil.inputToBool(this.props.soft)) this.state.address.soft = 1;
       this.state.address.save(
         success => {
           this.state.address = success.data.address;
           this.forceUpdate();
+          callback(this.state.address)
         },
         failure => {
           alert(failure.error_message);
-        },
-        true
+          callback();
+        }
       );
     }
-    return this.state.address;
+    else callback(this.state.address);
   }
 
   handleValidatePress() {
@@ -99,7 +102,7 @@ export default class AddressSelect extends React.Component {
       alert("Unable to validate address");
     }
     else {
-      this.setState({addressValidating: true} () => {
+      this.setState({addressValidating: true}, () => {
         EliteAPI.CRM.Address.validate(
           { address_id: address.address_id },
           success => {
@@ -115,70 +118,73 @@ export default class AddressSelect extends React.Component {
     }
   }
 
+
+
   render() {
 
     return (
-      <View style={{STYLES.container, ...this.props.stylesContainer}}>
-        <BasicAddressInput {...props} title="Street 1" value={this.state.address.street_1} onChangeText={this.state.handleChange.bind(this, 'street_1')}/>
-        <BasicAddressInput {...props} title="Street 2 (Apt, Suite #)" value={this.state.address.street_2} onChangeText={this.state.handleChange.bind(this, 'street_2')}/>
-        <BasicAddressInput {...props} title="City" value={this.state.address.city} onChangeText={this.state.handleChange.bind(this, 'city')}/>
+      <View style={MERGE_STYLES(STYLES.container, this.props.stylesContainer)}>
+        <BasicAddressInput {...this.props} label="Street 1" value={this.state.address.street_1} onChangeText={this.handleChange.bind(this, 'street_1')}/>
+        <BasicAddressInput {...this.props} label="Street 2 (Apt, Suite #)" value={this.state.address.street_2} onChangeText={this.handleChange.bind(this, 'street_2')}/>
+        <BasicAddressInput {...this.props} label="City" value={this.state.address.city} onChangeText={this.handleChange.bind(this, 'city')}/>
       
-        <View style={{STYLES.inputGroupContainer, ...this.props.stylesInputGroupContainer}}>
-          <View style={{STYLES.labelContainer, ...this.props.stylesLabelContainer}}>
-            <Text style={{STYLES.label, ...this.props.stylesLabel}}>State</Text>
+        <View style={MERGE_STYLES(STYLES.inputGroupContainer, this.props.stylesInputGroupContainer)}>
+          <View style={MERGE_STYLES(STYLES.labelContainer, this.props.stylesLabelContainer)}>
+            <Text style={MERGE_STYLES(STYLES.label, this.props.stylesLabel)}>State</Text>
           </View>
-          <View style={{STYLES.inputContainer, ...this.props.stylesInputContainer}}>
-            <SelectPicker
-              placeholder={{}}
-              style={{STYLES.input, ...props.stylesInput}}
-              label='State'
-              value={this.state.address.state ? this.state.address.state : ""}
-              items={this.stateList}
-              hideDoneBar={true}
-              hideIcon={true}
-              onValueChange={this.state.handleChange.bind(this, 'state')}
-            />
+          <View style={MERGE_STYLES(STYLES.inputContainer, this.props.stylesInputContainer)}>
+            <Picker
+              iosHeader="Select State"
+              style={MERGE_STYLES(STYLES.pickerInput, this.props.stylesPickerInput)}
+              selectedValue={this.state.address.state ? this.state.address.state : ""}
+              onValueChange={this.handleChange.bind(this, 'state')}
+            >
+              {this.stateList}
+            </Picker>
           </View>
         </View>
 
-        <BasicAddressInput {...props} title="Zipcode" value={this.state.address.zipcode} onChangeText={this.state.handleChange.bind(this, 'zipcode')}/>
+        <BasicAddressInput {...this.props} label="Zipcode" value={this.state.address.zipcode} onChangeText={this.handleChange.bind(this, 'zipcode')}/>
         {GlobalUtil.inputToBool(this.props.showCoordinates) ? (
-          <BasicAddressInput {...props} title="Longitude" value={this.state.address.longitude} onChangeText={this.state.handleChange.bind(this, 'longitude')}/>
+          <BasicAddressInput {...this.props} label="Longitude" value={this.state.address.longitude} onChangeText={this.handleChange.bind(this, 'longitude')}/>
         ) : null}
         {GlobalUtil.inputToBool(this.props.showCoordinates) ? (
-          <BasicAddressInput {...props} title="Latitude" value={this.state.address.latitude} onChangeText={this.state.handleChange.bind(this, 'latitude')}/>
+          <BasicAddressInput {...this.props} label="Latitude" value={this.state.address.latitude} onChangeText={this.handleChange.bind(this, 'latitude')}/>
         ) : null}
 
-        {GlobalUtil.inputToBool(this.props.showValidate) ? (
-          <View className={{STYLES.buttonContainer, ...this.props.stylesButtonContainer}}>
+        {/*GlobalUtil.inputToBool(this.props.showValidate) ? (
+          <View className={MERGE_STYLES(STYLES.buttonContainer, this.props.stylesButtonContainer)}>
              <Button
               onPress={this.handleValidatePress}
               title="Validate Address"
               accessibilityLabel="Validate Address"
-              buttonStyle={{STYLES.button, ...this.props.stylesButton}}
+              buttonStyle={MERGE_STYLES(STYLES.button, this.props.stylesButton)}
               loading={this.state.loadingClockIn}
             />
           </View>
-        ) : null}
+        ) : null*/}
       </View>
     );
   }
 }
 
 const BasicAddressInput = (props) => {
-  <View style={{STYLES.inputGroupContainer, ...props.stylesInputGroupContainer}}>
-    <View style={{STYLES.labelContainer, ...props.stylesLabelContainer}}>
-      <Text style={{STYLES.label, ...props.stylesLabel}}>{props.label}</Text>
+
+  return (
+    <View style={MERGE_STYLES(STYLES.inputGroupContainer, props.stylesInputGroupContainer)}>
+      <View style={MERGE_STYLES(STYLES.labelContainer, props.stylesLabelContainer)}>
+        <Text style={MERGE_STYLES(STYLES.label, props.stylesLabel)}>{props.label}</Text>
+      </View>
+      <View style={MERGE_STYLES(STYLES.inputContainer, props.stylesInputContainer)}>
+        <TextInput
+          style={MERGE_STYLES(STYLES.input, props.stylesInput)}
+          underlineColorAndroid="transparent"
+          value={props.value ? props.value : ""}
+          onChangeText={props.onChangeText}
+        />
+      </View>
     </View>
-    <View style={{STYLES.inputContainer, ...props.stylesInputContainer}}>
-      <TextInput
-        style={{STYLES.input, ...props.stylesInput}}
-        underlineColorAndroid="transparent"
-        value={props.value ? props.value : ""}
-        onChangeText={props.onChangeText}
-      />
-    </View>
-  </View>
+  )
 }
 
 const STYLES = {
@@ -192,18 +198,27 @@ const STYLES = {
 
   },
   input: {
-
+    height: 40,
+    paddingLeft: 20,
+    borderWidth: 1,
+    borderRadius: 5
   },
   labelContainer: {
 
   },
   label: {
-
+    fontSize: 16,
+    paddingTop: 10,
   },
   buttonContainer: {
 
   },
   button: {
 
+  },
+  pickerInput: {
+    borderWidth: 1,
+    borderRadius: 5
   }
 }
+
