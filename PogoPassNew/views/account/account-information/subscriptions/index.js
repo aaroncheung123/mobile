@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import TopMenu from '../top-menu';
-import SubscriptionCard from '../../../../components/account-information/subscription-card';
+import SubscriptionCard from './subscription-card';
 
 export default class Subscriptions extends React.Component {
 

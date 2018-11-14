@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View , Image, TouchableHighlight, Animated, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import TextInputSection from '../text-input-section.js';
+import TextInputSection from '../../../../components/text-input-section.js';
 import { Button } from 'react-native-elements'
 
 export default class OrderCard extends React.Component {
@@ -10,8 +10,8 @@ export default class OrderCard extends React.Component {
       super(props);
 
       this.icons = {
-          'up'    : require('../../assets/images/icons/up_arrow.png'),
-          'down'  : require('../../assets/images/icons/down_arrow.png')
+          'up'    : require('../../../../assets/images/icons/up_arrow.png'),
+          'down'  : require('../../../../assets/images/icons/down_arrow.png')
       };
 
       this.state = {

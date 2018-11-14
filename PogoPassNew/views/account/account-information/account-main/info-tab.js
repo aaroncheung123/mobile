@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-//import { Icon } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class InfoTab extends React.Component {

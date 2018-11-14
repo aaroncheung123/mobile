@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View , Image, TouchableHighlight, Animated, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import TextInputSection from '../text-input-section.js';
+import TextInputSection from '../../../../components/text-input-section.js';
 import { Button } from 'react-native-elements'
 
 export default class PaymentCard extends React.Component {
