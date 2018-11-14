@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
-import TopMenu from '../../../../components/account-information/top-menu';
+import TopMenu from '../top-menu';
 import SubscriptionCard from '../../../../components/account-information/subscription-card';
 
 export default class Subscriptions extends React.Component {

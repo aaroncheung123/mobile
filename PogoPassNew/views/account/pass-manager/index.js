@@ -5,7 +5,7 @@ import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets
 import {View, Dimensions, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
 import {Button} from 'react-native-elements';
-import SpringPanelDetails from '../../../components/pass-manager/spring-panel-details.js';
+import SpringPanelDetails from './spring-panel-details.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Account extends React.Component {

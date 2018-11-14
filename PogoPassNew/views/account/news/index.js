@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
-import NewsDateSections from '../../../components/news/news-date-sections';
+import NewsDateSections from './news-date-sections';
 
 export default class News extends React.Component {
 

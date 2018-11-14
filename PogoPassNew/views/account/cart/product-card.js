@@ -112,7 +112,8 @@ const STYLES = {
     productTitleText: {
         fontSize: 14,
         color: 'white',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginLeft: 10
     },
     trashIcon: {
         position: 'absolute',

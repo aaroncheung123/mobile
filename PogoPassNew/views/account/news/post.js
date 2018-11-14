@@ -7,7 +7,7 @@ export default class Post extends React.Component {
 			super(props);
 
 			this.icons = {
-					'up'    : require('../../assets/images/icons/up_arrow.png'),
+					'down'    : require('../../../assets/images/icons/down_arrow.png'),
 			};
 
 			this.state = {
@@ -34,7 +34,7 @@ export default class Post extends React.Component {
 
 
   render() {
-		let icon = this.icons['up'];
+		let icon = this.icons['down'];
     return (
 			<TouchableHighlight
 					style={STYLES.button}

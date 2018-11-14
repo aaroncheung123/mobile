@@ -3,7 +3,6 @@ import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 import {View, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share} from 'react-native';
 import {MemoryRouter, Route, IndexRedirect} from 'react-router';
-import InfoTab from '../../../components/account-information/info-tab.js';
 import AccountMain from './account-main/index.js';
 import Profile from './profile/index.js';
 import Addresses from './addresses/index.js';

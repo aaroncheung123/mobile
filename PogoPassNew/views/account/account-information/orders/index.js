@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
-import TopMenu from '../../../../components/account-information/top-menu';
+import TopMenu from '../top-menu';
 import OrderCard from '../../../../components/account-information/order-card';
 
 export default class Orders extends React.Component {

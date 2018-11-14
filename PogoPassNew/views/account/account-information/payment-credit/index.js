@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import TopMenu from '../../../../components/account-information/top-menu';
+import TopMenu from '../top-menu';
 import PaymentCard from '../../../../components/account-information/payment-card';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
