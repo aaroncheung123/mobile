@@ -7,24 +7,26 @@ import { Button } from 'react-native-elements'
 export default class OrderCard extends React.Component {
 
     constructor(props){
-      super(props);
+        super(props);
 
-      this.icons = {
-          'up'    : require('../../../../assets/images/icons/up_arrow.png'),
-          'down'  : require('../../../../assets/images/icons/down_arrow.png')
-      };
-
-      this.state = {
-        title       : props.title,
-        expanded    : false
+        this.icons = {
+            'up'    : require('../../../../assets/images/icons/up_arrow.png'),
+            'down'  : require('../../../../assets/images/icons/down_arrow.png')
         };
+
+        this.state = {
+            title       : props.title,
+            expanded    : false
+        };
+        this.handleResendSubmit = this.handleResendSubmit.bind(this)
     }
+
     componentDidMount(){
         this.setState({
             minHeight   : 90,
             animation   : new Animated.Value(90)
         });
-        console.log('name: ', this.props.order);
+        //console.log('name: ', this.props.order);
     }
 
     handleMaxHeight(event){
@@ -54,6 +56,12 @@ export default class OrderCard extends React.Component {
                 toValue: finalValue
             }
         ).start();
+    }
+
+    handleResendSubmit(){
+        EliteAPI.STR.Order.sendConfirmation({order_id: this.props.order.order_id}, (success) => {
+        }, (failure) => {
+        })
     }
 
 
