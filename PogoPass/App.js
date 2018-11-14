@@ -12,7 +12,7 @@ import '../EliteWorksLibrary/global-util'
 
 export default class App extends React.Component {
 
-  constructor(props) {
+  	constructor(props) {
 		super(props)
 		GlobalUtil.webClientKey = '0000000676';
 	}

@@ -65,7 +65,7 @@ export default class AccountNavigation extends React.Component {
         <View style={STYLES.fullScreenContainer}>
           <View style={STYLES.scrollViewContainer}>
             <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
-            <Route path="/account-information" component={AccountInformation} />
+            <Route path="/account-information" render={(props) => <AccountInformation {...props} onLogout={this.props.onLogout}/>} />
             <Route path="/pass-manager"  render={(props) => <PassManager {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/events" component={Events} />
             <Route path="/cart" component={Cart} />

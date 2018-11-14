@@ -33,7 +33,7 @@ export default class AccountInformation extends React.Component {
 
 			<MemoryRouter ref={e => this.router = e}>
 				<View style={STYLES.routerContainer}>
-					<Route path="/account-main" component={AccountMain} />
+					<Route path="/account-main" render={(props) => <AccountMain {...props} onLogout={this.props.onLogout} /> } />
 					<Route path="/profile" component={Profile} />
 					<Route path="/addresses" component={Addresses} />
 					<Route path="/payment" component={PaymentCredit} />

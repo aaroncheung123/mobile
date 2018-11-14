@@ -10,6 +10,13 @@ import {MemoryRouter, Route} from 'react-router';
 
 export default class BaseNavigation extends React.Component {
 
+	constructor(props)
+	{
+		super(props)
+		this.handleLogout = this.handleLogout.bind(this);
+	}
+
+
 	componentDidMount() {
 		AsyncStorage.getItem('customer_api_key').then((value) => {
 			if (value != null){
@@ -21,11 +28,17 @@ export default class BaseNavigation extends React.Component {
 		});
 	}
 
+	handleLogout() {
+		AsyncStorage.clear(() => {
+			this.router.history.push('/login');
+		});
+	}
+
 	render() {
 		return (
 			<MemoryRouter ref={e => this.router = e}>
 				<View>
-					<Route path="/account" component={Account}/>
+					<Route path="/account" render={(props) => <Account {...props} onLogout={this.handleLogout}/>}/>
 					<Route path="/login" component={Login}/>
 					<Route path="/forgot" component={Forgot}/>
 				</View>

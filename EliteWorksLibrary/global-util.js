@@ -231,6 +231,7 @@ window.GlobalUtil = new GlobalUtil();
 import WorkOrder from './models/str/work-order';
 import WorkOrderProduct from './models/str/work-order-product';
 import ShippingAddress from './models/str/shipping-address';
+import Order from './models/str/order';
 
 class StrModels {
     constructor()
@@ -238,6 +239,7 @@ class StrModels {
         this.WorkOrder = WorkOrder;
         this.WorkOrderProduct = WorkOrderProduct;
         this.ShippingAddress = ShippingAddress;
+        this.Order = Order;
     }
 } 
 

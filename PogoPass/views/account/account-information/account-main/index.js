@@ -11,14 +11,10 @@ export default class AccountInformation extends React.Component {
   {
     super(props);
 		this.updatePath = this.updatePath.bind(this);
-		this.signOut = this.signOut.bind(this);
   }
 
 	updatePath(path) {
 		this.props.history.push(path);
-	}
-	signOut() {
-		AsyncStorage.clear();
 	}
 
 	render() {
@@ -37,7 +33,7 @@ export default class AccountInformation extends React.Component {
 						<InfoTab onPress={() => this.updatePath('/payment')} icon='credit-card' name='Payment / Credit'/>
 						<InfoTab onPress={() => this.updatePath('/orders')} icon='calendar' name='Orders'/>
 						<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
-						<InfoTab onPress={() => this.signOut()} icon='sign-out' name='Sign out'/>
+						<InfoTab onPress={this.props.onLogout} icon='sign-out' name='Sign out'/>
 					</View>
 				</ScrollView>
 			</View>
