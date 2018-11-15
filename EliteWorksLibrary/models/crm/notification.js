@@ -41,7 +41,6 @@ export default class EliteNotification extends EliteModel {
     return this.title
   }
 
-
   save(successCallback, failureCallback) {
     var ajax = null;
     if (this[this.primaryKey] === undefined) ajax = EliteAPI.CRM.Notification.add(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
