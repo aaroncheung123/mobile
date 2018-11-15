@@ -10,7 +10,8 @@ export default class SidePanel extends React.Component {
 			open: false
 		}
 		this.springValue = new Animated.Value(0);
-    this.screenHeight = Dimensions.get('window').height;
+    this.screenWidth = Dimensions.get('window').width;
+		this.screenHeight= Dimensions.get('window').height - 100;
 		this.open = this.open.bind(this);
     this.handleClose = this.handleClose.bind(this);
 	}
@@ -20,7 +21,7 @@ export default class SidePanel extends React.Component {
 	        Animated.spring(
 	            this.springValue,
 	            {
-	                toValue: this.screenHeight - 100,
+	                toValue: this.screenWidth,
 	                friction: 6
 	            }
 	        ).start()
@@ -42,10 +43,10 @@ export default class SidePanel extends React.Component {
     	if (!this.state.open) return null;
 
         return (
-	        <Animated.View style={{...STYLES.springContainer, height: this.springValue}}>
-	            <Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleClose}/>
+	        <Animated.View style={{...STYLES.springContainer, width: this.springValue, height: this.screenHeight}}>
+	            <Icon name='angle-left' size= {40} style={STYLES.backArrow} onPress={this.handleClose}/>
 	            <View style={STYLES.innerSpringContainer}>
-									<Text style={STYLES.springContainerText}>gogogo</Text>
+									<Text style={STYLES.springContainerText}>{this.props.title}</Text>
 
 	                <ScrollView>
 	                	{this.props.content}
@@ -61,24 +62,23 @@ const STYLES = {
 	springContainer: {
         position: 'absolute',
         bottom: 0,
-        width: '100%',
+				right: 0,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-				backgroundColor: 'pink',
-				opacity: .85,
+				backgroundColor: '#f4f4f4',
         overflow: 'hidden',
 				width: '100%'
     },
     springContainerText: {
-        color: 'white',
+        color: 'black',
         fontSize: 18,
         borderBottomWidth: 2,
         marginBottom: 20,
         paddingBottom: 20,
 				paddingHorizontal: 30,
-        borderColor: 'white'
+        borderColor: 'black'
 		},
     toggleText: {
         color: 'white',
@@ -89,11 +89,12 @@ const STYLES = {
         justifyContent: 'flex-start',
         alignItems: 'center',
     },
-    iconX: {
-        color: 'white',
+    backArrow: {
+        color: 'black',
         position: 'absolute',
-        right: 0,
+        left: 0,
         top: 0,
-        margin: 15
+        marginVertical: 15,
+				marginHorizontal: 30,
     }
 }

@@ -10,8 +10,8 @@ export default class SpringPanelNotifications extends React.Component {
 
     handleSidePanel(){
         this.props.onShowSidePanel(
-            'Test1',
-            <Text>Hello</Text>
+            'Rating',
+            <Text>5 star rating</Text>
         )
     }
 

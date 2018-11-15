@@ -31,8 +31,8 @@ export default class AccountNavigation extends React.Component {
     }
 		this.handleSpringPanelClose = this.handleSpringPanelClose.bind(this);
     this.handleShowSpringPanel = this.handleShowSpringPanel.bind(this);
-		this.handleSidePanelClose = this.handleSpringPanelClose.bind(this);
-    this.handleShowSidePanel = this.handleShowSpringPanel.bind(this);
+		this.handleSidePanelClose = this.handleSidePanelClose.bind(this);
+    this.handleShowSidePanel = this.handleShowSidePanel.bind(this);
 		this.setTitle = this.setTitle.bind(this);
   }
 
@@ -102,7 +102,6 @@ export default class AccountNavigation extends React.Component {
 	}
 
 	handleShowSidePanel(title, content){
-		console.log('title: ',title);
 		this.setState({
 			sidePanelTitle: title,
 			sidePanelContent: content
