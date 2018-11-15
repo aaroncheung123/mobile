@@ -72,8 +72,11 @@ export default class OrderCard extends React.Component {
         if(this.state.expanded){
             icon = this.icons['up'];
         }
-
-        let productsSectionList = this.props.order.order_products.map(order_product => <ProductsSectionList key={order_product.order_product_id} orderProduct={order_product}/>)
+        let productsSectionList = this.props.order.order_products.map(orderProduct => <ProductsSection
+            key={orderProduct.order_product_id}
+            left={orderProduct.name}
+            right={GlobalUtil.convertToMoney(orderProduct.price_charged)}/>
+        )
         let placedAt = GlobalUtil.convertMysqlToDate(this.props.order.created_at).formatDate('n/d/y h:m A');
         return (
             <View style={STYLES.container}>
@@ -90,7 +93,7 @@ export default class OrderCard extends React.Component {
                         underlayColor="transparent">
                         <View style={STYLES.cardContainer}  onLayout={this.handleMinHeight.bind(this)}>
                             <View style={STYLES.bodyTextContainer}>
-                                <Text style={STYLES.textHeader}>Order #: c6f134347</Text>
+                                <Text style={STYLES.textHeader}>Order #: {this.props.order.order_key}</Text>
                             </View>
                             <Image
                               style={STYLES.buttonImage}
@@ -117,11 +120,11 @@ export default class OrderCard extends React.Component {
                         <View style={STYLES.productSectionContainer}>
                             <ProductSectionHeader left='Name' right='Charged'/>
                             {productsSectionList}
-                            <ProductsSection left='Sub Total' right={this.props.order.price_sub_total}/>
+                            <ProductsSection left='Sub Total' right={GlobalUtil.convertToMoney(this.props.order.price_sub_total)}/>
                             <ProductSectionHeader left='Totals'/>
-                            <ProductsSection left='Sub Total' right={this.props.order.price_sub_total}/>
-                            <ProductsSection left='Tax' right={this.props.order.price_tax}/>
-                            <ProductsSection left='Total Charged' right={this.props.order.price_total_charged}/>
+                            <ProductsSection left='Sub Total' right={GlobalUtil.convertToMoney(this.props.order.price_sub_total)}/>
+                            <ProductsSection left='Tax' right={GlobalUtil.convertToMoney(this.props.order.price_tax)}/>
+                            <ProductsSection left='Total Charged' right={GlobalUtil.convertToMoney(this.props.order.price_total_charged)}/>
                         </View>
                     </View>
                 </Animated.View>
@@ -131,18 +134,6 @@ export default class OrderCard extends React.Component {
     }
 }
 
-const ProductsSectionList = (props) => {
-    return (
-        <View style={STYLES.productSectionRow}>
-            <View style={STYLES.productSectionLeft}>
-                <Text>{props.orderProduct.name}</Text>
-            </View>
-            <View style={STYLES.productSectionRight}>
-                <Text>{props.orderProduct.price_charged}</Text>
-            </View>
-        </View>
-    );
-}
 const ProductsSection = (props) => {
     return (
         <View style={STYLES.productSectionRow}>
@@ -150,7 +141,7 @@ const ProductsSection = (props) => {
                 <Text>{props.left}</Text>
             </View>
             <View style={STYLES.productSectionRight}>
-                <Text>{props.right}</Text>
+                <Text style={STYLES.shiftRightText}>{props.right}</Text>
             </View>
         </View>
     );
@@ -162,7 +153,7 @@ const ProductSectionHeader = (props) => {
                 <Text>{props.left}</Text>
             </View>
             <View style={STYLES.productSectionRight}>
-                <Text>{props.right}</Text>
+                <Text style={STYLES.shiftRightText}>{props.right}</Text>
             </View>
         </View>
     );
@@ -256,4 +247,7 @@ const STYLES = {
         justifyContent: 'center',
         alignItems: 'center'
     },
+    shiftRightText: {
+        textAlign: 'right'
+    }
 }
