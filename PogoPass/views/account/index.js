@@ -10,6 +10,7 @@ import Events from './events/index'
 import News from './news/index'
 import Cart from './cart/index'
 import SpringPanel from '../../components/spring-panel.js'
+import SidePanel from '../../components/side-panel.js'
 import HeaderTitle from '../../components/notifications/header-title.js'
 
 const ELITE_WORKS_ORANGE = '#faa31a'
@@ -23,10 +24,15 @@ export default class AccountNavigation extends React.Component {
       showSpringPanel: true,
       springPanelTitle: '',
       springPanelContent: null,
-			headerTitle: ''
+			headerTitle: '',
+			showSidePanel: true,
+			sidePanelTitle: '',
+			sidePanelContent: null
     }
 		this.handleSpringPanelClose = this.handleSpringPanelClose.bind(this);
     this.handleShowSpringPanel = this.handleShowSpringPanel.bind(this);
+		this.handleSidePanelClose = this.handleSpringPanelClose.bind(this);
+    this.handleShowSidePanel = this.handleShowSpringPanel.bind(this);
 		this.setTitle = this.setTitle.bind(this);
   }
 
@@ -87,6 +93,26 @@ export default class AccountNavigation extends React.Component {
     })
   }
 
+	handleSidePanelClose()
+	{
+		this.setState({
+			sidePanelTitle: '',
+			sidePanelContent: null
+		})
+	}
+
+	handleShowSidePanel(title, content){
+		console.log('title: ',title);
+		this.setState({
+			sidePanelTitle: title,
+			sidePanelContent: content
+		}, () => {
+			if (this.sidePanel) {
+				this.sidePanel.open();
+			}
+		})
+	}
+
 
   render()
   {
@@ -96,7 +122,7 @@ export default class AccountNavigation extends React.Component {
 
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
-					<HeaderTitle title={this.state.headerTitle} onShowSpringPanel={this.handleShowSpringPanel}/>
+					<HeaderTitle title={this.state.headerTitle} onShowSpringPanel={this.handleShowSpringPanel} onShowSidePanel={this.handleShowSidePanel}/>
           <View style={STYLES.scrollViewContainer}>
             <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/account-information" render={(props) => <AccountInformation {...props} onLogout={this.props.onLogout}/>} />
@@ -106,6 +132,7 @@ export default class AccountNavigation extends React.Component {
           </View>
 
           <SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent} onClose={this.handleSpringPanelClose}/>
+					<SidePanel ref={e => this.sidePanel = e} title={this.state.sidePanelTitle} content={this.state.sidePanelContent} onClose={this.handleSidePanelClose}/>
 
           {/*Bottom Menu*/}
           <View style={STYLES.accountMenu.container}>

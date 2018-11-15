@@ -5,17 +5,20 @@ export default class SpringPanelNotifications extends React.Component {
 
     constructor(props){
         super(props);
-        this.handleNotifications = this.handleNotifications.bind(this);
+        this.handleSidePanel = this.handleSidePanel.bind(this);
     }
 
-    handleNotifications(){
-        console.log("handleNotifications");
+    handleSidePanel(){
+        this.props.onShowSidePanel(
+            'Test1',
+            <Text>Hello</Text>
+        )
     }
 
     render() {
         return (
             <ScrollView>
-                <TouchableOpacity onPress={this.handleNotifications}>
+                <TouchableOpacity onPress={this.handleSidePanel}>
                     <Notification/>
                 </TouchableOpacity>
 

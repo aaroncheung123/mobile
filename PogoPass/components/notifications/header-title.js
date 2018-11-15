@@ -13,7 +13,7 @@ export default class HeaderTitle extends React.Component {
 	handleNotifications(){
 		this.props.onShowSpringPanel(
 			'Notifications',
-			<SpringPanelNotifications/>
+			<SpringPanelNotifications onShowSidePanel={this.props.onShowSidePanel}/>
 		)
 	}
 
