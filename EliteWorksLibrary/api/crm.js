@@ -9,6 +9,7 @@ export default class CrmApi {
         this.Address = new Address();
         this.Deal = new Deal;
         this.Zone = new Zone;
+        this.Notification = new Notification;
     }
 }
 
@@ -591,4 +592,38 @@ class Zone extends Model {
         let url = '/global/crm/zone/set';
         return WebClient.basicPost(form_data, url, success_callback, failure_callback);
     }
+}
+
+
+
+
+class Notification extends Model {
+    constructor() {
+        super('notification');
+    }
+
+    // purpose
+    //   mark notificiations viewed
+    // args
+    //   notification_ids (required)
+    // returns
+    //   (none)
+    massView(form_data, success_callback, failure_callback) {
+        let url = '/global/crm/notification/mass/view';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   set a notification
+    // args
+    //   notification_id (required)
+    //   title (optional)
+    //   description (optional)
+    // returns
+    //   (none)
+    set(form_data, success_callback, failure_callback) {
+        let url = '/global/crm/notification/set';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
 }

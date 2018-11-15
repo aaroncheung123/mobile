@@ -5,7 +5,20 @@ export default class SpringPanelNotifications extends React.Component {
 
     constructor(props){
         super(props);
+
+        this.state = {
+            notifications: []
+        }
+
         this.handleSidePanel = this.handleSidePanel.bind(this);
+    }
+
+    componentDidMount() {
+        Service.User.get(user => {
+            EliteAPI.CRM.Notification.search({user_id: user.id, take: 50}, (success) => {
+                this.setState({notifications: success.data.models})
+            })
+        })
     }
 
     handleSidePanel(){
@@ -16,12 +29,12 @@ export default class SpringPanelNotifications extends React.Component {
     }
 
     render() {
+
+        let notificationElements = this.state.notifications.map((notification) => <Notification key={notification.notification_id} notification={notification} onPress={this.handleSidePanel}/>);
+
         return (
             <ScrollView>
-                <TouchableOpacity onPress={this.handleSidePanel}>
-                    <Notification/>
-                </TouchableOpacity>
-
+                {notificationElements}
             </ScrollView>
         );
     }
@@ -29,10 +42,12 @@ export default class SpringPanelNotifications extends React.Component {
 
 const Notification = (props) => {
     return (
-        <View style={STYLES.notificationCard}>
-            <Text style={STYLES.title}>How was Enchanted Island?</Text>
-            <Text>Please help us out by leaving us a rating and some feedback.</Text>
-        </View>
+        <TouchableOpacity onPress={props.onPress}>
+            <View style={STYLES.notificationCard}>
+                <Text style={STYLES.title}>{props.notification.title}</Text>
+                <Text>{props.notification.description}</Text>
+            </View>
+        </TouchableOpacity>
     );
 }
 

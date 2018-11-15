@@ -321,6 +321,7 @@ import TimeClock from './models/crm/time-clock';
 import Address from './models/crm/address';
 import Deal from './models/crm/deal';
 import Zone from './models/crm/zone';
+import Notification from './models/crm/notification';
 
 class CrmModels {
     constructor()
@@ -328,6 +329,9 @@ class CrmModels {
         this.User = User;
         this.TimeClock = TimeClock;
         this.Address = Address;
+        this.Deal = Deal;
+        this.Zone = Zone;
+        this.Notification = Notification;
     }
 }
 
