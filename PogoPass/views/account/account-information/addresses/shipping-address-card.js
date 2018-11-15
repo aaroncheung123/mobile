@@ -57,7 +57,7 @@ export default class ShippingAddressCard extends React.Component {
 
     handleShippingAddressSubmit() {
 
-        let address = this.addressSelect.getAddress((address) => {
+        this.addressSelect.getAddress((address) => {
 
             if (address === undefined) return
 
