@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SpringPanelNotifications from './spring-panel-notifications'
+import Bubble from '../bubble.js'
 
 export default class HeaderTitle extends React.Component {
 
@@ -24,9 +25,14 @@ export default class HeaderTitle extends React.Component {
 					{this.props.title}
 				</Text>
 
+				<Bubble number='9'/>
+
 				<TouchableOpacity
 					style={STYLES.iconContainer}
 					onPress={this.handleNotifications}>
+
+
+
 					<Icon
 						name='bell'
 						type='font-awesome'
@@ -57,6 +63,6 @@ const STYLES = {
 		position: 'absolute',
 		top: 0,
 		right: 0,
-		margin: 15
+		padding: 15
 	}
 }

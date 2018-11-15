@@ -191,6 +191,7 @@ const AccountMenuItem = (props) => {
 
 
 
+
 const STYLES = {
   fullScreenContainer: {
     flex: 1,
