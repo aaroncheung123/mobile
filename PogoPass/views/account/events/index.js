@@ -40,10 +40,6 @@ export default class Events extends React.Component {
 	render() {
 		return (
 			<View>
-				<Text style={STYLES.title}>
-					Events
-				</Text>
-
 				<View style={STYLES.toggleContainer}>
 					<Text style={STYLES.toggleText}>Venue</Text>
 
@@ -73,18 +69,6 @@ export default class Events extends React.Component {
 
 
 const STYLES = {
-	title: {
-		color: 'white',
-		minWidth: '100%',
-		fontSize: 25,
-		fontWeight: 'bold',
-		textAlign: 'center',
-		alignItems: 'center',
-		justifyContent: 'center',
-		padding: 10,
-		opacity: .95,
-		backgroundColor: 'rgba(0, 0, 0, 0.6)'
-	},
 	toggleContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',

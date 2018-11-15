@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { Platform, View, Text, ScrollView, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
 import {Styles, IconInputStyles} from '../../assets/styles/styles'
 import {Icon, Button} from 'react-native-elements'
 import {MemoryRouter, Route, IndexRedirect} from 'react-router';
@@ -10,6 +10,8 @@ import Events from './events/index'
 import News from './news/index'
 import Cart from './cart/index'
 import SpringPanel from '../../components/spring-panel.js'
+import SidePanel from '../../components/side-panel.js'
+import HeaderTitle from '../../components/notifications/header-title.js'
 
 const ELITE_WORKS_ORANGE = '#faa31a'
 
@@ -21,20 +23,56 @@ export default class AccountNavigation extends React.Component {
     this.state = {
       showSpringPanel: true,
       springPanelTitle: '',
-      springPanelContent: null
+      springPanelContent: null,
+			headerTitle: '',
+			showSidePanel: true,
+			sidePanelTitle: '',
+			sidePanelContent: null
     }
 		this.handleSpringPanelClose = this.handleSpringPanelClose.bind(this);
     this.handleShowSpringPanel = this.handleShowSpringPanel.bind(this);
+		this.handleSidePanelClose = this.handleSidePanelClose.bind(this);
+    this.handleShowSidePanel = this.handleShowSidePanel.bind(this);
+		this.setTitle = this.setTitle.bind(this);
   }
 
   componentDidMount() {
-    this.updatePath('/account-information');
+    this.updatePath('/news');
   }
 
   updatePath(path) {
+		this.setTitle(path);
     this.router.history.push(path);
     this.forceUpdate();
   }
+
+	setTitle(path){
+		if(path == '/news'){
+			this.setState({
+				headerTitle: 'News'
+			});
+		}
+		else if(path == '/account-information'){
+			this.setState({
+				headerTitle: 'Account Info'
+			});
+		}
+		else if(path == '/pass-manager'){
+			this.setState({
+				headerTitle: 'Pass Manager'
+			});
+		}
+		else if(path == '/events'){
+			this.setState({
+				headerTitle: 'Events'
+			});
+		}
+		else if(path == '/cart'){
+			this.setState({
+				headerTitle: 'Cart'
+			});
+		}
+	}
 
   handleSpringPanelClose()
 	{
@@ -55,6 +93,26 @@ export default class AccountNavigation extends React.Component {
     })
   }
 
+	handleSidePanelClose()
+	{
+		this.setState({
+			sidePanelTitle: '',
+			sidePanelContent: null
+		})
+	}
+
+	handleShowSidePanel(title, content){
+		this.setState({
+			sidePanelTitle: title,
+			sidePanelContent: content
+		}, () => {
+			if (this.sidePanel) {
+				this.sidePanel.open();
+			}
+		})
+	}
+
+
   render()
   {
     let path = (this.router) ? this.router.history.location.pathname : '';
@@ -63,6 +121,7 @@ export default class AccountNavigation extends React.Component {
 
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
+					<HeaderTitle title={this.state.headerTitle} onShowSpringPanel={this.handleShowSpringPanel} onShowSidePanel={this.handleShowSidePanel}/>
           <View style={STYLES.scrollViewContainer}>
             <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/account-information" render={(props) => <AccountInformation {...props} onLogout={this.props.onLogout}/>} />
@@ -72,6 +131,7 @@ export default class AccountNavigation extends React.Component {
           </View>
 
           <SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent} onClose={this.handleSpringPanelClose}/>
+					<SidePanel ref={e => this.sidePanel = e} title={this.state.sidePanelTitle} content={this.state.sidePanelContent} onClose={this.handleSidePanelClose}/>
 
           {/*Bottom Menu*/}
           <View style={STYLES.accountMenu.container}>
@@ -129,6 +189,8 @@ const AccountMenuItem = (props) => {
 }
 
 
+
+
 const STYLES = {
   fullScreenContainer: {
     flex: 1,
@@ -144,8 +206,8 @@ const STYLES = {
   accountMenu: {
     container: {
       backgroundColor:'white',
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
       width: "100%",
       height: 60,
       marginTop: -40
@@ -161,10 +223,6 @@ const STYLES = {
       backgroundColor: 'white',
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30
-    }
+    },
   }
 }
-
-// if (this.router){
-//   console.log(this.router.history.location.pathname);
-// }

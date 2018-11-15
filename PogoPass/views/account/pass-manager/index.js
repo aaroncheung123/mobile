@@ -150,7 +150,6 @@ export default class Account extends React.Component {
 		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onShowSpringPanel={this.props.onShowSpringPanel} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
 		return (
 			<View>
-					<Text style={STYLES.headerTitle}>Pass Manager</Text>
 					<ScrollView
 						refreshControl={
 							<RefreshControl
@@ -206,15 +205,6 @@ const STYLES = {
 	},
 	topButtonSectionText: {
 		textAlign: 'center'
-	},
-	headerTitle: {
-		width: '100%',
-		textAlign: 'center',
-		color: 'white',
-		fontWeight:'bold',
-		fontSize: 25,
-		padding: 10,
-		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	}
 }
 

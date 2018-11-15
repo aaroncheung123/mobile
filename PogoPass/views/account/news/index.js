@@ -10,11 +10,7 @@ export default class News extends React.Component {
 		return (
 
 					<View style={STYLES.totalContainer}>
-						<View>
-							<Text style={STYLES.title}>
-								News
-							</Text>
-						</View>
+
 
 						<ScrollView>
 							<View style={STYLES.filler}>
@@ -35,18 +31,6 @@ const STYLES = {
     justifyContent: 'center',
 		minWidth:'100%',
 		minHeight: '100%'
-	},
-	title: {
-		color: 'white',
-		minWidth: '100%',
-		fontSize: 25,
-		fontWeight: 'bold',
-		textAlign: 'center',
-		alignItems: 'center',
-		justifyContent: 'center',
-		padding: 10,
-		opacity: .95,
-		backgroundColor: 'rgba(0, 0, 0, 0.6)'
 	},
 	filler: {
 			marginBottom: 100,

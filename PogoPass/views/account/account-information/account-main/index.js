@@ -20,12 +20,6 @@ export default class AccountInformation extends React.Component {
 	render() {
 		return (
 			<View style={STYLES.totalContainer}>
-				<View style={STYLES.titleContainer}>
-					<Text style={STYLES.title}>
-						Account Info
-					</Text>
-				</View>
-
 				<ScrollView style={STYLES.infoTabContainer}>
 					<View style={STYLES.rowContainer}>
 						<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
@@ -48,26 +42,13 @@ const STYLES = {
 		flex: 1,
 		width:'100%'
 	},
-	title: {
-		textAlign: 'center',
-		color: 'white',
-		fontSize: 25,
-		fontWeight: 'bold',
-		width:'100%'
-	},
-	titleContainer: {
-		width:'100%',
-		opacity: .95,
-		paddingVertical: 10,
-		backgroundColor: 'rgba(0, 0, 0, 0.6)',
-		marginBottom: 30
-	},
 	infoTabContainer: {
 		width:'100%'
 	},
 	rowContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
-		flexWrap: 'wrap'
+		flexWrap: 'wrap',
+		marginTop: 25
 	}
 }

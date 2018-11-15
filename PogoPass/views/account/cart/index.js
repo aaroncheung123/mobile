@@ -15,15 +15,10 @@ export default class Cart extends React.Component {
 	render() {
 
 	  return (
-			<View style={STYLES.container}>
-
-				<View>
-					<Text style={STYLES.title}>
-						Cart
-					</Text>
-
+			<View>
 					<ScrollView style={STYLES.productDetailsScrollContainer}>
 						<View style={STYLES.productDetailsContainer}>
+							<ProductCard/>
 							<ProductCard/>
 							<ProductCard/>
 						</View>
@@ -59,9 +54,6 @@ export default class Cart extends React.Component {
 
 
 					</View>
-
-				</View>
-
 			</View>
 	  )
 	}
@@ -69,36 +61,24 @@ export default class Cart extends React.Component {
 
 
 const STYLES = {
-	container: {
-	},
-	title: {
-		color: 'white',
-		minWidth: '100%',
-		fontSize: 25,
-		fontWeight: 'bold',
-		textAlign: 'center',
-		alignItems: 'center',
-		justifyContent: 'center',
-		padding: 10,
-		opacity: .95,
-		backgroundColor: 'rgba(0, 0, 0, 0.6)'
-	},
 	productDetailsContainer: {
 		justifyContent: 'center',
 		width: '100%',
 		borderRadius: 10,
 		padding: 10,
-		marginBottom: 100
+		marginBottom: 200
 	},
 	productDetailsScrollContainer: {
-		height: '65%',
 		padding: 15,
 		width: '100%'
 	},
 	orderSummaryContainer: {
-		height: 200,
+		position: 'absolute',
+		width: '100%',
+		bottom: 0,
+		height: 170,
 		padding: 20,
-		paddingBottom: 90,
+		paddingBottom: 45,
 		borderTopLeftRadius: 15,
 		borderTopRightRadius: 15,
 		backgroundColor: 'rgba(0, 0, 0, 0.6)'
