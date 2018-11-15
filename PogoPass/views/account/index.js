@@ -87,16 +87,6 @@ export default class AccountNavigation extends React.Component {
     })
   }
 
-	handleShowSidePanel(title, content){
-		this.setState({
-			springPanelTitle: title,
-			springPanelContent: content
-		}, () => {
-			if (this.springPanel) {
-				this.springPanel.open();
-			}
-		})
-	}
 
   render()
   {
@@ -106,7 +96,7 @@ export default class AccountNavigation extends React.Component {
 
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
-					<HeaderTitle title={this.state.headerTitle} onShowSpringPanel={this.handleShowSidePanel}/>
+					<HeaderTitle title={this.state.headerTitle} onShowSpringPanel={this.handleShowSpringPanel}/>
           <View style={STYLES.scrollViewContainer}>
             <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/account-information" render={(props) => <AccountInformation {...props} onLogout={this.props.onLogout}/>} />
