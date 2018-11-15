@@ -87,6 +87,17 @@ export default class AccountNavigation extends React.Component {
     })
   }
 
+	handleShowSidePanel(title, content){
+		this.setState({
+			springPanelTitle: title,
+			springPanelContent: content
+		}, () => {
+			if (this.springPanel) {
+				this.springPanel.open();
+			}
+		})
+	}
+
   render()
   {
     let path = (this.router) ? this.router.history.location.pathname : '';
@@ -95,7 +106,7 @@ export default class AccountNavigation extends React.Component {
 
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
-					<HeaderTitle title={this.state.headerTitle} onShowSpringPanel={this.handleShowSpringPanel}/>
+					<HeaderTitle title={this.state.headerTitle} onShowSpringPanel={this.handleShowSidePanel}/>
           <View style={STYLES.scrollViewContainer}>
             <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/account-information" render={(props) => <AccountInformation {...props} onLogout={this.props.onLogout}/>} />
@@ -179,8 +190,8 @@ const STYLES = {
   accountMenu: {
     container: {
       backgroundColor:'white',
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
       width: "100%",
       height: 60,
       marginTop: -40
