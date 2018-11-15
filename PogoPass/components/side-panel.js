@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Animated, ScrollView, Dimensions} from 'react-native';
+import {View, Text, Animated, ScrollView, Dimensions, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class SidePanel extends React.Component {
@@ -44,7 +44,10 @@ export default class SidePanel extends React.Component {
 
         return (
 	        <Animated.View style={{...STYLES.springContainer, width: this.springValue, height: this.screenHeight}}>
-	            <Icon name='angle-left' size= {40} style={STYLES.backArrow} onPress={this.handleClose}/>
+							<TouchableOpacity style={STYLES.backArrowContainer} onPress={this.handleClose}>
+								<Icon name='angle-left' size= {30} style={STYLES.backArrow}/>
+							</TouchableOpacity>
+
 	            <View style={STYLES.innerSpringContainer}>
 									<Text style={STYLES.springContainerText}>{this.props.title}</Text>
 
@@ -60,41 +63,42 @@ export default class SidePanel extends React.Component {
 
 const STYLES = {
 	springContainer: {
-        position: 'absolute',
-        bottom: 0,
-				right: 0,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-				backgroundColor: '#f4f4f4',
-        overflow: 'hidden',
-				width: '100%'
+      position: 'absolute',
+      bottom: 0,
+			right: 0,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+			backgroundColor: '#f4f4f4',
+      overflow: 'hidden',
+			width: '100%'
     },
     springContainerText: {
-        color: 'black',
-        fontSize: 18,
-        borderBottomWidth: 2,
-        marginBottom: 20,
-        paddingBottom: 20,
-				paddingHorizontal: 30,
-        borderColor: 'black'
+      color: 'black',
+      fontSize: 18,
+      borderBottomWidth: 2,
+      marginBottom: 20,
+      paddingBottom: 20,
+			paddingHorizontal: 30,
+      borderColor: 'black'
 		},
     toggleText: {
-        color: 'white',
-        fontSize: 16
+      color: 'white',
+      fontSize: 16
     },
     innerSpringContainer: {
-        margin: 20,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
+      margin: 20,
+      justifyContent: 'flex-start',
+      alignItems: 'center',
     },
     backArrow: {
-        color: 'black',
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        marginVertical: 15,
-				marginHorizontal: 30,
-    }
+    	color: 'black',
+    },
+		backArrowContainer: {
+			position: 'absolute',
+			left: 0,
+			top: 0,
+			padding: 20
+		}
 }
