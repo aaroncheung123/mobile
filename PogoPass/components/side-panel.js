@@ -11,7 +11,7 @@ export default class SidePanel extends React.Component {
 		}
 		this.springValue = new Animated.Value(0);
     this.screenWidth = Dimensions.get('window').width;
-		this.screenHeight= Dimensions.get('window').height - 100;
+		this.screenHeight= Dimensions.get('window').height - 80;
 		this.open = this.open.bind(this);
     this.handleClose = this.handleClose.bind(this);
 	}

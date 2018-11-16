@@ -41,10 +41,10 @@ const STYLES = {
 		alignItems: 'center',
 		width:'100%',
 		backgroundColor: 'rgba(0, 0, 0, 0.6)',
-		opacity: .95,
-		padding: 17
+		opacity: .95
 	},
 	touchableBack: {
+		padding: 15,
 		flexDirection: 'row'
 	},
 	textStyle: {

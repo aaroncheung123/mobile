@@ -11,9 +11,9 @@ export default class ShippingAddressCard extends React.Component {
     constructor(props){
       super(props);
       this.state = {
-        title       : props.title,
-        expanded    : false,
-        shippingAddress : undefined
+            title       : props.title,
+            expanded    : false,
+            shippingAddress : undefined
         };
         this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
@@ -66,7 +66,7 @@ export default class ShippingAddressCard extends React.Component {
             this.state.shippingAddress.save((success) => {
                 alert('Your information has been successfully updated');
                 this.forceUpdate();
-            }) 
+            })
         });
     }
 
@@ -111,7 +111,7 @@ export default class ShippingAddressCard extends React.Component {
                             onChangeText = {(value) => this.handleTextChange('description',value)}/>
 
 
-                        <AddressSelect ref={e => this.addressSelect = e} address={this.props.shippingAddress.address} /> 
+                        <AddressSelect ref={e => this.addressSelect = e} address={this.props.shippingAddress.address} />
                         <View style={STYLES.buttonContainer} >
                             <Button
                                 raised
