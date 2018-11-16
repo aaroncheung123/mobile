@@ -25,7 +25,8 @@ const STYLES = {
 		zIndex: 1,
 		margin: 6,
 		paddingHorizontal: 3,
-		paddingVertical: 1
+		paddingVertical: 1,
+		minWidth: 17
 	},
 	bubbleText: {
 		fontSize: 12,
