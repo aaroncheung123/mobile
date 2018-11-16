@@ -6,10 +6,23 @@ export default class SpringPanelAddress extends React.Component {
 
     constructor(props){
         super(props);
+        this.state = {
+              shippingAddress : new EliteAPI.Models.STR.ShippingAddress()
+          };
         this.handleSave = this.handleSave.bind(this);
     }
 
     handleSave(){
+        this.addressSelect.getAddress((address) => {
+            if (address === undefined) return
+
+            this.state.shippingAddress.address_id = address.address_id;
+            this.state.shippingAddress.address = address;
+            this.state.shippingAddress.save((success) => {
+                alert('Your information has been successfully updated');
+                this.forceUpdate();
+            })
+        });
 
     }
 
