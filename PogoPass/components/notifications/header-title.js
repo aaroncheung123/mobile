@@ -2,14 +2,25 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SpringPanelNotifications from './spring-panel-notifications'
-import Bubble from '../bubble.js'
+import NotificationBubble from '../bubble.js'
 
 export default class HeaderTitle extends React.Component {
 
 	constructor(props){
 		super(props);
 		this.handleNotifications = this.handleNotifications.bind(this);
+		this.state = {
+			notificationCount: 0
+		}
 	}
+
+  componentDidMount() {
+    Service.User.get(user => {
+      EliteAPI.CRM.Notification.report({user_id: user.id, viewed: 0, methods: 'COUNT'}, (success) => {
+        if (success.data.report.ALL) this.setState({notificationCount: success.data.report.ALL.COUNT})
+      })
+    })
+  }
 
 	handleNotifications(){
 		this.props.onShowSpringPanel(
@@ -25,7 +36,7 @@ export default class HeaderTitle extends React.Component {
 					{this.props.title}
 				</Text>
 
-				<Bubble number='9'/>
+				{this.state.notificationCount > 0 ? <NotificationBubble number={this.state.notificationCount}/> : null}
 
 				<TouchableOpacity
 					style={STYLES.iconContainer}
