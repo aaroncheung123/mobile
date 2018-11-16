@@ -42,7 +42,7 @@ export default class SpringPanelAddress extends React.Component {
 
 const STYLES = {
     container: {
-        width: 225
+        width: 250
     },
     saveContainer: {
         backgroundColor: 'orange',
