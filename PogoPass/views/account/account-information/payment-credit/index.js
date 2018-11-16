@@ -3,6 +3,7 @@ import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import TopMenu from '../top-menu';
 import PaymentCard from './payment-card';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import SpringPanelPayment from './spring-panel-payment'
 
 export default class PaymentCredit extends React.Component {
 
@@ -13,12 +14,20 @@ export default class PaymentCredit extends React.Component {
             shippingAddresses: []
         }
         this.updatePath = this.updatePath.bind(this);
+				this.handleAddPayment = this.handleAddPayment.bind(this);
     }
 
 
     updatePath(path) {
         this.props.history.push(path);
     }
+
+		handleAddPayment(){
+			this.props.onShowSidePanel(
+				'Add New Payment Method',
+				<SpringPanelPayment/>
+			)
+		}
 
     render() {
         return (
@@ -28,7 +37,9 @@ export default class PaymentCredit extends React.Component {
 									<PaymentCard/>
 
 
-									<TouchableOpacity style={STYLES.iconContainer}>
+									<TouchableOpacity
+										style={STYLES.iconContainer}
+										onPress={this.handleAddPayment}>
 											<Icon name='plus' size= {35}/>
 									</TouchableOpacity>
 

@@ -37,7 +37,7 @@ export default class Addresses extends React.Component {
 
 	handleAddAddress(){
 		this.props.onShowSidePanel(
-			'New Address',
+			'Add New Address',
 			<SpringPanelAddress/>
 		);
 
@@ -61,8 +61,6 @@ export default class Addresses extends React.Component {
 					<View style={STYLES.transparentFiller}></View>
 				</ScrollView>
 			</View>
-
-
 		);
 	}
 }

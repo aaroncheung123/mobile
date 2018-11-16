@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View , Image, TouchableHighlight, Animated, TextInput} from 'react-native';
+import {StyleSheet, Text, View , Image, TouchableOpacity, Animated, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TextInputSection from '../../../../components/text-input-section.js';
 import { Button } from 'react-native-elements'
@@ -71,14 +71,12 @@ export default class PaymentCard extends React.Component {
 
 
 
-                        <View style={STYLES.editIconContainer}>
-                            <TouchableHighlight
-                                style={STYLES.button}
-                                onPress={this.toggle.bind(this)}
-                                underlayColor="transparent">
-                                <Icon name='edit' size= {35}/>
-                            </TouchableHighlight>
-                        </View>
+                        <TouchableOpacity
+                            style={STYLES.editIconContainer}
+                            onPress={this.toggle.bind(this)}
+                            underlayColor="transparent">
+                            <Icon name='edit' size= {25}/>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
@@ -86,14 +84,23 @@ export default class PaymentCard extends React.Component {
                             title='Edit Card Name'
                             value='Amazon - 4616'
                             onChangeText = {(value) => this.handleTextChange('description',value)}/>
-                        <View style={STYLES.buttonContainer} >
-                            <Button
-                                raised
-                                icon={{name: 'save'}}
-                                title='Save'
-                                buttonStyle = {STYLES.buttonStyle}
-                                onPress = {this.handleShippingAddressSubmit}/>
+                        
+                        <View style={STYLES.buttonsContainer}>
+                            <TouchableOpacity
+                                style={STYLES.buttonContainer}
+                                onPress={this.handleShippingAddressSubmit}
+                                underlayColor="transparent">
+                                <Text style={STYLES.buttonText}>Save</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={STYLES.buttonContainer}
+                                onPress={this.handleShippingAddressDelete}
+                                underlayColor="transparent">
+                                <Text style={STYLES.buttonText}>Delete</Text>
+                            </TouchableOpacity>
                         </View>
+
                     </View>
 
                 </Animated.View>
@@ -172,9 +179,19 @@ const STYLES = {
     buttonStyle:{
         backgroundColor: 'orange',
     },
+    buttonsContainer: {
+        marginTop: 20
+    },
     buttonContainer: {
-        marginTop: 20,
-        width: 125,
-        alignSelf: 'flex-end'
+        marginTop: 5,
+        width: 200,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'orange',
+        borderRadius: 10,
+        padding: 10,
+    },
+    buttonText: {
+        textAlign: 'center'
     }
 }
