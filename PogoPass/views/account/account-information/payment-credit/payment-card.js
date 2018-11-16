@@ -14,6 +14,7 @@ export default class PaymentCard extends React.Component {
         };
     }
     componentDidMount(){
+		console.log(this.props.paymentMethod);
         this.setState({
             minHeight   : 200,
             animation   : new Animated.Value(200)
@@ -63,10 +64,10 @@ export default class PaymentCard extends React.Component {
                 <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
                     <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
                         <View style={STYLES.bodyTextContainer}>
-                            <Text style={STYLES.textHeader}>Amazon - 4616</Text>
-                            <Text style={STYLES.textBody}>Kyle Paulson</Text>
-                            <Text style={STYLES.textBody}>213 W Ridge Road, Saratoga Springs, UT 84045</Text>
-                            <Text style={STYLES.textBody}>Card Ending In: 4616</Text>
+                            <Text style={STYLES.textHeader}>{this.props.paymentMethod.description} - {this.props.paymentMethod.last_four}</Text>
+                            <Text style={STYLES.textBody}>{this.props.paymentMethod.name}</Text>
+                            <Text style={STYLES.textBody}>{this.props.paymentMethod.address.formatted}</Text>
+                            <Text style={STYLES.textBody}>Card Ending In: {this.props.paymentMethod.last_four}</Text>
                         </View>
 
 
@@ -84,7 +85,7 @@ export default class PaymentCard extends React.Component {
                             title='Edit Card Name'
                             value='Amazon - 4616'
                             onChangeText = {(value) => this.handleTextChange('description',value)}/>
-                        
+
                         <View style={STYLES.buttonsContainer}>
                             <TouchableOpacity
                                 style={STYLES.buttonContainer}

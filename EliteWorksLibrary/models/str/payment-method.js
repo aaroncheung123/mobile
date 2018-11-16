@@ -22,7 +22,7 @@ export default class ElitePaymentMethod extends EliteModal {
 		if (GlobalUtil.isEmpty(this.account_confirmation)) this.account_confirmation = '';
 		if (GlobalUtil.isEmpty(this.routing)) this.routing = '';
 
-		this.address = new EliteAPI.Models. CRM.EliteAddress(this.address);
+		this.address = new EliteAPI.Models.CRM.Address(this.address);
 
 		this.typeMessage = this.getTypeMessage();
 	}
@@ -50,4 +50,4 @@ export default class ElitePaymentMethod extends EliteModal {
 		else return this.type + " ending in " + this.last_four
 	}
 
-} 
+}

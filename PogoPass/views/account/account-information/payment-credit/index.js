@@ -11,11 +11,26 @@ export default class PaymentCredit extends React.Component {
     {
         super(props);
         this.state = {
-            shippingAddresses: []
+            paymentMethods: []
         }
         this.updatePath = this.updatePath.bind(this);
 				this.handleAddPayment = this.handleAddPayment.bind(this);
     }
+
+		componentDidMount(){
+			Service.User.get(user => {
+				EliteAPI.STR.PaymentMethod.search({
+					user_id: user.id,
+					include_classes: 'address'
+				},
+				success => {
+					this.setState({paymentMethods: success.data.models});
+				},
+				failure => {
+					console.log(failure.error_message);
+				})
+			})
+		}
 
 
     updatePath(path) {
@@ -30,11 +45,14 @@ export default class PaymentCredit extends React.Component {
 		}
 
     render() {
+			let paymentCard = this.state.paymentMethods.map(paymentMethod =>
+				<PaymentCard key={paymentMethod.payment_method_id} paymentMethod={paymentMethod}/>)
+
         return (
             <View style={STYLES.container}>
                 <TopMenu title= 'Payment/Credit' onPress={() => this.updatePath('/account-main')}/>
 								<ScrollView>
-									<PaymentCard/>
+									{paymentCard}
 
 
 									<TouchableOpacity
