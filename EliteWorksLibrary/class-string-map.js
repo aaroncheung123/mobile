@@ -13,7 +13,12 @@ const CLASS_STRING_MAP = () => {
         shippingaddress: EliteAPI.Models.STR.ShippingAddress,
         address: EliteAPI.Models.CRM.Address,
         order: EliteAPI.Models.CRM.Order,
-        notification: EliteAPI.Models.CRM.Notification
+        notification: EliteAPI.Models.CRM.Notification,
+        paymentmethod: EliteAPI.Models.STR.PaymentMethod,
+        subscription: EliteAPI.Models.STR.Subscription,
+        product: EliteAPI.Models.STR.Product,
+        cart: EliteAPI.Models.STR.Cart,
+        cartproduct: EliteAPI.Models.STR.CartProduct
     }
 }
 export default CLASS_STRING_MAP;

@@ -304,6 +304,9 @@ import WorkOrder from './models/str/work-order';
 import WorkOrderProduct from './models/str/work-order-product';
 import ShippingAddress from './models/str/shipping-address';
 import Order from './models/str/order';
+import PaymentMethod from './models/str/payment-method';
+import Subscription from './models/str/subscription';
+import Product from './models/str/product';
 
 class StrModels {
     constructor()
@@ -312,6 +315,9 @@ class StrModels {
         this.WorkOrderProduct = WorkOrderProduct;
         this.ShippingAddress = ShippingAddress;
         this.Order = Order;
+        this.PaymentMethod = PaymentMethod;
+        this.Subscription = Subscription;
+        this.Product = Product;
     }
 } 
 
