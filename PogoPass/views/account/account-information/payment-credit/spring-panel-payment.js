@@ -11,9 +11,23 @@ export default class SpringPanelPayment extends React.Component {
       }
       this.handleSave = this.handleSave.bind(this);
     }
-
+    
     handleSave(){
-        console.log('description: ', this.state.description);
+        console.log('save');
+        this.addressSelect.getAddress(address => {
+
+            if (!address) return;
+
+            this.state.paymentMethod.address = address;
+            this.state.paymentMethod.address_id = address.address_id;
+
+            this.state.paymentMethod.save((success) => {
+                alert('Your payment method has successfully been added');
+                this.forceUpdate();
+            },(failure) => {
+                console.log(failure);
+            })
+        });
     }
 
     handleChange(property, value){
@@ -27,14 +41,26 @@ export default class SpringPanelPayment extends React.Component {
             <ScrollView style={STYLES.container}>
                 <View style={STYLES.filler}>
 
-                    <BasicInput value={this.state.paymentMethod.description} label="Description" placeHolder="Chase, Amazon Rewards, etc..." onChangeText={(value) => this.handleChange('description', value)}/>
-                        <BasicInput value={this.state.paymentMethod.description} label="Description" placeHolder="Chase, Amazon Rewards, etc..." onChangeText={(value) => this.handleChange('description', value)}/>
-                            <BasicInput value={this.state.paymentMethod.description} label="Description" placeHolder="Chase, Amazon Rewards, etc..." onChangeText={(value) => this.handleChange('description', value)}/>
-                                <BasicInput value={this.state.paymentMethod.description} label="Description" placeHolder="Chase, Amazon Rewards, etc..." onChangeText={(value) => this.handleChange('description', value)}/>
-
-
-
-
+                    <BasicInput
+                        label="Description"
+                        placeHolder="Chase, Amazon Rewards, etc..."
+                        onChangeText={(value) => this.handleChange('description', value)}/>
+                    <BasicInput
+                        label="Name on Card"
+                        placeHolder="John Doe"
+                        onChangeText={(value) => this.handleChange('name', value)}/>
+                    <BasicInput
+                        label="Card Number"
+                        placeHolder="xxxx-xxxx-xxxx-xxxx"
+                        onChangeText={(value) => this.handleChange('card', value)}/>
+                    <BasicInput
+                        label="CVV Number"
+                        placeHolder="xxx"
+                        onChangeText={(value) => this.handleChange('cvv2', value)}/>
+                    <BasicInput
+                        label="Expiration"
+                        placeHolder="xx-xx"
+                        onChangeText={(value) => this.handleChange('expiration', value)}/>
 
                     <AddressSelect ref={e => this.addressSelect = e}/>
                     <TouchableOpacity
@@ -81,7 +107,8 @@ const STYLES = {
     input:{
         borderWidth: 1,
         borderRadius: 5,
-        padding: 5
+        padding: 5,
+        marginLeft: 5
     },
     filler: {
         marginBottom: 100

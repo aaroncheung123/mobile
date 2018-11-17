@@ -36,13 +36,13 @@ export default class ElitePaymentMethod extends EliteModal {
 		return new ElitePaymentMethod(clone);
 	}
 	save(successCallback, failureCallback){
-		if (this.payment_method_id === undefined) return EliteAPI.ELITE.PaymentMethod.add(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
-		else return EliteAPI.ELITE.PaymentMethod.set(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
+		if (this.payment_method_id === undefined) return EliteAPI.STR.PaymentMethod.add(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
+		else return EliteAPI.STR.PaymentMethod.set(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
 	}
 
 	delete(successCallback, failureCallback)
 	{
-		if (this.payment_method_id !== undefined) return EliteAPI.ELITE.PaymentMethod.delete(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
+		if (this.payment_method_id !== undefined) return EliteAPI.STR.PaymentMethod.delete(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
 	}
 	getTypeMessage() {
 
