@@ -20,7 +20,7 @@ export default class AccountInformation extends React.Component {
   }
 
 	componentDidMount() {
-		this.updatePath('/payment');
+		this.updatePath('/subscriptions');
 	}
 
 	updatePath(path) {

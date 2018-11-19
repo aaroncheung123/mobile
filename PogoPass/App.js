@@ -12,7 +12,7 @@ import '../EliteWorksLibrary/global-util'
 
 
 import { Permissions, Notifications } from 'expo';
-	
+
 const PUSH_ENDPOINT = 'https://your-server.com/users/push-token';
 
 
@@ -22,7 +22,6 @@ const PUSH_ENDPOINT = 'https://your-server.com/users/push-token';
 
 async function registerForPushNotificationsAsync() {
 	
-	console.log('test');
 
 	const { status: existingStatus } = await Permissions.getAsync(
 		Permissions.NOTIFICATIONS

@@ -47,14 +47,14 @@ export default class PaymentCredit extends React.Component {
 
 
     render() {
-			let paymentCard = this.state.paymentMethods.map(paymentMethod =>
+			let paymentCards = this.state.paymentMethods.map(paymentMethod =>
 				<PaymentCard key={paymentMethod.payment_method_id} paymentMethod={paymentMethod}/>)
 
         return (
             <View style={STYLES.container}>
                 <TopMenu title= 'Payment/Credit' onPress={() => this.updatePath('/account-main')}/>
 								<ScrollView>
-									{paymentCard}
+									{paymentCards}
 
 
 									<TouchableOpacity

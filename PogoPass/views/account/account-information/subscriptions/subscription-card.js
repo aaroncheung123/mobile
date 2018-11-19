@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View , Image, TouchableHighlight, Animated, TextInput, Picker} from 'react-native';
+import {StyleSheet, Text, View , Image, TouchableHighlight,TouchableOpacity, Animated, TextInput, Picker} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TextInputSection from '../../../../components/text-input-section.js';
 import { Button } from 'react-native-elements'
@@ -17,8 +17,8 @@ export default class SubscriptionCard extends React.Component {
     }
     componentDidMount(){
         this.setState({
-            minHeight   : 220,
-            animation   : new Animated.Value(220)
+            minHeight   : 150,
+            animation   : new Animated.Value(150)
         });
     }
 
@@ -30,7 +30,7 @@ export default class SubscriptionCard extends React.Component {
 
     _setMinHeight(event){
         this.setState({
-            minHeight   : 220
+            minHeight   : 150
         });
     }
 
@@ -66,19 +66,11 @@ export default class SubscriptionCard extends React.Component {
 
                         <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
                             <View style={STYLES.bodyTextContainer}>
-                                <Text style={STYLES.textHeader}>Kyle Paulson</Text>
+                                <Text style={STYLES.textHeader}>{this.props.subscription.account.description}</Text>
                                 <Text style={STYLES.textHeaderSubtitle}>Pogo Pass Austin</Text>
                                 <Text style={STYLES.textHeaderSubtitle}>Status: CANCELLED</Text>
 
-                                <View style={STYLES.buttonContainer1}>
-                                    <Button
-                                     raised
-                                     icon={{name: 'refresh'}}
-                                     title='Renew - $34.98'
-                                       buttonStyle = {STYLES.buttonStyle}
-                                       onPress = {this.handleResendSubmit}
-                                   />
-                                </View>
+
                             </View>
 
                             <View style={STYLES.editIconContainer}>
@@ -86,7 +78,7 @@ export default class SubscriptionCard extends React.Component {
                                     style={STYLES.button}
                                     onPress={this.toggle.bind(this)}
                                     underlayColor="transparent">
-                                    <Icon name='edit' size= {35}/>
+                                    <Icon name='edit' size= {25}/>
 
                                 </TouchableHighlight>
                             </View>
@@ -95,25 +87,16 @@ export default class SubscriptionCard extends React.Component {
 
                         <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
 
-
                             <View style={STYLES.productSectionContainer}>
-                                <View style={STYLES.productSectionRow}>
-                                    <View style={STYLES.productSectionLeft1}>
-                                        <Text>Subscription #:</Text>
-                                    </View>
-                                    <View style={STYLES.productSectionRight1}>
-                                        <Text>175956 - Pogo Pass Phoenix - 12 Months Renewal</Text>
-                                    </View>
-                                </View>
 
-                                <View style={STYLES.productSectionRow}>
-                                    <View style={STYLES.productSectionLeft1}>
-                                        <Text>Status:</Text>
-                                    </View>
-                                    <View style={STYLES.productSectionRight1}>
-                                        <Text>CANCELLED</Text>
-                                    </View>
-                                </View>
+                                <DisplaySection
+                                    title='Subscription #:'
+                                    description={`${this.props.subscription.subscription_id} - ${this.props.subscription.account.description}`}/>
+
+                                <DisplaySection
+                                    title='Status:'
+                                    description={this.props.subscription.status}/>
+
 
                                 <View style={STYLES.productSectionRow}>
                                     <View style={STYLES.productSectionLeft1}>
@@ -131,14 +114,10 @@ export default class SubscriptionCard extends React.Component {
                                     </View>
                                 </View>
 
-                                <View style={STYLES.productSectionRow}>
-                                    <View style={STYLES.productSectionLeft1}>
-                                        <Text>Address:</Text>
-                                    </View>
-                                    <View style={STYLES.productSectionRight1}>
-                                        <Text>Home - 213 W Ridge Rd, Saratoga Springs, UT 84045 </Text>
-                                    </View>
-                                </View>
+
+                                <DisplaySection
+                                    title='Address'
+                                    description={this.props.subscription.shipping_address.address.formatted}/>
 
 
                                 <View style={STYLES.productSectionRow}>
@@ -176,16 +155,19 @@ export default class SubscriptionCard extends React.Component {
 
                             </View>
 
-                            <View style={STYLES.buttonContainer}>
-                                <Button
-                                 raised
-                                 icon={{name: 'save'}}
-                                 title='Save'
-                                   buttonStyle = {STYLES.buttonStyle}
-                                   onPress = {this.handleResendSubmit}
-                               />
-                            </View>
+                            <TouchableOpacity
+                                style={STYLES.buttonContainer}
+                                onPress={this.handleDelete}
+                                underlayColor="transparent">
+                                <Text style={STYLES.buttonText}>Save</Text>
+                            </TouchableOpacity>
 
+                            <TouchableOpacity
+                                style={STYLES.buttonContainer}
+                                onPress={this.handleDelete}
+                                underlayColor="transparent">
+                                <Text style={STYLES.buttonText}>Cancel</Text>
+                            </TouchableOpacity>
 
 
 
@@ -229,6 +211,21 @@ export default class SubscriptionCard extends React.Component {
         }
     }
 
+const DisplaySection = (props) => {
+    return (
+        <View style={STYLES.productSectionRow}>
+            <View style={STYLES.productSectionLeft1}>
+                <Text>{props.title}</Text>
+            </View>
+            <View style={STYLES.productSectionRight1}>
+                <Text>{props.description}</Text>
+            </View>
+        </View>
+    );
+}
+
+
+
     const STYLES = {
         container: {
             flex: 1,
@@ -255,7 +252,7 @@ export default class SubscriptionCard extends React.Component {
             overflow: 'hidden'
         },
         cardContainer: {
-            height: 220,
+            height: 150,
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-start',
@@ -265,7 +262,7 @@ export default class SubscriptionCard extends React.Component {
             borderRadius: 5
         },
         textHeader: {
-            fontSize: 22,
+            fontSize: 18,
             borderBottomWidth:1,
             marginBottom: 10,
             paddingBottom: 10
@@ -274,11 +271,11 @@ export default class SubscriptionCard extends React.Component {
             fontSize: 14
         },
         bodyTextContainer: {
-            marginVertical: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
+            marginVertical: 20,
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
             flex: 6,
-            marginLeft: 20
+            marginLeft: 55
         },
         hiddenBody: {
             backgroundColor: 'white',
@@ -290,8 +287,6 @@ export default class SubscriptionCard extends React.Component {
         },
         buttonStyle:{
             backgroundColor: 'orange'
-        },
-        productSectionContainer: {
         },
         productSectionLeft: {
             flex:  1,
@@ -325,13 +320,16 @@ export default class SubscriptionCard extends React.Component {
             marginVertical: 15
         },
         buttonContainer:{
-            marginVertical: 30,
-            width: 125,
-            alignSelf: 'center'
+            marginTop: 5,
+            width: 200,
+            alignSelf: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'orange',
+            borderRadius: 10,
+            padding: 10,
         },
-        buttonContainer1:{
-            marginTop: 30,
-            alignSelf: 'center'
+        buttonText: {
+            textAlign: 'center'
         },
         contentText: {
             marginBottom: 10
@@ -345,3 +343,11 @@ export default class SubscriptionCard extends React.Component {
             flex: 1
         }
     }
+
+
+    // <TouchableOpacity
+    //     style={STYLES.buttonContainer}
+    //     onPress={this.handleDelete}
+    //     underlayColor="transparent">
+    //     <Text style={STYLES.buttonText}>Renew - $34.98</Text>
+    // </TouchableOpacity>
