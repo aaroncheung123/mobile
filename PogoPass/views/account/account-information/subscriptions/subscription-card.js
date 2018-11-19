@@ -12,7 +12,7 @@ export default class SubscriptionCard extends React.Component {
         title       : props.title,
         expanded    : false,
         storeCredit : 1,
-        paymentMethod : undefined
+        paymentMethods : []
         };
     }
     componentDidMount(){
@@ -20,6 +20,20 @@ export default class SubscriptionCard extends React.Component {
             minHeight   : 150,
             animation   : new Animated.Value(150)
         });
+
+        Service.User.get(user => {
+            EliteAPI.STR.PaymentMethod.search({
+                user_id: user.id,
+                include_classes: 'address'
+            },
+            success => {
+                //console.log(success.data.models[0]);
+                this.setState({paymentMethods: success.data.models});
+            },
+            failure => {
+                console.log(failure.error_message);
+            })
+        })
     }
 
     _setMaxHeight(event){
@@ -52,23 +66,35 @@ export default class SubscriptionCard extends React.Component {
     }
 
 
-
         render() {
+
+            let paymentMethods = this.state.paymentMethods.map(paymentMethod =>
+                <Picker.Item
+                    key={paymentMethod.payment_method_id}
+                    label={`${paymentMethod.description} - ${paymentMethod.last_four}`}
+                    value='0' />
+            );
+
+            let renewalRows = this.props.subscription.subscription_renewals.map(renewal =>
+                <DisplayRenewal
+                    key={renewal.subscription_renewal_id}
+                    date={renewal.created_at}
+                    order={renewal.created_at}
+                    charged={renewal.created_at}/>)
+
             return (
                 <View style={STYLES.container}>
                     <View style={STYLES.iconContainer}>
                         <Icon name='vcard-o' size= {35}/>
                     </View>
 
-
-
                     <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
 
                         <View style={STYLES.cardContainer}  onLayout={this._setMinHeight.bind(this)}>
                             <View style={STYLES.bodyTextContainer}>
                                 <Text style={STYLES.textHeader}>{this.props.subscription.account.description}</Text>
-                                <Text style={STYLES.textHeaderSubtitle}>Pogo Pass Austin</Text>
-                                <Text style={STYLES.textHeaderSubtitle}>Status: CANCELLED</Text>
+                                <Text style={STYLES.textHeaderSubtitle}>{this.props.subscription.account.full_name}</Text>
+                                <Text style={STYLES.textHeaderSubtitle}>STATUS: {this.props.subscription.status}</Text>
 
 
                             </View>
@@ -107,9 +133,7 @@ export default class SubscriptionCard extends React.Component {
                                           selectedValue={this.state.paymentMethod}
                                           style={STYLES.pickerStyle}
                                           onValueChange={(itemValue, itemIndex) => this.setState({paymentMethod: itemValue})}>
-                                          <Picker.Item label="None" value='0' />
-                                          <Picker.Item label="Visa - 3442" value='1' />
-                                          <Picker.Item label="Discover - 6213" value='2' />
+                                          {paymentMethods}
                                         </Picker>
                                     </View>
                                 </View>
@@ -135,43 +159,38 @@ export default class SubscriptionCard extends React.Component {
                                     </View>
                                 </View>
 
-                                <View style={STYLES.productSectionRow}>
-                                    <View style={STYLES.productSectionLeft1}>
-                                        <Text>Account #:</Text>
-                                    </View>
-                                    <View style={STYLES.productSectionRight1}>
-                                        <Text>A0d29d037d</Text>
-                                    </View>
-                                </View>
 
-                                <View style={STYLES.productSectionRow}>
-                                    <View style={STYLES.productSectionLeft1}>
-                                        <Text>Name:</Text>
-                                    </View>
-                                    <View style={STYLES.productSectionRight1}>
-                                        <Text>Kyle Paulson</Text>
-                                    </View>
-                                </View>
+                                <DisplaySection
+                                    title='Account #:'
+                                    description={this.props.subscription.account.account_key}/>
+
+                                <DisplaySection
+                                    title='Name:'
+                                    description={this.props.subscription.account.full_name}/>
+
 
                             </View>
 
-                            <TouchableOpacity
-                                style={STYLES.buttonContainer}
-                                onPress={this.handleDelete}
-                                underlayColor="transparent">
-                                <Text style={STYLES.buttonText}>Save</Text>
-                            </TouchableOpacity>
+                            <View style={STYLES.buttonsContainer}>
+                                <TouchableOpacity
+                                    style={STYLES.buttonContainer}
+                                    onPress={this.handleDelete}
+                                    underlayColor="transparent">
+                                    <Text style={STYLES.buttonText}>Save</Text>
+                                </TouchableOpacity>
 
-                            <TouchableOpacity
-                                style={STYLES.buttonContainer}
-                                onPress={this.handleDelete}
-                                underlayColor="transparent">
-                                <Text style={STYLES.buttonText}>Cancel</Text>
-                            </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={STYLES.buttonContainer}
+                                    onPress={this.handleDelete}
+                                    underlayColor="transparent">
+                                    <Text style={STYLES.buttonText}>Cancel</Text>
+                                </TouchableOpacity>
+                            </View>
 
 
 
-                       <Text>Renewals</Text>
+
+                            <Text>Renewals</Text>
                             <View style={STYLES.productSectionContainer}>
                                 <View style={STYLES.productSectionRowHeader}>
                                     <View style={STYLES.productSectionLeft}>
@@ -184,27 +203,13 @@ export default class SubscriptionCard extends React.Component {
                                         <Text>Charged</Text>
                                     </View>
                                 </View>
-
-                                <View style={STYLES.productSectionRow}>
-                                    <View style={STYLES.productSectionLeft}>
-                                        <Text>03/02/2018 1:48 PM</Text>
-                                    </View>
-                                    <View style={STYLES.productSectionRight}>
-                                        <Text>d29d037d6f</Text>
-                                    </View>
-                                    <View style={STYLES.productSectionRight}>
-                                        <Text>$0.00</Text>
-                                    </View>
-                                </View>
-
+                                {renewalRows}
                             </View>
 
 
 
                         </View>
-
                     </Animated.View>
-
                 </View>
 
             );
@@ -224,6 +229,22 @@ const DisplaySection = (props) => {
     );
 }
 
+const DisplayRenewal = (props) => {
+    return (
+        <View style={STYLES.productSectionRow}>
+            <View style={STYLES.productSectionLeft}>
+                <Text>{props.date}</Text>
+            </View>
+            <View style={STYLES.productSectionRight}>
+                <Text>{props.order}</Text>
+            </View>
+            <View style={STYLES.productSectionRight}>
+                <Text>{props.charged}</Text>
+            </View>
+        </View>
+    );
+}
+
 
 
     const STYLES = {
@@ -232,7 +253,7 @@ const DisplaySection = (props) => {
             flexDirection: 'row',
             paddingHorizontal: 20,
             paddingTop: 25,
-            marginBottom: 30
+            marginBottom: 10
         },
         iconContainer:{
             position: 'absolute',
@@ -319,6 +340,9 @@ const DisplaySection = (props) => {
             paddingVertical: 15,
             marginVertical: 15
         },
+        buttonsContainer:{
+            marginVertical: 20
+        },
         buttonContainer:{
             marginTop: 5,
             width: 200,
@@ -351,3 +375,8 @@ const DisplaySection = (props) => {
     //     underlayColor="transparent">
     //     <Text style={STYLES.buttonText}>Renew - $34.98</Text>
     // </TouchableOpacity>
+
+
+    // <Picker.Item label="None" value='0' />
+    // <Picker.Item label="Visa - 3442" value='1' />
+    // <Picker.Item label="Discover - 6213" value='2' />

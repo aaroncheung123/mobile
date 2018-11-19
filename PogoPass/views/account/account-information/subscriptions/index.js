@@ -18,10 +18,10 @@ export default class Subscriptions extends React.Component {
         Service.User.get(user => {
             EliteAPI.STR.Subscription.search({
                 user_id: user.id,
-                include_classes: 'account,shippingaddress,address'
+                include_classes: 'account,shippingaddress,address,subscriptionrenewal'
             },
             success => {
-                console.log(success);
+                //console.log(success);
                 console.log(success.data.models[0]);
                 this.setState({subscriptions: success.data.models});
             },
