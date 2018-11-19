@@ -37,7 +37,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/news');
+    this.updatePath('/pass-manager');
   }
 
   updatePath(path) {
@@ -156,11 +156,11 @@ export default class AccountNavigation extends React.Component {
                 active={path === '/events'}
                 icon="calendar"
               />
-              <AccountMenuItem
+              {/*<AccountMenuItem
                 onPress={() => this.updatePath('/cart')}
                 active={path === '/cart'}
                 icon="shopping-cart"
-              />
+              />*/}
             </View>
           </View>
 
@@ -215,7 +215,9 @@ const STYLES = {
     },
     menuContainer: {
       flexDirection: 'row',
-      flex: 1
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     menuItemContainer: {
       width: '20%',

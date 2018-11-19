@@ -160,17 +160,17 @@ export default class Account extends React.Component {
 
 						<View style={STYLES.passContainer}>
 							<View style={STYLES.topButtonSection}>
-								<TouchableOpacity style={STYLES.iconContainer}>
+								{/*<TouchableOpacity style={STYLES.iconContainer}>
 									<Icon name='plus' size={35}/>
 									<Text style={STYLES.topButtonSectionText}>Purchase Pass</Text>
 								</TouchableOpacity>
 								<TouchableOpacity style={STYLES.iconContainer}>
 									<Icon name='gift' size={35}/>
 									<Text style={STYLES.topButtonSectionText}>Purchase Gift</Text>
-								</TouchableOpacity>
+								</TouchableOpacity>*/}
 								<TouchableOpacity style={STYLES.iconContainer} onPress={this.share}>
-										<Icon name='dollar' size={35}/>
-										<Text style={STYLES.topButtonSectionText}>Refer a Friend</Text>
+									<Icon name='dollar' size={35}/>
+									<Text style={STYLES.topButtonSectionText}>Make $5 - Refer a Friend</Text>
 								</TouchableOpacity>
 							</View>
 							{passViews}
@@ -194,8 +194,10 @@ const STYLES = {
 		marginVertical: 30,
 		justifyContent: 'center',
 		alignItems:'center',
-		width: 100,
-		opacity: .9
+		//width: 100,
+		flex: 1,
+		opacity: .9,
+		margin: 50
 	},
 	topButtonSection:{
 		flexDirection: 'row',
@@ -223,7 +225,7 @@ class Pass extends React.Component {
 	onPressDetails(){
 		this.props.onShowSpringPanel(
 			'Details',
-			<SpringPanelDetails/>
+			<SpringPanelDetails account={this.props.account}/>
 		)
 	}
 
@@ -244,11 +246,11 @@ class Pass extends React.Component {
 		if (expirationDate != undefined)
 		{
 			if (GlobalUtil.convertMysqlToDateRaw(GlobalUtil.convertDateToMysql(expirationDate)) < now){
-				expirationText = <Text style={PassStyles.textExpirationInvalid}>Expired: {expirationDate.formatDate('n/d/Y')}</Text>
+				expirationText = <Text style={PassStyles.textCity}>Expired: {expirationDate.formatDate('n/d/Y')}</Text>
 			}
 			else {
 				expired = false;
-				expirationText = <Text style={PassStyles.textExpirationValid}>Expires: {expirationDate.formatDate('n/d/Y')}</Text>
+				expirationText = <Text style={PassStyles.textCity}>Valid Until: {expirationDate.formatDate('n/d/Y')}</Text>
 			}
 		}
 
@@ -313,7 +315,7 @@ class Pass extends React.Component {
 							</Text> : null
 						}
 
-						<Text style={PassStyles.textCity}>Expiration: {expiration}</Text>
+						{expirationText}
 					</View>
 					<View style={PassStyles.rightContainer}>
 						<TouchableOpacity style={PassStyles.detailButton} onPress={this.onPressDetails}>

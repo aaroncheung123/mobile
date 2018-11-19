@@ -17,8 +17,10 @@ const CLASS_STRING_MAP = () => {
         paymentmethod: EliteAPI.Models.STR.PaymentMethod,
         subscription: EliteAPI.Models.STR.Subscription,
         product: EliteAPI.Models.STR.Product,
-        cart: EliteAPI.Models.STR.Cart,
-        cartproduct: EliteAPI.Models.STR.CartProduct
+        cart: EliteAPI.Models.STR.Cart,  
+        cartproduct: EliteAPI.Models.STR.CartProduct,
+        credit: EliteAPI.Models.STR.Credit,
+        device: EliteAPI.Models.CRM.Device
     }
 }
 export default CLASS_STRING_MAP;

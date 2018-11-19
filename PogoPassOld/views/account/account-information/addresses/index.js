@@ -44,7 +44,7 @@ export default class Addresses extends React.Component {
 				<ScrollView style={STYLES.scrollViewContainer}>
 					{shippingAddressCards}
 					<TouchableOpacity style={STYLES.iconContainer}>
-							<Icon name='plus' size= {35}/>
+						<Icon name='plus' size= {35}/>
 					</TouchableOpacity>
 					<View style={STYLES.transparentFiller}></View>
 				</ScrollView>

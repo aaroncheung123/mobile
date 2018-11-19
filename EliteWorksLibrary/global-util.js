@@ -307,6 +307,7 @@ import Order from './models/str/order';
 import PaymentMethod from './models/str/payment-method';
 import Subscription from './models/str/subscription';
 import Product from './models/str/product';
+import Credit from './models/str/credit';
 
 class StrModels {
     constructor()
@@ -318,6 +319,7 @@ class StrModels {
         this.PaymentMethod = PaymentMethod;
         this.Subscription = Subscription;
         this.Product = Product;
+        this.Credit = Credit;
     }
 } 
 
@@ -328,6 +330,7 @@ import Address from './models/crm/address';
 import Deal from './models/crm/deal';
 import Zone from './models/crm/zone';
 import Notification from './models/crm/notification';
+import Device from './models/crm/device';
 
 class CrmModels {
     constructor()
@@ -338,6 +341,7 @@ class CrmModels {
         this.Deal = Deal;
         this.Zone = Zone;
         this.Notification = Notification;
+        this.Device = Device;
     }
 }
 

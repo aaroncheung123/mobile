@@ -8,31 +8,19 @@ export default class News extends React.Component {
 
 	render() {
 		return (
-
-					<View style={STYLES.totalContainer}>
-
-
-						<ScrollView>
-							<View style={STYLES.filler}>
-								<NewsDateSections onShowSpringPanel={this.props.onShowSpringPanel}/>
-							</View>
-						</ScrollView>
-
-					</View>
-
+			<View style={STYLES.totalContainer}>
+				<NewsDateSections onShowSpringPanel={this.props.onShowSpringPanel}/>
+			</View>
 		);
 	}
 }
 
 const STYLES = {
-  totalContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+	totalContainer: {
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
 		minWidth:'100%',
 		minHeight: '100%'
-	},
-	filler: {
-			marginBottom: 100,
 	}
 }

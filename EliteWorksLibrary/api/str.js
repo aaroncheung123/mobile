@@ -13,6 +13,7 @@ export default class StrApi {
     this.Product = new Product();
     this.CartProduct = new CartProduct();
     this.Cart = new Cart();
+    this.Credit = new Credit();
   }
 }
 
@@ -831,3 +832,39 @@ class Cart {
     return WebClient.basicGet(form_data, url, success_callback, failure_callback);
   }
 }
+
+
+
+class Credit extends Model {
+
+  constructor() {
+    super('credit')
+  }
+
+  // purpose
+  //   add credit to a users account
+  // args
+  //   user_id (required)
+  //   amount (required)
+  //   description (required) (string describing why credit was issued)
+  // returns
+  //   credit
+  add(form_data, success_callback, failure_callback) {
+    let url = "/global/str/credit/add";
+    return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+  }
+
+  // purpose
+  //   remove credit from a user
+  // args
+  //   user_id (required)
+  //   amount (required)
+  //   description (required) (string describing why credit was removed)
+  // returns
+  //   credit
+  delete(form_data, success_callback, failure_callback) {
+    let url = "/global/str/credit/delete";
+    return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+  }
+}
+

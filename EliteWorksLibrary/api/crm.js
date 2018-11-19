@@ -7,9 +7,10 @@ export default class CrmApi {
         this.User = new User();
         this.TimeClock = new TimeClock();
         this.Address = new Address();
-        this.Deal = new Deal;
-        this.Zone = new Zone;
-        this.Notification = new Notification;
+        this.Deal = new Deal();
+        this.Zone = new Zone();
+        this.Notification = new Notification();
+        this.Device = new Model('device');
     }
 }
 

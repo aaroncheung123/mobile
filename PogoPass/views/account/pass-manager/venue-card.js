@@ -21,8 +21,8 @@ const STYLES = {
         backgroundColor: '#fcfcfc',
         borderWidth:2,
         borderColor:'orange',
-        height: 80,
-        width: 80,
+        height: 140,
+        width: 140,
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: 'rgba(0,0,0, .4)', // IOS

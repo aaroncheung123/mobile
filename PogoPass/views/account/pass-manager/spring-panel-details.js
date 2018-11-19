@@ -6,65 +6,75 @@ import VenueCard from './venue-card.js';
 export default class SpringPanelDetails extends React.Component {
 
     render() {
+
+    	let expirationDate = GlobalUtil.convertMysqlToDate(this.props.account.expire_at).formatDate('n/d/Y');
+
+
+    	console.log(this.props.account);
+
         return (
 
-					<View>
-						<View style={STYLES.overallDetailContainer}>
+			<View>
+				<View style={STYLES.overallDetailContainer}>
+			        <View style={STYLES.outerDetailsContainer}>
+			            <View style={STYLES.detailsContainer}>
+			                <Text style={STYLES.detailsText}>Full Name:</Text>
+			            </View>
+
+			            <View style={STYLES.detailsContainer}>
+			                <Text style={STYLES.detailsText}>{this.props.account.full_name}</Text>
+			            </View>
+			        </View>
+			        {
+			        	this.props.account.account_type ? 
 				        <View style={STYLES.outerDetailsContainer}>
 				            <View style={STYLES.detailsContainer}>
-				                <Text style={STYLES.detailsText}>Full Name:</Text>
+				                <Text style={STYLES.detailsText}>Pass Type:</Text>
 				            </View>
 
 				            <View style={STYLES.detailsContainer}>
-				                <Text style={STYLES.detailsText}>Sun Devils</Text>
+				                <Text style={STYLES.detailsText}>{this.props.account.account_type.name}</Text>
 				            </View>
-				        </View>
+				        </View> : null
+				    }
 
-				        <View style={STYLES.outerDetailsContainer}>
-				            <View style={STYLES.detailsContainer}>
-				                <Text style={STYLES.detailsText}>Account Type:</Text>
-				            </View>
 
-				            <View style={STYLES.detailsContainer}>
-				                <Text style={STYLES.detailsText}>Phoenix Pogo Pass</Text>
-				            </View>
-				        </View>
+			        <View style={STYLES.outerDetailsContainer}>
+			            <View style={STYLES.detailsContainer}>
+			                <Text style={STYLES.detailsText}>Expiration Date:</Text>
+			            </View>
 
-				        <View style={STYLES.outerDetailsContainer}>
-				            <View style={STYLES.detailsContainer}>
-				                <Text style={STYLES.detailsText}>Expiration Date:</Text>
-				            </View>
-
-				            <View style={STYLES.detailsContainer}>
-				                <Text style={STYLES.detailsText}>9/21/2019</Text>
-				            </View>
-				        </View>
-
-				        <TouchableOpacity style={STYLES.renewButton}>
-				                <Icon name='refresh' size= {20} style={STYLES.iconRenew}/>
-				                <Text style={STYLES.detailsText}>Renew</Text>
-				        </TouchableOpacity>
-				    </View>
+			            <View style={STYLES.detailsContainer}>
+			                <Text style={STYLES.detailsText}>{expirationDate}</Text>
+			            </View>
+			        </View>
+			        {/*
+			        <TouchableOpacity style={STYLES.renewButton}>
+			                <Icon name='refresh' size= {20} style={STYLES.iconRenew}/>
+			                <Text style={STYLES.detailsText}>Renew</Text>
+			        </TouchableOpacity>
+			       */}
+			    </View>
 
 
 
-				    <Text style={STYLES.venueTitleText}>Venues</Text>
-				    <View style={STYLES.venueContainer}>
-				        <VenueCard/>
-				        <VenueCard/>
-				        <VenueCard/>
-				        <VenueCard/>
-				        <VenueCard/>
-				        <VenueCard/>
-				        <VenueCard/>
-				        <VenueCard/>
-				        <VenueCard/>
-				        <VenueCard/>
-				        <VenueCard/>
-				        <VenueCard/>
-				    </View>
+		    	<Text style={STYLES.venueTitleText}>Venues</Text>
+			    <View style={STYLES.venueContainer}>
+			        <VenueCard/>
+			        <VenueCard/>
+			        <VenueCard/>
+			        <VenueCard/>
+			        <VenueCard/>
+			        <VenueCard/>
+			        <VenueCard/>
+			        <VenueCard/>
+			        <VenueCard/>
+			        <VenueCard/>
+			        <VenueCard/>
+			        <VenueCard/>
+			    </View>
 
-					</View>
+			</View>
 
         );
     }
@@ -108,7 +118,7 @@ const STYLES = {
 		flexWrap: 'wrap',
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginBottom: 35
+		marginBottom: 100
 	},
 	venueTitleText: {
 		alignSelf: 'center',
