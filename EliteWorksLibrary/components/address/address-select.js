@@ -49,9 +49,6 @@ export default class AddressSelect extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.getAddress = this.getAddress.bind(this);
     this.handleValidatePress = this.handleValidatePress.bind(this);
-
-
-
     let states = GlobalUtil.Form.states;
     this.stateList = Object.keys(states).map(state => <Picker.Item key={state} label={states[state]} value={state} />);
   }
@@ -127,7 +124,7 @@ export default class AddressSelect extends React.Component {
         <BasicAddressInput {...this.props} label="Street 1" value={this.state.address.street_1} onChangeText={this.handleChange.bind(this, 'street_1')}/>
         <BasicAddressInput {...this.props} label="Street 2 (Apt, Suite #)" value={this.state.address.street_2} onChangeText={this.handleChange.bind(this, 'street_2')}/>
         <BasicAddressInput {...this.props} label="City" value={this.state.address.city} onChangeText={this.handleChange.bind(this, 'city')}/>
-      
+
         <View style={MERGE_STYLES(STYLES.inputGroupContainer, this.props.stylesInputGroupContainer)}>
           <View style={MERGE_STYLES(STYLES.labelContainer, this.props.stylesLabelContainer)}>
             <Text style={MERGE_STYLES(STYLES.label, this.props.stylesLabel)}>State</Text>
@@ -221,4 +218,3 @@ const STYLES = {
     borderRadius: 5
   }
 }
-

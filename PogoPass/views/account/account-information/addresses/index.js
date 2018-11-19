@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, TextInput, TouchableHighlight, ScrollView}
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TopMenu from '../top-menu';
 import ShippingAddressCard from './shipping-address-card';
+import SpringPanelAddress from './spring-panel-address';
 
 export default class Addresses extends React.Component {
 	constructor(props)
@@ -12,6 +13,7 @@ export default class Addresses extends React.Component {
 			shippingAddresses: []
 		}
 		this.updatePath = this.updatePath.bind(this);
+		this.handleAddAddress = this.handleAddAddress.bind(this);
 	}
 
 	componentDidMount(){
@@ -21,7 +23,6 @@ export default class Addresses extends React.Component {
 				include_classes: 'address'
 			},
 			success => {
-				//console.log("Success 2: ", success.data.models);
 				this.setState({shippingAddresses: success.data.models});
 			},
 			failure => {
@@ -34,6 +35,14 @@ export default class Addresses extends React.Component {
 		this.props.history.push(path);
 	}
 
+	handleAddAddress(){
+		this.props.onShowSidePanel(
+			'Add New Address',
+			<SpringPanelAddress/>
+		);
+
+	}
+
 	render() {
 		let shippingAddressCards = this.state.shippingAddresses.map(shippingAddress =>
 			<ShippingAddressCard key={shippingAddress.shipping_address_id} shippingAddress={shippingAddress}/>)
@@ -44,14 +53,14 @@ export default class Addresses extends React.Component {
 				<TopMenu title= 'Addresses' onPress={() => this.updatePath('/account-main')}/>
 				<ScrollView style={STYLES.scrollViewContainer}>
 					{shippingAddressCards}
-					<TouchableOpacity style={STYLES.iconContainer}>
+					<TouchableOpacity
+						style={STYLES.iconContainer}
+						onPress={this.handleAddAddress}>
 							<Icon name='plus' size= {35}/>
 					</TouchableOpacity>
 					<View style={STYLES.transparentFiller}></View>
 				</ScrollView>
 			</View>
-
-
 		);
 	}
 }

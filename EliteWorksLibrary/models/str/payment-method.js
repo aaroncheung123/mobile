@@ -22,7 +22,7 @@ export default class ElitePaymentMethod extends EliteModal {
 		if (GlobalUtil.isEmpty(this.account_confirmation)) this.account_confirmation = '';
 		if (GlobalUtil.isEmpty(this.routing)) this.routing = '';
 
-		this.address = new EliteAPI.Models. CRM.EliteAddress(this.address);
+		this.address = new EliteAPI.Models.CRM.Address(this.address);
 
 		this.typeMessage = this.getTypeMessage();
 	}
@@ -36,13 +36,13 @@ export default class ElitePaymentMethod extends EliteModal {
 		return new ElitePaymentMethod(clone);
 	}
 	save(successCallback, failureCallback){
-		if (this.payment_method_id === undefined) return EliteAPI.ELITE.PaymentMethod.add(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
-		else return EliteAPI.ELITE.PaymentMethod.set(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
+		if (this.payment_method_id === undefined) return EliteAPI.STR.PaymentMethod.add(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
+		else return EliteAPI.STR.PaymentMethod.set(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
 	}
 
 	delete(successCallback, failureCallback)
 	{
-		if (this.payment_method_id !== undefined) return EliteAPI.ELITE.PaymentMethod.delete(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
+		if (this.payment_method_id !== undefined) return EliteAPI.STR.PaymentMethod.delete(GlobalUtil.convertToAPIargs(this), successCallback, failureCallback);
 	}
 	getTypeMessage() {
 
@@ -50,4 +50,4 @@ export default class ElitePaymentMethod extends EliteModal {
 		else return this.type + " ending in " + this.last_four
 	}
 
-} 
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View , Image, TouchableHighlight, Animated, TextInput} from 'react-native';
+import {StyleSheet, Text, View , Image, TouchableOpacity, Animated, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TextInputSection from '../../../../components/text-input-section.js';
 import { Button } from 'react-native-elements'
@@ -11,12 +11,13 @@ export default class ShippingAddressCard extends React.Component {
     constructor(props){
       super(props);
       this.state = {
-        title       : props.title,
-        expanded    : false,
-        shippingAddress : undefined
+            title       : props.title,
+            expanded    : false,
+            shippingAddress : undefined
         };
         this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
+        this.handleShippingAddressDelete = this.handleShippingAddressDelete.bind(this);
     }
     componentDidMount(){
         this.setState({shippingAddress: this.props.shippingAddress});
@@ -66,8 +67,15 @@ export default class ShippingAddressCard extends React.Component {
             this.state.shippingAddress.save((success) => {
                 alert('Your information has been successfully updated');
                 this.forceUpdate();
-            }) 
+            })
         });
+    }
+
+    handleShippingAddressDelete(){
+        this.state.shippingAddress.delete((success) => {
+            alert('Address has been deleted');
+            this.forceUpdate();
+        })
     }
 
     handleTextChange(property, value) {
@@ -93,15 +101,14 @@ export default class ShippingAddressCard extends React.Component {
 
 
 
-                        <View style={STYLES.editIconContainer}>
-                            <TouchableHighlight
-                                style={STYLES.button}
-                                onPress={this.toggle.bind(this)}
-                                underlayColor="transparent">
-                                <Icon name='edit' size= {35}/>
+                        <TouchableOpacity
+                            style={STYLES.editIconContainer}
+                            onPress={this.toggle.bind(this)}
+                            underlayColor="transparent">
+                            <Icon name='edit' size= {25}/>
+                        </TouchableOpacity>
 
-                            </TouchableHighlight>
-                        </View>
+
                     </View>
 
                     <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
@@ -111,15 +118,24 @@ export default class ShippingAddressCard extends React.Component {
                             onChangeText = {(value) => this.handleTextChange('description',value)}/>
 
 
-                        <AddressSelect ref={e => this.addressSelect = e} address={this.props.shippingAddress.address} /> 
-                        <View style={STYLES.buttonContainer} >
-                            <Button
-                                raised
-                                icon={{name: 'save'}}
-                                title='Save'
-                                buttonStyle = {STYLES.buttonStyle}
-                                onPress = {this.handleShippingAddressSubmit}/>
+                        <AddressSelect ref={e => this.addressSelect = e} address={this.props.shippingAddress.address} />
+
+                        <View style={STYLES.buttonsContainer}>
+                            <TouchableOpacity
+                                style={STYLES.buttonContainer}
+                                onPress={this.handleShippingAddressSubmit}
+                                underlayColor="transparent">
+                                <Text style={STYLES.buttonText}>Save</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={STYLES.buttonContainer}
+                                onPress={this.handleShippingAddressDelete}
+                                underlayColor="transparent">
+                                <Text style={STYLES.buttonText}>Delete</Text>
+                            </TouchableOpacity>
                         </View>
+
                     </View>
 
                 </Animated.View>
@@ -174,10 +190,10 @@ const STYLES = {
         flex: 4
     },
     editIconContainer: {
-        marginTop: 10,
         justifyContent:'center',
         alignItems: 'center',
-        flex: 1
+        flex: 1,
+        padding: 10
     },
     innerEditContainer: {
         width: 100,
@@ -195,9 +211,29 @@ const STYLES = {
     buttonStyle:{
         backgroundColor: 'orange',
     },
+    buttonsContainer: {
+        marginTop: 20
+    },
     buttonContainer: {
-        marginTop: 20,
-        width: 125,
-        alignSelf: 'flex-end'
+        marginTop: 5,
+        width: 200,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'orange',
+        borderRadius: 10,
+        padding: 10,
+    },
+    buttonText: {
+        textAlign: 'center'
     }
 }
+
+// <View style={STYLES.buttonContainer} >
+//     <Button
+//         raised
+//         icon={{name: 'save'}}
+//         title='Save'
+//         buttonStyle = {STYLES.buttonStyle}
+//         onPress = {this.handleShippingAddressSubmit}/>
+// </View>
+//

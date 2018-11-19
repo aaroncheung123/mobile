@@ -20,7 +20,7 @@ export default class SpringPanel extends React.Component {
 			Animated.spring(
 				this.springValue,
 				{
-					toValue: this.screenHeight - 100,
+					toValue: this.screenHeight - 80,
 					friction: 6
 				}
 			).start()
@@ -45,7 +45,7 @@ export default class SpringPanel extends React.Component {
 
 		return (
 			<Animated.View style={{...STYLES.springContainer, height: this.springValue}}>
-				<Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleClose}/>
+				<Icon name='times' size= {20} style={STYLES.iconX} onPress={this.handleClose}/>
 				<View style={STYLES.innerSpringContainer}>
 					<Text style={STYLES.springContainerText}>{this.props.title}</Text>
 

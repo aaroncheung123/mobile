@@ -20,7 +20,7 @@ export default class AccountInformation extends React.Component {
   }
 
 	componentDidMount() {
-		this.updatePath('/account-main');
+		this.updatePath('/payment');
 	}
 
 	updatePath(path) {
@@ -35,8 +35,8 @@ export default class AccountInformation extends React.Component {
 				<View style={STYLES.routerContainer}>
 					<Route path="/account-main" render={(props) => <AccountMain {...props} onLogout={this.props.onLogout} /> } />
 					<Route path="/profile" component={Profile} />
-					<Route path="/addresses" component={Addresses} />
-					<Route path="/payment" component={PaymentCredit} />
+					<Route path="/addresses" render={(props) => <Addresses {...props} onShowSidePanel={this.props.onShowSidePanel} /> } />
+					<Route path="/payment" render={(props) => <PaymentCredit {...props} onShowSidePanel={this.props.onShowSidePanel} /> } />
 					<Route path="/orders" component={Orders} />
 					<Route path="/subscriptions" component={Subscriptions} />
 				</View>

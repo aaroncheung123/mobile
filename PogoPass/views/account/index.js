@@ -37,7 +37,11 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
     this.updatePath('/pass-manager');
+=======
+    this.updatePath('/account-information');
+>>>>>>> 87c72847841b5bc9b21bbe2005b2cea8ecc8cc72
   }
 
   updatePath(path) {
@@ -124,7 +128,7 @@ export default class AccountNavigation extends React.Component {
 					<HeaderTitle title={this.state.headerTitle} onShowSpringPanel={this.handleShowSpringPanel} onShowSidePanel={this.handleShowSidePanel}/>
           <View style={STYLES.scrollViewContainer}>
             <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
-            <Route path="/account-information" render={(props) => <AccountInformation {...props} onLogout={this.props.onLogout}/>} />
+            <Route path="/account-information" render={(props) => <AccountInformation {...props} onShowSidePanel={this.handleShowSidePanel} onLogout={this.props.onLogout}/>} />
             <Route path="/pass-manager"  render={(props) => <PassManager {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/events" component={Events} />
             <Route path="/cart" component={Cart} />
