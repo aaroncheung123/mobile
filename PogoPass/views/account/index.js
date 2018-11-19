@@ -37,11 +37,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
-    this.updatePath('/pass-manager');
-=======
     this.updatePath('/account-information');
->>>>>>> 87c72847841b5bc9b21bbe2005b2cea8ecc8cc72
   }
 
   updatePath(path) {
