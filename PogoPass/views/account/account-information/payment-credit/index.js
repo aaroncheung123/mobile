@@ -44,6 +44,8 @@ export default class PaymentCredit extends React.Component {
 			)
 		}
 
+
+
     render() {
 			let paymentCard = this.state.paymentMethods.map(paymentMethod =>
 				<PaymentCard key={paymentMethod.payment_method_id} paymentMethod={paymentMethod}/>)
