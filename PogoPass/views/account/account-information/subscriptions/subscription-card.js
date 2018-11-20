@@ -85,12 +85,6 @@ export default class SubscriptionCard extends React.Component {
                     value='0' />
             );
 
-            let renewalRows = this.props.subscription.subscription_renewals.map(renewal =>
-                <DisplayRenewal
-                    key={renewal.subscription_renewal_id}
-                    date={renewal.created_at}
-                    order={renewal.created_at}
-                    charged={renewal.created_at}/>)
 
             return (
                 <View style={STYLES.container}>
@@ -196,28 +190,6 @@ export default class SubscriptionCard extends React.Component {
                                     <Text style={STYLES.buttonText}>Cancel</Text>
                                 </TouchableOpacity>
                             </View>
-
-
-
-
-                            <Text>Renewals</Text>
-                            <View style={STYLES.productSectionContainer}>
-                                <View style={STYLES.productSectionRowHeader}>
-                                    <View style={STYLES.productSectionLeft}>
-                                        <Text>Date</Text>
-                                    </View>
-                                    <View style={STYLES.productSectionCenter}>
-                                        <Text>Order #</Text>
-                                    </View>
-                                    <View style={STYLES.productSectionRight}>
-                                        <Text>Charged</Text>
-                                    </View>
-                                </View>
-                                {renewalRows}
-                            </View>
-
-
-
                         </View>
                     </Animated.View>
                 </View>
