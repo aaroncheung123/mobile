@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity, WebView, Dimensions} from 'react-native';
 import TopMenu from '../top-menu';
 import PaymentCard from './payment-card';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -44,59 +44,34 @@ export default class PaymentCredit extends React.Component {
 			)
 		}
 
+
+
     render() {
-			let paymentCard = this.state.paymentMethods.map(paymentMethod =>
-				<PaymentCard key={paymentMethod.payment_method_id} paymentMethod={paymentMethod}/>)
+			//let paymentCards = this.state.paymentMethods.map(paymentMethod =>
+			//	<PaymentCard key={paymentMethod.payment_method_id} paymentMethod={paymentMethod}/>)
 
         return (
-            <View style={STYLES.container}>
+            <View>
                 <TopMenu title= 'Payment/Credit' onPress={() => this.updatePath('/account-main')}/>
-								<ScrollView>
-									{paymentCard}
-
-
-									<TouchableOpacity
-										style={STYLES.iconContainer}
-										onPress={this.handleAddPayment}>
-											<Icon name='plus' size= {35}/>
-									</TouchableOpacity>
-
-
-
-									<View style={STYLES.bottomSectionTitle}>
-										<Text style={STYLES.bottomSectionHeader}> Credit </Text>
+									<View style={STYLES.container}>
+										<WebView
+											source = {{ uri: this.props.loginLink + '&url=https://www.pogopass.com/user/account/payment#user-payment' }}
+										/>
 									</View>
-
-									<View style={STYLES.bottomSection}>
-
-										<View style={STYLES.descriptionColumn}>
-											<Text style={STYLES.bottomTextStyle}>Date: 03/06/2018 12:10 PM</Text>
-											<Text style={STYLES.bottomTextStyle}>Description: Credit given for referring purchase of PogoPass Dallas - Gift Voucher. Order product id: 335054</Text>
-											<Text style={STYLES.bottomTextStyle}>Amount: $5.00</Text>
-											<Text style={STYLES.bottomTextStyle}>Available Balance: $15.00</Text>
-										</View>
-
-
-										<View style={STYLES.descriptionColumn}>
-											<Text style={STYLES.bottomTextStyle}>Date: 02/27/2018 12:26 PM</Text>
-											<Text style={STYLES.bottomTextStyle}>Description: Refund for transaction 2128</Text>
-											<Text style={STYLES.bottomTextStyle}>Amount: $5.00</Text>
-											<Text style={STYLES.bottomTextStyle}>Available Balance: $10.00</Text>
-										</View>
-
-									</View>
-								</ScrollView>
             </View>
         );
     }
 }
 
 const STYLES = {
-	container:{
-		flex: 1,
-		justifyContent:'center',
-		alignItems:'center',
+	container: {
+		 height: Dimensions.get('window').height,
 	},
+	// container:{
+	// 	flex: 1,
+	// 	justifyContent:'center',
+	// 	alignItems:'center',
+	// },
 	iconContainer:{
 		flex: 1,
 		backgroundColor:'white',
@@ -149,3 +124,39 @@ const STYLES = {
 			height: 50,
 	}
 }
+
+// <ScrollView>
+// 	{paymentCards}
+//
+//
+// 	<TouchableOpacity
+// 		style={STYLES.iconContainer}
+// 		onPress={this.handleAddPayment}>
+// 			<Icon name='plus' size= {35}/>
+// 	</TouchableOpacity>
+//
+//
+//
+// 	<View style={STYLES.bottomSectionTitle}>
+// 		<Text style={STYLES.bottomSectionHeader}> Credit </Text>
+// 	</View>
+//
+// 	<View style={STYLES.bottomSection}>
+//
+// 		<View style={STYLES.descriptionColumn}>
+// 			<Text style={STYLES.bottomTextStyle}>Date: 03/06/2018 12:10 PM</Text>
+// 			<Text style={STYLES.bottomTextStyle}>Description: Credit given for referring purchase of PogoPass Dallas - Gift Voucher. Order product id: 335054</Text>
+// 			<Text style={STYLES.bottomTextStyle}>Amount: $5.00</Text>
+// 			<Text style={STYLES.bottomTextStyle}>Available Balance: $15.00</Text>
+// 		</View>
+//
+//
+// 		<View style={STYLES.descriptionColumn}>
+// 			<Text style={STYLES.bottomTextStyle}>Date: 02/27/2018 12:26 PM</Text>
+// 			<Text style={STYLES.bottomTextStyle}>Description: Refund for transaction 2128</Text>
+// 			<Text style={STYLES.bottomTextStyle}>Amount: $5.00</Text>
+// 			<Text style={STYLES.bottomTextStyle}>Available Balance: $10.00</Text>
+// 		</View>
+//
+// 	</View>
+// </ScrollView>

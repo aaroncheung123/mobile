@@ -20,16 +20,16 @@ export default class AccountInformation extends React.Component {
 	render() {
 		return (
 			<View style={STYLES.totalContainer}>
-				<ScrollView style={STYLES.infoTabContainer}>
-					<View style={STYLES.rowContainer}>
-						<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
-						<InfoTab onPress={() => this.updatePath('/addresses')} icon='truck' name='Addresses'/>
-						<InfoTab onPress={() => this.updatePath('/payment')} icon='credit-card' name='Payment / Credit'/>
-						<InfoTab onPress={() => this.updatePath('/orders')} icon='calendar' name='Orders'/>
-						<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
-						<InfoTab onPress={this.props.onLogout} icon='sign-out' name='Sign out'/>
-					</View>
-				</ScrollView>
+					<ScrollView style={STYLES.infoTabContainer}>
+							<View style={STYLES.rowContainer}>
+									<InfoTab onPress={() => this.updatePath('/profile')} icon='user' name='Profile'/>
+									<InfoTab onPress={() => this.updatePath('/addresses')} icon='truck' name='Addresses'/>
+									<InfoTab onPress={() => this.updatePath('/payment')} icon='credit-card' name='Payment / Credit'/>
+									<InfoTab onPress={() => this.updatePath('/orders')} icon='calendar' name='Orders'/>
+									<InfoTab onPress={() => this.updatePath('/subscriptions')} icon='refresh' name='Subscriptions'/>
+									<InfoTab onPress={this.props.onLogout} icon='sign-out' name='Sign out'/>
+							</View>
+					</ScrollView>
 			</View>
 		);
 	}

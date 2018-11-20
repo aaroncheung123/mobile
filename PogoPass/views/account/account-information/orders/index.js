@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, WebView, Dimensions} from 'react-native';
 import TopMenu from '../top-menu';
 import OrderCard from './order-card';
 
@@ -26,23 +26,29 @@ export default class Orders extends React.Component {
 
 
     render() {
-        let orderComponents = this.state.orders.map(order => <OrderCard key={order.order_id} order={order}/>)
+        //let orderComponents = this.state.orders.map(order => <OrderCard key={order.order_id} order={order}/>)
         return (
             <View>
                 <TopMenu title= 'Orders' onPress={() => this.updatePath('/account-main')}/>
-                <ScrollView>
-                    <View style={STYLES.transparentFiller}>
-                        {orderComponents}
-                    </View>
-                </ScrollView>
-
+                <WebView
+                    source = {{ uri: this.props.loginLink + '&url=https://www.pogopass.com/user/account/orders#user-order' }}
+                />
             </View>
         );
     }
 }
 
 const STYLES = {
+    container: {
+         height: Dimensions.get('window').height,
+    },
     transparentFiller: {
         marginBottom: 200
     }
 }
+
+// <ScrollView>
+//     <View style={STYLES.transparentFiller}>
+//         {orderComponents}
+//     </View>
+// </ScrollView>

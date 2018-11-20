@@ -1,12 +1,18 @@
 import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
-import {View, Text,ScrollView, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text,ScrollView, TouchableOpacity, TextInput, WebView, Dimensions} from 'react-native';
 import ProductCard from './product-card.js';
 import { Button } from 'react-native-elements';
 
 
 export default class Cart extends React.Component {
+
+	constructor(props){
+		super(props);
+		this.screenHeight = Dimensions.get('window').height - 275;
+		this.screenWidth = Dimensions.get('window').width;
+	}
 
 	handleCheckout(){
 
@@ -15,45 +21,10 @@ export default class Cart extends React.Component {
 	render() {
 
 	  return (
-			<View>
-					<ScrollView style={STYLES.productDetailsScrollContainer}>
-						<View style={STYLES.productDetailsContainer}>
-							<ProductCard/>
-							<ProductCard/>
-							<ProductCard/>
-						</View>
-					</ScrollView>
-
-
-					<View style={STYLES.orderSummaryContainer}>
-
-						<View style={STYLES.subtTotal}>
-							<View style={STYLES.textInputContainer}>
-								<TextInput
-								 underlineColorAndroid = "transparent"
-								 placeholder = "Promo, Referral, or Gift Code"
-								 placeholderTextColor = "gray"/>
-							</View>
-
-							<TouchableOpacity
-								onPress={this.handleCheckout}
-								style={STYLES.buttonStyle}>
-								<Text style={STYLES.bodyText1}>Apply</Text>
-							</TouchableOpacity>
-						</View>
-
-
-						<View style={STYLES.subtTotal}>
-								<Text style={STYLES.bodyText}>Subtotal: $99.95</Text>
-								<TouchableOpacity
-									onPress={this.handleCheckout}
-									style={STYLES.buttonStyle}>
-									<Text style={STYLES.bodyText1}>Checkout</Text>
-								</TouchableOpacity>
-						</View>
-
-
-					</View>
+			<View style={STYLES.container}>
+				<WebView
+					source = {{ uri:'https://www.pogopass.com/category/passes' }}
+				/>
 			</View>
 	  )
 	}
@@ -61,6 +32,9 @@ export default class Cart extends React.Component {
 
 
 const STYLES = {
+	container: {
+		 height: Dimensions.get('window').height,
+	},
 	productDetailsContainer: {
 		justifyContent: 'center',
 		width: '100%',
@@ -113,3 +87,45 @@ const STYLES = {
 		paddingHorizontal: 10
 	}
 }
+
+
+// <View>
+// 		<ScrollView style={STYLES.productDetailsScrollContainer}>
+// 			<View style={STYLES.productDetailsContainer}>
+// 				<ProductCard/>
+// 				<ProductCard/>
+// 				<ProductCard/>
+// 			</View>
+// 		</ScrollView>
+//
+//
+// 		<View style={STYLES.orderSummaryContainer}>
+//
+// 			<View style={STYLES.subtTotal}>
+// 				<View style={STYLES.textInputContainer}>
+// 					<TextInput
+// 					 underlineColorAndroid = "transparent"
+// 					 placeholder = "Promo, Referral, or Gift Code"
+// 					 placeholderTextColor = "gray"/>
+// 				</View>
+//
+// 				<TouchableOpacity
+// 					onPress={this.handleCheckout}
+// 					style={STYLES.buttonStyle}>
+// 					<Text style={STYLES.bodyText1}>Apply</Text>
+// 				</TouchableOpacity>
+// 			</View>
+//
+//
+// 			<View style={STYLES.subtTotal}>
+// 					<Text style={STYLES.bodyText}>Subtotal: $99.95</Text>
+// 					<TouchableOpacity
+// 						onPress={this.handleCheckout}
+// 						style={STYLES.buttonStyle}>
+// 						<Text style={STYLES.bodyText1}>Checkout</Text>
+// 					</TouchableOpacity>
+// 			</View>
+//
+//
+// 		</View>
+// </View>

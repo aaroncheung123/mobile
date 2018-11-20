@@ -205,11 +205,11 @@ export default class AccountNavigation extends React.Component {
                 active={path === '/events'}
                 icon="calendar"
               />
-              {/*<AccountMenuItem
+              <AccountMenuItem
                 onPress={() => this.updatePath('/cart')}
                 active={path === '/cart'}
                 icon="shopping-cart"
-              />*/}
+              />
             </View>
           </View>
 

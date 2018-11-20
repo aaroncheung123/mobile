@@ -16,11 +16,29 @@ export default class AccountInformation extends React.Component {
 	constructor(props)
   {
     super(props);
+		this.state = {
+			loginLink: ''
+		}
 		this.updatePath = this.updatePath.bind(this);
   }
 
-	componentDidMount() {
-		this.updatePath('/account-main');
+	componentDidMount(){
+		Service.User.get(user => {
+			EliteAPI.CRM.User.getLoginToken(
+			 { user_id: user.id },
+			 success => {
+				 console.log(success);
+				 this.setState({
+					 loginLink: "http://www.pogopass.com/login/auto?one_time_login_token=" + success.data.user_login_token.token
+				 }, () => {
+			 			this.updatePath('/account-main');
+				 })
+			 },
+			 failure => {
+				 console.log(failure);
+			 }
+		 );
+		})
 	}
 
 	updatePath(path) {
@@ -29,16 +47,18 @@ export default class AccountInformation extends React.Component {
 	}
 
 	render() {
+		if (GlobalUtil.isEmpty(this.state.loginLink)) return null;
+
 		return (
 
 			<MemoryRouter ref={e => this.router = e}>
 				<View style={STYLES.routerContainer}>
 					<Route path="/account-main" render={(props) => <AccountMain {...props} onLogout={this.props.onLogout} /> } />
-					<Route path="/profile" component={Profile} />
-					<Route path="/addresses" render={(props) => <Addresses {...props} onShowSidePanel={this.props.onShowSidePanel} /> } />
-					<Route path="/payment" render={(props) => <PaymentCredit {...props} onShowSidePanel={this.props.onShowSidePanel} /> } />
-					<Route path="/orders" component={Orders} />
-					<Route path="/subscriptions" component={Subscriptions} />
+					<Route path="/profile" render={(props) => <Profile {...props} loginLink={this.state.loginLink}/>} />
+					<Route path="/addresses" render={(props) => <Addresses {...props} loginLink={this.state.loginLink} onShowSidePanel={this.props.onShowSidePanel} /> } />
+					<Route path="/payment" render={(props) => <PaymentCredit {...props} loginLink={this.state.loginLink} onShowSidePanel={this.props.onShowSidePanel} /> } />
+					<Route path="/orders" render={(props) => <Orders {...props} loginLink={this.state.loginLink}/>}/>
+					<Route path="/subscriptions" render={(props) => <Subscriptions {...props} loginLink={this.state.loginLink}/>}/>
 				</View>
 			</MemoryRouter>
 

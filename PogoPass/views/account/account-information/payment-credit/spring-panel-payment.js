@@ -11,9 +11,8 @@ export default class SpringPanelPayment extends React.Component {
       }
       this.handleSave = this.handleSave.bind(this);
     }
-    
+
     handleSave(){
-        console.log('save');
         this.addressSelect.getAddress(address => {
 
             if (!address) return;
@@ -118,6 +117,3 @@ const STYLES = {
       paddingTop: 10,
     },
 }
-
-
-//onChangeText={(text) => this.setState({description: text})}

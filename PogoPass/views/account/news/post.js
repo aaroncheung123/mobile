@@ -19,6 +19,10 @@ export default class Post extends React.Component {
 		this.readMore = this.readMore.bind(this);
 	}
 
+	componentDidMount(){
+		console.log(this.props.post.content);
+	}
+
 	readMore(){
 		this.props.onShowSpringPanel(
 			this.props.post.name,

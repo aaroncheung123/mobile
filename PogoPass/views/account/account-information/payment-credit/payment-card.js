@@ -7,14 +7,16 @@ import { Button } from 'react-native-elements'
 export default class PaymentCard extends React.Component {
 
     constructor(props){
-      super(props);
-      this.state = {
-        title       : props.title,
-        expanded    : false
+        super(props);
+        this.state = {
+            title       : props.title,
+            expanded    : false,
+            paymentMethod : this.props.paymentMethod
         };
+        this.handleSave = this.handleSave.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
     componentDidMount(){
-		console.log(this.props.paymentMethod);
         this.setState({
             minHeight   : 200,
             animation   : new Animated.Value(200)
@@ -50,6 +52,26 @@ export default class PaymentCard extends React.Component {
         ).start();
     }
 
+    handleChange(property, value){
+        this.state.paymentMethod[property] = value
+        this.forceUpdate();
+    }
+
+    handleSave(){
+        this.state.paymentMethod.save((success) => {
+            alert('Card Name has been updated successfully');
+            this.forceUpdate();
+        });
+    }
+
+    handleDelete(){
+        this.state.paymentMethod.delete((success) => {
+                alert('Payment method has been deleted');
+                this.forceUpdate();
+        })
+    }
+
+
 
 
     render() {
@@ -83,20 +105,20 @@ export default class PaymentCard extends React.Component {
                     <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
                         <TextInputSection
                             title='Edit Card Name'
-                            value='Amazon - 4616'
-                            onChangeText = {(value) => this.handleTextChange('description',value)}/>
+                            value={this.state.paymentMethod.description}
+                            onChangeText = {(value) => this.handleChange('description',value)}/>
 
                         <View style={STYLES.buttonsContainer}>
                             <TouchableOpacity
                                 style={STYLES.buttonContainer}
-                                onPress={this.handleShippingAddressSubmit}
+                                onPress={this.handleSave}
                                 underlayColor="transparent">
                                 <Text style={STYLES.buttonText}>Save</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
                                 style={STYLES.buttonContainer}
-                                onPress={this.handleShippingAddressDelete}
+                                onPress={this.handleDelete}
                                 underlayColor="transparent">
                                 <Text style={STYLES.buttonText}>Delete</Text>
                             </TouchableOpacity>
