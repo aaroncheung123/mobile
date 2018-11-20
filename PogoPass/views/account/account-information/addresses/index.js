@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, TextInput, TouchableHighlight, ScrollView} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput, TouchableHighlight, ScrollView, WebView, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TopMenu from '../top-menu';
 import ShippingAddressCard from './shipping-address-card';
@@ -44,34 +44,33 @@ export default class Addresses extends React.Component {
 	}
 
 	render() {
-		let shippingAddressCards = this.state.shippingAddresses.map(shippingAddress =>
-			<ShippingAddressCard key={shippingAddress.shipping_address_id} shippingAddress={shippingAddress}/>)
+		//let shippingAddressCards = this.state.shippingAddresses.map(shippingAddress =>
+		//	<ShippingAddressCard key={shippingAddress.shipping_address_id} shippingAddress={shippingAddress}/>)
 		return (
-
-
-			<View style={STYLES.container}>
+			<View>
 				<TopMenu title= 'Addresses' onPress={() => this.updatePath('/account-main')}/>
-				<ScrollView style={STYLES.scrollViewContainer}>
-					{shippingAddressCards}
-					<TouchableOpacity
-						style={STYLES.iconContainer}
-						onPress={this.handleAddAddress}>
-							<Icon name='plus' size= {35}/>
-					</TouchableOpacity>
-					<View style={STYLES.transparentFiller}></View>
-				</ScrollView>
+				<View style={STYLES.container}>
+					<WebView
+						source = {{ uri: this.props.loginLink + '&url=https://www.pogopass.com/user/account/shipping#user-address' }}
+					/>
+				</View>
 			</View>
+
+
 		);
 	}
 }
 
 const STYLES = {
-	container:{
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '100%'
+	container: {
+		 height: Dimensions.get('window').height,
 	},
+	// container:{
+	// 	flex: 1,
+	// 	justifyContent: 'center',
+	// 	alignItems: 'center',
+	// 	width: '100%'
+	// },
 	scrollViewContainer: {
 		width: '100%',
 	},
@@ -91,3 +90,17 @@ const STYLES = {
 			height: 250,
 	}
 }
+
+
+// <View style={STYLES.container}>
+// 	<TopMenu title= 'Addresses' onPress={() => this.updatePath('/account-main')}/>
+// 	<ScrollView style={STYLES.scrollViewContainer}>
+// 		{shippingAddressCards}
+// 		<TouchableOpacity
+// 			style={STYLES.iconContainer}
+// 			onPress={this.handleAddAddress}>
+// 				<Icon name='plus' size= {35}/>
+// 		</TouchableOpacity>
+// 		<View style={STYLES.transparentFiller}></View>
+// 	</ScrollView>
+// </View>

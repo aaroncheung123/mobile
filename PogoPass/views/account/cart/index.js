@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
-import {View, Text,ScrollView, TouchableOpacity, TextInput,WebView, Dimensions} from 'react-native';
+import {View, Text,ScrollView, TouchableOpacity, TextInput, WebView, Dimensions} from 'react-native';
 import ProductCard from './product-card.js';
 import { Button } from 'react-native-elements';
 

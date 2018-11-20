@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import {View, Text, TouchableOpacity, ScrollView, WebView, Dimensions} from 'react-native';
 import TopMenu from '../top-menu';
 import SubscriptionCard from './subscription-card';
 
@@ -42,11 +42,11 @@ export default class Subscriptions extends React.Component {
         return (
             <View>
                 <TopMenu title= 'Subscriptions' onPress={() => this.updatePath('/account-main')}/>
-                <ScrollView>
-                    <View style={STYLES.filler}>
-                        {subscriptionCard}
-                    </View>
-                </ScrollView>
+                <View style={STYLES.container}>
+                    <WebView
+                        source = {{ uri: this.props.loginLink + '&url=https://www.pogopass.com/user/account/subscriptions#user-subscription' }}
+                    />
+                </View>
 
 
 
@@ -56,7 +56,17 @@ export default class Subscriptions extends React.Component {
 }
 
 const STYLES = {
+    container: {
+         height: Dimensions.get('window').height,
+    },
     filler: {
         marginBottom: 150
     }
 }
+
+
+// <ScrollView>
+//     <View style={STYLES.filler}>
+//         {subscriptionCard}
+//     </View>
+// </ScrollView>
