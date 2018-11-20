@@ -36,7 +36,7 @@ export default class Account extends React.Component {
 						AsyncStorage.getItem('account_' + accountKey).then((account) => {
 							if (account != null)
 							{
-								var account = JSON.parse(account);
+								let account = JSON.parse(account);
 								this.state.accounts.push(account);
 								this.forceUpdate();
 							}
@@ -68,7 +68,7 @@ export default class Account extends React.Component {
 	share() {
 		if (this.state.referralCode) {
 
-			var message = 'Check out Pogo Pass! It gives you free access to tons of entertainment venues in your area. Click the link below to get up your membership 60% off. ' + this.state.referralCode.url_referral;
+			let message = 'Check out Pogo Pass! It gives you free access to tons of entertainment venues in your area. Click the link below to get up your membership 60% off. ' + this.state.referralCode.url_referral;
 			Share.share({
 				message: message,
 				url: this.state.referralCode.url_referral,
@@ -94,13 +94,13 @@ export default class Account extends React.Component {
 			this.setState({refreshing: true});
 			EliteAPI.CRM.User.get({include_classes: 'account,venueserviceservice,accountservice,service,venue,accounttype'}, success => {
 
-				var accounts = success.data.user.accounts.sort((a, b) => {
+				let accounts = success.data.user.accounts.sort((a, b) => {
 					return this.getAccountExpiration(b) - this.getAccountExpiration(a)
 				})
 
 				this.setState({accounts: accounts});
 
-				var accountKeys = [];
+				let accountKeys = [];
 				accounts.forEach(account => {
 
 					if (account.account_services)
@@ -137,9 +137,9 @@ export default class Account extends React.Component {
 	}
 
 	getAccountExpiration(account) {		// get the expiration date
-		var expirationDate;
+		let expirationDate;
 		account.account_services.map((account_service) => {
-			var serviceExpires = GlobalUtil.convertMysqlToDate(account_service.valid_end);
+			let serviceExpires = GlobalUtil.convertMysqlToDate(account_service.valid_end);
 			if (expirationDate == undefined || serviceExpires > expirationDate) expirationDate = serviceExpires
 		})
 		return expirationDate;
@@ -147,7 +147,7 @@ export default class Account extends React.Component {
 
 
 	render() {
-		var passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onShowSpringPanel={this.props.onShowSpringPanel} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
+		let passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onShowSpringPanel={this.props.onShowSpringPanel} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
 		return (
 			<View>
 					<ScrollView
@@ -230,19 +230,19 @@ class Pass extends React.Component {
 	}
 
 	render() {
-		var expiration = GlobalUtil.convertMysqlToDateRaw(this.props.account.expire_at).formatDate('n/d/Y');
-		var city = this.props.account.account_type ? this.props.account.account_type.name : '';
+		let expiration = GlobalUtil.convertMysqlToDateRaw(this.props.account.expire_at).formatDate('n/d/Y');
+		let city = this.props.account.account_type ? this.props.account.account_type.name : '';
 
 		// get the expiration date
-		var expirationDate;
+		let expirationDate;
 		this.props.account.account_services.map((account_service) => {
-			var serviceExpires = GlobalUtil.convertMysqlToDate(account_service.valid_end);
+			let serviceExpires = GlobalUtil.convertMysqlToDate(account_service.valid_end);
 			if (expirationDate == undefined || serviceExpires > expirationDate) expirationDate = serviceExpires
 		})
 
-		var expirationText;
-		var now = new Date();
-		var expired = true;
+		let expirationText;
+		let now = new Date();
+		let expired = true;
 		if (expirationDate != undefined)
 		{
 			if (GlobalUtil.convertMysqlToDateRaw(GlobalUtil.convertDateToMysql(expirationDate)) < now){
@@ -255,53 +255,6 @@ class Pass extends React.Component {
 		}
 
 
-		var venueServices = {}
-		this.props.account.account_services.forEach((account_service) => {
-			account_service.venue_service_services.forEach((venue_service_service) => {
-				venueServices[venue_service_service.venue_service_id] = venue_service_service.venue_service;
-			})
-		})
-
-		// create totals array
-		var venueServiceAvailable = {};
-		this.props.account.account_services.forEach((account_service) => {
-			var serviceExpires = GlobalUtil.convertMysqlToDateRaw(account_service.valid_end);
-			if (serviceExpires < now) return;
-
-			Object.keys(account_service.per_venue_service).forEach((venue_service_id) => {
-				if (venueServiceAvailable[venue_service_id] == undefined) {
-					venueServiceAvailable[venue_service_id] = {
-						venue_service: venueServices[venue_service_id],
-						limit_week: 0,
-						limit_month: 0,
-						limit_lifetime: 0,
-						usage_week: 0,
-						usage_month: 0,
-						usage_lifetime: 0
-					}
-				}
-
-				var usage_object = account_service.per_venue_service[venue_service_id];
-
-				venueServiceAvailable[venue_service_id].limit_week += (usage_object.limit_week == null) ? Infinity : Number(usage_object.limit_week);
-				venueServiceAvailable[venue_service_id].limit_month += (usage_object.limit_month == null) ? Infinity : Number(usage_object.limit_month);
-				venueServiceAvailable[venue_service_id].limit_lifetime += (usage_object.limit_lifetime == null) ? Infinity : Number(usage_object.limit_lifetime);
-				venueServiceAvailable[venue_service_id].usage_week += Number(usage_object.usage_week);
-				venueServiceAvailable[venue_service_id].usage_month += Number(usage_object.usage_month);
-				venueServiceAvailable[venue_service_id].usage_lifetime += Number(usage_object.usage_lifetime);
-			})
-		})
-
-			var venueTotals = Object.keys(venueServiceAvailable).map((venue_service_id) => {
-			var venueServiceIndividual = venueServiceAvailable[venue_service_id];
-
-			var title = venueServiceIndividual.venue_service.venue.name + ' ' + venueServiceIndividual.venue_service.name + ' - ' + GlobalUtil.htmlTextStripper(venueServiceIndividual.venue_service.inclusions);
-			var usage = venueServiceIndividual.usage_lifetime + '/' + (venueServiceIndividual.limit_lifetime == Infinity ? '∞' : venueServiceIndividual.limit_lifetime);
-			if (venueServiceIndividual.limit_month != Infinity) usage = venueServiceIndividual.usage_month + '/' + venueServiceIndividual.limit_month;
-			if (venueServiceIndividual.limit_week != Infinity) usage = venueServiceIndividual.usage_week + '/' + venueServiceIndividual.limit_week;
-
-			return <VenueTotal key={venue_service_id} title={title} usage={usage} />
-		})
 
 		return (
 			<View style={PassStyles.container}>
@@ -336,42 +289,6 @@ class Pass extends React.Component {
 						{this.props.account.account_key}
 					</Text>
 				</View>
-
-
-				<Modal
-					animationType="slide"
-					transparent={true}
-					visible={this.state.modalVisible}
-					onRequestClose={() => this.setState({modelVisible: false})}>
-					<View>
-					<View style={PassStyles.modalContainer}>
-						<View style={PassStyles.modalTextContainer}>
-							<Text style={PassStyles.modalTextName}>
-								{this.props.account.full_name}
-							</Text>
-						</View>
-						<View style={PassStyles.modalScrollView}>
-							<ScrollView
-								refreshControl={
-									<RefreshControl
-										refreshing={this.props.refreshing}
-										onRefresh={this.props.onLoadAccounts}
-									/>
-								}>
-								{venueTotals}
-							</ScrollView>
-						</View>
-						<View style={PassStyles.modalButtonContainer}>
-							<Button
-								buttonStyle={PassStyles.modalButton}
-								title="Close"
-								color="black"
-								onPress={() => this.setState({modalVisible: false})}
-							/>
-						</View>
-					</View>
-					</View>
-				</Modal>
 			</View>
 		)
 	}

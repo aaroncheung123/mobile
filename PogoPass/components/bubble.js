@@ -1,5 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Platform} from 'react-native';
+
+import {Constants} from 'expo';
 
 export default class Bubble extends React.Component {
 
@@ -16,8 +18,8 @@ export default class Bubble extends React.Component {
 const STYLES = {
 	bubbleContainer: {
 		position: 'absolute',
-		top: 0,
-		right: 0,
+        top: Platform.OS === 'ios' ? Constants.statusBarHeight - 3 : 0,
+		right: 5,
 		borderRadius: 50,
 		backgroundColor: 'red',
 		justifyContent: 'center',

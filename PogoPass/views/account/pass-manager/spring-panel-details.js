@@ -9,8 +9,60 @@ export default class SpringPanelDetails extends React.Component {
 
     	let expirationDate = GlobalUtil.convertMysqlToDate(this.props.account.expire_at).formatDate('n/d/Y');
 
+		let now = new Date();
 
-    	console.log(this.props.account);
+
+
+		let venueServices = {}
+		this.props.account.account_services.forEach((account_service) => {
+			account_service.venue_service_services.forEach((venue_service_service) => {
+				venueServices[venue_service_service.venue_service_id] = venue_service_service.venue_service;
+			})
+		})
+
+		// create totals array
+		let venueServiceAvailable = {};
+		this.props.account.account_services.forEach((account_service) => {
+
+			let serviceExpires = GlobalUtil.convertMysqlToDateRaw(account_service.valid_end);
+			if (serviceExpires < now) return;
+
+			Object.keys(account_service.per_venue_service).forEach((venue_service_id) => {
+				if (venueServiceAvailable[venue_service_id] == undefined) {
+					venueServiceAvailable[venue_service_id] = {
+						venue_service: venueServices[venue_service_id],
+						limit_week: 0,
+						limit_month: 0,
+						limit_lifetime: 0,
+						usage_week: 0,
+						usage_month: 0,
+						usage_lifetime: 0
+					}
+				}
+
+				let usage_object = account_service.per_venue_service[venue_service_id];
+
+				venueServiceAvailable[venue_service_id].limit_week += (usage_object.limit_week == null) ? Infinity : Number(usage_object.limit_week);
+				venueServiceAvailable[venue_service_id].limit_month += (usage_object.limit_month == null) ? Infinity : Number(usage_object.limit_month);
+				venueServiceAvailable[venue_service_id].limit_lifetime += (usage_object.limit_lifetime == null) ? Infinity : Number(usage_object.limit_lifetime);
+				venueServiceAvailable[venue_service_id].usage_week += Number(usage_object.usage_week);
+				venueServiceAvailable[venue_service_id].usage_month += Number(usage_object.usage_month);
+				venueServiceAvailable[venue_service_id].usage_lifetime += Number(usage_object.usage_lifetime);
+			})
+		})
+
+		let venueCards = Object.keys(venueServiceAvailable).map((venue_service_id) => {
+			let venueServiceIndividual = venueServiceAvailable[venue_service_id];
+
+			let title = venueServiceIndividual.venue_service.venue.name + ' ' + venueServiceIndividual.venue_service.name;
+			let inclusions = GlobalUtil.htmlTextStripper(venueServiceIndividual.venue_service.inclusions);
+			let usage = venueServiceIndividual.usage_lifetime + '/' + (venueServiceIndividual.limit_lifetime == Infinity ? '∞' : venueServiceIndividual.limit_lifetime);
+			if (venueServiceIndividual.limit_month != Infinity) usage = venueServiceIndividual.usage_month + '/' + venueServiceIndividual.limit_month;
+			if (venueServiceIndividual.limit_week != Infinity) usage = venueServiceIndividual.usage_week + '/' + venueServiceIndividual.limit_week;
+
+			return <VenueCard key={venue_service_id} title={title} usage={usage} inclusions={inclusions}/>
+		})
+
 
         return (
 
@@ -60,18 +112,7 @@ export default class SpringPanelDetails extends React.Component {
 
 		    	<Text style={STYLES.venueTitleText}>Venues</Text>
 			    <View style={STYLES.venueContainer}>
-			        <VenueCard/>
-			        <VenueCard/>
-			        <VenueCard/>
-			        <VenueCard/>
-			        <VenueCard/>
-			        <VenueCard/>
-			        <VenueCard/>
-			        <VenueCard/>
-			        <VenueCard/>
-			        <VenueCard/>
-			        <VenueCard/>
-			        <VenueCard/>
+			      {venueCards}
 			    </View>
 
 			</View>

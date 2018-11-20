@@ -20,7 +20,12 @@ const CLASS_STRING_MAP = () => {
         cart: EliteAPI.Models.STR.Cart,  
         cartproduct: EliteAPI.Models.STR.CartProduct,
         credit: EliteAPI.Models.STR.Credit,
-        device: EliteAPI.Models.CRM.Device
+        device: EliteAPI.Models.CRM.Device,
+        event: EliteAPI.Models.EVN.Event,
+        timeblock: EliteAPI.Models.EVN.TimeBlock,
+        venue: EliteAPI.Models.EVN.Venue,
+        venuelocation: EliteAPI.Models.EVN.VenueLocation,
+        availability: EliteAPI.Models.EVN.Availability
     }
 }
 export default CLASS_STRING_MAP;

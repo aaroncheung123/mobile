@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Button, Image, Dimensions} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Button, Image, Dimensions, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import UpcomingEventCard from './upcoming-event-card';
 
@@ -27,7 +27,7 @@ export default class VenueEventCard extends React.Component {
 
     setMaxHeight(event){
         this.setState({
-            maxHeight   : event.nativeEvent.layout.height + 80
+            maxHeight   :  400
         });
     }
 
@@ -61,17 +61,39 @@ export default class VenueEventCard extends React.Component {
         if(this.state.expanded){
             icon = this.icons['up'];
         }
+
+
+        let logoUrl = 'https://www.pogopass.com/global/assets/images/unavailable.png';
+        if (this.props.venue.logo_site_file) {
+            if (GlobalUtil.inputToBool(this.props.venue.logo_site_file.images_resized)) logoUrl = this.props.venue.logo_site_file.image_urls.s100;
+            else logoUrl = this.props.venue.logo_site_file.image_urls.url;
+        }
+
+
+        let now = new Date();
+        let upcomingEvents = this.props.venue.events.filter(x => GlobalUtil.convertMysqlToDateRaw(x.start) > now).sort((a, b) => {
+            return GlobalUtil.convertMysqlToDateRaw(a.start) < GlobalUtil.convertMysqlToDateRaw(b.start);
+        });
+
+
+        let eventCards = upcomingEvents.map(event => <UpcomingEventCard key={event.event_id} event={event} accounts={this.props.accounts}/>)
+
+
         return(
 
             <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
 
                 <TouchableOpacity onPress={this.toggle.bind(this)}>
                     <View style={STYLES.venueContainer} onLayout={this.setMinHeight.bind(this)}>
-                        <View style={STYLES.leftVenueContainer}>
-                            <Icon name='slideshare' size= {45}/>
+                        <View style={STYLES.leftVenueContainer}> 
+                            <Image
+                                style={{width: 50, height: 50}}
+                                source={{uri: logoUrl}}
+                            />
                         </View>
                         <View style={STYLES.rightVenueContainer}>
-                            <Text style={STYLES.textStyle}>Enchanted Island</Text>
+                            <Text style={STYLES.textStyle}>{this.props.venue.name}</Text>
+
                             <Image
                               style={STYLES.buttonImage}
                               source={icon}>
@@ -82,11 +104,10 @@ export default class VenueEventCard extends React.Component {
 
 
                 <View style={STYLES.hiddenBody} onLayout={this.setMaxHeight.bind(this)}>
-                    <Text style={STYLES.upcomingEventsText}>Upcoming Events: </Text>
-                    <UpcomingEventCard/>
-                    <UpcomingEventCard/>
-                    <UpcomingEventCard/>
-                    <UpcomingEventCard/>
+                    <Text style={STYLES.upcomingEventsText}>Upcoming Events (scroll to see future events): </Text>
+                    <ScrollView style={STYLES.eventScrollView}>
+                        {eventCards}
+                    </ScrollView>
                 </View>
 
             </Animated.View>
@@ -165,4 +186,7 @@ const STYLES = {
         alignItems: 'center',
         marginTop: 15
     },
+    eventScrollView: {
+        height: 250
+    }
 }

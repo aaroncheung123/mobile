@@ -4,12 +4,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const VenueCard = (props) => {
     return (
-        <TouchableOpacity>
             <View style={STYLES.venueContainer}>
-                <Icon name='slideshare' size= {25}/>
-                <Text style={STYLES.title}>2/4 visits</Text>
+                {/*<Icon name='slideshare' size= {25}/>*/}
+                <Text style={STYLES.title}>{props.title}</Text>
+                <Text style={STYLES.inclusions}>{props.inclusions}</Text>
+                <Text style={STYLES.usage}>{props.usage}</Text>
             </View>
-        </TouchableOpacity>
     );
 }
 
@@ -30,9 +30,20 @@ const STYLES = {
         shadowOpacity: 1, // IOS
         shadowRadius: 1, //IOS
         elevation: 5, // Android
-        margin: 10
+        margin: 10,
     },
     title: {
+        textAlign: 'center',
+        fontSize: 14,
+        paddingTop: 10,
+    },
+    inclusions: {
+        textAlign: 'center',
+        fontSize: 14,
+        paddingTop: 10,
+    },
+    usage: {
+        textAlign: 'center',
         fontSize: 14,
         paddingTop: 10,
     }

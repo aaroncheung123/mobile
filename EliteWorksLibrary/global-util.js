@@ -371,11 +371,31 @@ class GenModels {
     }
 }
 
+// evn models
+import Event from './models/evn/event';
+import VenueLocation from './models/evn/venue-location';
+import Venue from './models/evn/venue';
+import TimeBlock from './models/evn/time-block';
+import Availability from './models/evn/availability';
+
+class EvnModels {
+    constructor()
+    {
+        this.Event = Event;
+        this.VenueLocation = VenueLocation;
+        this.Venue = Venue;
+        this.TimeBlock = TimeBlock;
+        this.Availability = Availability;
+    }
+}
+
+
 // do all api declarations
 import StrApis from './api/str';
 import CrmApis from './api/crm';
 import GenApis from './api/gen';
 import CmsApis from './api/cms';
+import EvnApis from './api/evn';
 
 class EliteAPI {
     constructor() {
@@ -383,9 +403,9 @@ class EliteAPI {
             STR: new StrModels(),
             CRM: new CrmModels(),
             CMS: new CMSModels(),
-            GEN: new GenModels()
+            GEN: new GenModels(),
+            EVN: new EvnModels()
         };
-
     }
 }
 
@@ -396,6 +416,7 @@ window.EliteAPI.CRM = new CrmApis();
 window.EliteAPI.GEN = new GenApis();
 window.EliteAPI.CMS = new CmsApis();
 window.EliteAPI.GEN = new GenApis();
+window.EliteAPI.EVN = new EvnApis();
 
 import Service from './api/service';
 window.Service = new Service();

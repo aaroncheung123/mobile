@@ -1,8 +1,10 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SpringPanelNotifications from './spring-panel-notifications'
 import NotificationBubble from '../bubble.js'
+import { Constants } from 'expo';
+
 
 export default class HeaderTitle extends React.Component {
 
@@ -14,13 +16,13 @@ export default class HeaderTitle extends React.Component {
 		}
 	}
 
-  componentDidMount() {
-    Service.User.get(user => {
-      EliteAPI.CRM.Notification.report({user_id: user.id, viewed: 0, methods: 'COUNT'}, (success) => {
-        if (success.data.report.ALL) this.setState({notificationCount: success.data.report.ALL.COUNT})
-      })
-    })
-  }
+	componentDidMount() {
+		Service.User.get(user => {
+			EliteAPI.CRM.Notification.report({user_id: user.id, viewed: 0, methods: 'COUNT'}, (success) => {
+				if (success.data.report.ALL) this.setState({notificationCount: success.data.report.ALL.COUNT})
+			})
+		})
+	}
 
 	handleNotifications(){
 		this.props.onShowSpringPanel(
@@ -29,32 +31,32 @@ export default class HeaderTitle extends React.Component {
 		)
 	}
 
-    render() {
-        return (
-			<View>
-				<Text style={STYLES.headerTitle}>
-					{this.props.title}
-				</Text>
+		render() {
+			return (
+				<View>
+					<Text style={STYLES.headerTitle}>
+						{this.props.title}
+					</Text>
 
-				{this.state.notificationCount > 0 ? <NotificationBubble number={this.state.notificationCount}/> : null}
+					{this.state.notificationCount > 0 ? <NotificationBubble number={this.state.notificationCount}/> : null}
 
-				<TouchableOpacity
-					style={STYLES.iconContainer}
-					onPress={this.handleNotifications}>
+					<TouchableOpacity
+						style={STYLES.iconContainer}
+						onPress={this.handleNotifications}>
 
 
 
-					<Icon
-						name='bell'
-						type='font-awesome'
-						color='white'
-						size={25}
-					/>
-				</TouchableOpacity>
+						<Icon
+							name='bell'
+							type='font-awesome'
+							color='white'
+							size={25}
+						/>
+					</TouchableOpacity>
 
-			</View>
-        );
-    }
+				</View>
+			);
+		}
 }
 
 const STYLES = {
@@ -67,13 +69,15 @@ const STYLES = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		padding: 10,
-		opacity: .95,
-		backgroundColor: 'rgba(0, 0, 0, 0.6)'
+		paddingTop: Platform.OS === 'ios' ? Constants.statusBarHeight + 5 : 10,
+		opacity: Platform.OS === 'ios' ? 1 : .95,
+		backgroundColor: Platform.OS === 'ios' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.6)'
 	},
 	iconContainer:{
 		position: 'absolute',
 		top: 0,
 		right: 0,
-		padding: 15
+		padding: 15,
+		paddingTop: Platform.OS === 'ios' ? Constants.statusBarHeight + 7 : 15,
 	}
 }

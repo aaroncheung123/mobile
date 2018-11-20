@@ -4,7 +4,7 @@ import React from 'react';
 import Forgot from './forgot/index';
 import Account from './account/index';
 import Login from './login/index';
-import {View, AsyncStorage} from 'react-native';
+import {View, AsyncStorage, StatusBar} from 'react-native';
 import {MemoryRouter, Route} from 'react-router';
 
 
@@ -38,6 +38,7 @@ export default class BaseNavigation extends React.Component {
 		return (
 			<MemoryRouter ref={e => this.router = e}>
 				<View>
+          			<StatusBar barStyle="light-content"/>
 					<Route path="/account" render={(props) => <Account {...props} onLogout={this.handleLogout}/>}/>
 					<Route path="/login" component={Login}/>
 					<Route path="/forgot" component={Forgot}/>

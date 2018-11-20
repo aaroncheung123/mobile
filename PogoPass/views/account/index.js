@@ -15,6 +15,47 @@ import HeaderTitle from '../../components/notifications/header-title.js'
 
 const ELITE_WORKS_ORANGE = '#faa31a'
 
+
+import { Permissions, Notifications } from 'expo';
+
+async function REGISTER_FOR_NOTIFICATIONS() {
+  
+  const { status: existingStatus } = await Permissions.getAsync(
+    Permissions.NOTIFICATIONS
+  );
+
+
+  let finalStatus = existingStatus;
+
+  // only ask if permissions have not already been determined, because
+  // iOS won't necessarily prompt the user a second time.
+  if (existingStatus !== 'granted') {
+
+    // Android remote notification permissions are granted during the app
+    // install, so this will only ask on iOS
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    finalStatus = status;
+  }
+
+  // Stop here if the user did not grant permissions
+  if (finalStatus !== 'granted') {
+    return;
+  }
+
+  // Get the token that uniquely identifies this device
+  let token = await Notifications.getExpoPushTokenAsync();
+
+  Service.User.get(user => {
+    EliteAPI.CRM.Device.add({
+      name: Expo.Constants.deviceName,
+      user_id: user.id,
+      push_token: token,
+      os: Platform.OS
+    });
+  })
+}
+
+
 export default class AccountNavigation extends React.Component {
 
   constructor(props)
@@ -33,12 +74,20 @@ export default class AccountNavigation extends React.Component {
     this.handleShowSpringPanel = this.handleShowSpringPanel.bind(this);
 		this.handleSidePanelClose = this.handleSidePanelClose.bind(this);
     this.handleShowSidePanel = this.handleShowSidePanel.bind(this);
+    this.handleNotification = this.handleNotification.bind(this);
 		this.setTitle = this.setTitle.bind(this);
   }
 
   componentDidMount() {
-    this.updatePath('/account-information');
+    this.updatePath('/pass-manager');
+    REGISTER_FOR_NOTIFICATIONS()
+    Notifications.addListener(this.handleNotification)
   }
+
+  handleNotification(notification, removeCallback) {
+    if (this.headerTitle) this.headerTitle.handleNotifications();
+  }
+
 
   updatePath(path) {
 		this.setTitle(path);
@@ -121,7 +170,7 @@ export default class AccountNavigation extends React.Component {
 
       <MemoryRouter ref={e => this.router = e}>
         <View style={STYLES.fullScreenContainer}>
-					<HeaderTitle title={this.state.headerTitle} onShowSpringPanel={this.handleShowSpringPanel} onShowSidePanel={this.handleShowSidePanel}/>
+					<HeaderTitle ref={e => this.headerTitle = e} title={this.state.headerTitle} onShowSpringPanel={this.handleShowSpringPanel} onShowSidePanel={this.handleShowSidePanel}/>
           <View style={STYLES.scrollViewContainer}>
             <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/account-information" render={(props) => <AccountInformation {...props} onShowSidePanel={this.handleShowSidePanel} onLogout={this.props.onLogout}/>} />

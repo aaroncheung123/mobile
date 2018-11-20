@@ -17,14 +17,14 @@ export default class TopMenu extends React.Component {
 
 	render() {
       return (
-				<View style={STYLES.topMenu}>
-						<TouchableWithoutFeedback onPress={this.props.onPress}>
-							<View style={STYLES.touchableBack}>
-								<Icon name='arrow-left' size= {25} color='white'/>
-								<Text style={STYLES.textStyle}>{this.props.title}</Text>
-							</View>
-						</TouchableWithoutFeedback>
-			  </View>
+			<View style={STYLES.topMenu}>
+				<TouchableWithoutFeedback onPress={this.props.onPress}>
+					<View style={STYLES.touchableBack}>
+						<Icon name='arrow-left' size= {25} color='white'/>
+						<Text style={STYLES.textStyle}>{this.props.title}</Text>
+					</View>
+				</TouchableWithoutFeedback>
+		  	</View>
 
 
 
