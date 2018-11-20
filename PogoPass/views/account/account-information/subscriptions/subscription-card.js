@@ -117,7 +117,7 @@ export default class SubscriptionCard extends React.Component {
 
                         <View style={STYLES.hiddenBody} onLayout={this._setMaxHeight.bind(this)}>
 
-                            <View style={STYLES.productSectionContainer}>
+                            <View>
 
                                 <DisplaySection
                                     title='Subscription #:'
@@ -130,7 +130,7 @@ export default class SubscriptionCard extends React.Component {
 
                                 <View style={STYLES.productSectionRow}>
                                     <View style={STYLES.productSectionLeft1}>
-                                        <Text>Payment Method:</Text>
+                                        <Text style={STYLES.textHeader1}>Payment Method:</Text>
                                     </View>
                                     <View style={STYLES.productSectionRight1}>
                                         <Picker
@@ -150,7 +150,7 @@ export default class SubscriptionCard extends React.Component {
 
                                 <View style={STYLES.productSectionRow}>
                                     <View style={STYLES.productSectionLeft1}>
-                                        <Text>Use Store Credit:</Text>
+                                        <Text style={STYLES.textHeader1}>Use Store Credit:</Text>
                                     </View>
                                     <View style={STYLES.productSectionRight1}>
                                         <Picker
@@ -201,10 +201,10 @@ export default class SubscriptionCard extends React.Component {
 const DisplaySection = (props) => {
     return (
         <View style={STYLES.productSectionRow}>
-            <View style={STYLES.productSectionLeft1}>
-                <Text>{props.title}</Text>
+            <View>
+                <Text style={STYLES.textHeader1}>{props.title}</Text>
             </View>
-            <View style={STYLES.productSectionRight1}>
+            <View>
                 <Text>{props.description}</Text>
             </View>
         </View>
@@ -270,6 +270,9 @@ const DisplayRenewal = (props) => {
             marginBottom: 10,
             paddingBottom: 10
         },
+        textHeader1: {
+            fontWeight: 'bold'
+        },
         textHeaderSubtitle: {
             fontSize: 14
         },
@@ -303,14 +306,7 @@ const DisplayRenewal = (props) => {
             flex: 1,
             padding: 5
         },
-        productSectionLeft1:{
-            flex: 2
-        },
-        productSectionRight1:{
-            flex: 3
-        },
         productSectionRow: {
-            flexDirection: 'row',
             marginVertical: 10,
             marginHorizontal: 5
         },
@@ -339,8 +335,6 @@ const DisplayRenewal = (props) => {
         },
         contentText: {
             marginBottom: 10
-        },
-        pickerStyle: {
         },
         editIconContainer: {
             marginTop: 10,
