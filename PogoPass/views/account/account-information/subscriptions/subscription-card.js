@@ -14,6 +14,8 @@ export default class SubscriptionCard extends React.Component {
         storeCredit : 1,
         paymentMethods : []
         };
+        this.handleSave = this.handleSave.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
     componentDidMount(){
         this.setState({
@@ -63,6 +65,14 @@ export default class SubscriptionCard extends React.Component {
                 toValue: finalValue
             }
         ).start();
+    }
+
+    handleSave(){
+
+    }
+
+    handleCancel(){
+
     }
 
 
@@ -174,14 +184,14 @@ export default class SubscriptionCard extends React.Component {
                             <View style={STYLES.buttonsContainer}>
                                 <TouchableOpacity
                                     style={STYLES.buttonContainer}
-                                    onPress={this.handleDelete}
+                                    onPress={this.handleSave}
                                     underlayColor="transparent">
                                     <Text style={STYLES.buttonText}>Save</Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity
                                     style={STYLES.buttonContainer}
-                                    onPress={this.handleDelete}
+                                    onPress={this.handleCancel}
                                     underlayColor="transparent">
                                     <Text style={STYLES.buttonText}>Cancel</Text>
                                 </TouchableOpacity>
