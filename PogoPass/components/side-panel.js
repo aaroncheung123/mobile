@@ -49,11 +49,14 @@ export default class SidePanel extends React.Component {
 							</TouchableOpacity>
 
 	            <View style={STYLES.innerSpringContainer}>
-									<Text style={STYLES.springContainerText}>{this.props.title}</Text>
+									<View style={STYLES.innerSpringContainer1}>
+										<Text style={STYLES.springContainerText}>{this.props.title}</Text>
+									</View>
 
-	                <ScrollView>
+
+	                <View style={STYLES.contentContainer}>
 	                	{this.props.content}
-	                </ScrollView>
+	                </View>
 	            </View>
 	        </Animated.View>
         );
@@ -62,6 +65,9 @@ export default class SidePanel extends React.Component {
 
 
 const STYLES = {
+	contentContainer: {
+		flex: 1
+	},
 	springContainer: {
       position: 'absolute',
       bottom: 0,
@@ -92,6 +98,9 @@ const STYLES = {
       justifyContent: 'flex-start',
       alignItems: 'center',
     },
+		innerSpringContainer1: {
+			height: 90
+		},
     backArrow: {
     	color: 'black',
     },

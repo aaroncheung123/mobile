@@ -15,7 +15,8 @@ export default class Account extends React.Component {
 			refreshing: true,
 			accounts: [],
 			referralCodeLoading: true,
-			showingDetails: false
+			showingDetails: false,
+			loginLink: ''
 		}
     this.springValue = new Animated.Value(0);
 		this.screenHeight = Dimensions.get('window').height;
@@ -57,6 +58,20 @@ export default class Account extends React.Component {
 				this.setState({referralCode: JSON.parse(value), referralCodeLoading: false});
 			}
 			this.loadReferralCode();
+		})
+
+		Service.User.get(user => {
+			EliteAPI.CRM.User.getLoginToken(
+			 { user_id: user.id },
+			 success => {
+				 this.setState({
+					 loginLink: "http://www.pogopass.com/login/auto?one_time_login_token=" + success.data.user_login_token.token
+				 })
+			 },
+			 failure => {
+				 console.log(failure);
+			 }
+		 );
 		})
 
 	}
@@ -152,7 +167,7 @@ export default class Account extends React.Component {
 			'Purchase Pass',
 			<View style={STYLES.webViewContainer}>
 				<WebView
-					source = {{uri: 'https://www.pogopass.com/category/new-passes' }}
+					source = {{ uri: this.state.loginLink + '&url=https://www.pogopass.com/category/new-passes' }}
 				/>
 			</View>
 		)
@@ -164,7 +179,7 @@ export default class Account extends React.Component {
 			'Purchase Gift',
 			<View style={STYLES.webViewContainer}>
 				<WebView
-					source = {{uri: 'https://www.pogopass.com' }}
+					source = {{ uri: this.state.loginLink + '&url=https://www.pogopass.com/category/gift' }}
 				/>
 			</View>
 		)
@@ -213,7 +228,8 @@ export default class Account extends React.Component {
 const STYLES = {
 	webViewContainer:{
 		height: Dimensions.get('window').height,
-		width: Dimensions.get('window').width
+		width: Dimensions.get('window').width,
+		marginBottom: 200
 	},
 	passContainer: {
 		alignItems: 'center',
