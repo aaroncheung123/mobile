@@ -78,7 +78,7 @@ const STYLES = {
       color: 'black',
       fontSize: 18,
       borderBottomWidth: 2,
-      marginBottom: 20,
+      marginVertical: 20,
       paddingBottom: 20,
 			paddingHorizontal: 30,
       borderColor: 'black'
@@ -88,7 +88,7 @@ const STYLES = {
       fontSize: 16
     },
     innerSpringContainer: {
-      margin: 20,
+      //margin: 20,
       justifyContent: 'flex-start',
       alignItems: 'center',
     },

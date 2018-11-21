@@ -19,7 +19,7 @@ const ELITE_WORKS_ORANGE = '#faa31a'
 import { Permissions, Notifications } from 'expo';
 
 async function REGISTER_FOR_NOTIFICATIONS() {
-  
+
   const { status: existingStatus } = await Permissions.getAsync(
     Permissions.NOTIFICATIONS
   );
@@ -174,7 +174,7 @@ export default class AccountNavigation extends React.Component {
           <View style={STYLES.scrollViewContainer}>
             <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/account-information" render={(props) => <AccountInformation {...props} onShowSidePanel={this.handleShowSidePanel} onLogout={this.props.onLogout}/>} />
-            <Route path="/pass-manager"  render={(props) => <PassManager {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+            <Route path="/pass-manager"  render={(props) => <PassManager {...props} onShowSpringPanel={this.handleShowSpringPanel} onShowSidePanel={this.handleShowSidePanel}/>} />
             <Route path="/events" component={Events} />
             <Route path="/cart" component={Cart} />
           </View>
