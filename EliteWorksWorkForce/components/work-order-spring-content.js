@@ -4,6 +4,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Camera from './camera-component';
 
 
 //import { RNCamera } from 'react-native-camera';
@@ -194,6 +195,7 @@ export default class WorkOrderSpringContent extends React.Component {
 
 	handleUploadPhoto(type) {
 		console.log('uploading image for ' + type);
+
 	}
 
 	handleNoteChange(value) {
@@ -270,6 +272,7 @@ export default class WorkOrderSpringContent extends React.Component {
 							</RNCamera>*/}
 							<Icon name='plus' size={30} color='white'/>
 						</TouchableOpacity>
+						<Camera style={{flex:1}}></Camera>
 					</View>
 					<Text style={STYLES.toggleText}>After Photos</Text>
 					<View style={STYLES.photoRow}>
