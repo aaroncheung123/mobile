@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 
-import {View, Dimensions, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
+import {View, Dimensions, WebView, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
 import {Button} from 'react-native-elements';
 import SpringPanelDetails from './spring-panel-details.js';
@@ -15,7 +15,8 @@ export default class Account extends React.Component {
 			refreshing: true,
 			accounts: [],
 			referralCodeLoading: true,
-			showingDetails: false
+			showingDetails: false,
+			loginLink: ''
 		}
     this.springValue = new Animated.Value(0);
 		this.screenHeight = Dimensions.get('window').height;
@@ -23,6 +24,8 @@ export default class Account extends React.Component {
 		this.loadAccounts = this.loadAccounts.bind(this);
 		this.loadReferralCode = this.loadReferralCode.bind(this);
 		this.share = this.share.bind(this);
+		this.handlePurchasePass = this.handlePurchasePass.bind(this);
+		this.handlePurchaseGift = this.handlePurchaseGift.bind(this);
 	}
 
 	componentDidMount() {
@@ -56,6 +59,20 @@ export default class Account extends React.Component {
 				this.setState({referralCode: JSON.parse(value), referralCodeLoading: false});
 			}
 			this.loadReferralCode();
+		})
+
+		Service.User.get(user => {
+			EliteAPI.CRM.User.getLoginToken(
+			 { user_id: user.id },
+			 success => {
+				 this.setState({
+					 loginLink: "http://www.pogopass.com/login/auto?one_time_login_token=" + success.data.user_login_token.token
+				 })
+			 },
+			 failure => {
+				 console.log(failure);
+			 }
+		 );
 		})
 
 	}
@@ -146,6 +163,29 @@ export default class Account extends React.Component {
 		return expirationDate;
 	}
 
+	handlePurchasePass(){
+		this.props.onShowSidePanel(
+			'Purchase Pass',
+			<View style={STYLES.webViewContainer}>
+				<WebView
+					source = {{ uri: this.state.loginLink + '&url=https://www.pogopass.com/category/new-passes' }}
+				/>
+			</View>
+		)
+	}
+
+
+	handlePurchaseGift(){
+		this.props.onShowSidePanel(
+			'Purchase Gift',
+			<View style={STYLES.webViewContainer}>
+				<WebView
+					source = {{ uri: this.state.loginLink + '&url=https://www.pogopass.com/category/gift' }}
+				/>
+			</View>
+		)
+	}
+
 
 	render() {
 		let passViews = this.state.accounts.map((account) => <Pass key={account.account_id} onShowSpringPanel={this.props.onShowSpringPanel} account={account} onLoadAccounts={this.loadAccounts} refreshing={this.state.refreshing}/>)
@@ -161,17 +201,21 @@ export default class Account extends React.Component {
 
 						<View style={STYLES.passContainer}>
 							<View style={STYLES.topButtonSection}>
-								{/*<TouchableOpacity style={STYLES.iconContainer}>
+								<TouchableOpacity
+									onPress={this.handlePurchasePass}
+									style={STYLES.iconContainer}>
 									<Icon name='plus' size={35}/>
 									<Text style={STYLES.topButtonSectionText}>Purchase Pass</Text>
 								</TouchableOpacity>
-								<TouchableOpacity style={STYLES.iconContainer}>
+								<TouchableOpacity
+									onPress={this.handlePurchaseGift}
+									style={STYLES.iconContainer}>
 									<Icon name='gift' size={35}/>
 									<Text style={STYLES.topButtonSectionText}>Purchase Gift</Text>
-								</TouchableOpacity>*/}
+								</TouchableOpacity>
 								<TouchableOpacity style={STYLES.iconContainer} onPress={this.share}>
 									<Icon name='dollar' size={35}/>
-									<Text style={STYLES.topButtonSectionText}>Make $5 - Refer a Friend</Text>
+									<Text style={STYLES.topButtonSectionText}>Refer a Friend</Text>
 								</TouchableOpacity>
 							</View>
 							{passViews}
@@ -183,6 +227,11 @@ export default class Account extends React.Component {
 }
 
 const STYLES = {
+	webViewContainer:{
+		height: Dimensions.get('window').height,
+		width: Dimensions.get('window').width,
+		marginBottom: 200
+	},
 	passContainer: {
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -195,10 +244,9 @@ const STYLES = {
 		marginVertical: 30,
 		justifyContent: 'center',
 		alignItems:'center',
-		//width: 100,
-		flex: 1,
-		opacity: .9,
-		margin: 50
+		width: 100,
+		//flex: 1,
+		opacity: .9
 	},
 	topButtonSection:{
 		flexDirection: 'row',
@@ -229,6 +277,7 @@ class Pass extends React.Component {
 			<SpringPanelDetails account={this.props.account}/>
 		)
 	}
+
 
 	render() {
 		let expiration = GlobalUtil.convertMysqlToDateRaw(this.props.account.expire_at).formatDate('n/d/Y');
