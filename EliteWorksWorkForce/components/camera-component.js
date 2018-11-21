@@ -14,7 +14,7 @@ export default class CameraComponent extends React.Component {
     }
 
     async componentWillMount(){
-        const{ status } = await Permission.askAsync(Permissions.CAMERA);
+        const{ status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({hasCameraPermission: status == 'granted'})
     }
 
@@ -41,6 +41,7 @@ const STYLES = {
         backgroundColor: 'white'
     },
     cameraContainer: {
-        flex: 1
+        height: 300,
+        width: 300
     }
 }

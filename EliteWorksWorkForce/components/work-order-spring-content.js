@@ -220,89 +220,7 @@ export default class WorkOrderSpringContent extends React.Component {
 
 	render() {
 		return (
-
-			<View style={STYLES.container}>
-				<View style={STYLES.toggleContainer}>
-					<Text style={STYLES.toggleText}>Stop Travel</Text>
-					<Switch
-						onTintColor = '#F7882F'
-						thumbTintColor = 'white'
-						style={STYLES.switchStyle}
-						onValueChange = {(value) => this.toggleActiveStatus('TRAVELLING', value)}
-						value={this.state.activeStatus === 'TRAVELLING'}/>
-
-					<Text style={STYLES.toggleText}>Start Travel</Text>
-				</View>
-				<Text style={STYLES.timeTotal}>{this.state.travellingTotalHours}h {this.state.travellingTotalMinutes}m</Text>
-
-				<View style={STYLES.toggleContainer}>
-					<Text style={STYLES.toggleText}>Stop Job</Text>
-					<Switch
-						onTintColor = '#F7882F'
-						thumbTintColor = 'white'
-						style={STYLES.switchStyle}
-						onValueChange = {(value) => this.toggleActiveStatus('WORKING', value)}
-						value = {this.state.activeStatus === 'WORKING'}/>
-
-					<Text style={STYLES.toggleText}>Start Job</Text>
-				</View>
-				<Text style={STYLES.timeTotal}>{this.state.workingTotalHours}h {this.state.workingTotalMinutes}m</Text>
-
-				<View style={STYLES.outsidePhotoContainer}>
-					<Text style={STYLES.toggleText}>Before Photos</Text>
-					<View style={STYLES.photoRow}>
-						<TouchableOpacity style={STYLES.photoAddContainer} onPress={() => this.handleUploadPhoto('BEFORE')}>
-							{/*<RNCamera
-								style={styles.preview}
-								type={RNCamera.Constants.Type.back}
-								flashMode={RNCamera.Constants.FlashMode.on}
-								permissionDialogTitle={'Permission to use camera'}
-								permissionDialogMessage={'We need your permission to use your camera phone'}
-							>
-								{({ camera, status }) => {
-									if (status !== 'READY') return <PendingView />;
-									return (
-										<View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-											<TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-												<Text style={{ fontSize: 14 }}> SNAP </Text>
-											</TouchableOpacity>
-										</View>
-									);
-								}}
-							</RNCamera>*/}
-							<Icon name='plus' size={30} color='white'/>
-						</TouchableOpacity>
-						<Camera style={{flex:1}}></Camera>
-					</View>
-					<Text style={STYLES.toggleText}>After Photos</Text>
-					<View style={STYLES.photoRow}>
-						<TouchableOpacity style={STYLES.photoAddContainer}>
-								<Icon name='plus' size={30} color='white' onPress={() => this.handleUploadPhoto('AFTER')}/>
-						</TouchableOpacity>
-					</View>
-				</View>
-
-				<View style={STYLES.notesContainer}>
-					<TextInput
-						placeholder = "Enter notes here"
-						underlineColorAndroid = "transparent"
-						value={this.props.workOrder.notes}
-						onChangeText={this.handleNoteChange}
-						multiline={true}/>
-				</View>
-				<TouchableOpacity
-					style={STYLES.saveNotes}
-					onPress={this.handleWorkOrderSave}>
-					<Text style={STYLES.toggleText}>Save</Text>
-				</TouchableOpacity>
-
-
-				<TouchableOpacity
-					style={STYLES.completeButton}
-					onPress={this.handleCompleteWorkOrder}>
-					<Text style={STYLES.toggleText}>Complete</Text>
-				</TouchableOpacity>
-			</View>
+			<Camera style={STYLES.test}></Camera>
 		)
 	}
 }
@@ -310,6 +228,10 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
 const STYLES = {
+	test: {
+		height: 300,
+		width: 300
+	},
 	container: {
 		justifyContent: 'center',
 		alignItems: 'center',
