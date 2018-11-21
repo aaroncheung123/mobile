@@ -143,6 +143,21 @@ class GlobalUtil {
         this.Form = new Form();
     }
 
+
+    capitalizeFirst (string)  {
+        return string.charAt(0).toUpperCase() + string.substr(1).toLowerCase();
+    }
+
+    capitalizeFirstOfEachWord (string) {
+        if (typeof(string) === typeof('string'))
+        {
+            var array = string.split(' ');
+            var capitalizedArray = array.map(element => this.capitalizeFirst(element));
+            return capitalizedArray.join(' ');
+        }
+        else return '';
+    }
+
     htmlTextStripper (html){
         var striptags = require('striptags');
         return striptags(html);
@@ -331,6 +346,7 @@ import Deal from './models/crm/deal';
 import Zone from './models/crm/zone';
 import Notification from './models/crm/notification';
 import Device from './models/crm/device';
+import Account from './models/crm/account';
 
 class CrmModels {
     constructor()
@@ -342,6 +358,7 @@ class CrmModels {
         this.Zone = Zone;
         this.Notification = Notification;
         this.Device = Device;
+        this.Account = Account;
     }
 }
 

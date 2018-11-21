@@ -33,6 +33,7 @@ export default class Notification extends React.Component {
         return (
             <TouchableOpacity onPress={this.handleSidePanel}>
                 <View style={cardStyles}>
+                    <Text>{GlobalUtil.convertMysqlToDate(this.props.notification.created_at).formatDate('n/d/Y H:m A')}</Text>
                     <Text style={STYLES.title}>{this.props.notification.title}</Text>
                     <Text>{this.props.notification.description}</Text>
                 </View>

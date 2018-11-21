@@ -9,8 +9,8 @@ export default class Login extends React.Component {
 	{
 		super(props);
 		this.state = {
-			email: 'kyle.paulson@eliteworks.com',
-			password: 'eliteworks1',
+			email: '',
+			password: '',
 			errorMessage: '',
 			loading: false
 		}

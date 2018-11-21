@@ -23,7 +23,7 @@ export default class Cart extends React.Component {
 	  return (
 			<View style={STYLES.container}>
 				<WebView
-					source = {{ uri:'https://www.pogopass.com/category/passes' }}
+					source = {{ uri:'https://www.pogopass.com/cart' }}
 				/>
 			</View>
 	  )

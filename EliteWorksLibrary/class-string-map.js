@@ -25,7 +25,8 @@ const CLASS_STRING_MAP = () => {
         timeblock: EliteAPI.Models.EVN.TimeBlock,
         venue: EliteAPI.Models.EVN.Venue,
         venuelocation: EliteAPI.Models.EVN.VenueLocation,
-        availability: EliteAPI.Models.EVN.Availability
+        availability: EliteAPI.Models.EVN.Availability,
+        account: EliteAPI.Models.CRM.Account
     }
 }
 export default CLASS_STRING_MAP;

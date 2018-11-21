@@ -37,7 +37,7 @@ const UpcomingEventCard = (props) => {
                                 showRegistrationButton ?
                                 <TouchableOpacity
                                     style={STYLES.registrationButton}
-                                    onPress={() => this.props.onRegister(availability)}>
+                                    onPress={() => props.onRegister(availability)}>
                                         <Text>Register</Text>
                                 </TouchableOpacity> : null
 

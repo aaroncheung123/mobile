@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {Styles, PassStyles, VenueTotalStyles, ShareStyles} from '../../../assets/styles/styles';
 
-import {View, Dimensions, WebView, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated} from 'react-native';
+import {View, Dimensions, WebView, TouchableOpacity, AsyncStorage, Text, ScrollView, Modal, TouchableHighlight, RefreshControl, Share, Animated, Platform} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
 import {Button} from 'react-native-elements';
 import SpringPanelDetails from './spring-panel-details.js';
@@ -228,9 +228,9 @@ export default class Account extends React.Component {
 
 const STYLES = {
 	webViewContainer:{
-		height: Dimensions.get('window').height,
-		width: Dimensions.get('window').width,
-		marginBottom: 200
+		height: '100%',
+		width: Dimensions.get('window').width - ((Platform.OS === 'ios') ? 100 : 0),
+		marginBottom: 200,
 	},
 	passContainer: {
 		alignItems: 'center',

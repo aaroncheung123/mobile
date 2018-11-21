@@ -76,7 +76,7 @@ export default class VenueEventCard extends React.Component {
         });
 
 
-        let eventCards = upcomingEvents.map(event => <UpcomingEventCard key={event.event_id} event={event} accounts={this.props.accounts}/>)
+        let eventCards = upcomingEvents.map(event => <UpcomingEventCard key={event.event_id} event={event} onRegister={this.props.onRegister}/>)
 
 
         return(
