@@ -1,17 +1,16 @@
-
-
 import React from 'react';
 import {StyleSheet, View, ScrollView, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, AsyncStorage} from 'react-native';
 import {MemoryRouter, Route, Redirect} from "react-router-dom";
 import {Icon} from 'react-native-elements';
-import {Constants} from 'expo';	
-import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey} from '../assets/styles/constants';
+import {Constants} from 'expo';
+import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
 import AccountDashBoard from './account/dashboard';
 import AccountTimeClock from './account/timeclock';
 import AccountWorkOrders from './account/workorders';
 import LoginModal from './account/login-modal';
+import SpringPanel from '../components/spring-panel';
 
 const SIDE_MENU_WIDTH = 300;
 
@@ -28,13 +27,18 @@ export default class Account extends React.Component {
 			companyName: '',
 			user: new EliteAPI.Models.CRM.User(),
 			workSpaces: {},
-			showLoginModal: false
+			showLoginModal: false,
+			showSpringPanel: true,
+			springPanelTitle: '',
+			springPanelContent: null
 		}
 
 		this.updateSideMenu = this.updateSideMenu.bind(this);
 		this.updatePath = this.updatePath.bind(this);
 		this.populateData = this.populateData.bind(this);
 		this.handleLogout = this.handleLogout.bind(this);
+		this.handleShowSpringPanel = this.handleShowSpringPanel.bind(this);
+		this.handleSpringPanelClose = this.handleSpringPanelClose.bind(this);
 	}
 
 
@@ -72,13 +76,32 @@ export default class Account extends React.Component {
 			// set default route as login
 			let workspaces = {}
 
-			if (!GlobalUtil.isEmpty(value)) workspaces = JSON.parse(value) 
+			if (!GlobalUtil.isEmpty(value)) workspaces = JSON.parse(value)
 			else this.props.history.push('/login');
 
 
-			if (Object.keys(workspaces).length > 0) this.setState({workSpaces: workspaces}); 
+			if (Object.keys(workspaces).length > 0) this.setState({workSpaces: workspaces});
 			else this.props.history.push('/login');
 		});
+	}
+
+	handleSpringPanelClose()
+	{
+		this.setState({
+			springPanelTitle: '',
+			springPanelContent: null
+		})
+	}
+
+	handleShowSpringPanel(title, content) {
+		this.setState({
+			springPanelTitle: title,
+			springPanelContent: content
+		}, () => {
+			if (this.springPanel) {
+				this.springPanel.open();
+			}
+		})
 	}
 
 	handleLogout() {
@@ -86,7 +109,7 @@ export default class Account extends React.Component {
 			// set default route as login
 			let workspaces = {}
 
-			if (!GlobalUtil.isEmpty(value)) workspaces = JSON.parse(value) 
+			if (!GlobalUtil.isEmpty(value)) workspaces = JSON.parse(value)
 
 			if (workspaces[GlobalUtil.webClientKey]) {
 				delete workspaces[GlobalUtil.webClientKey];
@@ -101,18 +124,18 @@ export default class Account extends React.Component {
 						Service.Config.refresh(() => {
 							Service.User.refresh(() => {
 								AsyncStorage.setItem('workspaceSelected', selectedWorkspace, () => {
-									this.setState({workSpaces: workspaces}, this.populateData); 
+									this.setState({workSpaces: workspaces}, this.populateData);
 								});
 							})
 						})
 					}
-					else 
+					else
 					{
 						AsyncStorage.removeItem('workspaceSelected').then(() => {
 							this.props.history.push('/login');
 						})
 					}
-				});	
+				});
 			}
 
 		});
@@ -149,43 +172,44 @@ export default class Account extends React.Component {
 							<Icon
 								name='bars'
 								type='font-awesome'
-								color='#dddddd'  
-								size={35}
+								color='#F7882F'
+								size={25}
 								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
 							/>
 						</View>
-						<Text style={TOP_MENU_STYLES.companyName}>{this.state.companyName}</Text>
+						<View style={TOP_MENU_STYLES.companyNameContainer}>
+							<Text style={TOP_MENU_STYLES.companyName}>Deals</Text>
+						</View>
+
 					</View>
 
 					{/*content*/}
-					<TouchableWithoutFeedback onPress={() => this.setState({sideMenuOpen: false}, this.updateSideMenu)}>
-						<ScrollView style={CONTENT_STYLES.container}>
-							<Route path="/dashboard" component={AccountDashBoard} />
-							<Route path="/orders" component={AccountWorkOrders} />
-							<Route path="/time" component={AccountTimeClock} />
-						</ScrollView>
-					</TouchableWithoutFeedback>
+						<View style={CONTENT_STYLES.container}>
+							<Route path="/dashboard" render={(props) => <AccountDashBoard {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+							<Route path="/orders" render={(props) => <AccountWorkOrders {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+							<Route path="/time" render={(props) => <AccountTimeClock {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+
+							{/* slide up model */}
+							<SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent} onClose={this.handleSpringPanelClose}/>
+						</View>
 
 					{/*Bottom Menu*/}
 					<View style={ACCOUNT_MENU.container}>
 						<View style={ACCOUNT_MENU.menuContainer}>
-							<AccountMenuItem 
-								onPress={() => this.updatePath('/dashboard')} 
-								active={path === '/dashboard'} 
+							<AccountMenuItem
+								onPress={() => this.updatePath('/dashboard')}
+								active={path === '/dashboard'}
 								icon="home"
-								title="Home"
 							/>
-							<AccountMenuItem 
-								onPress={() => this.updatePath('/orders')} 
-								active={path === '/orders'} 
-								icon="clipboard"
-								title="Tasks"
+							<AccountMenuItem
+								onPress={() => this.updatePath('/orders')}
+								active={path === '/orders'}
+								icon="tasks"
 							/>
-							<AccountMenuItem 
-								onPress={() => this.updatePath('/time')} 
-								active={path === '/time'} 
+							<AccountMenuItem
+								onPress={() => this.updatePath('/time')}
+								active={path === '/time'}
 								icon="clock-o"
-								title="Time Clock"
 							/>
 						</View>
 					</View>
@@ -193,17 +217,17 @@ export default class Account extends React.Component {
 					{/*Side Menu*/}
 					<Animated.View style={{...SIDE_MENU_STYLES.container, width: this.state.sideMenuWidth}}>
 						{
-							this.state.sideMenuShowContent ? 
+							this.state.sideMenuShowContent ?
 							<View style={SIDE_MENU_STYLES.innerContainer}>
 								<View style={SIDE_MENU_STYLES.userNameContainer}>
 									<Text style={SIDE_MENU_STYLES.text}>{this.state.user.full_name}</Text>
-								</View> 
+								</View>
 								<View style={SIDE_MENU_STYLES.companiesContainer}>
 									<ScrollView>
 										{
 											Object.keys(this.state.workSpaces).map((key) => <WorkSpaceSideBarRow key={key} workSpaceKey={key} workspace={this.state.workSpaces[key]} onSelectWorkspace={() => this.handleSelectWorkspace(key)}/>)
 										}
-										<TouchableWithoutFeedback 
+										<TouchableWithoutFeedback
 											onPress={() => this.setState({showLoginModal: true})}
 										>
 											<View style={{...SIDE_MENU_STYLES.workSpaceRowContainer, backgroundColor: '#222222'}}>
@@ -212,8 +236,8 @@ export default class Account extends React.Component {
 										</TouchableWithoutFeedback>
 									</ScrollView>
 								</View>
-								<TouchableWithoutFeedback 
-									
+								<TouchableWithoutFeedback
+
 									onPress={this.handleLogout}
 								>
 									<View style={SIDE_MENU_STYLES.logoutContainer}>
@@ -252,7 +276,7 @@ const AccountMenuItem = (props) => {
 const WorkSpaceSideBarRow = (props) => {
 	let backgroundColor = GlobalUtil.webClientKey === props.workSpaceKey ? EliteWorksOrange : '#222222'
 	return (
-		<TouchableWithoutFeedback 
+		<TouchableWithoutFeedback
 			onPress={props.onSelectWorkspace}
 		>
 			<View style={{...SIDE_MENU_STYLES.workSpaceRowContainer, backgroundColor: backgroundColor}}>
@@ -263,7 +287,7 @@ const WorkSpaceSideBarRow = (props) => {
 	)
 }
 
-// we need a top menu 
+// we need a top menu
 
 // then content
 
@@ -273,7 +297,8 @@ const WorkSpaceSideBarRow = (props) => {
 const STYLES = {
 	container: {
 		flex: 1,
-		width: '100%'
+		width: '100%',
+		backgroundColor: 'white'
 	}
 }
 
@@ -282,21 +307,28 @@ const TOP_MENU_STYLES = {
 		flex: 1,
 		width: '100%',
 		maxHeight: 70,
-		backgroundColor: EliteWorksOrange
+		backgroundColor: 'white',
+		elevation: 2,
+		shadowOffset: { height: 1, width: 1 }, // IOS
+		shadowOpacity: 2, // IOS
+		shadowRadius: 2, //IOS
 	},
 	leftMenuIconContainer: {
 		position: 'absolute',
 		top: 25,
-		left: 14,
+		left: 20,
 	},
 	companyName: {
-		position: 'absolute',
-		top: 27,
-		left: 55,
-		fontSize: 28,
-		right: 55,
 		textAlign: 'center',
-		color: '#dddddd'
+		color: 'black',
+		fontSize: 20,
+		fontWeight: 'bold',
+		marginTop: 5
+	},
+	companyNameContainer: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
 	}
 }
 
@@ -305,22 +337,25 @@ const SIDE_MENU_STYLES = {
 		position: 'absolute',
 		top: 70,
 		bottom: 65,
-		backgroundColor: '#222222'
+		backgroundColor: 'white',
+		elevation: 3,
+		borderTopRightRadius: 10,
+		borderBottomRightRadius: 10
 	},
 	innerContainer: {
-		minWidth: 300, 
+		minWidth: 300,
 		flex: 1
 	},
 	userNameContainer: {
 		flex: 1,
 		maxHeight: 60,
 		borderBottomWidth: 1,
-		borderBottomColor: '#dddddd'  
+		borderBottomColor: '#dddddd'
 	},
 	text: {
 		flex: 1,
 		color: '#dddddd',
-		fontSize: 28,
+		fontSize: 14,
 		width: '100%',
 		textAlign: 'center',
 		padding: 15
@@ -341,10 +376,10 @@ const SIDE_MENU_STYLES = {
 		flex: 3,
 		maxHeight: 60,
 		borderTopWidth: 1,
-		borderTopColor: '#dddddd'  
+		borderTopColor: '#dddddd'
 	},
 	workSpaceRowContainer: {
-		flex: 1, 
+		flex: 1,
 		borderBottomColor: AccountMenuGrey,
 		borderBottomWidth: 1
 	}
@@ -352,20 +387,22 @@ const SIDE_MENU_STYLES = {
 
 const CONTENT_STYLES = {
 	container: {
-		flex: 2,
+		flex: 1,
 		width: '100%',
-		//backgroundColor: AccountContentGrey
 	}
 }
 
 const ACCOUNT_MENU = {
 	container: {
-		flex: 3,
+		flex: 1,
 		width: '100%',
-		backgroundColor: AccountMenuGrey,
+		backgroundColor: 'white',
 		maxHeight: 65,
 		alignItems: 'center',
 		justifyContent: 'center',
+		elevation: 2,
+		borderTopLeftRadius: 20,
+		borderTopRightRadius: 20
 	},
 	menuContainer: {
 		flexDirection: 'row',

@@ -4,6 +4,9 @@ import WebClient from './web-client';
 export default class GenApi {
 	constructor() {
 		this.Model = new Model();
+        this.ModelFile = new ModelFile();
+        this.ModelActivity = new ModelActivity();
+        this.ModelTimeSpan = new ModelTimeSpan();
 	}
 }
 
@@ -98,6 +101,35 @@ export class Model {
 		return WebClient.basicPost(form_data, url, success_callback, failure_callback);
     }
 
+
+    // purpose
+    //   add a model based on class string
+    // args
+    //   class_string (required)
+    // returns
+    //   model
+    add (form_data, success_callback, failure_callback) {
+    	if (this.classString) form_data.class_string = this.classString;
+    	
+    	let url = '/global/gen/model/add';
+
+
+		let tempClass = undefined;
+		if (this.classModel) tempClass = new this.classModel();
+
+		return WebClient.basicPost(form_data, url, success => {
+			let modelClass = (this.classModel) ? this.classModel : GlobalUtil.getClassFromString(form_data['class_string']);
+		
+			if (modelClass) {
+				success.data.model = new modelClass(success.data.model)
+				if (tempClass) success.data[tempClass.dataModel] = success.data.model;
+			}
+
+			if (success_callback) success_callback(success);
+		}, failure_callback);
+    }
+
+
     // purpose
     //   get a model report
     // args
@@ -114,4 +146,128 @@ export class Model {
 		let url = '/global/gen/model/report';
 		return WebClient.basicGet(form_data, url, success_callback, failure_callback);
    	}
+}
+
+
+
+
+
+
+
+export class ModelFile extends Model {
+	constructor() {
+		super('modelfile');
+	}
+
+	// purpose
+    //   add a model file
+    // args
+    //   class_string (required)
+    //   model_id (required)
+    //   type (required)
+    //   name (optional) (default is empty)
+    //   site_file_id (required)
+    // returns
+    //   model_file
+    add (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/gen/model/file/add';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   set a model file
+    // args
+    //   model_file_id (required)
+    //   name (optional)
+    // returns 
+    //   (none)
+   	set (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/gen/model/file/set';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+}
+
+export class ModelActivity extends Model {
+	constructor() {
+		super('modelactivity');
+	}
+
+    // purpose
+    //   add a model activity 
+    // args
+    //   model_id (required)
+    //   class_string (required)
+    //   type (required)
+    //   note (required)
+    // returns
+    //   (none)
+    add (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/gen/model/activity/add';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+}
+
+export class ModelTimeSpan extends Model {
+	constructor() {
+		super('modeltimespan');
+	}
+
+	// purpose
+    //   add a model time span
+    // args
+    //   class_key (required)
+    //   model_id (required)
+    //   type (required)
+    //   latitude (optional)
+    //   longitude (optional)
+    // returns
+    //   model_time_span
+    start (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/gen/model/time/span/start';
+        return WebClient.basicPost(form_data, url, success => {
+        	success.data.model_time_span = new EliteAPI.Models.GEN.ModelTimeSpan(success.data.model_time_span);
+        	if (success_callback) success_callback(success);
+        }, failure_callback);
+    }
+
+    // purpose
+    //   get current model time span
+    // args
+    //   class_key (required)
+    //   model_id (required)
+    //   type (required)
+    // returns
+    //   model_time_span
+    current (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/gen/model/time/span/current';
+        return WebClient.basicGet(form_data, url, success => {
+        	if (success.data.model_time_span) success.data.model_time_span = new EliteAPI.Models.GEN.ModelTimeSpan(success.data.model_time_span);
+        	if (success_callback) success_callback(success);
+        }, failure_callback);
+    }
+
+
+    // purpose
+    //   stop the current time
+    // args
+    //   model_time_span_id (required)
+    //   longitude (optional)
+    //   latitude (optional)
+    // returns
+    //   model_time_span
+    stop (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/gen/model/time/span/stop'; 
+        return WebClient.basicPost(form_data, url, success => {
+        	success.data.model_time_span = new EliteAPI.Models.GEN.ModelTimeSpan(success.data.model_time_span);
+        	if (success_callback) success_callback(success);
+        }, failure_callback);
+    }
+
 }

@@ -19,7 +19,9 @@
               "NSIncludesSubdomains": true
             }
           }
-        }
+        }//,
+        /*"NSCameraUsageDescription": "EliteWorks would like access to use your camera",
+        "NSPhotoLibraryUsageDescription": "EliteWorks would like access to use your camera roll"*/
       },
       "buildNumber": "1.0"
     },
@@ -27,7 +29,8 @@
       "versionCode": 10000,
       "package": "eliteworks.workforce",
       "permissions": [
-        "INTERNET"
+        "INTERNET",
+        "CAMERA"
       ],
     },
     "androidStatusBar": {

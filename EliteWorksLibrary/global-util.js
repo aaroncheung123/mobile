@@ -1,6 +1,5 @@
 
 
-
 Date.prototype.getWeekDay = function() {
     var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return weekday[this.getDay()];
@@ -135,18 +134,35 @@ Date.prototype.formatDate = function(format_string)
 import CLASS_STRING_MAP from './class-string-map';
 
 
+
 class GlobalUtil {
 
     constructor() {
         this.webClientKey = 'www';
         this.webClientApiKey = '';
+        this.Form = new Form();
+    }
+
+
+    capitalizeFirst (string)  {
+        return string.charAt(0).toUpperCase() + string.substr(1).toLowerCase();
+    }
+
+    capitalizeFirstOfEachWord (string) {
+        if (typeof(string) === typeof('string'))
+        {
+            var array = string.split(' ');
+            var capitalizedArray = array.map(element => this.capitalizeFirst(element));
+            return capitalizedArray.join(' ');
+        }
+        else return '';
     }
 
     htmlTextStripper (html){
         var striptags = require('striptags');
         return striptags(html);
     }
-    
+
     padZeros (string, number_of_zeros)
     {
         string = String(string);
@@ -179,7 +195,7 @@ class GlobalUtil {
         return new Date(dateConvertedString);
     }
 
-    inputToBool (input) 
+    inputToBool (input)
     {
         if (input === 'true') return true;
         else if (input === true) return true;
@@ -187,7 +203,7 @@ class GlobalUtil {
         else if (input === 1) return true;
         else return false;
     }
-    isEmpty (input) 
+    isEmpty (input)
     {
         if (input === '') return true;
         else if (input === undefined) return true;
@@ -206,6 +222,94 @@ class GlobalUtil {
         if (string == undefined) return '';
         return (string.length <= character_limit) ? string : string.substring(0, character_limit) + "...";
     }
+
+    convertToAPIargs (obj) {
+        obj = {...obj};
+        if(obj !== undefined && obj !== null && Object.getPrototypeOf(obj).toString() === '[object Object]') {
+            var newObj = {...obj};
+            for (var key in newObj) {
+                if (newObj.hasOwnProperty(key)) {
+                    if(newObj[key] === null) delete newObj[key];
+                    else if(newObj[key] === undefined || Array.isArray(newObj[key])) {
+                         newObj[key] = (function(){return})()
+                    }
+                }
+            }
+            return newObj;
+        }
+        return obj;
+    }
+    convertToMoney(newNumb) {
+        if(!Number.prototype.format) Number.prototype.format = function(n, x, s, c) {
+        var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+                num = this.toFixed(Math.max(0, ~~n));
+
+            return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+        };
+        return `$${(Number(newNumb)).format(2)}`;
+    }
+}
+
+
+
+class Form {
+    constructor() {
+        this.states = {
+            "AL": "Alabama",
+            "AK": "Alaska",
+            "AZ": "Arizona",
+            "AR": "Arkansas",
+            "CA": "California",
+            "CO": "Colorado",
+            "CT": "Connecticut",
+            "DE": "Delaware",
+            "DC": "District Of Columbia",
+            "FL": "Florida",
+            "GA": "Georgia",
+            "HI": "Hawaii",
+            "ID": "Idaho",
+            "IL": "Illinois",
+            "IN": "Indiana",
+            "IA": "Iowa",
+            "KS": "Kansas",
+            "KY": "Kentucky",
+            "LA": "Louisiana",
+            "ME": "Maine",
+            "MD": "Maryland",
+            "MA": "Massachusetts",
+            "MI": "Michigan",
+            "MN": "Minnesota",
+            "MS": "Mississippi",
+            "MO": "Missouri",
+            "MT": "Montana",
+            "NE": "Nebraska",
+            "NV": "Nevada",
+            "NH": "New Hampshire",
+            "NJ": "New Jersey",
+            "NM": "New Mexico",
+            "NY": "New York",
+            "NC": "North Carolina",
+            "ND": "North Dakota",
+            "OH": "Ohio",
+            "OK": "Oklahoma",
+            "OR": "Oregon",
+            "PA": "Pennsylvania",
+            "PR": "Puerto Rico",
+            "RI": "Rhode Island",
+            "SC": "South Carolina",
+            "SD": "South Dakota",
+            "TN": "Tennessee",
+            "TX": "Texas",
+            "UT": "Utah",
+            "VT": "Vermont",
+            "VI": "Virgin Islands",
+            "VA": "Virginia",
+            "WA": "Washington",
+            "WV": "West Virginia",
+            "WI": "Wisconsin",
+            "WY": "Wyoming"
+        }
+    }
 }
 
 window.GlobalUtil = new GlobalUtil();
@@ -213,24 +317,92 @@ window.GlobalUtil = new GlobalUtil();
 // str models
 import WorkOrder from './models/str/work-order';
 import WorkOrderProduct from './models/str/work-order-product';
+import ShippingAddress from './models/str/shipping-address';
+import Order from './models/str/order';
+import PaymentMethod from './models/str/payment-method';
+import Subscription from './models/str/subscription';
+import Product from './models/str/product';
+import Credit from './models/str/credit';
 
 class StrModels {
     constructor()
     {
         this.WorkOrder = WorkOrder;
         this.WorkOrderProduct = WorkOrderProduct;
+        this.ShippingAddress = ShippingAddress;
+        this.Order = Order;
+        this.PaymentMethod = PaymentMethod;
+        this.Subscription = Subscription;
+        this.Product = Product;
+        this.Credit = Credit;
     }
-}
+} 
 
 // crm models
 import User from './models/crm/user';
 import TimeClock from './models/crm/time-clock';
+import Address from './models/crm/address';
+import Deal from './models/crm/deal';
+import Zone from './models/crm/zone';
+import Notification from './models/crm/notification';
+import Device from './models/crm/device';
+import Account from './models/crm/account';
 
 class CrmModels {
     constructor()
     {
         this.User = User;
         this.TimeClock = TimeClock;
+        this.Address = Address;
+        this.Deal = Deal;
+        this.Zone = Zone;
+        this.Notification = Notification;
+        this.Device = Device;
+        this.Account = Account;
+    }
+}
+
+// cms models
+import Blog from './models/cms/blog';
+import Post from './models/cms/post';
+
+class CMSModels {
+    constructor()
+    {
+        this.Blog = Blog;
+        this.Post = Post;
+    }
+}
+
+// gen models
+import ModelActivity from './models/gen/model-activity';
+import ModelFile from './models/gen/model-file';
+import ModelTimeSpan from './models/gen/model-time-span';
+
+class GenModels {
+    constructor()
+    {
+        this.ModelActivity = ModelActivity;
+        this.ModelFile = ModelFile;
+        this.ModelTimeSpan = ModelTimeSpan;
+    }
+}
+
+// evn models
+import Event from './models/evn/event';
+import VenueLocation from './models/evn/venue-location';
+import Venue from './models/evn/venue';
+import TimeBlock from './models/evn/time-block';
+import Availability from './models/evn/availability';
+
+class EvnModels {
+    constructor()
+    {
+        this.Event = Event;
+        this.VenueLocation = VenueLocation;
+        this.Venue = Venue;
+        this.TimeBlock = TimeBlock;
+        this.Availability = Availability;
     }
 }
 
@@ -239,12 +411,17 @@ class CrmModels {
 import StrApis from './api/str';
 import CrmApis from './api/crm';
 import GenApis from './api/gen';
+import CmsApis from './api/cms';
+import EvnApis from './api/evn';
 
 class EliteAPI {
     constructor() {
         this.Models = {
             STR: new StrModels(),
-            CRM: new CrmModels()
+            CRM: new CrmModels(),
+            CMS: new CMSModels(),
+            GEN: new GenModels(),
+            EVN: new EvnModels()
         };
     }
 }
@@ -254,8 +431,9 @@ window.EliteAPI = new EliteAPI();
 window.EliteAPI.STR = new StrApis();
 window.EliteAPI.CRM = new CrmApis();
 window.EliteAPI.GEN = new GenApis();
-
-
+window.EliteAPI.CMS = new CmsApis();
+window.EliteAPI.GEN = new GenApis();
+window.EliteAPI.EVN = new EvnApis();
 
 import Service from './api/service';
 window.Service = new Service();

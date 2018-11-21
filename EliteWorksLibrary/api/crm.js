@@ -6,13 +6,19 @@ export default class CrmApi {
     constructor() {
         this.User = new User();
         this.TimeClock = new TimeClock();
+        this.Address = new Address();
+        this.Deal = new Deal();
+        this.Zone = new Zone();
+        this.Notification = new Notification();
+        this.Device = new Model('device');
+        this.Account = new Account();
     }
 }
 
 
 class User {
 
-    
+
     // purpose
     //   add a user login token so the user can login one time
     // args
@@ -109,7 +115,7 @@ class User {
         var url = '/global/crm/user/meta';
         return WebClient.basicGet(form_data, url, success_callback, failure_callback);
     }
-        
+
     // purpose
     //   set a user in the database
     // args
@@ -119,7 +125,7 @@ class User {
     //   last_name (optional) - edit last name of user
     //   phone (optional) - edit main phone number for user
     //   username (optional) - edit user name of user must be a username that doesn't exist
-    //   affiliate_parent_user_id (optional) 
+    //   affiliate_parent_user_id (optional)
     //   affiliate_commission_group_id (optional)
     // returns
     //   whether or not it successfully edited user
@@ -130,11 +136,12 @@ class User {
     }
 
 
-    // purpose
+		// purpose
     //   set password of user
-    // args
-    //   password
-    //   email_login_token
+    //	args
+    //   password (required)
+    //   current_password (required if key is not set)
+    //   key (required if current_password is not set)
     // returns
     //   (none)
     setPassword (form_data, success_callback, failure_callback)
@@ -184,14 +191,14 @@ class User {
         var url = '/global/crm/user/export';
         return WebClient.basicPostRaw(form_data, url, success_callback, failure_callback);
     }
-    
+
 
     // purpose
     //   get available amount of credit they can redeem
     // args
     //   user_id (optional) (default is logged in user)
     // returns
-    //   amount 
+    //   amount
     creditAvailable (form_data, success_callback, failure_callback)
     {
         var url = '/global/crm/user/credit/available';
@@ -210,7 +217,7 @@ class User {
         return WebClient.basicGet(form_data, url, success_callback, failure_callback);
     }
 
-    // purpose 
+    // purpose
     //   gets the user permissions
     // args
     //   user_id (optional) (requires Administrator permission) (default is logged in userid)
@@ -225,7 +232,7 @@ class User {
     // purpose
     //   adds affiliate type to user and makes them become an affiliate
     // args
-    //   user_id (optional) (default is logged in user id) 
+    //   user_id (optional) (default is logged in user id)
     //   tax_address_id (required if AFFILIATE_REQUIRE_TAX_ADDRESS is true in config)
     //   tax_id (required if AFFILIATE_REQUIRE_TAX_ID is true in config)
     //   payout_method_id (required if AFFILIATE_REQUIRE_PAYOUT_METHOD is true in config)
@@ -294,7 +301,7 @@ class User {
     }
 
     // purpose
-    //   get commission payout 
+    //   get commission payout
     // args
     //   user_id (optional) (default is user logged in)
     // returns
@@ -344,6 +351,32 @@ class User {
     {
         var url = '/global/crm/user/type/delete';
         return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+
+    // purpose
+    //   send forgot password email
+    // args
+    //   email (required)
+    // returns
+    //   (none)
+    forgotPassword (form_data, success_callback, failure_callback)
+    {
+
+        var url = '/global/eml/user/password/set';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   get referral code
+    // args
+    //   (none)
+    // returns
+    //   (none)
+    getReferralCode (form_data, success_callback, failure_callback)
+    {
+        var url = '/global/crm/user/code/referral/system';
+        return WebClient.basicGet(form_data, url, success_callback, failure_callback);
     }
 }
 
@@ -405,7 +438,7 @@ class TimeClock extends Model {
     //   user_id (optional default is user signed in)
     //   manager_user_id (required if user role requires manager)
     //   start (required)
-    //   end (required) 
+    //   end (required)
     // returns
     //   time_clock
     add (form_data, success_callback, failure_callback)
@@ -444,4 +477,342 @@ class TimeClock extends Model {
             if (success_callback) success_callback(success)
         }, failure_callback);
     }
+}
+
+
+class Address {
+
+    // purpose
+    //   add an address into the system
+    // args
+    //   street_1 (required)
+    //   street_2 (optional)
+    //   city (required)
+    //   state (required)
+    //   country (required)
+    //   zipcode (required)
+    //   latitude (optional)
+    //   longitude (optional)
+    //   validate (optional) (defualt is false)
+    // returns
+    //   address
+    // error_codes
+    //   VALIDATION_ERROR (unable to validate address in api)
+    add (form_data, success_callback, failure_callback, block = false)
+    {
+        let url = '/global/crm/address/add';
+        if (!block) return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+        else return WebClient.blockPost(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   get an address
+    // args
+    //   address_id (required)
+    // returns
+    //   address
+    get (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/address';
+        return WebClient.basicGet(form_data, url, (success) => {
+            success.data.address = new EliteAPI.Models.CRM.Address(success.data.address);
+            if (success_callback !== undefined) success_callback(success);
+        }, failure_callback);
+    }
+
+    // purpose
+    //   validate an address
+    // args
+    //   (none)
+    // returns
+    //   address
+    validate (form_data, success_callback, failure_callback, async = true)
+    {
+        let url = '/global/crm/address/validate';
+        return WebClient.basicPost(form_data, url, (success) => {
+            success.data.address = new EliteAPI.Models.CRM.Address(success.data.address);
+            if (success_callback !== undefined) success_callback(success);
+        }, failure_callback, async);
+    }
+}
+
+class Deal extends Model {
+    constructor() {
+        super('deal')
+    }
+
+    // purpose
+    //   add a deal
+    // args
+    //   status (default is OPPORTUNITY)
+    //   name (required)
+    //   zone_id (optional)
+    //   description (optional)
+    //   user_id (required)
+    // returns
+    //   deal
+    add (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/deal/add';
+        return WebClient.basicPost(form_data, url, success => {
+            success.data.deal = new EliteAPI.Models.CRM.Deal(success.data.deal);
+            if (success_callback) success_callback(success)
+        }, failure_callback);
+    }
+
+    // purpose
+    //   set a deal
+    // args
+    //   deal_id (required)
+    //   zone_id (optional)
+    //   status (optional)
+    //   name (optional)
+    //   description (optional)
+    //   user_id (optional)
+    // returns
+    //   (none)
+    set (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/deal/set';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+}
+
+class Zone extends Model {
+    constructor() {
+        super('zone');
+    }
+
+    // purpose
+    //   set a zone
+    // args
+    //   zone_id (required)
+    //   name (optional)
+    // returns
+    //   (none)
+    set(form_data, success_callback, failure_callback) {
+        let url = '/global/crm/zone/set';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+}
+
+
+
+
+class Notification extends Model {
+    constructor() {
+        super('notification');
+    }
+
+    // purpose
+    //   mark notificiations viewed
+    // args
+    //   notification_ids (required)
+    // returns
+    //   (none)
+    massView(form_data, success_callback, failure_callback) {
+        let url = '/global/crm/notification/mass/view';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   set a notification
+    // args
+    //   notification_id (required)
+    //   title (optional)
+    //   description (optional)
+    // returns
+    //   (none)
+    set(form_data, success_callback, failure_callback) {
+        let url = '/global/crm/notification/set';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+}
+
+
+class Account {
+    addAccountData (form_data, success_callback, failure_callback) {
+        let url = '/global/crm/account/data/add';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+    getAccountDataTypes (form_data, success_callback, failure_callback) {
+        let url = '/global/crm/account/type/data_types';
+        return WebClient.basicGet(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   set an account
+    // args
+    //   account_id (required) - the acccount you want to set
+    //   description (optional) - the description of the account you want to set
+    // returns
+    //   whether or not it was successfully saved
+    set (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account/set';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   add an account to the database
+    // args
+    //   first_name (required)
+    //   last_name (required)
+    //   account_type_id (required) - the represents the account type
+    //   account_data_type_{account_data_type_id} (required if the data type is required) - this is the data type for the account.
+    //   user_id (optional) - this is the user id that the account belongs to.  It is possible to have accounts without user ids
+    // returns
+    //   account - (account modal that was created)
+    add (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account/add';
+        return WebClient.basicPost(form_data, url, (success) => {
+            success.data.account = new EliteAPI.Models.CRM.Account(success.data.account);
+            if (success_callback) success_callback(success);
+        }, failure_callback);
+    }
+
+    // purpose
+    //   is to search all the accounts
+    // args
+    //   active (optional) (default is 1)
+    //   query_description (optional) - search accounts by the description query
+    //   query_account_key (optional) - search for accounts by the account # (A.K.A barcode, account_key)
+    //   query_search (optional) - searches accunt datas and searches description and barcode
+    //   user_id (optional)
+    //   account_type_id (optional)- filter accounts by account type id
+    //   take (optional) (max = 1000) (default is 20) - the number inventory products (this helps so we do not ask for too much all at once)
+    //   page (optional) (default is 0) - starts at page 0, so display to the end user page + 1
+    // returns
+    //   accounts - all accounts that match filters
+    search (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account/search';
+        return WebClient.basicGet(form_data, url, (success) => {
+            success.data.accounts = success.data.accounts.map(account => new EliteAPI.Models.CRM.Account(account));
+            if (success_callback) success_callback(success);
+        }, failure_callback);
+    }
+    // args
+    // account_id (required) - account id of account to get
+    // model_full (optional) - to get full model set model_full = 1
+    get (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account';
+        return WebClient.basicGet(form_data, url, (success) => {
+            success.data.account = new EliteAPI.Models.CRM.Account(success.data.account);
+            if (success_callback) success_callback(success);
+        }, failure_callback);
+    }
+
+    // purpose
+    //   get all payouts belonging to an account
+    // args
+    //   account_id (required) - account_id assocated with account you want to see payouts for
+    // returns
+    //   consigner_payouts - consigner payout models
+    getPayouts (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account/payouts';
+        return WebClient.basicGet(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   get all accounts that match filters and that are active
+    // args
+    //   account_type_id (optional) - filter by account type id
+    //   is_consigner (optional) (must have consigner view permission) - filter by whether or not they are a consigner
+    //   full_modal (optional) (default is false) - gets full model if it is set to true
+    //   all (optional) (default is false) - gets all even the non active accounts
+    // returns
+    //   accounts
+    where (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/accounts';
+        return WebClient.basicGet(form_data, url, (success) => {
+            success.data.accounts = success.data.accounts.map(account => new EliteAPI.Models.CRM.Account(account));
+            if (success_callback) success_callback(success);
+        }, failure_callback);
+    }
+
+    // purpose
+    //   get available usages
+    // args
+    //   account_id (required)
+    //   service_id (optional - dont need if we have availability_id)
+    //   venue_id (optional - dont need if we have availability id)
+    //   availability_id (optional uses this to get venue_id)
+    // returns
+    //   available_usage
+    availableUsage (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account/available-usage';
+        return WebClient.basicGet(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   do delete an account
+    // args
+    //   account_id (required)
+    // returns
+    //   (none)
+    delete (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account/delete';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+
+    // purpose
+    //   delete account profile image
+    // args
+    //   account_id (required)
+    // returns
+    //   (none)
+    profileImageDelete (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account/profile/image/delete';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+    // purpose
+    //   delete account profile image
+    // args
+    //   account_id (required)
+    // returns
+    //   (none)
+    profileImageTempDelete (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account/profile/image/temp/delete';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+
+    // purpose
+    //   approve account profile image
+    // args
+    //   account_id (required)
+    // returns
+    //   (none)
+    profileImageApprove (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account/profile/image/approve';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+
+    // purpose
+    //   reject account profile image
+    // args
+    //   account_id (required)
+    // returns
+    //   (none)
+    profileImageReject (form_data, success_callback, failure_callback)
+    {
+        let url = '/global/crm/account/profile/image/reject';
+        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
+
+
 }
