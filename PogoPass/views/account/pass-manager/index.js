@@ -34,10 +34,11 @@ export default class Account extends React.Component {
 					if (accountKey != null)
 					{
 						AsyncStorage.getItem('account_' + accountKey).then((account) => {
-							if (account != null)
+
+							if (!GlobalUtil.isEmpty(account))
 							{
-								let account = JSON.parse(account);
-								this.state.accounts.push(account);
+								let accountDecoded = JSON.parse(account);
+								this.state.accounts.push(accountDecoded);
 								this.forceUpdate();
 							}
 						})

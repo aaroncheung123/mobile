@@ -14,12 +14,19 @@ export default class HeaderTitle extends React.Component {
 		this.state = {
 			notificationCount: 0
 		}
+		this.handleLoadNotificationCount = this.handleLoadNotificationCount.bind(this);
 	}
 
 	componentDidMount() {
+		this.handleLoadNotificationCount();
+	}
+
+	handleLoadNotificationCount() {
+
 		Service.User.get(user => {
 			EliteAPI.CRM.Notification.report({user_id: user.id, viewed: 0, methods: 'COUNT'}, (success) => {
 				if (success.data.report.ALL) this.setState({notificationCount: success.data.report.ALL.COUNT})
+				else this.setState({notificationCount: 0})
 			})
 		})
 	}
@@ -27,36 +34,35 @@ export default class HeaderTitle extends React.Component {
 	handleNotifications(){
 		this.props.onShowSpringPanel(
 			'Notifications',
-			<SpringPanelNotifications onShowSidePanel={this.props.onShowSidePanel}/>
+			<SpringPanelNotifications onShowSidePanel={this.props.onShowSidePanel} onViewed={this.handleLoadNotificationCount}/>
 		)
+		this.handleLoadNotificationCount();
 	}
 
-		render() {
-			return (
-				<View>
-					<Text style={STYLES.headerTitle}>
-						{this.props.title}
-					</Text>
+	render() {
+		return (
+			<View>
+				<Text style={STYLES.headerTitle}>
+					{this.props.title}
+				</Text>
 
-					{this.state.notificationCount > 0 ? <NotificationBubble number={this.state.notificationCount}/> : null}
+				{this.state.notificationCount > 0 ? <NotificationBubble number={this.state.notificationCount}/> : null}
 
-					<TouchableOpacity
-						style={STYLES.iconContainer}
-						onPress={this.handleNotifications}>
+				<TouchableOpacity
+					style={STYLES.iconContainer}
+					onPress={this.handleNotifications}>
 
+					<Icon
+						name='bell'
+						type='font-awesome'
+						color='white'
+						size={25}
+					/>
+				</TouchableOpacity>
 
-
-						<Icon
-							name='bell'
-							type='font-awesome'
-							color='white'
-							size={25}
-						/>
-					</TouchableOpacity>
-
-				</View>
-			);
-		}
+			</View>
+		);
+	}
 }
 
 const STYLES = {

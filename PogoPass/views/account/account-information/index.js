@@ -27,7 +27,6 @@ export default class AccountInformation extends React.Component {
 			EliteAPI.CRM.User.getLoginToken(
 			 { user_id: user.id },
 			 success => {
-				 console.log(success);
 				 this.setState({
 					 loginLink: "http://www.pogopass.com/login/auto?one_time_login_token=" + success.data.user_login_token.token
 				 }, () => {

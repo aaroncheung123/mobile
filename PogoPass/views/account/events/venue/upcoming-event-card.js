@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 
 const UpcomingEventCard = (props) => {
 
@@ -13,8 +13,8 @@ const UpcomingEventCard = (props) => {
     if (props.event.time_blocks && props.event.time_blocks.length > 0 && props.event.time_blocks[0].availabilities && props.event.time_blocks[0].availabilities.length > 0)
     {
         availability = props.event.time_blocks[0].availabilities[0];
-        registrationStart = GlobalUtil.convertMysqlToDateRaw(availability.registraion_start);
-        registrationEnd = GlobalUtil.convertMysqlToDateRaw(availability.registraion_end);
+        registrationStart = GlobalUtil.convertMysqlToDateRaw(availability.registration_start);
+        registrationEnd = GlobalUtil.convertMysqlToDateRaw(availability.registration_end);
 
         let now = new Date();
         if (now > registrationStart && now < registrationEnd) showRegistrationButton = true;

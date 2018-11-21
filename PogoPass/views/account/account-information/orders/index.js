@@ -13,11 +13,11 @@ export default class Orders extends React.Component {
     }
 
     componentDidMount() {
-        Service.User.get( user => {
+       /*Service.User.get( user => {
             EliteAPI.STR.Order.search({take: 1000, user_id: user.id, include_classes: 'orderproduct'}, (success) => {
                 this.setState({orders: success.data.models});
             })
-        })
+        })*/
     }
 
     updatePath(path) {
@@ -30,9 +30,11 @@ export default class Orders extends React.Component {
         return (
             <View>
                 <TopMenu title= 'Orders' onPress={() => this.updatePath('/account-main')}/>
-                <WebView
-                    source = {{ uri: this.props.loginLink + '&url=https://www.pogopass.com/user/account/orders#user-order' }}
-                />
+                <View style={STYLES.container}>
+                    <WebView
+                        source = {{ uri: this.props.loginLink + '&url=https://www.pogopass.com/user/account/orders#user-order' }}
+                    />
+                </View>
             </View>
         );
     }

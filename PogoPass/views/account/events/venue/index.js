@@ -45,7 +45,6 @@ export default class Venue extends React.Component {
 		serviceApis = serviceApis.filter((v, i, a) => a.indexOf(v) === i); 
 
 		EliteAPI.EVN.Venue.search({visible: 1, service_ids: serviceApis.join(','), take: 1000, include_classes: 'sitefile,event,availability,timeblock'}, (success) => {
-			console.log(success.data.venues.length, 'test');
 			let venues = success.data.venues.filter(venue => {
 				if (venue.events && 
 					venue.events.length > 0 && 
@@ -78,10 +77,10 @@ export default class Venue extends React.Component {
 const STYLES = {
 	eventsContainer: {
 		justifyContent: 'flex-start',
-		alignItems: 'center',
-        marginTop: 20
+		alignItems: 'center'
 	},
 	filler: {
-		marginBottom: 450
+		marginBottom: 50,
+		marginTop: 20
 	}
 }

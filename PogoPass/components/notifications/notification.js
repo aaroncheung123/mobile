@@ -15,11 +15,12 @@ export default class Notification extends React.Component {
     handleSidePanel(){
         this.props.notification.viewed = 1;
         this.forceUpdate();
-        EliteAPI.CRM.Notification.massView({notification_ids: this.props.notification.notification_id});
-        console.log('color: ', this.props.notification.viewed);
+        EliteAPI.CRM.Notification.massView({notification_ids: this.props.notification.notification_id}, (success) => {
+            this.props.onViewed();
+        });
         this.props.onShowSidePanel(
-            'Rating',
-            <Text>5 star rating</Text>
+            this.props.notification.title,
+            <Text>{this.props.notification.description}</Text>
         )
     }
 

@@ -85,7 +85,9 @@ export default class AccountNavigation extends React.Component {
   }
 
   handleNotification(notification, removeCallback) {
-    if (this.headerTitle) this.headerTitle.handleNotifications();
+    if (this.headerTitle) {
+      this.headerTitle.handleNotifications();
+    }
   }
 
 
@@ -185,11 +187,11 @@ export default class AccountNavigation extends React.Component {
           {/*Bottom Menu*/}
           <View style={STYLES.accountMenu.container}>
             <View style={STYLES.accountMenu.menuContainer}>
-              <AccountMenuItem
+              {/*<AccountMenuItem
                 onPress={() => this.updatePath('/news')}
                 active={path === '/news'}
                 icon="newspaper-o"
-              />
+              />*/}
               <AccountMenuItem
                 onPress={() => this.updatePath('/account-information')}
                 active={path === '/account-information'}

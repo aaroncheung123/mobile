@@ -72,7 +72,7 @@ export default class VenueEventCard extends React.Component {
 
         let now = new Date();
         let upcomingEvents = this.props.venue.events.filter(x => GlobalUtil.convertMysqlToDateRaw(x.start) > now).sort((a, b) => {
-            return GlobalUtil.convertMysqlToDateRaw(a.start) < GlobalUtil.convertMysqlToDateRaw(b.start);
+            return GlobalUtil.convertMysqlToDateRaw(a.start) > GlobalUtil.convertMysqlToDateRaw(b.start);
         });
 
 

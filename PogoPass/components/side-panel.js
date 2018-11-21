@@ -36,6 +36,9 @@ export default class SidePanel extends React.Component {
                 duration: 400
             }
         ).start()
+		setTimeout(() => {
+			this.props.onClose();
+		}, 400)
 	}
 
     render() {
