@@ -223,7 +223,17 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
 				<View style={STYLES.outsideToggleContainer}>
-					<Text style={STYLES.toggleTextTitle}>Travel: {this.state.travellingTotalHours} h {this.state.travellingTotalMinutes} m</Text>
+					<View style={STYLES.toggleTitleContainer}>
+						<View style={STYLES.timerContainer}>
+							<Text style={STYLES.toggleTextTitle}>Travel</Text>
+						</View>
+						<View style={STYLES.timerContainer}>
+							<Text style={STYLES.toggleText}>{this.state.travellingTotalHours} hours</Text>
+						</View>
+						<View style={STYLES.timerContainer}>
+							<Text style={STYLES.toggleText}>{this.state.travellingTotalMinutes} minutes</Text>
+						</View>
+					</View>
 					<View style={STYLES.toggleContainer}>
 						<Text style={STYLES.toggleText}>Start</Text>
 						<Switch
@@ -243,7 +253,18 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
 				<View style={STYLES.outsideToggleContainer}>
-					<Text style={STYLES.toggleTextTitle}>Job: {this.state.workingTotalHours} h {this.state.workingTotalMinutes} m</Text>
+					<View style={STYLES.toggleTitleContainer}>
+						<View style={STYLES.timerContainer}>
+							<Text style={STYLES.toggleTextTitle}>Job</Text>
+						</View>
+						<View style={STYLES.timerContainer}>
+							<Text style={STYLES.toggleText}>{this.state.travellingTotalHours} hours</Text>
+						</View>
+						<View style={STYLES.timerContainer}>
+							<Text style={STYLES.toggleText}>{this.state.travellingTotalMinutes} minutes</Text>
+						</View>
+					</View>
+
 					<View style={STYLES.toggleContainer}>
 						<Text style={STYLES.toggleText}>Stop</Text>
 						<Switch
@@ -315,7 +336,22 @@ const STYLES = {
 	},
 	outsideToggleContainer: {
 		width: '100%',
-		padding: 20
+		padding: 20,
+		borderWidth: 2,
+		borderColor: 'white',
+		borderRadius: 5,
+		marginVertical: 20
+	},
+	toggleTitleContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		padding: 10
+	},
+	timerContainer: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	toggleContainer: {
 		flexDirection: 'row',
@@ -329,7 +365,7 @@ const STYLES = {
 	},
 	toggleTextTitle: {
 		color: 'white',
-		fontSize: 18,
+		fontSize: 20,
 		fontWeight: 'bold'
 	},
 	switchStyle: {
