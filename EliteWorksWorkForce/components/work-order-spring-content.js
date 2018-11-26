@@ -4,6 +4,13 @@ import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleC
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Camera from './camera-component';
 
+const STATUS_COLOR = {
+	'SCHEDULED' : Blueberry,
+	'PENDING' : Blueberry,
+	'TRAVELLING' : EliteWorksOrange,
+	'IN PROGRESS' : EliteWorksOrange,
+	'COMPLETED' : AccountMenuGrey
+}
 
 //import { RNCamera } from 'react-native-camera';
 
@@ -216,73 +223,83 @@ export default class WorkOrderSpringContent extends React.Component {
 	}
 
 	render() {
+        let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry
 		return (
 
 			<View style={STYLES.container}>
 
 
+                <View style={STYLES.outsideToggleContainer}>
 
-				<View style={STYLES.outsideToggleContainer}>
-					<View style={STYLES.toggleTitleContainer}>
-						<View style={STYLES.timerContainer}>
-							<Text style={STYLES.toggleTextTitle}>Travel</Text>
-						</View>
-						<View style={STYLES.timerContainer}>
-							<Text style={STYLES.toggleText}>{this.state.travellingTotalHours} hours</Text>
-						</View>
-						<View style={STYLES.timerContainer}>
-							<Text style={STYLES.toggleText}>{this.state.travellingTotalMinutes} minutes</Text>
-						</View>
+                    <View style={{...STYLES.leftToggleContainer, backgroundColor: activeColor}}>
+						<Text style={STYLES.toggleTextTitle}>Travel</Text>
 					</View>
-					<View style={STYLES.toggleContainer}>
-						<Text style={STYLES.toggleText}>Start</Text>
-						<Switch
-							onTintColor = '#F7882F'
-							thumbTintColor = 'white'
-							style={STYLES.switchStyle}
-							onValueChange = {(value) => this.toggleActiveStatus('TRAVELLING', value)}
-							value={this.state.activeStatus === 'TRAVELLING'}/>
 
-						<Text style={STYLES.toggleText}>Start</Text>
-					</View>
+                    <View style={STYLES.rightToggleContainer}>
+                        <View style={STYLES.contentToggleContainer}>
+    						<View style={STYLES.timerContainer}>
+    							<Text style={STYLES.toggleText}>{this.state.travellingTotalHours} hours</Text>
+    						</View>
+    						<View style={STYLES.timerContainer}>
+    							<Text style={STYLES.toggleText}>{this.state.travellingTotalMinutes} minutes</Text>
+    						</View>
+    					</View>
+
+    					<View style={STYLES.toggleContainer}>
+    						<Text style={STYLES.toggleText}>Stop</Text>
+    						<Switch
+    							onTintColor = '#F7882F'
+    							thumbTintColor = 'white'
+    							style={STYLES.switchStyle}
+    							onValueChange = {(value) => this.toggleActiveStatus('TRAVELLING', value)}
+    							value = {this.state.activeStatus === 'TRAVELLING'}/>
+
+    						<Text style={STYLES.toggleText}>Start</Text>
+    					</View>
+                    </View>
+
 				</View>
 
 
 
 
 
-
 				<View style={STYLES.outsideToggleContainer}>
-					<View style={STYLES.toggleTitleContainer}>
-						<View style={STYLES.timerContainer}>
-							<Text style={STYLES.toggleTextTitle}>Job</Text>
-						</View>
-						<View style={STYLES.timerContainer}>
-							<Text style={STYLES.toggleText}>{this.state.travellingTotalHours} hours</Text>
-						</View>
-						<View style={STYLES.timerContainer}>
-							<Text style={STYLES.toggleText}>{this.state.travellingTotalMinutes} minutes</Text>
-						</View>
+
+                    <View style={{...STYLES.leftToggleContainer, backgroundColor: activeColor}}>
+						<Text style={STYLES.toggleTextTitle}>Job</Text>
 					</View>
 
-					<View style={STYLES.toggleContainer}>
-						<Text style={STYLES.toggleText}>Stop</Text>
-						<Switch
-							onTintColor = '#F7882F'
-							thumbTintColor = 'white'
-							style={STYLES.switchStyle}
-							onValueChange = {(value) => this.toggleActiveStatus('WORKING', value)}
-							value = {this.state.activeStatus === 'WORKING'}/>
+                    <View style={STYLES.rightToggleContainer}>
+                        <View style={STYLES.contentToggleContainer}>
+    						<View style={STYLES.timerContainer}>
+    							<Text style={STYLES.toggleText}>{this.state.workingTotalHours} hours</Text>
+    						</View>
+    						<View style={STYLES.timerContainer}>
+    							<Text style={STYLES.toggleText}>{this.state.workingTotalMinutes} minutes</Text>
+    						</View>
+    					</View>
 
-						<Text style={STYLES.toggleText}>Start</Text>
-					</View>
+    					<View style={STYLES.toggleContainer}>
+    						<Text style={STYLES.toggleText}>Stop</Text>
+    						<Switch
+    							onTintColor = '#F7882F'
+    							thumbTintColor = 'white'
+    							style={STYLES.switchStyle}
+    							onValueChange = {(value) => this.toggleActiveStatus('WORKING', value)}
+    							value = {this.state.activeStatus === 'WORKING'}/>
+
+    						<Text style={STYLES.toggleText}>Start</Text>
+    					</View>
+                    </View>
+
 				</View>
 
 
 
 
 				<View style={STYLES.outsidePhotoContainer}>
-					<Text style={STYLES.toggleText}>Before Photos</Text>
+					<Text style={STYLES.toggleTextTitle}>Before Photos</Text>
 					<View style={STYLES.photoRow}>
 						<TouchableOpacity
 							style={STYLES.photoAddContainer}
@@ -292,7 +309,7 @@ export default class WorkOrderSpringContent extends React.Component {
 					</View>
 
 
-					<Text style={STYLES.toggleText}>After Photos</Text>
+					<Text style={STYLES.toggleTextTitle}>After Photos</Text>
 					<View style={STYLES.photoRow}>
 						<TouchableOpacity style={STYLES.photoAddContainer}>
 								<Icon name='plus' size={30} color='white' onPress={() => this.handleUploadPhoto('AFTER')}/>
@@ -303,6 +320,7 @@ export default class WorkOrderSpringContent extends React.Component {
 				</View>
 
 				<View style={STYLES.notesContainer}>
+                    <Text style={STYLES.toggleTextTitle}>Notes</Text>
 					<TextInput
 						placeholder = "Enter notes here"
 						underlineColorAndroid = "transparent"
@@ -313,7 +331,7 @@ export default class WorkOrderSpringContent extends React.Component {
 				<TouchableOpacity
 					style={STYLES.saveNotes}
 					onPress={this.handleWorkOrderSave}>
-					<Text style={STYLES.toggleText}>Save</Text>
+					<Text style={STYLES.toggleText}>Save Notes</Text>
 				</TouchableOpacity>
 
 
@@ -335,18 +353,32 @@ const STYLES = {
 		alignItems: 'center',
 	},
 	outsideToggleContainer: {
+        flexDirection: 'row',
 		width: '100%',
-		padding: 20,
 		borderWidth: 2,
 		borderColor: 'white',
 		borderRadius: 5,
 		marginVertical: 20
 	},
-	toggleTitleContainer: {
+    leftToggleContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRightWidth: 2,
+        borderColor: 'white'
+    },
+    rightToggleContainer: {
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 30,
+        backgroundColor: Blueberry
+    },
+	contentToggleContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		padding: 10
+        paddingVertical: 5
 	},
 	timerContainer: {
 		flex: 1,
@@ -356,8 +388,7 @@ const STYLES = {
 	toggleContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
-		alignItems: 'center',
-		marginVertical: 10
+		alignItems: 'center'
 	},
 	toggleText: {
 		color: 'white',
@@ -379,37 +410,41 @@ const STYLES = {
 		padding: 10,
 		marginTop: 30
 	},
-	saveNotes: {
-		backgroundColor: EliteWorksOrange,
-		padding: 15,
-		margin: 10,
-		borderRadius: 5,
-		alignSelf: 'flex-end'
-	},
 	photoAddContainer: {
 		height: 80,
 		width: 60,
 		borderRadius: 5,
 		borderStyle: 'dashed',
 		borderColor: 'white',
-		borderWidth: 1,
+		borderWidth: 2,
 		margin: 15,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+        backgroundColor: Blueberry
 	},
 	photoRow: {
 		flexDirection: 'row'
 	},
 	outsidePhotoContainer: {
-		marginVertical: 20
+		marginVertical: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
 	},
 	timeTotal: {
 		color: 'white',
 		marginBottom: 20
 	},
+    saveNotes: {
+        width: '90%',
+        backgroundColor: EliteWorksOrange,
+        padding: 15,
+        justifyContent: 'center',
+		alignItems: 'center',
+        marginVertical: 15,
+        borderRadius: 5,
+    },
 	completeButton: {
 		padding: 15,
-		marginVertical: 20,
 		width: '90%',
 		backgroundColor: EliteWorksOrange,
 		borderRadius: 5,
