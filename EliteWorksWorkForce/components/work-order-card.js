@@ -224,20 +224,3 @@ const STYLES = {
 
 
 }
-
-
-// <View>
-// 	<View style={STYLES.rowContainer}>
-// 		<View style={STYLES.leftContainer}>
-// 			<Text style={STYLES.textStyle}>Name </Text>
-// 		</View>
-//
-// 		<View style={STYLES.rightContainer}>
-// 			<Text style={STYLES.textStyle}>{this.props.workOrder.user.full_name}</Text>
-// 		</View>
-//
-//
-//
-// 	</View>
-//
-// </View>

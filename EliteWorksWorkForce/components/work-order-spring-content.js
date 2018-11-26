@@ -103,7 +103,6 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.getActiveTimeSpan('WORKING');
 	}
 
-
 	getActiveTimeSpan(type) {
 		EliteAPI.GEN.ModelTimeSpan.current({class_key: 'workorder', model_id: this.props.workOrder.work_order_id, type: type}, success => {
 			if (success.data.model_time_span)
@@ -120,7 +119,6 @@ export default class WorkOrderSpringContent extends React.Component {
 			this.updateTime(false);
 		})
 	}
-
 
 	toggleActiveStatus(type, value) {
 
@@ -188,14 +186,12 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
-
 	handleNoteChange(value) {
 		this.props.workOrder.notes = value;
 		this.forceUpdate();
 	}
 
-	handleWorkOrderSave()
-	{
+	handleWorkOrderSave(){
 		this.props.workOrder.save();
 		alert('Work order saved');
 	}
@@ -223,17 +219,28 @@ export default class WorkOrderSpringContent extends React.Component {
 		return (
 
 			<View style={STYLES.container}>
-				<View style={STYLES.toggleContainer}>
-					<Text style={STYLES.toggleText}>Stop Travel</Text>
-					<Switch
-						onTintColor = '#F7882F'
-						thumbTintColor = 'white'
-						style={STYLES.switchStyle}
-						onValueChange = {(value) => this.toggleActiveStatus('TRAVELLING', value)}
-						value={this.state.activeStatus === 'TRAVELLING'}/>
 
-					<Text style={STYLES.toggleText}>Start Travel</Text>
+
+
+				<View>
+					<Text style={STYLES.toggleText}>Time: 0h 6m</Text>
+					<View style={STYLES.toggleContainer}>
+						<Text style={STYLES.toggleText}>Stop Travel</Text>
+						<Switch
+							onTintColor = '#F7882F'
+							thumbTintColor = 'white'
+							style={STYLES.switchStyle}
+							onValueChange = {(value) => this.toggleActiveStatus('TRAVELLING', value)}
+							value={this.state.activeStatus === 'TRAVELLING'}/>
+
+						<Text style={STYLES.toggleText}>Start Travel</Text>
+					</View>
 				</View>
+
+
+
+
+
 				<Text style={STYLES.timeTotal}>{this.state.travellingTotalHours}h {this.state.travellingTotalMinutes}m</Text>
 
 				<View style={STYLES.toggleContainer}>
