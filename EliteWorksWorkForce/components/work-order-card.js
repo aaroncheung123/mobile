@@ -36,7 +36,7 @@ export default class WorkOrderCard extends React.Component {
         {
             this.props.onShowSpringPanel(
                 this.props.workOrder.name,
-                <WorkOrderSpringContent workOrder={this.props.workOrder} onWorkOrderUpdated={() => this.forceUpdate()}/>
+                <WorkOrderSpringContent onShowSpringPanel={this.props.onShowSpringPanel} onShowSidePanel={this.props.onShowSidePanel} workOrder={this.props.workOrder} onWorkOrderUpdated={() => this.forceUpdate()}/>
             )
         }
     }
@@ -117,6 +117,7 @@ export default class WorkOrderCard extends React.Component {
 	              <TouchableOpacity
 	                  style={STYLES.detailsButton}
 	                  onPress={this.handleDetailsPress}>
+
 	                  <Text>Details</Text>
 	              </TouchableOpacity>
 	          </View>

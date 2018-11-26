@@ -1,7 +1,5 @@
-
-
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, Dimensions} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Camera from './camera-component';
@@ -16,8 +14,7 @@ const TIMESPAN_STATUS_TO_WORK_ORDER_STATUS = {
 
 export default class WorkOrderSpringContent extends React.Component {
 
-	constructor(props)
-	{
+	constructor(props){
 		super(props);
 
 		this.state = {
@@ -38,10 +35,10 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.addNewTimeSpan = this.addNewTimeSpan.bind(this);
 		this.loadData = this.loadData.bind(this);
 		this.updateTime = this.updateTime.bind(this);
-		this.handleUploadPhoto = this.handleUploadPhoto.bind(this);
 		this.handleNoteChange = this.handleNoteChange.bind(this);
 		this.handleWorkOrderSave = this.handleWorkOrderSave.bind(this);
 		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
+		this.handleCameraDisplay = this.handleCameraDisplay.bind(this);
 	}
 
 	componentDidMount() {
@@ -174,8 +171,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		}
 	}
 
-	addNewTimeSpan(type, longitude, latitude)
-	{
+	addNewTimeSpan(type, longitude, latitude){
 
 		let newTimeSpan = new EliteAPI.Models.GEN.ModelTimeSpan({class_key: 'workorder', model_id: this.props.workOrder.work_order_id, type: type, start_latitude: latitude, start_longitude: longitude});
 		newTimeSpan.start((success) => {
@@ -193,11 +189,6 @@ export default class WorkOrderSpringContent extends React.Component {
 	}
 
 
-	handleUploadPhoto(type) {
-		console.log('uploading image for ' + type);
-
-	}
-
 	handleNoteChange(value) {
 		this.props.workOrder.notes = value;
 		this.forceUpdate();
@@ -208,6 +199,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.props.workOrder.save();
 		alert('Work order saved');
 	}
+
 	handleCompleteWorkOrder() {
 		this.props.workOrder.complete((success) => {
 			this.props.workOrder.status = "COMPLETED";
@@ -216,6 +208,15 @@ export default class WorkOrderSpringContent extends React.Component {
 		}, (failure) => {
 			alert(failure.error_message);
 		})
+	}
+
+	handleCameraDisplay() {
+		this.props.onShowSidePanel(
+			'Camera',
+			<View>
+				<Camera></Camera>
+			</View>
+		)
 	}
 
 	render() {
@@ -250,15 +251,13 @@ export default class WorkOrderSpringContent extends React.Component {
 
 				<View style={STYLES.outsidePhotoContainer}>
 					<Text style={STYLES.toggleText}>Before Photos</Text>
-
-
 					<View style={STYLES.photoRow}>
-						<TouchableOpacity style={STYLES.photoAddContainer} onPress={() => this.handleUploadPhoto('BEFORE')}>
+						<TouchableOpacity
+							style={STYLES.photoAddContainer}
+							onPress={this.handleCameraDisplay}>
 							<Icon name='plus' size={30} color='white'/>
 						</TouchableOpacity>
 					</View>
-
-					<Camera style={STYLES.cameraContainer}></Camera>
 
 
 					<Text style={STYLES.toggleText}>After Photos</Text>
@@ -299,10 +298,6 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
 const STYLES = {
-	cameraContainer: {
-		height: 300,
-		width: 300
-	},
 	container: {
 		justifyContent: 'center',
 		alignItems: 'center',

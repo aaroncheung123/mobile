@@ -33,8 +33,6 @@ export default class SpringPanel extends React.Component {
 	}
 
 	handleClose() {
-
-
         Animated.timing(
             this.springValue,
             {
@@ -103,6 +101,3 @@ const STYLES = {
         margin: 15
     }
 }
-
-
-    
