@@ -222,10 +222,10 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
 
-				<View>
-					<Text style={STYLES.toggleText}>Time: 0h 6m</Text>
+				<View style={STYLES.outsideToggleContainer}>
+					<Text style={STYLES.toggleTextTitle}>Travel: {this.state.travellingTotalHours} h {this.state.travellingTotalMinutes} m</Text>
 					<View style={STYLES.toggleContainer}>
-						<Text style={STYLES.toggleText}>Stop Travel</Text>
+						<Text style={STYLES.toggleText}>Start</Text>
 						<Switch
 							onTintColor = '#F7882F'
 							thumbTintColor = 'white'
@@ -233,7 +233,7 @@ export default class WorkOrderSpringContent extends React.Component {
 							onValueChange = {(value) => this.toggleActiveStatus('TRAVELLING', value)}
 							value={this.state.activeStatus === 'TRAVELLING'}/>
 
-						<Text style={STYLES.toggleText}>Start Travel</Text>
+						<Text style={STYLES.toggleText}>Start</Text>
 					</View>
 				</View>
 
@@ -241,20 +241,24 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
 
-				<Text style={STYLES.timeTotal}>{this.state.travellingTotalHours}h {this.state.travellingTotalMinutes}m</Text>
 
-				<View style={STYLES.toggleContainer}>
-					<Text style={STYLES.toggleText}>Stop Job</Text>
-					<Switch
-						onTintColor = '#F7882F'
-						thumbTintColor = 'white'
-						style={STYLES.switchStyle}
-						onValueChange = {(value) => this.toggleActiveStatus('WORKING', value)}
-						value = {this.state.activeStatus === 'WORKING'}/>
+				<View style={STYLES.outsideToggleContainer}>
+					<Text style={STYLES.toggleTextTitle}>Job: {this.state.workingTotalHours} h {this.state.workingTotalMinutes} m</Text>
+					<View style={STYLES.toggleContainer}>
+						<Text style={STYLES.toggleText}>Stop</Text>
+						<Switch
+							onTintColor = '#F7882F'
+							thumbTintColor = 'white'
+							style={STYLES.switchStyle}
+							onValueChange = {(value) => this.toggleActiveStatus('WORKING', value)}
+							value = {this.state.activeStatus === 'WORKING'}/>
 
-					<Text style={STYLES.toggleText}>Start Job</Text>
+						<Text style={STYLES.toggleText}>Start</Text>
+					</View>
 				</View>
-				<Text style={STYLES.timeTotal}>{this.state.workingTotalHours}h {this.state.workingTotalMinutes}m</Text>
+
+
+
 
 				<View style={STYLES.outsidePhotoContainer}>
 					<Text style={STYLES.toggleText}>Before Photos</Text>
@@ -309,6 +313,10 @@ const STYLES = {
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
+	outsideToggleContainer: {
+		width: '100%',
+		padding: 20
+	},
 	toggleContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
@@ -318,6 +326,11 @@ const STYLES = {
 	toggleText: {
 		color: 'white',
 		fontSize: 16
+	},
+	toggleTextTitle: {
+		color: 'white',
+		fontSize: 18,
+		fontWeight: 'bold'
 	},
 	switchStyle: {
 		marginHorizontal: 10,
