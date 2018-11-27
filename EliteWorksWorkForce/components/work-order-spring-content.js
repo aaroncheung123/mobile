@@ -329,9 +329,6 @@ export default class WorkOrderSpringContent extends React.Component {
 					<Text style={STYLES.toggleTextTitle}>Before Photos</Text>
 					<View style={STYLES.photoRow}>
                         <ScrollView horizontal={true}>
-
-
-
                             {beforePhotos}
     						<TouchableOpacity
     							style={STYLES.photoAddContainer}
