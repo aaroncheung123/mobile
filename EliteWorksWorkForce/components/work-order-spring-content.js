@@ -51,6 +51,16 @@ export default class WorkOrderSpringContent extends React.Component {
 	componentDidMount() {
 		this.loadData();
 		this.updateTime(true);
+		EliteAPI.GEN.ModelFile.search({
+			take: 1000,
+			model_id: this.props.workOrder.work_order_id,
+			class_key: 'workorder',
+			type: 'BEFORE'
+		}, (success) => {
+			console.log(success);
+		}, (failure) => {
+			console.log('failure');
+		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
