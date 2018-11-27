@@ -304,23 +304,42 @@ export default class WorkOrderSpringContent extends React.Component {
 						<TouchableOpacity
 							style={STYLES.photoAddContainer}
 							onPress={this.handleCameraDisplay}>
-							<Icon name='plus' size={30} color='white'/>
+							<Icon name='photo' size={30} color='white'/>
 						</TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={STYLES.photoAddContainer}
+                            onPress={this.handleCameraDisplay}>
+                            <Icon name='photo' size={30} color='white'/>
+                        </TouchableOpacity>
+
 					</View>
 
 
 					<Text style={STYLES.toggleTextTitle}>After Photos</Text>
 					<View style={STYLES.photoRow}>
-						<TouchableOpacity style={STYLES.photoAddContainer}>
-								<Icon name='plus' size={30} color='white' onPress={() => this.handleUploadPhoto('AFTER')}/>
+						<TouchableOpacity
+                            style={STYLES.photoAddContainer}
+                            onPress={this.handleCameraDisplay}>
+								<Icon name='photo' size={30} color='white'/>
 						</TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={STYLES.photoAddContainer}
+                            onPress={this.handleCameraDisplay}>
+                                <Icon name='photo' size={30} color='white'/>
+                        </TouchableOpacity>
+
 					</View>
 
 
 				</View>
 
+                <View style={STYLES.notesTitleContainer}>
+                    <Text style={STYLES.notesTitle}>Notes</Text>
+                </View>
+
 				<View style={STYLES.notesContainer}>
-                    <Text style={STYLES.toggleTextTitle}>Notes</Text>
 					<TextInput
 						placeholder = "Enter notes here"
 						underlineColorAndroid = "transparent"
@@ -340,6 +359,7 @@ export default class WorkOrderSpringContent extends React.Component {
 					onPress={this.handleCompleteWorkOrder}>
 					<Text style={STYLES.toggleText}>Complete</Text>
 				</TouchableOpacity>
+
 			</View>
 		)
 	}
@@ -399,6 +419,14 @@ const STYLES = {
 		fontSize: 20,
 		fontWeight: 'bold'
 	},
+    notesTitle: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    notesTitleContainer: {
+        alignSelf: 'flex-start'
+    },
 	switchStyle: {
 		marginHorizontal: 10,
 	},
@@ -408,11 +436,11 @@ const STYLES = {
 		backgroundColor: 'white',
 		borderRadius: 10,
 		padding: 10,
-		marginTop: 30
+        marginTop: 5
 	},
 	photoAddContainer: {
-		height: 80,
-		width: 60,
+		height: 120,
+		width: 100,
 		borderRadius: 5,
 		borderStyle: 'dashed',
 		borderColor: 'white',
@@ -426,9 +454,10 @@ const STYLES = {
 		flexDirection: 'row'
 	},
 	outsidePhotoContainer: {
+        width: '100%',
 		marginVertical: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start'
 	},
 	timeTotal: {
 		color: 'white',
