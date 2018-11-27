@@ -371,6 +371,8 @@ const STYLES = {
 	container: {
 		justifyContent: 'center',
 		alignItems: 'center',
+        marginHorizontal: 10,
+        marginBottom: 20
 	},
 	outsideToggleContainer: {
         flexDirection: 'row',

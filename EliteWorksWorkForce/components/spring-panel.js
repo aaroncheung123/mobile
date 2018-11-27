@@ -79,7 +79,7 @@ const STYLES = {
         fontSize: 24,
         fontWeight: 'bold',
         borderBottomWidth: 2,
-        marginBottom: 20,
+        marginVertical: 20,
         paddingBottom: 20,
         borderColor: 'white',
     },
@@ -89,7 +89,7 @@ const STYLES = {
     },
     innerSpringContainer: {
         flex: 1,
-        margin: 20,
+        //margin: 20,
         justifyContent: 'flex-start',
         alignItems: 'center'
     },

@@ -85,7 +85,8 @@ const STYLES = {
 	},
 	springContainerText: {
 		color: 'black',
-		fontSize: 18,
+		fontWeight: 'bold',
+		fontSize: 20,
 		marginTop: 20,
 		paddingHorizontal: 20
 	},

@@ -62,8 +62,8 @@ const STYLES = {
         backgroundColor: 'white'
     },
     cameraContainer: {
-        height: Dimensions.get('window').height - 250,
-				width: Dimensions.get('window').width - 40
+        height: Dimensions.get('window').height - 225,
+				width: Dimensions.get('window').width
     },
     headerContainer: {
         position: 'absolute',
