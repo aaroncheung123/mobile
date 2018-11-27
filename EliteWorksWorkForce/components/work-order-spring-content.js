@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, Dimensions} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, Dimensions, Image} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Camera from './camera-component';
@@ -30,7 +30,8 @@ export default class WorkOrderSpringContent extends React.Component {
 			travellingTotalHours: 0,
 			travellingTotalMinutes: 0,
 			workingTotalHours: 0,
-			workingTotalMinutes: 0
+			workingTotalMinutes: 0,
+            beforePhotos: []
 		}
 
 		this.timeSpans = {
@@ -55,9 +56,13 @@ export default class WorkOrderSpringContent extends React.Component {
 			take: 1000,
 			model_id: this.props.workOrder.work_order_id,
 			class_key: 'workorder',
-			type: 'BEFORE'
+			type: 'BEFORE',
+            include_classes: 'sitefile'
 		}, (success) => {
-			console.log(success);
+			console.log(success.data.models[0].site_file.proxy_url_full);
+            this.setState({
+                beforePhotos: success.data.models
+            });
 		}, (failure) => {
 			console.log('failure');
 		});
@@ -233,7 +238,15 @@ export default class WorkOrderSpringContent extends React.Component {
 	}
 
 	render() {
-        let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry
+        let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry;
+        let beforePhotos = this.state.beforePhotos.map(beforePhoto => <PhotoCard key={beforePhoto.model_id} beforePhoto={beforePhoto}/>);
+            // <View key={beforePhoto.model_id}>
+            //     <Image
+            //       style={{width: 50, height: 50}}
+            //       source={{uri: beforePhoto.site_file.proxy_url_full}}
+            //     />
+            // </View>);
+
 		return (
 
 			<View style={STYLES.container}>
@@ -311,35 +324,38 @@ export default class WorkOrderSpringContent extends React.Component {
 				<View style={STYLES.outsidePhotoContainer}>
 					<Text style={STYLES.toggleTextTitle}>Before Photos</Text>
 					<View style={STYLES.photoRow}>
-						<TouchableOpacity
-							style={STYLES.photoAddContainer}
-							onPress={this.handleCameraDisplay}>
-							<Icon name='photo' size={30} color='white'/>
-						</TouchableOpacity>
+                        <ScrollView horizontal={true}>
+                            {beforePhotos}
+    						<TouchableOpacity
+    							style={STYLES.photoAddContainer}
+    							onPress={this.handleCameraDisplay}>
+    							<Icon name='photo' size={30} color='white'/>
+    						</TouchableOpacity>
 
-                        <TouchableOpacity
-                            style={STYLES.photoAddContainer}
-                            onPress={this.handleCameraDisplay}>
-                            <Icon name='photo' size={30} color='white'/>
-                        </TouchableOpacity>
-
+                            <TouchableOpacity
+                                style={STYLES.photoAddContainer}
+                                onPress={this.handleCameraDisplay}>
+                                <Icon name='photo' size={30} color='white'/>
+                            </TouchableOpacity>
+                        </ScrollView>
 					</View>
 
 
 					<Text style={STYLES.toggleTextTitle}>After Photos</Text>
 					<View style={STYLES.photoRow}>
-						<TouchableOpacity
-                            style={STYLES.photoAddContainer}
-                            onPress={this.handleCameraDisplay}>
-								<Icon name='photo' size={30} color='white'/>
-						</TouchableOpacity>
+                        <ScrollView horizontal={true}>
+                            <TouchableOpacity
+                                style={STYLES.photoAddContainer}
+                                onPress={this.handleCameraDisplay}>
+    								<Icon name='photo' size={30} color='white'/>
+    						</TouchableOpacity>
 
-                        <TouchableOpacity
-                            style={STYLES.photoAddContainer}
-                            onPress={this.handleCameraDisplay}>
-                                <Icon name='photo' size={30} color='white'/>
-                        </TouchableOpacity>
-
+                            <TouchableOpacity
+                                style={STYLES.photoAddContainer}
+                                onPress={this.handleCameraDisplay}>
+                                    <Icon name='photo' size={30} color='white'/>
+                            </TouchableOpacity>
+                        </ScrollView>
 					</View>
 
 
@@ -375,6 +391,17 @@ export default class WorkOrderSpringContent extends React.Component {
 	}
 }
 
+const PhotoCard = (props) => {
+    return (
+        <View>
+            <Image
+              style={STYLES.photoCardContainer}
+              source={{uri: props.beforePhoto.site_file.proxy_url_full}}
+            />
+        </View>
+    );
+}
+
 
 
 const STYLES = {
@@ -384,6 +411,14 @@ const STYLES = {
         marginHorizontal: 10,
         marginBottom: 20
 	},
+    photoCardContainer: {
+        height: 120,
+        width: 100,
+        margin: 15,
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: 'white'
+    },
 	outsideToggleContainer: {
         flexDirection: 'row',
 		width: '100%',
@@ -448,7 +483,7 @@ const STYLES = {
 		backgroundColor: 'white',
 		borderRadius: 10,
 		padding: 10,
-        marginTop: 5
+        marginTop: 15
 	},
 	photoAddContainer: {
 		height: 120,
