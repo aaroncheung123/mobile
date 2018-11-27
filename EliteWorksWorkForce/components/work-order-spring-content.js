@@ -240,13 +240,6 @@ export default class WorkOrderSpringContent extends React.Component {
 	render() {
         let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry;
         let beforePhotos = this.state.beforePhotos.map(beforePhoto => <PhotoCard key={beforePhoto.model_id} beforePhoto={beforePhoto}/>);
-            // <View key={beforePhoto.model_id}>
-            //     <Image
-            //       style={{width: 50, height: 50}}
-            //       source={{uri: beforePhoto.site_file.proxy_url_full}}
-            //     />
-            // </View>);
-
 		return (
 
 			<View style={STYLES.container}>
@@ -329,14 +322,9 @@ export default class WorkOrderSpringContent extends React.Component {
     						<TouchableOpacity
     							style={STYLES.photoAddContainer}
     							onPress={this.handleCameraDisplay}>
-    							<Icon name='photo' size={30} color='white'/>
+    							<Icon name='plus' size={30} color='white'/>
     						</TouchableOpacity>
 
-                            <TouchableOpacity
-                                style={STYLES.photoAddContainer}
-                                onPress={this.handleCameraDisplay}>
-                                <Icon name='photo' size={30} color='white'/>
-                            </TouchableOpacity>
                         </ScrollView>
 					</View>
 
@@ -347,14 +335,10 @@ export default class WorkOrderSpringContent extends React.Component {
                             <TouchableOpacity
                                 style={STYLES.photoAddContainer}
                                 onPress={this.handleCameraDisplay}>
-    								<Icon name='photo' size={30} color='white'/>
+    								<Icon name='plus' size={30} color='white'/>
     						</TouchableOpacity>
 
-                            <TouchableOpacity
-                                style={STYLES.photoAddContainer}
-                                onPress={this.handleCameraDisplay}>
-                                    <Icon name='photo' size={30} color='white'/>
-                            </TouchableOpacity>
+
                         </ScrollView>
 					</View>
 
@@ -408,7 +392,7 @@ const STYLES = {
 	container: {
 		justifyContent: 'center',
 		alignItems: 'center',
-        marginHorizontal: 10,
+        marginHorizontal: 20,
         marginBottom: 20
 	},
     photoCardContainer: {
