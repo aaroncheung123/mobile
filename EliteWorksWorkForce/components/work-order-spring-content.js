@@ -2,8 +2,8 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, Dimensions, Image, Modal} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Camera from './camera-component';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import PhotoRow from './photo-row';
 
 const STATUS_COLOR = {
 	'SCHEDULED' : Blueberry,
@@ -48,7 +48,6 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.handleNoteChange = this.handleNoteChange.bind(this);
 		this.handleWorkOrderSave = this.handleWorkOrderSave.bind(this);
 		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
-		this.handleCameraDisplay = this.handleCameraDisplay.bind(this);
 	}
 
 	componentDidMount() {
@@ -230,25 +229,9 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
-	handleCameraDisplay() {
-		this.props.onShowSidePanel(
-			'Camera',
-			<View>
-				<Camera></Camera>
-			</View>
-		)
-	}
-
 	render() {
         let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry;
-        let beforePhotos = this.state.beforePhotos.map(beforePhoto => <PhotoCard
-            key={beforePhoto.model_id}
-            onPress={ () => this.setState({
-                showPictureModal: true,
-                selectedImage: [{url: beforePhoto.site_file.proxy_url_full}]
-                })
-            }
-            beforePhoto={beforePhoto}/>);
+
 		return (
 
 			<View style={STYLES.container}>
@@ -326,18 +309,7 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
 				<View style={STYLES.outsidePhotoContainer}>
-					<Text style={STYLES.toggleTextTitle}>Before Photos</Text>
-					<View style={STYLES.photoRow}>
-                        <ScrollView horizontal={true}>
-                            {beforePhotos}
-    						<TouchableOpacity
-    							style={STYLES.photoAddContainer}
-    							onPress={this.handleCameraDisplay}>
-    							<Icon name='plus' size={30} color='white'/>
-    						</TouchableOpacity>
 
-                        </ScrollView>
-					</View>
 
 
 					<Text style={STYLES.toggleTextTitle}>After Photos</Text>
@@ -385,20 +357,6 @@ export default class WorkOrderSpringContent extends React.Component {
 		)
 	}
 }
-
-const PhotoCard = (props) => {
-    return (
-        <TouchableOpacity onPress= {props.onPress}>
-            <Image
-              style={STYLES.photoCardContainer}
-              source={{uri: props.beforePhoto.site_file.proxy_url_full}}
-            />
-        </TouchableOpacity>
-    );
-}
-
-
-
 
 
 const STYLES = {
@@ -458,11 +416,6 @@ const STYLES = {
 		color: 'white',
 		fontSize: 16
 	},
-	toggleTextTitle: {
-		color: 'white',
-		fontSize: 20,
-		fontWeight: 'bold'
-	},
     notesTitle: {
         color: 'white',
         fontSize: 20,
@@ -481,21 +434,6 @@ const STYLES = {
 		borderRadius: 10,
 		padding: 10,
         marginTop: 15
-	},
-	photoAddContainer: {
-		height: 120,
-		width: 100,
-		borderRadius: 5,
-		borderStyle: 'dashed',
-		borderColor: 'white',
-		borderWidth: 2,
-		margin: 15,
-		justifyContent: 'center',
-		alignItems: 'center',
-        backgroundColor: Blueberry
-	},
-	photoRow: {
-		flexDirection: 'row'
 	},
 	outsidePhotoContainer: {
         width: '100%',
