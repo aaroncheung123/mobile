@@ -61,7 +61,7 @@ export default class WorkOrderSpringContent extends React.Component {
 			type: 'BEFORE',
             include_classes: 'sitefile'
 		}, (success) => {
-			console.log(success.data.models[0].site_file.proxy_url_full);
+			//console.log(success.data.models[0].site_file.proxy_url_full);
             this.setState({
                 beforePhotos: success.data.models
             });
@@ -243,12 +243,18 @@ export default class WorkOrderSpringContent extends React.Component {
         let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry;
         let beforePhotos = this.state.beforePhotos.map(beforePhoto => <PhotoCard
             key={beforePhoto.model_id}
-            onPress={this.setState({showPictureModal: true, selectedImage: [{url: beforePhoto.site_file.proxy_url_full}]})}
+            onPress={ () => this.setState({
+                showPictureModal: true,
+                selectedImage: [{url: beforePhoto.site_file.proxy_url_full}]
+                })
+            }
             beforePhoto={beforePhoto}/>);
 		return (
 
 			<View style={STYLES.container}>
-
+                <Modal visible={this.state.showPictureModal} transparent={true} onRequestClose= {() => this.setState({showPictureModal : false})}>
+                    <ImageViewer imageUrls={this.state.selectedImage}/>
+                </Modal>
 
                 <View style={STYLES.outsideToggleContainer}>
 
@@ -324,9 +330,7 @@ export default class WorkOrderSpringContent extends React.Component {
 					<View style={STYLES.photoRow}>
                         <ScrollView horizontal={true}>
 
-                            <Modal visible={this.state.showPictureModal} transparent={true} onRequestClose= {() => this.setState({showPictureModal : false})}>
-                                <ImageViewer imageUrls={this.state.selectedImage}/>
-                            </Modal>
+
 
                             {beforePhotos}
     						<TouchableOpacity
