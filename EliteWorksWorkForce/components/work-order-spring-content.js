@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, Dimensions, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, Dimensions, Image, Modal} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Camera from './camera-component';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 const STATUS_COLOR = {
 	'SCHEDULED' : Blueberry,
@@ -12,7 +13,6 @@ const STATUS_COLOR = {
 	'COMPLETED' : AccountMenuGrey
 }
 
-//import { RNCamera } from 'react-native-camera';
 
 const TIMESPAN_STATUS_TO_WORK_ORDER_STATUS = {
 	TRAVELLING: 'TRAVELLING',
@@ -31,7 +31,9 @@ export default class WorkOrderSpringContent extends React.Component {
 			travellingTotalMinutes: 0,
 			workingTotalHours: 0,
 			workingTotalMinutes: 0,
-            beforePhotos: []
+            beforePhotos: [],
+            showPictureModal: false,
+            selectedImage: undefined
 		}
 
 		this.timeSpans = {
@@ -239,7 +241,10 @@ export default class WorkOrderSpringContent extends React.Component {
 
 	render() {
         let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry;
-        let beforePhotos = this.state.beforePhotos.map(beforePhoto => <PhotoCard key={beforePhoto.model_id} beforePhoto={beforePhoto}/>);
+        let beforePhotos = this.state.beforePhotos.map(beforePhoto => <PhotoCard
+            key={beforePhoto.model_id}
+            onPress={this.setState({showPictureModal: true, selectedImage: [{url: beforePhoto.site_file.proxy_url_full}]})}
+            beforePhoto={beforePhoto}/>);
 		return (
 
 			<View style={STYLES.container}>
@@ -318,6 +323,11 @@ export default class WorkOrderSpringContent extends React.Component {
 					<Text style={STYLES.toggleTextTitle}>Before Photos</Text>
 					<View style={STYLES.photoRow}>
                         <ScrollView horizontal={true}>
+
+                            <Modal visible={this.state.showPictureModal} transparent={true} onRequestClose= {() => this.setState({showPictureModal : false})}>
+                                <ImageViewer imageUrls={this.state.selectedImage}/>
+                            </Modal>
+
                             {beforePhotos}
     						<TouchableOpacity
     							style={STYLES.photoAddContainer}
@@ -377,14 +387,16 @@ export default class WorkOrderSpringContent extends React.Component {
 
 const PhotoCard = (props) => {
     return (
-        <View>
+        <TouchableOpacity onPress= {props.onPress}>
             <Image
               style={STYLES.photoCardContainer}
               source={{uri: props.beforePhoto.site_file.proxy_url_full}}
             />
-        </View>
+        </TouchableOpacity>
     );
 }
+
+
 
 
 
