@@ -88,8 +88,8 @@ const STYLES = {
         fontSize: 16
     },
     innerSpringContainer: {
-        flex: 1,
-        //margin: 20,
+				flex: 1,
+				width: '100%',
         justifyContent: 'flex-start',
         alignItems: 'center'
     },

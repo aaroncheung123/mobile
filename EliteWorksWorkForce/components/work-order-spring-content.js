@@ -235,123 +235,111 @@ export default class WorkOrderSpringContent extends React.Component {
 		return (
 
 			<View style={STYLES.container}>
+                <Text></Text>
                 <Modal visible={this.state.showPictureModal} transparent={true} onRequestClose= {() => this.setState({showPictureModal : false})}>
                     <ImageViewer imageUrls={this.state.selectedImage}/>
                 </Modal>
 
+
+
+                <View style={STYLES.outsideToggleContainer}>
+                    <View style={{...STYLES.leftToggleContainer, backgroundColor: activeColor}}>
+                        <Text style={STYLES.toggleTextTitle}>Travel</Text>
+                    </View>
+
+                    <View style={STYLES.rightToggleContainer}>
+                        <View style={STYLES.contentToggleContainer}>
+                            <View style={STYLES.timerContainer}>
+                                <Text style={STYLES.toggleText}>{this.state.travellingTotalHours} hours</Text>
+                            </View>
+                            <View style={STYLES.timerContainer}>
+                                <Text style={STYLES.toggleText}>{this.state.travellingTotalMinutes} minutes</Text>
+                            </View>
+                        </View>
+
+                        <View style={STYLES.toggleContainer}>
+                            <Text style={STYLES.toggleText}>Stop</Text>
+                            <Switch
+                                onTintColor = '#F7882F'
+                                thumbTintColor = 'white'
+                                style={STYLES.switchStyle}
+                                onValueChange = {(value) => this.toggleActiveStatus('TRAVELLING', value)}
+                                value = {this.state.activeStatus === 'TRAVELLING'}/>
+
+                            <Text style={STYLES.toggleText}>Start</Text>
+                        </View>
+                    </View>
+                </View>
+
+
+
                 <View style={STYLES.outsideToggleContainer}>
 
                     <View style={{...STYLES.leftToggleContainer, backgroundColor: activeColor}}>
-						<Text style={STYLES.toggleTextTitle}>Travel</Text>
-					</View>
+                        <Text style={STYLES.toggleTextTitle}>Job</Text>
+                    </View>
 
                     <View style={STYLES.rightToggleContainer}>
                         <View style={STYLES.contentToggleContainer}>
-    						<View style={STYLES.timerContainer}>
-    							<Text style={STYLES.toggleText}>{this.state.travellingTotalHours} hours</Text>
-    						</View>
-    						<View style={STYLES.timerContainer}>
-    							<Text style={STYLES.toggleText}>{this.state.travellingTotalMinutes} minutes</Text>
-    						</View>
-    					</View>
+                            <View style={STYLES.timerContainer}>
+                                <Text style={STYLES.toggleText}>{this.state.workingTotalHours} hours</Text>
+                            </View>
+                            <View style={STYLES.timerContainer}>
+                                <Text style={STYLES.toggleText}>{this.state.workingTotalMinutes} minutes</Text>
+                            </View>
+                        </View>
 
-    					<View style={STYLES.toggleContainer}>
-    						<Text style={STYLES.toggleText}>Stop</Text>
-    						<Switch
-    							onTintColor = '#F7882F'
-    							thumbTintColor = 'white'
-    							style={STYLES.switchStyle}
-    							onValueChange = {(value) => this.toggleActiveStatus('TRAVELLING', value)}
-    							value = {this.state.activeStatus === 'TRAVELLING'}/>
+                        <View style={STYLES.toggleContainer}>
+                            <Text style={STYLES.toggleText}>Stop</Text>
+                            <Switch
+                                onTintColor = '#F7882F'
+                                thumbTintColor = 'white'
+                                style={STYLES.switchStyle}
+                                onValueChange = {(value) => this.toggleActiveStatus('WORKING', value)}
+                                value = {this.state.activeStatus === 'WORKING'}/>
 
-    						<Text style={STYLES.toggleText}>Start</Text>
-    					</View>
+                            <Text style={STYLES.toggleText}>Start</Text>
+                        </View>
                     </View>
 
-				</View>
+                </View>
 
 
 
+                <View style={STYLES.outsidePhotoContainer}>
+                    <PhotoRow title='Before Photos' photos={this.state.beforePhotos}/>
+                    <PhotoRow title='After Photos' photos={this.state.beforePhotos}/>
+
+                </View>
 
 
-				<View style={STYLES.outsideToggleContainer}>
-
-                    <View style={{...STYLES.leftToggleContainer, backgroundColor: activeColor}}>
-						<Text style={STYLES.toggleTextTitle}>Job</Text>
-					</View>
-
-                    <View style={STYLES.rightToggleContainer}>
-                        <View style={STYLES.contentToggleContainer}>
-    						<View style={STYLES.timerContainer}>
-    							<Text style={STYLES.toggleText}>{this.state.workingTotalHours} hours</Text>
-    						</View>
-    						<View style={STYLES.timerContainer}>
-    							<Text style={STYLES.toggleText}>{this.state.workingTotalMinutes} minutes</Text>
-    						</View>
-    					</View>
-
-    					<View style={STYLES.toggleContainer}>
-    						<Text style={STYLES.toggleText}>Stop</Text>
-    						<Switch
-    							onTintColor = '#F7882F'
-    							thumbTintColor = 'white'
-    							style={STYLES.switchStyle}
-    							onValueChange = {(value) => this.toggleActiveStatus('WORKING', value)}
-    							value = {this.state.activeStatus === 'WORKING'}/>
-
-    						<Text style={STYLES.toggleText}>Start</Text>
-    					</View>
-                    </View>
-
-				</View>
-
-
-
-
-				<View style={STYLES.outsidePhotoContainer}>
-
-
-
-					<Text style={STYLES.toggleTextTitle}>After Photos</Text>
-					<View style={STYLES.photoRow}>
-                        <ScrollView horizontal={true}>
-                            <TouchableOpacity
-                                style={STYLES.photoAddContainer}
-                                onPress={this.handleCameraDisplay}>
-    								<Icon name='plus' size={30} color='white'/>
-    						</TouchableOpacity>
-
-
-                        </ScrollView>
-					</View>
-
-
-				</View>
 
                 <View style={STYLES.notesTitleContainer}>
                     <Text style={STYLES.notesTitle}>Notes</Text>
                 </View>
 
-				<View style={STYLES.notesContainer}>
-					<TextInput
-						placeholder = "Enter notes here"
-						underlineColorAndroid = "transparent"
-						value={this.props.workOrder.notes}
-						onChangeText={this.handleNoteChange}
-						multiline={true}/>
-				</View>
-				<TouchableOpacity
-					style={STYLES.saveNotes}
-					onPress={this.handleWorkOrderSave}>
-					<Text style={STYLES.toggleText}>Save Notes</Text>
-				</TouchableOpacity>
+                <View style={STYLES.notesContainer}>
+                    <TextInput
+                        placeholder = "Enter notes here"
+                        underlineColorAndroid = "transparent"
+                        value={this.props.workOrder.notes}
+                        onChangeText={this.handleNoteChange}
+                        multiline={true}/>
+                </View>
+                <TouchableOpacity
+                    style={STYLES.saveNotes}
+                    onPress={this.handleWorkOrderSave}>
+                    <Text style={STYLES.toggleText}>Save Notes</Text>
+                </TouchableOpacity>
 
 
-				<TouchableOpacity
-					style={STYLES.completeButton}
-					onPress={this.handleCompleteWorkOrder}>
-					<Text style={STYLES.toggleText}>Complete</Text>
-				</TouchableOpacity>
+                <TouchableOpacity
+                    style={STYLES.completeButton}
+                    onPress={this.handleCompleteWorkOrder}>
+                    <Text style={STYLES.toggleText}>Complete</Text>
+                </TouchableOpacity>
+
+
 
 			</View>
 		)
@@ -363,8 +351,7 @@ const STYLES = {
 	container: {
 		justifyContent: 'center',
 		alignItems: 'center',
-        marginHorizontal: 20,
-        marginBottom: 20
+        width: '100%'
 	},
     photoCardContainer: {
         height: 120,
@@ -376,11 +363,12 @@ const STYLES = {
     },
 	outsideToggleContainer: {
         flexDirection: 'row',
-		width: '100%',
+        height: 120,
+		width: 300,
 		borderWidth: 2,
 		borderColor: 'white',
 		borderRadius: 5,
-		marginVertical: 20
+		margin: 10
 	},
     leftToggleContainer: {
         flex: 1,
@@ -395,6 +383,11 @@ const STYLES = {
         alignItems: 'center',
         paddingVertical: 30,
         backgroundColor: Blueberry
+    },
+    toggleTextTitle: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold'
     },
 	contentToggleContainer: {
 		flexDirection: 'row',

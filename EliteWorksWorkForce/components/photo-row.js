@@ -16,7 +16,7 @@ export default class PhotoRow extends React.Component {
     }
 
     componentDidMount(){
-        //console.log("photos: ", this.props.photos);
+        console.log("photos: ", this.props.photos[0]);
         this.setState({
             photos: this.props.photos
         });
@@ -39,10 +39,10 @@ export default class PhotoRow extends React.Component {
                 selectedImage: [{url: photo.site_file.proxy_url_full}]
                 })
             }
-            photos={photo}/>);
+            photo={photo}/>);
         return (
             <View>
-                <Text style={STYLES.toggleTextTitle}>Before Photos</Text>
+                <Text style={STYLES.toggleTextTitle}>{this.props.title}</Text>
                 <View style={STYLES.photoRow}>
                     <ScrollView horizontal={true}>
                         {photos}
@@ -64,7 +64,7 @@ const PhotoCard = (props) => {
         <TouchableOpacity onPress= {props.onPress}>
             <Image
               style={STYLES.photoCardContainer}
-              source={{uri: props.beforePhoto.site_file.proxy_url_full}}
+              source={{uri: props.photo.site_file.proxy_url_full}}
             />
         </TouchableOpacity>
     );
