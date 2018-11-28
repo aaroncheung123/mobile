@@ -130,7 +130,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
-	toggleActiveStatus(type, value) {
+	toggleActiveStatus(value, type) {
 
 		if (this.state.activeTimeSpan) {
 
@@ -234,35 +234,14 @@ export default class WorkOrderSpringContent extends React.Component {
                 </Modal>
 
 
+                <toggleSection
+                    activeColor={activeColor}
+                    title='Travel'
+                    hours={this.state.travellingTotalHours}
+                    minutes={this.state.travellingTotalMinutes}
+                    onValueChange= {this.toggleActiveStatus(value,'TRAVELLING')}/>
 
-                <View style={STYLES.outsideToggleContainer}>
-                    <View style={{...STYLES.leftToggleContainer, backgroundColor: activeColor}}>
-                        <Text style={STYLES.toggleTextTitle}>Travel</Text>
-                    </View>
 
-                    <View style={STYLES.rightToggleContainer}>
-                        <View style={STYLES.contentToggleContainer}>
-                            <View style={STYLES.timerContainer}>
-                                <Text style={STYLES.toggleText}>{this.state.travellingTotalHours} hours</Text>
-                            </View>
-                            <View style={STYLES.timerContainer}>
-                                <Text style={STYLES.toggleText}>{this.state.travellingTotalMinutes} minutes</Text>
-                            </View>
-                        </View>
-
-                        <View style={STYLES.toggleContainer}>
-                            <Text style={STYLES.toggleText}>Stop</Text>
-                            <Switch
-                                onTintColor = '#F7882F'
-                                thumbTintColor = 'white'
-                                style={STYLES.switchStyle}
-                                onValueChange = {(value) => this.toggleActiveStatus('TRAVELLING', value)}
-                                value = {this.state.activeStatus === 'TRAVELLING'}/>
-
-                            <Text style={STYLES.toggleText}>Start</Text>
-                        </View>
-                    </View>
-                </View>
 
 
 
@@ -273,14 +252,9 @@ export default class WorkOrderSpringContent extends React.Component {
                     </View>
 
                     <View style={STYLES.rightToggleContainer}>
-                        <View style={STYLES.contentToggleContainer}>
-                            <View style={STYLES.timerContainer}>
-                                <Text style={STYLES.toggleText}>{this.state.workingTotalHours} hours</Text>
-                            </View>
-                            <View style={STYLES.timerContainer}>
-                                <Text style={STYLES.toggleText}>{this.state.workingTotalMinutes} minutes</Text>
-                            </View>
-                        </View>
+                        <Text style={STYLES.toggleText}>
+                            {this.state.workingTotalHours} hours    {this.state.workingTotalMinutes} minutes
+                        </Text>
 
                         <View style={STYLES.toggleContainer}>
                             <Text style={STYLES.toggleText}>Stop</Text>
@@ -348,6 +322,41 @@ export default class WorkOrderSpringContent extends React.Component {
 	}
 }
 
+// <toggleSection
+//     activeColor={activeColor}
+//     title='Travel'
+//     hours={this.state.travellingTotalHours}
+//     minutes={this.state.travellingTotalMinutes}
+//     onValueChange= {this.toggleActiveStatus('TRAVELLING', value)}/>
+
+const toggleSection = (props) => {
+    return (
+        <View style={STYLES.outsideToggleContainer}>
+            <View style={{...STYLES.leftToggleContainer, backgroundColor: activeColor}}>
+                <Text style={STYLES.toggleTextTitle}>this.props.title</Text>
+            </View>
+
+            <View style={STYLES.rightToggleContainer}>
+                <Text style={STYLES.toggleText}>
+                    {this.props.hours} hours    {this.props.minutes} minutes
+                </Text>
+
+                <View style={STYLES.toggleContainer}>
+                    <Text style={STYLES.toggleText}>Stop</Text>
+                    <Switch
+                        onTintColor = '#F7882F'
+                        thumbTintColor = 'white'
+                        style={STYLES.switchStyle}
+                        onValueChange = {this.props.onValueChange(value)}
+                        value = {this.state.activeStatus === 'TRAVELLING'}/>
+
+                    <Text style={STYLES.toggleText}>Start</Text>
+                </View>
+            </View>
+        </View>
+    );
+}
+
 
 const STYLES = {
 	container: {
@@ -383,21 +392,11 @@ const STYLES = {
         fontSize: 20,
         fontWeight: 'bold'
     },
-	contentToggleContainer: {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-        paddingVertical: 5
-	},
-	timerContainer: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
 	toggleContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+        marginTop: 5
 	},
 	toggleText: {
 		color: 'white',
