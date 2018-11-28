@@ -31,11 +31,30 @@ export default class CameraComponent extends React.Component {
 		 //   private (optional) (default is false)
 		 // returns
 		 //   site_file - site file that you uploaded that you uploaded
+
+
+
     async handleSnap(){
         if (this.camera) {
             let photo = await this.camera.takePictureAsync();
-            console.log('photo: ', photo.uri);
-						console.log(EliteAPI.CMS.SiteFile.add(photo));
+
+			const data = new FormData();
+			data.append('name', 'testName');
+			data.append('photo', {
+				uri: photo.uri,
+				type: 'image/jpeg',
+				name: 'testPhotoName'
+			});
+			fetch('/global/cms/site/file/add', {
+				method: 'post',
+				body: data
+			}).then(res => {
+				console.log(res)
+			});
+            console.log('handleSnap');
+
+            //EliteAPI.CMS.SiteFile.add(formData, this.uploadedFile);
+			//console.log('return: ', EliteAPI.CMS.SiteFile.add(photo.uri));
         }
 
 

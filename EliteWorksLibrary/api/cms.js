@@ -126,7 +126,7 @@ class SiteFile extends Model {
   //   maptype (optional) (default roadmap) (roadmap, satellite, hybrid, terrain)
   //   zoom_level (optional) (default 14) (range 0 - 25)
   // returns
-  //   site_file 
+  //   site_file
   addStaticMap (form_data, success_callback, failure_callback)
   {
     var url = '/global/cms/site/file/add/static/map';
