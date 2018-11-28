@@ -21,12 +21,25 @@ export default class CameraComponent extends React.Component {
         this.setState({hasCameraPermission: status == 'granted'})
     }
 
+
+		// purpose
+		 //   add a site file / directory
+		 // args
+		 //   file_upload (required if file) - file that you want to upload
+		 //   site_file_parent_id (optional) (default is 0) (has to be a directory) - the directory you want the site file to be attached to
+		 //   name (required if directory) - name of directory you want to add
+		 //   private (optional) (default is false)
+		 // returns
+		 //   site_file - site file that you uploaded that you uploaded
     async handleSnap(){
-        console.log("handleSnap");
         if (this.camera) {
             let photo = await this.camera.takePictureAsync();
-            console.log('photo', photo);
+            console.log('photo: ', photo.uri);
+						console.log(EliteAPI.CMS.SiteFile.add(photo));
         }
+
+
+
     }
 
     render() {
