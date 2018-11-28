@@ -365,12 +365,14 @@ class CrmModels {
 // cms models
 import Blog from './models/cms/blog';
 import Post from './models/cms/post';
+import SiteFile from './models/cms/site-file';
 
 class CMSModels {
     constructor()
     {
         this.Blog = Blog;
         this.Post = Post;
+        this.SiteFile = SiteFile;
     }
 }
 

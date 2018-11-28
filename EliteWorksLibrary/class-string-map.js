@@ -26,7 +26,8 @@ const CLASS_STRING_MAP = () => {
         venue: EliteAPI.Models.EVN.Venue,
         venuelocation: EliteAPI.Models.EVN.VenueLocation,
         availability: EliteAPI.Models.EVN.Availability,
-        account: EliteAPI.Models.CRM.Account
+        account: EliteAPI.Models.CRM.Account,
+        sitefile: EliteAPI.Models.CMS.SiteFile
     }
 }
 export default CLASS_STRING_MAP;

@@ -118,7 +118,7 @@ export class Model {
 		if (this.classModel) tempClass = new this.classModel();
 
 		return WebClient.basicPost(form_data, url, success => {
-			let modelClass = (this.classModel) ? this.classModel : GlobalUtil.getClassFromString(form_data['class_string']);
+			let modelClass = (this.classModel) ? this.classModel : GlobalUtil.getClassFromString(form_dpata['class_string']);
 		
 			if (modelClass) {
 				success.data.model = new modelClass(success.data.model)
@@ -128,7 +128,6 @@ export class Model {
 			if (success_callback) success_callback(success);
 		}, failure_callback);
     }
-
 
     // purpose
     //   get a model report
@@ -147,11 +146,6 @@ export class Model {
 		return WebClient.basicGet(form_data, url, success_callback, failure_callback);
    	}
 }
-
-
-
-
-
 
 
 export class ModelFile extends Model {

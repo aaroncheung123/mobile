@@ -58,4 +58,29 @@ export default class WebClient {
 			if (failureCallback !== undefined) failureCallback({result: 'failure', error_message: 'Unable to connect'});
 		})
 	}
+
+
+	static basicPostFile(args, url, successCallback, failureCallback)
+	{
+		args = WebClient.addApiKey(args);
+		fetch(WebClient.getFullUrl(url), {
+			method: "POST",
+			body: JSON.stringify(args),
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			}
+		}).then((response) => {
+			let json = response.json().then((data) => {
+				if (data.result == 'success') {
+					if (successCallback !== undefined) successCallback(data);
+				}
+				else if (failureCallback !== undefined) failureCallback(data);
+			}).catch(() => {
+				if (failureCallback !== undefined) failureCallback({result: 'failure', error_message: 'Unable to connect'});
+			});
+		}).catch(() => {
+			if (failureCallback !== undefined) failureCallback({result: 'failure', error_message: 'Unable to connect'});
+		})
+	}
 }
