@@ -13,7 +13,6 @@ const STATUS_COLOR = {
 	'COMPLETED' : AccountMenuGrey
 }
 
-
 const TIMESPAN_STATUS_TO_WORK_ORDER_STATUS = {
 	TRAVELLING: 'TRAVELLING',
 	WORKING: 'IN PROGRESS'
@@ -130,7 +129,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
-	toggleActiveStatus(value, type) {
+	toggleActiveStatus(type, value) {
 
 		if (this.state.activeTimeSpan) {
 
@@ -229,48 +228,29 @@ export default class WorkOrderSpringContent extends React.Component {
 		return (
 
 			<View style={STYLES.container}>
+
                 <Modal visible={this.state.showPictureModal} transparent={true} onRequestClose= {() => this.setState({showPictureModal : false})}>
                     <ImageViewer imageUrls={this.state.selectedImage}/>
                 </Modal>
 
 
-                <toggleSection
+                <ToggleSection
                     activeColor={activeColor}
                     title='Travel'
                     hours={this.state.travellingTotalHours}
                     minutes={this.state.travellingTotalMinutes}
-                    onValueChange= {this.toggleActiveStatus(value,'TRAVELLING')}/>
+                    onValueChange={(value) => this.toggleActiveStatus('TRAVELLING',value)}
+                    activeStatus={this.state.activeStatus}
+                    job='TRAVELLING'/>
 
-
-
-
-
-                <View style={STYLES.outsideToggleContainer}>
-
-                    <View style={{...STYLES.leftToggleContainer, backgroundColor: activeColor}}>
-                        <Text style={STYLES.toggleTextTitle}>Job</Text>
-                    </View>
-
-                    <View style={STYLES.rightToggleContainer}>
-                        <Text style={STYLES.toggleText}>
-                            {this.state.workingTotalHours} hours    {this.state.workingTotalMinutes} minutes
-                        </Text>
-
-                        <View style={STYLES.toggleContainer}>
-                            <Text style={STYLES.toggleText}>Stop</Text>
-                            <Switch
-                                onTintColor = '#F7882F'
-                                thumbTintColor = 'white'
-                                style={STYLES.switchStyle}
-                                onValueChange = {(value) => this.toggleActiveStatus('WORKING', value)}
-                                value = {this.state.activeStatus === 'WORKING'}/>
-
-                            <Text style={STYLES.toggleText}>Start</Text>
-                        </View>
-                    </View>
-
-                </View>
-
+                <ToggleSection
+                    activeColor={activeColor}
+                    title='Job'
+                    hours={this.state.workingTotalHours}
+                    minutes={this.state.workingTotalMinutes}
+                    onValueChange={(value) => this.toggleActiveStatus('WORKING',value)}
+                    activeStatus={this.state.activeStatus}
+                    job='WORKING'/>
 
 
                 <View style={STYLES.outsidePhotoContainer}>
@@ -290,18 +270,21 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
 
-                <View style={STYLES.notesTitleContainer}>
-                    <Text style={STYLES.notesTitle}>Notes</Text>
+                <View>
+                    <View style={STYLES.notesTitleContainer}>
+                        <Text style={STYLES.notesTitle}>Notes</Text>
+                    </View>
+
+                    <View style={STYLES.notesContainer}>
+                        <TextInput
+                            placeholder = "Enter notes here"
+                            underlineColorAndroid = "transparent"
+                            value={this.props.workOrder.notes}
+                            onChangeText={this.handleNoteChange}
+                            multiline={true}/>
+                    </View>
                 </View>
 
-                <View style={STYLES.notesContainer}>
-                    <TextInput
-                        placeholder = "Enter notes here"
-                        underlineColorAndroid = "transparent"
-                        value={this.props.workOrder.notes}
-                        onChangeText={this.handleNoteChange}
-                        multiline={true}/>
-                </View>
                 <TouchableOpacity
                     style={STYLES.saveNotes}
                     onPress={this.handleWorkOrderSave}>
@@ -322,23 +305,17 @@ export default class WorkOrderSpringContent extends React.Component {
 	}
 }
 
-// <toggleSection
-//     activeColor={activeColor}
-//     title='Travel'
-//     hours={this.state.travellingTotalHours}
-//     minutes={this.state.travellingTotalMinutes}
-//     onValueChange= {this.toggleActiveStatus('TRAVELLING', value)}/>
 
-const toggleSection = (props) => {
+const ToggleSection = (props) => {
     return (
         <View style={STYLES.outsideToggleContainer}>
-            <View style={{...STYLES.leftToggleContainer, backgroundColor: activeColor}}>
-                <Text style={STYLES.toggleTextTitle}>this.props.title</Text>
+            <View style={{...STYLES.leftToggleContainer, backgroundColor: props.activeColor}}>
+                <Text style={STYLES.toggleTextTitle}>{props.title}</Text>
             </View>
 
             <View style={STYLES.rightToggleContainer}>
                 <Text style={STYLES.toggleText}>
-                    {this.props.hours} hours    {this.props.minutes} minutes
+                    {props.hours} hours    {props.minutes} minutes
                 </Text>
 
                 <View style={STYLES.toggleContainer}>
@@ -347,8 +324,8 @@ const toggleSection = (props) => {
                         onTintColor = '#F7882F'
                         thumbTintColor = 'white'
                         style={STYLES.switchStyle}
-                        onValueChange = {this.props.onValueChange(value)}
-                        value = {this.state.activeStatus === 'TRAVELLING'}/>
+                        onValueChange = {props.onValueChange}
+                        value = {props.activeStatus === props.job}/>
 
                     <Text style={STYLES.toggleText}>Start</Text>
                 </View>

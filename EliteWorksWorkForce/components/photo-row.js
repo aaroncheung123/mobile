@@ -53,7 +53,7 @@ export default class PhotoRow extends React.Component {
 
         return (
             <View>
-                <Text style={STYLES.toggleTextTitle}>{this.props.title}</Text>
+                <Text style={STYLES.textTitle}>{this.props.title}</Text>
                 <View style={STYLES.photoRow}>
                     <ScrollView horizontal={true}>
                         {photos}
@@ -82,7 +82,7 @@ const PhotoCard = (props) => {
 }
 
 const STYLES = {
-    toggleTextTitle: {
+    textTitle: {
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold'
