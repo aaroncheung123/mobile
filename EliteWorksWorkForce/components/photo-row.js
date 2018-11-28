@@ -23,7 +23,7 @@ export default class PhotoRow extends React.Component {
 			type: this.props.type,
             include_classes: 'sitefile'
 		}, (success) => {
-			//console.log(success.data.models[0].site_file.proxy_url_full);
+			//console.log(success.data.models);
             this.setState({
                 photos: success.data.models
             });
@@ -44,7 +44,7 @@ export default class PhotoRow extends React.Component {
     render() {
 
         let photos = this.state.photos.map(photo => <PhotoCard
-            key={photo.model_id}
+            key={photo.site_file_id}
 			photo={photo}
             onPress={ () => {
 				this.props.onPress({photo});

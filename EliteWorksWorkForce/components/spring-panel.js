@@ -48,7 +48,7 @@ export default class SpringPanel extends React.Component {
 
         return (
 	        <Animated.View style={{...STYLES.springContainer, height: this.springValue}}>
-	            <Icon name='times' size= {25} style={STYLES.iconX} onPress={this.handleClose}/>
+	            <Icon name='times' size= {25} style={STYLES.icon} onPress={this.handleClose}/>
 	            <View style={STYLES.innerSpringContainer}>
 	                <Text style={STYLES.springContainerText}>{this.props.title}</Text>
 	                <ScrollView>
@@ -79,7 +79,7 @@ const STYLES = {
         fontSize: 24,
         fontWeight: 'bold',
         borderBottomWidth: 2,
-        marginVertical: 20,
+        marginTop: 20,
         paddingBottom: 20,
         borderColor: 'white',
     },
@@ -91,9 +91,10 @@ const STYLES = {
 				flex: 1,
 				width: '100%',
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+				paddingHorizontal: 20
     },
-    iconX: {
+    icon: {
         color: 'white',
         position: 'absolute',
         right: 0,

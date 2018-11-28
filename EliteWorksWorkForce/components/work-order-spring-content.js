@@ -239,13 +239,13 @@ export default class WorkOrderSpringContent extends React.Component {
 
 			<View style={STYLES.container}>
 
+
                 {/* =========================================================
 
                 Image Zoom View
                     - Pressing a photo will bring you to the zoom view for that one photo (photo-row component)
 
                 ============================================================*/}
-
                 <Modal visible={this.state.showPictureModal} transparent={true} onRequestClose= {() => this.setState({showPictureModal : false})}>
                     <ImageViewer imageUrls={this.state.selectedImage}/>
                 </Modal>
@@ -253,13 +253,12 @@ export default class WorkOrderSpringContent extends React.Component {
 
                 {/* =========================================================
 
-                Toggle Section
+                Toggle Section (Located: const right after this class)
                     - Travel and Job
                     - Hours and Minutes
                     - Start and Stop
 
                 ============================================================*/}
-
                 <ToggleSection
                     activeColor={activeColor}
                     title='Travel'
@@ -281,7 +280,7 @@ export default class WorkOrderSpringContent extends React.Component {
 
                 {/* =========================================================
 
-                Photo Row (photo-row component)
+                Photo Row (Located: ./photo-row)
                     - Before and After
                     - Displays all photos in a row
                     - Add button triggers the camera in the side panel
@@ -308,7 +307,6 @@ export default class WorkOrderSpringContent extends React.Component {
                 Notes
                     - Write any notes about the work order
                     - Save notes button
-                    - Complete workorder button
 
                 ============================================================*/}
                 <View style={STYLES.notesTitleContainer}>
@@ -331,12 +329,16 @@ export default class WorkOrderSpringContent extends React.Component {
                 </TouchableOpacity>
 
 
+                {/* =========================================================
+
+                Complete Work Order Button
+
+                ============================================================*/}
                 <TouchableOpacity
                     style={STYLES.completeButton}
                     onPress={this.handleCompleteWorkOrder}>
                     <Text style={STYLES.toggleText}>Complete</Text>
                 </TouchableOpacity>
-
 
 
 			</View>
@@ -438,8 +440,7 @@ const STYLES = {
         marginTop: 15
 	},
 	outsidePhotoContainer: {
-        width: '100%',
-		marginVertical: 20,
+        marginVertical: 20,
         justifyContent: 'flex-start',
         alignItems: 'flex-start'
 	},
