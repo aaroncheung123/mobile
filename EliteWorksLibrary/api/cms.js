@@ -31,8 +31,9 @@ class SiteFile extends Model {
   // returns
   //   site_file - site file that you uploaded that you uploaded
   add (form_data, success_callback, failure_callback) {
+
     var url = '/global/cms/site/file/add';
-    if (form_data.has === undefined) return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    //if (form_data.site_file_parent_id === undefined) return WebClient.basicPost(form_data, url, success_callback, failure_callback);
     return WebClient.basicPostFile(form_data, url, success_callback, failure_callback);
   }
 

@@ -37,29 +37,22 @@ export default class CameraComponent extends React.Component {
     async handleSnap(){
         if (this.camera) {
             let photo = await this.camera.takePictureAsync();
-
-			const data = new FormData();
-			data.append('name', 'testName');
-			data.append('photo', {
+			let data = new FormData();
+			data.append('file_upload', {
 				uri: photo.uri,
 				type: 'image/jpeg',
-				name: 'testPhotoName'
+				name: 'CameraUpload'
 			});
-			fetch('/global/cms/site/file/add', {
-				method: 'post',
-				body: data
-			}).then(res => {
-				console.log(res)
-			});
-            console.log('handleSnap');
-
-            //EliteAPI.CMS.SiteFile.add(formData, this.uploadedFile);
-			//console.log('return: ', EliteAPI.CMS.SiteFile.add(photo.uri));
+            data.append('private', 1);
+            data.append('site_file_parent_id', -1);
+            EliteAPI.CMS.SiteFile.add(data, (success) => {
+               if (this.props.onSnap) this.props.onSnap(success.data.site_file);
+            });
         }
 
-
-
     }
+
+
 
     render() {
         const {hasCameraPermission} = this.state

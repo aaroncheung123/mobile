@@ -13,6 +13,7 @@ export default class PhotoRow extends React.Component {
             photos: []
         }
         this.handleCameraDisplay = this.handleCameraDisplay.bind(this);
+        this.handleSnap = this.handleSnap.bind(this);
     }
 
     componentDidMount(){
@@ -36,9 +37,25 @@ export default class PhotoRow extends React.Component {
         this.props.onShowSidePanel(
             'Camera',
             <View>
-                <Camera></Camera>
+                <Camera onSnap={this.handleSnap}></Camera>
             </View>
         )
+    }
+
+    handleSnap(siteFile) {
+        EliteAPI.GEN.ModelFile.add({
+            model_id: this.props.workOrder.work_order_id,
+            class_key: 'workorder',
+            type: this.props.type,
+            site_file_id: siteFile.site_file_id,
+            include_classes: 'sitefile'
+        }, (success) => {
+            let photos = this.state.photos;
+            photos.push(success.data.model_file);
+            this.setState({photos: photos});  
+        }, (failure) => {
+            console.log(failure);
+        })
     }
 
     render() {

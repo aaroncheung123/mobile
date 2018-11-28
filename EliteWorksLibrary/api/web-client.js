@@ -8,7 +8,8 @@ export default class WebClient {
 
 	static addApiKey(args)
 	{
-		if (!GlobalUtil.isEmpty(GlobalUtil.webClientApiKey)) args['api_key'] = GlobalUtil.webClientApiKey;
+		if (args['_parts']) args.append('api_key', GlobalUtil.webClientApiKey);
+		else if (!GlobalUtil.isEmpty(GlobalUtil.webClientApiKey)) args['api_key'] = GlobalUtil.webClientApiKey;
 		return args;
 	}
 
@@ -65,11 +66,7 @@ export default class WebClient {
 		args = WebClient.addApiKey(args);
 		fetch(WebClient.getFullUrl(url), {
 			method: "POST",
-			body: JSON.stringify(args),
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			}
+			body: args
 		}).then((response) => {
 			let json = response.json().then((data) => {
 				if (data.result == 'success') {
