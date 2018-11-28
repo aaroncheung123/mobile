@@ -48,6 +48,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.handleNoteChange = this.handleNoteChange.bind(this);
 		this.handleWorkOrderSave = this.handleWorkOrderSave.bind(this);
 		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
+        this.handlePhotoZoom = this.handlePhotoZoom.bind(this);
 	}
 
 	componentDidMount() {
@@ -215,13 +216,19 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
+    handlePhotoZoom(photo){
+        this.setState({
+            showPictureModal: true,
+            selectedImage: [{url: photo.photo.site_file.proxy_url_full}]
+        })
+    }
+
 	render() {
         let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry;
 
 		return (
 
 			<View style={STYLES.container}>
-                <Text></Text>
                 <Modal visible={this.state.showPictureModal} transparent={true} onRequestClose= {() => this.setState({showPictureModal : false})}>
                     <ImageViewer imageUrls={this.state.selectedImage}/>
                 </Modal>
@@ -293,9 +300,18 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
                 <View style={STYLES.outsidePhotoContainer}>
-                    <PhotoRow title='Before Photos' type='BEFORE' workOrder={this.props.workOrder}/>
-                    <PhotoRow title='After Photos' type='AFTER' workOrder={this.props.workOrder}/>
-
+                    <PhotoRow
+                        title='Before Photos'
+                        type='BEFORE'
+                        workOrder={this.props.workOrder}
+                        onPress={this.handlePhotoZoom}
+                        onShowSidePanel={this.props.onShowSidePanel}/>
+                    <PhotoRow
+                        title='After Photos'
+                        type='AFTER'
+                        workOrder={this.props.workOrder}
+                        onPress={this.handlePhotoZoom}
+                        onShowSidePanel={this.props.onShowSidePanel}/>
                 </View>
 
 
