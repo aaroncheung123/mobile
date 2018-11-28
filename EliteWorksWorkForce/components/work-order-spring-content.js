@@ -53,20 +53,6 @@ export default class WorkOrderSpringContent extends React.Component {
 	componentDidMount() {
 		this.loadData();
 		this.updateTime(true);
-		EliteAPI.GEN.ModelFile.search({
-			take: 1000,
-			model_id: this.props.workOrder.work_order_id,
-			class_key: 'workorder',
-			type: 'BEFORE',
-            include_classes: 'sitefile'
-		}, (success) => {
-			//console.log(success.data.models[0].site_file.proxy_url_full);
-            this.setState({
-                beforePhotos: success.data.models
-            });
-		}, (failure) => {
-			console.log('failure');
-		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -307,8 +293,8 @@ export default class WorkOrderSpringContent extends React.Component {
 
 
                 <View style={STYLES.outsidePhotoContainer}>
-                    <PhotoRow title='Before Photos' photos={this.state.beforePhotos}/>
-                    <PhotoRow title='After Photos' photos={this.state.beforePhotos}/>
+                    <PhotoRow title='Before Photos' type='BEFORE' workOrder={this.props.workOrder}/>
+                    <PhotoRow title='After Photos' type='AFTER' workOrder={this.props.workOrder}/>
 
                 </View>
 
@@ -353,14 +339,6 @@ const STYLES = {
 		alignItems: 'center',
         width: '100%'
 	},
-    photoCardContainer: {
-        height: 120,
-        width: 100,
-        margin: 15,
-        borderRadius: 5,
-        borderWidth: 2,
-        borderColor: 'white'
-    },
 	outsideToggleContainer: {
         flexDirection: 'row',
         height: 120,

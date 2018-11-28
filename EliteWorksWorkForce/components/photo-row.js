@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import Camera from './camera-component';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,10 +16,20 @@ export default class PhotoRow extends React.Component {
     }
 
     componentDidMount(){
-        console.log("photos: ", this.props.photos[0]);
-        this.setState({
-            photos: this.props.photos
-        });
+        EliteAPI.GEN.ModelFile.search({
+			take: 1000,
+			model_id: this.props.workOrder.work_order_id,
+			class_key: 'workorder',
+			type: this.props.type,
+            include_classes: 'sitefile'
+		}, (success) => {
+			console.log(success.data.models[0].site_file.proxy_url_full);
+            this.setState({
+                photos: success.data.models
+            });
+		}, (failure) => {
+			console.log('failure');
+		});
     }
 
     handleCameraDisplay() {
@@ -91,4 +101,12 @@ const STYLES = {
         alignItems: 'center',
         backgroundColor: Blueberry
     },
+	photoCardContainer: {
+		height: 120,
+		width: 100,
+		margin: 15,
+		borderRadius: 5,
+		borderWidth: 2,
+		borderColor: 'white'
+	},
 }
