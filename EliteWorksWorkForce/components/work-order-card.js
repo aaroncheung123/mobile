@@ -32,11 +32,10 @@ export default class WorkOrderCard extends React.Component {
     }
 
   handleDetailsPress() {
-        if (this.props.onShowSpringPanel)
-        {
+        if (this.props.onShowSpringPanel){
             this.props.onShowSpringPanel(
                 this.props.workOrder.name,
-                <WorkOrderSpringContent workOrder={this.props.workOrder} onWorkOrderUpdated={() => this.forceUpdate()}/>
+                <WorkOrderSpringContent onShowSpringPanel={this.props.onShowSpringPanel} onShowSidePanel={this.props.onShowSidePanel} workOrder={this.props.workOrder} onWorkOrderUpdated={() => this.forceUpdate()}/>
             )
         }
     }
@@ -117,6 +116,7 @@ export default class WorkOrderCard extends React.Component {
 	              <TouchableOpacity
 	                  style={STYLES.detailsButton}
 	                  onPress={this.handleDetailsPress}>
+
 	                  <Text>Details</Text>
 	              </TouchableOpacity>
 	          </View>
@@ -223,20 +223,3 @@ const STYLES = {
 
 
 }
-
-
-// <View>
-// 	<View style={STYLES.rowContainer}>
-// 		<View style={STYLES.leftContainer}>
-// 			<Text style={STYLES.textStyle}>Name </Text>
-// 		</View>
-//
-// 		<View style={STYLES.rightContainer}>
-// 			<Text style={STYLES.textStyle}>{this.props.workOrder.user.full_name}</Text>
-// 		</View>
-//
-//
-//
-// 	</View>
-//
-// </View>

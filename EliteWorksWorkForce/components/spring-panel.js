@@ -33,8 +33,6 @@ export default class SpringPanel extends React.Component {
 	}
 
 	handleClose() {
-
-
         Animated.timing(
             this.springValue,
             {
@@ -50,7 +48,7 @@ export default class SpringPanel extends React.Component {
 
         return (
 	        <Animated.View style={{...STYLES.springContainer, height: this.springValue}}>
-	            <Icon name='times' size= {35} style={STYLES.iconX} onPress={this.handleClose}/>
+	            <Icon name='times' size= {25} style={STYLES.icon} onPress={this.handleClose}/>
 	            <View style={STYLES.innerSpringContainer}>
 	                <Text style={STYLES.springContainerText}>{this.props.title}</Text>
 	                <ScrollView>
@@ -81,7 +79,7 @@ const STYLES = {
         fontSize: 24,
         fontWeight: 'bold',
         borderBottomWidth: 2,
-        marginBottom: 20,
+        marginTop: 20,
         paddingBottom: 20,
         borderColor: 'white',
     },
@@ -90,19 +88,17 @@ const STYLES = {
         fontSize: 16
     },
     innerSpringContainer: {
-        flex: 1,
-        margin: 20,
+				flex: 1,
+				width: '100%',
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+				paddingHorizontal: 20
     },
-    iconX: {
+    icon: {
         color: 'white',
         position: 'absolute',
         right: 0,
         top: 0,
-        margin: 15
+        padding: 15
     }
 }
-
-
-    

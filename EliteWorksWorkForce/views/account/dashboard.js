@@ -24,7 +24,7 @@ export default class Dashboard extends React.Component {
 
     render() {
 
-        let deals = this.state.deals.map(deal => <DealCard deal={deal} key={deal.deal_id} onShowSpringPanel={this.props.onShowSpringPanel}/>);
+        let deals = this.state.deals.map(deal => <DealCard deal={deal} key={deal.deal_id} onShowSpringPanel={this.props.onShowSpringPanel} onShowSidePanel={this.props.onShowSidePanel}/>);
 
         return (
             <View style={STYLES.container}>

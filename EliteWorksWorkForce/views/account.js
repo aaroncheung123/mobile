@@ -11,6 +11,7 @@ import AccountTimeClock from './account/timeclock';
 import AccountWorkOrders from './account/workorders';
 import LoginModal from './account/login-modal';
 import SpringPanel from '../components/spring-panel';
+import SidePanel from '../components/side-panel';
 
 const SIDE_MENU_WIDTH = 300;
 
@@ -30,7 +31,9 @@ export default class Account extends React.Component {
 			showLoginModal: false,
 			showSpringPanel: true,
 			springPanelTitle: '',
-			springPanelContent: null
+			springPanelContent: null,
+			sidePanelTitle: '',
+			sidePanelContent: null
 		}
 
 		this.updateSideMenu = this.updateSideMenu.bind(this);
@@ -39,6 +42,8 @@ export default class Account extends React.Component {
 		this.handleLogout = this.handleLogout.bind(this);
 		this.handleShowSpringPanel = this.handleShowSpringPanel.bind(this);
 		this.handleSpringPanelClose = this.handleSpringPanelClose.bind(this);
+		this.handleShowSidePanel = this.handleShowSidePanel.bind(this);
+		this.handleSidePanelClose = this.handleSidePanelClose.bind(this);
 	}
 
 
@@ -100,6 +105,25 @@ export default class Account extends React.Component {
 		}, () => {
 			if (this.springPanel) {
 				this.springPanel.open();
+			}
+		})
+	}
+
+	handleSidePanelClose()
+	{
+		this.setState({
+			sidePanelTitle: '',
+			sidePanelContent: null
+		})
+	}
+
+	handleShowSidePanel(title, content) {
+		this.setState({
+			sidePanelTitle: title,
+			sidePanelContent: content
+		}, () => {
+			if (this.sidePanel) {
+				this.sidePanel.open();
 			}
 		})
 	}
@@ -185,12 +209,13 @@ export default class Account extends React.Component {
 
 					{/*content*/}
 						<View style={CONTENT_STYLES.container}>
-							<Route path="/dashboard" render={(props) => <AccountDashBoard {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+							<Route path="/dashboard" render={(props) => <AccountDashBoard {...props} onShowSpringPanel={this.handleShowSpringPanel} onShowSidePanel={this.handleShowSidePanel}/>} />
 							<Route path="/orders" render={(props) => <AccountWorkOrders {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
 							<Route path="/time" render={(props) => <AccountTimeClock {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
 
 							{/* slide up model */}
 							<SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent} onClose={this.handleSpringPanelClose}/>
+							<SidePanel ref={e => this.sidePanel = e} title={this.state.sidePanelTitle} content={this.state.sidePanelContent} onClose={this.handleSidePanelClose}/>
 						</View>
 
 					{/*Bottom Menu*/}

@@ -1,22 +1,36 @@
-
-
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, Dimensions, Image, Modal} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ImageViewer from 'react-native-image-zoom-viewer';
+import PhotoRow from './photo-row';
 
+{/* =========================================================
 
-//import { RNCamera } from 'react-native-camera';
+Map of the colors based off of the status.  Color is reflected in the background of toggle section
+
+============================================================*/}
+const STATUS_COLOR = {
+	'SCHEDULED' : Blueberry,
+	'PENDING' : Blueberry,
+	'TRAVELLING' : EliteWorksOrange,
+	'IN PROGRESS' : EliteWorksOrange,
+	'COMPLETED' : AccountMenuGrey
+}
 
 const TIMESPAN_STATUS_TO_WORK_ORDER_STATUS = {
 	TRAVELLING: 'TRAVELLING',
 	WORKING: 'IN PROGRESS'
 }
 
+{/* =========================================================
+
+This is the spring panel that shows when details is clicked in a work order card
+
+============================================================*/}
 export default class WorkOrderSpringContent extends React.Component {
 
-	constructor(props)
-	{
+	constructor(props){
 		super(props);
 
 		this.state = {
@@ -25,7 +39,10 @@ export default class WorkOrderSpringContent extends React.Component {
 			travellingTotalHours: 0,
 			travellingTotalMinutes: 0,
 			workingTotalHours: 0,
-			workingTotalMinutes: 0
+			workingTotalMinutes: 0,
+            beforePhotos: [],
+            showPictureModal: false,
+            selectedImage: undefined
 		}
 
 		this.timeSpans = {
@@ -37,10 +54,10 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.addNewTimeSpan = this.addNewTimeSpan.bind(this);
 		this.loadData = this.loadData.bind(this);
 		this.updateTime = this.updateTime.bind(this);
-		this.handleUploadPhoto = this.handleUploadPhoto.bind(this);
 		this.handleNoteChange = this.handleNoteChange.bind(this);
 		this.handleWorkOrderSave = this.handleWorkOrderSave.bind(this);
 		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
+        this.handlePhotoZoom = this.handlePhotoZoom.bind(this);
 	}
 
 	componentDidMount() {
@@ -105,7 +122,6 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.getActiveTimeSpan('WORKING');
 	}
 
-
 	getActiveTimeSpan(type) {
 		EliteAPI.GEN.ModelTimeSpan.current({class_key: 'workorder', model_id: this.props.workOrder.work_order_id, type: type}, success => {
 			if (success.data.model_time_span)
@@ -122,7 +138,6 @@ export default class WorkOrderSpringContent extends React.Component {
 			this.updateTime(false);
 		})
 	}
-
 
 	toggleActiveStatus(type, value) {
 
@@ -173,8 +188,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		}
 	}
 
-	addNewTimeSpan(type, longitude, latitude)
-	{
+	addNewTimeSpan(type, longitude, latitude){
 
 		let newTimeSpan = new EliteAPI.Models.GEN.ModelTimeSpan({class_key: 'workorder', model_id: this.props.workOrder.work_order_id, type: type, start_latitude: latitude, start_longitude: longitude});
 		newTimeSpan.start((success) => {
@@ -191,21 +205,16 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
-
-	handleUploadPhoto(type) {
-		console.log('uploading image for ' + type);
-	}
-
 	handleNoteChange(value) {
 		this.props.workOrder.notes = value;
 		this.forceUpdate();
 	}
 
-	handleWorkOrderSave()
-	{
+	handleWorkOrderSave(){
 		this.props.workOrder.save();
 		alert('Work order saved');
 	}
+
 	handleCompleteWorkOrder() {
 		this.props.workOrder.complete((success) => {
 			this.props.workOrder.status = "COMPLETED";
@@ -216,111 +225,209 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
+    handlePhotoZoom(photo){
+        this.setState({
+            showPictureModal: true,
+            selectedImage: [{url: photo.photo.site_file.proxy_url_full}]
+        })
+    }
+
 	render() {
+        let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry;
+
 		return (
 
 			<View style={STYLES.container}>
-				<View style={STYLES.toggleContainer}>
-					<Text style={STYLES.toggleText}>Stop Travel</Text>
-					<Switch
-						onTintColor = '#F7882F'
-						thumbTintColor = 'white'
-						style={STYLES.switchStyle}
-						onValueChange = {(value) => this.toggleActiveStatus('TRAVELLING', value)}
-						value={this.state.activeStatus === 'TRAVELLING'}/>
-
-					<Text style={STYLES.toggleText}>Start Travel</Text>
-				</View>
-				<Text style={STYLES.timeTotal}>{this.state.travellingTotalHours}h {this.state.travellingTotalMinutes}m</Text>
-
-				<View style={STYLES.toggleContainer}>
-					<Text style={STYLES.toggleText}>Stop Job</Text>
-					<Switch
-						onTintColor = '#F7882F'
-						thumbTintColor = 'white'
-						style={STYLES.switchStyle}
-						onValueChange = {(value) => this.toggleActiveStatus('WORKING', value)}
-						value = {this.state.activeStatus === 'WORKING'}/>
-
-					<Text style={STYLES.toggleText}>Start Job</Text>
-				</View>
-				<Text style={STYLES.timeTotal}>{this.state.workingTotalHours}h {this.state.workingTotalMinutes}m</Text>
-
-				<View style={STYLES.outsidePhotoContainer}>
-					<Text style={STYLES.toggleText}>Before Photos</Text>
-					<View style={STYLES.photoRow}>
-						<TouchableOpacity style={STYLES.photoAddContainer} onPress={() => this.handleUploadPhoto('BEFORE')}>
-							{/*<RNCamera
-								style={styles.preview}
-								type={RNCamera.Constants.Type.back}
-								flashMode={RNCamera.Constants.FlashMode.on}
-								permissionDialogTitle={'Permission to use camera'}
-								permissionDialogMessage={'We need your permission to use your camera phone'}
-							>
-								{({ camera, status }) => {
-									if (status !== 'READY') return <PendingView />;
-									return (
-										<View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-											<TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-												<Text style={{ fontSize: 14 }}> SNAP </Text>
-											</TouchableOpacity>
-										</View>
-									);
-								}}
-							</RNCamera>*/}
-							<Icon name='plus' size={30} color='white'/>
-						</TouchableOpacity>
-					</View>
-					<Text style={STYLES.toggleText}>After Photos</Text>
-					<View style={STYLES.photoRow}>
-						<TouchableOpacity style={STYLES.photoAddContainer}>
-								<Icon name='plus' size={30} color='white' onPress={() => this.handleUploadPhoto('AFTER')}/>
-						</TouchableOpacity>
-					</View>
-				</View>
-
-				<View style={STYLES.notesContainer}>
-					<TextInput
-						placeholder = "Enter notes here"
-						underlineColorAndroid = "transparent"
-						value={this.props.workOrder.notes}
-						onChangeText={this.handleNoteChange}
-						multiline={true}/>
-				</View>
-				<TouchableOpacity
-					style={STYLES.saveNotes}
-					onPress={this.handleWorkOrderSave}>
-					<Text style={STYLES.toggleText}>Save</Text>
-				</TouchableOpacity>
 
 
-				<TouchableOpacity
-					style={STYLES.completeButton}
-					onPress={this.handleCompleteWorkOrder}>
-					<Text style={STYLES.toggleText}>Complete</Text>
-				</TouchableOpacity>
+                {/* =========================================================
+
+                Image Zoom View
+                    - Pressing a photo will bring you to the zoom view for that one photo (photo-row component)
+
+                ============================================================*/}
+                <Modal visible={this.state.showPictureModal} transparent={true} onRequestClose= {() => this.setState({showPictureModal : false})}>
+                    <ImageViewer imageUrls={this.state.selectedImage}/>
+                </Modal>
+
+
+                {/* =========================================================
+
+                Toggle Section (Located: const right after this class)
+                    - Travel and Job
+                    - Hours and Minutes
+                    - Start and Stop
+
+                ============================================================*/}
+                <ToggleSection
+                    activeColor={activeColor}
+                    title='Travel'
+                    hours={this.state.travellingTotalHours}
+                    minutes={this.state.travellingTotalMinutes}
+                    onValueChange={(value) => this.toggleActiveStatus('TRAVELLING',value)}
+                    activeStatus={this.state.activeStatus}
+                    job='TRAVELLING'/>
+
+                <ToggleSection
+                    activeColor={activeColor}
+                    title='Job'
+                    hours={this.state.workingTotalHours}
+                    minutes={this.state.workingTotalMinutes}
+                    onValueChange={(value) => this.toggleActiveStatus('WORKING',value)}
+                    activeStatus={this.state.activeStatus}
+                    job='WORKING'/>
+
+
+                {/* =========================================================
+
+                Photo Row (Located: ./photo-row)
+                    - Before and After
+                    - Displays all photos in a row
+                    - Add button triggers the camera in the side panel
+
+                ============================================================*/}
+                <View style={STYLES.outsidePhotoContainer}>
+                    <PhotoRow
+                        title='Before Photos'
+                        type='BEFORE'
+                        workOrder={this.props.workOrder}
+                        onPress={this.handlePhotoZoom}
+                        onShowSidePanel={this.props.onShowSidePanel}/>
+                    <PhotoRow
+                        title='After Photos'
+                        type='AFTER'
+                        workOrder={this.props.workOrder}
+                        onPress={this.handlePhotoZoom}
+                        onShowSidePanel={this.props.onShowSidePanel}/>
+                </View>
+
+
+                {/* =========================================================
+
+                Notes
+                    - Write any notes about the work order
+                    - Save notes button
+
+                ============================================================*/}
+                <View style={STYLES.notesTitleContainer}>
+                    <Text style={STYLES.notesTitle}>Notes</Text>
+                </View>
+
+                <View style={STYLES.notesContainer}>
+                    <TextInput
+                        placeholder = "Enter notes here"
+                        underlineColorAndroid = "transparent"
+                        value={this.props.workOrder.notes}
+                        onChangeText={this.handleNoteChange}
+                        multiline={true}/>
+                </View>
+
+                <TouchableOpacity
+                    style={STYLES.saveNotes}
+                    onPress={this.handleWorkOrderSave}>
+                    <Text style={STYLES.toggleText}>Save Notes</Text>
+                </TouchableOpacity>
+
+
+                {/* =========================================================
+
+                Complete Work Order Button
+
+                ============================================================*/}
+                <TouchableOpacity
+                    style={STYLES.completeButton}
+                    onPress={this.handleCompleteWorkOrder}>
+                    <Text style={STYLES.toggleText}>Complete</Text>
+                </TouchableOpacity>
+
+
 			</View>
 		)
 	}
 }
 
 
+const ToggleSection = (props) => {
+    return (
+        <View style={STYLES.outsideToggleContainer}>
+            <View style={{...STYLES.leftToggleContainer, backgroundColor: props.activeColor}}>
+                <Text style={STYLES.toggleTextTitle}>{props.title}</Text>
+            </View>
+
+            <View style={STYLES.rightToggleContainer}>
+                <Text style={STYLES.toggleText}>
+                    {props.hours} hours    {props.minutes} minutes
+                </Text>
+
+                <View style={STYLES.toggleContainer}>
+                    <Text style={STYLES.toggleText}>Stop</Text>
+                    <Switch
+                        onTintColor = '#F7882F'
+                        thumbTintColor = 'white'
+                        style={STYLES.switchStyle}
+                        onValueChange = {props.onValueChange}
+                        value = {props.activeStatus === props.job}/>
+
+                    <Text style={STYLES.toggleText}>Start</Text>
+                </View>
+            </View>
+        </View>
+    );
+}
+
 
 const STYLES = {
 	container: {
 		justifyContent: 'center',
 		alignItems: 'center',
+        width: '100%'
 	},
+	outsideToggleContainer: {
+        flexDirection: 'row',
+        height: 120,
+		width: 300,
+		borderWidth: 2,
+		borderColor: 'white',
+		borderRadius: 5,
+		margin: 10
+	},
+    leftToggleContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRightWidth: 2,
+        borderColor: 'white'
+    },
+    rightToggleContainer: {
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 30,
+        backgroundColor: Blueberry
+    },
+    toggleTextTitle: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
 	toggleContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginVertical: 10
+        marginTop: 5
 	},
 	toggleText: {
 		color: 'white',
 		fontSize: 16
 	},
+    notesTitle: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    notesTitleContainer: {
+        alignSelf: 'flex-start'
+    },
 	switchStyle: {
 		marginHorizontal: 10,
 	},
@@ -330,39 +437,24 @@ const STYLES = {
 		backgroundColor: 'white',
 		borderRadius: 10,
 		padding: 10,
-		marginTop: 30
-	},
-	saveNotes: {
-		backgroundColor: EliteWorksOrange,
-		padding: 15,
-		margin: 10,
-		borderRadius: 5,
-		alignSelf: 'flex-end'
-	},
-	photoAddContainer: {
-		height: 80,
-		width: 60,
-		borderRadius: 5,
-		borderStyle: 'dashed',
-		borderColor: 'white',
-		borderWidth: 1,
-		margin: 15,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	photoRow: {
-		flexDirection: 'row'
+        marginTop: 15
 	},
 	outsidePhotoContainer: {
-		marginVertical: 20
+        marginVertical: 20,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start'
 	},
-	timeTotal: {
-		color: 'white',
-		marginBottom: 20
-	},
+    saveNotes: {
+        width: '90%',
+        backgroundColor: EliteWorksOrange,
+        padding: 15,
+        justifyContent: 'center',
+		alignItems: 'center',
+        marginVertical: 15,
+        borderRadius: 5,
+    },
 	completeButton: {
 		padding: 15,
-		marginVertical: 20,
 		width: '90%',
 		backgroundColor: EliteWorksOrange,
 		borderRadius: 5,

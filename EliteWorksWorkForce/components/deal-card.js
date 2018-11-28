@@ -73,7 +73,7 @@ export default class DealCard extends React.Component {
 			lastScheduledService = <Text style={STYLES.textStyle}>Latest Service: {GlobalUtil.convertMysqlToDate(this.props.deal.lastest_scheduled_work_order).formatDate('n/d/y H:m A')}</Text>
 		}
 
-		let workOrders = this.state.workOrders.map(workOrder => <WorkOrderCard workOrder={workOrder} key={workOrder.work_order_id} onShowSpringPanel={this.props.onShowSpringPanel}/>)
+		let workOrders = this.state.workOrders.map(workOrder => <WorkOrderCard workOrder={workOrder} key={workOrder.work_order_id} onShowSpringPanel={this.props.onShowSpringPanel} onShowSidePanel={this.props.onShowSidePanel}/>)
 
 		return(
 			<View style={STYLES.container}>
