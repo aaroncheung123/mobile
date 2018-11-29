@@ -85,7 +85,7 @@ export default class VenueEventCard extends React.Component {
 
                 <TouchableOpacity onPress={this.toggle.bind(this)}>
                     <View style={STYLES.venueContainer} onLayout={this.setMinHeight.bind(this)}>
-                        <View style={STYLES.leftVenueContainer}> 
+                        <View style={STYLES.leftVenueContainer}>
                             <Image
                                 style={{width: 50, height: 50}}
                                 source={{uri: logoUrl}}
@@ -122,14 +122,15 @@ const STYLES = {
     outsideContainer: {
         marginBottom: 20,
         backgroundColor: 'transparent',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        width: '100%'
     },
     hiddenBody: {
         width: '90%',
         backgroundColor: 'white',
         opacity: .9,
         marginTop: 2,
-        marginLeft: 23,
+        marginLeft: 17,
         padding: 20,
         borderRadius: 10
     },
@@ -143,9 +144,10 @@ const STYLES = {
     venueContainer: {
         flexDirection: 'row',
         height: 80,
-        width: 300,
+        width: '90%',
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf: 'center',
         shadowColor: 'rgba(0,0,0, .4)', // IOS
         shadowOffset: { height: 1, width: 1 }, // IOS
         shadowOpacity: 1, // IOS

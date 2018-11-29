@@ -79,7 +79,7 @@ export default class AccountNavigation extends React.Component {
   }
 
   componentDidMount() {
-    this.updatePath('/pass-manager');
+    this.updatePath('/events');
     REGISTER_FOR_NOTIFICATIONS()
     Notifications.addListener(this.handleNotification)
   }
