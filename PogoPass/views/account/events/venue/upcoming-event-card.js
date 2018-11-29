@@ -24,15 +24,13 @@ const UpcomingEventCard = (props) => {
         <View style={STYLES.container}>
             <View style={STYLES.leftContainer}>
                 <Text style={STYLES.title}>{GlobalUtil.convertMysqlToDateRaw(props.event.start).formatDate('n/d')}</Text>
-                <Text style={STYLES.title}>{GlobalUtil.convertMysqlToDateRaw(props.event.start).formatDate('H:m A')}</Text>
             </View>
             <View style={STYLES.rightContainer}>
                 <Text style={STYLES.title1}>{props.event.name}</Text>
                 {
                     availability ?
                     <View>
-                        <Text style={STYLES.title1}>Registration:</Text>
-                        <Text style={STYLES.title1}>{registrationStart.formatDate('n/d H:m A')} - {registrationEnd.formatDate('n/d H:m A')}</Text>
+                        <Text style={STYLES.title2}>Register: {registrationStart.formatDate('n/d H:m A')} - {registrationEnd.formatDate('n/d H:m A')}</Text>
                             {
                                 showRegistrationButton ?
                                 <TouchableOpacity
@@ -56,6 +54,8 @@ const STYLES = {
         flexDirection: 'row',
         borderTopWidth: 20,
         borderColor: 'orange',
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
         margin: 5
     },
     leftContainer: {
@@ -75,12 +75,18 @@ const STYLES = {
         padding: 10
     },
     title: {
-        fontSize: 14,
-        textAlign: 'center'
+        fontSize: 16,
+        textAlign: 'center',
+        fontWeight: 'bold'
     },
     title1: {
-        fontSize: 14,
-        textAlign: 'left'
+        fontSize: 16,
+        textAlign: 'left',
+        fontWeight: 'bold'
+    },
+    title2: {
+        fontSize: 12,
+        textAlign: 'left',
     },
     registrationButton: {
         backgroundColor: 'orange',
@@ -88,6 +94,6 @@ const STYLES = {
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 20
+        marginTop: 10
     }
 }

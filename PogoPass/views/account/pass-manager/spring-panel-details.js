@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import VenueCard from './venue-card.js';
 
@@ -78,7 +78,7 @@ export default class SpringPanelDetails extends React.Component {
 			            </View>
 			        </View>
 			        {
-			        	this.props.account.account_type ? 
+			        	this.props.account.account_type ?
 				        <View style={STYLES.outerDetailsContainer}>
 				            <View style={STYLES.detailsContainer}>
 				                <Text style={STYLES.detailsText}>Pass Type:</Text>
@@ -125,7 +125,8 @@ const STYLES = {
 	overallDetailContainer: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginBottom: 20
+		marginBottom: 20,
+    width: Dimensions.get('window').width - 50
 	},
 	outerDetailsContainer: {
 		flex: 1,

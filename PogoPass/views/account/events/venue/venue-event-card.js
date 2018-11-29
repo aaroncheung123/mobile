@@ -27,7 +27,7 @@ export default class VenueEventCard extends React.Component {
 
     setMaxHeight(event){
         this.setState({
-            maxHeight   :  400
+            maxHeight   :  300
         });
     }
 
@@ -104,8 +104,8 @@ export default class VenueEventCard extends React.Component {
 
 
                 <View style={STYLES.hiddenBody} onLayout={this.setMaxHeight.bind(this)}>
-                    <Text style={STYLES.upcomingEventsText}>Upcoming Events (scroll to see future events): </Text>
-                    <ScrollView style={STYLES.eventScrollView}>
+                    <Text style={STYLES.upcomingEventsText}>Upcoming Events: Scroll Right</Text>
+                    <ScrollView horizontal={true} style={STYLES.eventScrollView}>
                         {eventCards}
                     </ScrollView>
                 </View>
@@ -123,7 +123,7 @@ const STYLES = {
         marginBottom: 20,
         backgroundColor: 'transparent',
         overflow: 'hidden',
-        width: '100%'
+        width: Dimensions.get('window').width
     },
     hiddenBody: {
         width: '90%',
@@ -189,6 +189,7 @@ const STYLES = {
         marginTop: 15
     },
     eventScrollView: {
-        height: 250
+        flexDirection: 'row',
+        height: 150
     }
 }
