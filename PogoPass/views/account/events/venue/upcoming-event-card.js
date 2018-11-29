@@ -30,13 +30,14 @@ const UpcomingEventCard = (props) => {
                 {
                     availability ?
                     <View>
-                        <Text style={STYLES.title2}>Register: {registrationStart.formatDate('n/d H:m A')} - {registrationEnd.formatDate('n/d H:m A')}</Text>
+                        <Text style={STYLES.title2}>Register:</Text>
+                        <Text style={STYLES.title2}>{registrationStart.formatDate('n/d H:m A')} - {registrationEnd.formatDate('n/d H:m A')}</Text>
                             {
                                 showRegistrationButton ?
                                 <TouchableOpacity
                                     style={STYLES.registrationButton}
                                     onPress={() => props.onRegister(availability)}>
-                                        <Text>Register</Text>
+                                        <Text style={STYLES.title2}>Register</Text>
                                 </TouchableOpacity> : null
 
                             }
@@ -56,7 +57,8 @@ const STYLES = {
         borderColor: 'orange',
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
-        margin: 5
+        marginBottom: 10,
+        width: 300
     },
     leftContainer: {
         flex: 1,
@@ -64,34 +66,39 @@ const STYLES = {
         borderLeftWidth: 2,
         borderBottomWidth: 2,
         borderTopWidth: 2,
-        borderColor: '#bfbfbf',
+        borderColor: 'white',
         padding: 10
     },
     rightContainer: {
-        flex: 2,
+        flex: 3,
         justifyContent: 'center',
         borderWidth: 2,
-        borderColor: '#bfbfbf',
+        borderColor: 'white',
         padding: 10
     },
     title: {
         fontSize: 16,
         textAlign: 'center',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: 'white'
     },
     title1: {
         fontSize: 16,
         textAlign: 'left',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: 'white'
     },
     title2: {
         fontSize: 12,
         textAlign: 'left',
+        color: 'white'
     },
     registrationButton: {
-        backgroundColor: 'orange',
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        borderColor: 'white',
         padding: 10,
-        borderRadius: 10,
+        borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10
