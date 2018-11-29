@@ -177,7 +177,7 @@ export default class AccountNavigation extends React.Component {
             <Route path="/news" render={(props) => <News {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
             <Route path="/account-information" render={(props) => <AccountInformation {...props} onShowSidePanel={this.handleShowSidePanel} onLogout={this.props.onLogout}/>} />
             <Route path="/pass-manager"  render={(props) => <PassManager {...props} onShowSpringPanel={this.handleShowSpringPanel} onShowSidePanel={this.handleShowSidePanel}/>} />
-            <Route path="/events" render={(props) => <Events {...props} onShowSpringPanel={this.handleShowSpringPanel} /> } />
+            <Route path="/events" render={(props) => <Events {...props} onShowSpringPanel={this.handleShowSpringPanel} onShowSidePanel={this.handleShowSidePanel}/> } />
             <Route path="/cart" component={Cart} />
           </View>
 

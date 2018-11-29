@@ -2,21 +2,25 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Button, Image, Dimensions, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import UpcomingEventCard from './upcoming-event-card';
+import EventPanel from './event-panel';
 
 export default class VenueEventCard extends React.Component {
 
     constructor(props){
-      super(props);
+        super(props);
 
-      this.icons = {
-          'up'    : require('../../../../assets/images/icons/up_arrow.png'),
-          'down'  : require('../../../../assets/images/icons/down_arrow.png')
-      };
-
-      this.state = {
-        title       : props.title,
-        expanded    : false,
+        this.icons = {
+            'up'    : require('../../../../assets/images/icons/up_arrow.png'),
+            'down'  : require('../../../../assets/images/icons/down_arrow.png')
         };
+
+        this.state = {
+            title       : props.title,
+            expanded    : false,
+        };
+        this.handleCardPress = this.handleCardPress.bind(this);
+
+
     }
     componentDidMount(){
         this.setState({
@@ -55,6 +59,14 @@ export default class VenueEventCard extends React.Component {
         ).start();
     }
 
+    handleCardPress(){
+        console.log("handleCardPress");
+        this.props.onShowSpringPanel(
+            this.props.venue.name,
+            <EventPanel venue={this.props.venue}/>
+        )
+    }
+
     render(){
         let icon = this.icons['down'];
 
@@ -83,7 +95,7 @@ export default class VenueEventCard extends React.Component {
 
             <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
 
-                <TouchableOpacity onPress={this.toggle.bind(this)}>
+                <TouchableOpacity onPress={this.handleCardPress}>
                     <View style={STYLES.venueContainer} onLayout={this.setMinHeight.bind(this)}>
                         <View style={STYLES.leftVenueContainer}>
                             <Image

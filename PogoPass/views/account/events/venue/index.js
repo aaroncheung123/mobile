@@ -44,33 +44,40 @@ export default class Venue extends React.Component {
 				}
 			})
 		})
-		serviceApis = serviceApis.filter((v, i, a) => a.indexOf(v) === i); 
+		serviceApis = serviceApis.filter((v, i, a) => a.indexOf(v) === i);
 
 		EliteAPI.EVN.Venue.search({visible: 1, service_ids: serviceApis.join(','), take: 1000, include_classes: 'sitefile,event,availability,timeblock'}, (success) => {
 			let venues = success.data.venues.filter(venue => {
-				if (venue.events && 
-					venue.events.length > 0 && 
+				if (venue.events &&
+					venue.events.length > 0 &&
 					venue.events.filter(x => GlobalUtil.convertMysqlToDateRaw(x.start) > now).length > 0) return true
 				else return false
 			})
 
 			this.setState({venues: venues});
-		}, f => console.log(f)) 
+		}, f => console.log(f))
 	}
 
 
 	handleShowRegisterEvent(availability) {
 
-		this.props.onShowSpringPanel(
+		this.props.onShowSidePanel(
 			'Register',
 			<RegisterModal accounts={this.props.accounts} availability={availability}/>
 		)
 	}
 
 
+
+
 	render() {
 
-		let venueCards = this.state.venues.map(venue => <VenueEventCard key={venue.venue_id} venue={venue} accounts={this.props.accounts} onRegister={this.handleShowRegisterEvent}/> )
+		let venueCards = this.state.venues.map(venue => <VenueEventCard
+			key={venue.venue_id}
+			venue={venue}
+			accounts={this.props.accounts}
+			onShowSpringPanel={this.props.onShowSpringPanel}
+			onRegister={this.handleShowRegisterEvent}/> )
 
 		return (
 			<View style={STYLES.eventsContainer}>
