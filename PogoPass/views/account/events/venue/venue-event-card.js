@@ -10,53 +10,13 @@ export default class VenueEventCard extends React.Component {
         super(props);
 
         this.icons = {
-            'up'    : require('../../../../assets/images/icons/up_arrow.png'),
             'down'  : require('../../../../assets/images/icons/down_arrow.png')
         };
 
         this.state = {
             title       : props.title,
-            expanded    : false,
         };
         this.handleCardPress = this.handleCardPress.bind(this);
-
-
-    }
-    componentDidMount(){
-        this.setState({
-            minHeight   : 90,
-            animation   : new Animated.Value(90)
-        });
-    }
-
-    setMaxHeight(event){
-        this.setState({
-            maxHeight   :  300
-        });
-    }
-
-    setMinHeight(event){
-        this.setState({
-            minHeight   : 90
-        });
-    }
-
-    toggle(){
-
-        let initialValue= this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
-            finalValue= this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
-
-        this.setState({
-            expanded : !this.state.expanded
-        });
-
-        this.state.animation.setValue(initialValue);
-        Animated.spring(
-            this.state.animation,
-            {
-                toValue: finalValue
-            }
-        ).start();
     }
 
     handleCardPress(){
@@ -70,9 +30,6 @@ export default class VenueEventCard extends React.Component {
     render(){
         let icon = this.icons['down'];
 
-        if(this.state.expanded){
-            icon = this.icons['up'];
-        }
 
 
         let logoUrl = 'https://www.pogopass.com/global/assets/images/unavailable.png';
@@ -82,21 +39,12 @@ export default class VenueEventCard extends React.Component {
         }
 
 
-        let now = new Date();
-        let upcomingEvents = this.props.venue.events.filter(x => GlobalUtil.convertMysqlToDateRaw(x.start) > now).sort((a, b) => {
-            return GlobalUtil.convertMysqlToDateRaw(a.start) > GlobalUtil.convertMysqlToDateRaw(b.start);
-        });
-
-
-        let eventCards = upcomingEvents.map(event => <UpcomingEventCard key={event.event_id} event={event} onRegister={this.props.onRegister}/>)
-
-
         return(
 
-            <Animated.View style={[STYLES.outsideContainer,{height: this.state.animation}]}>
+            <View style={STYLES.outsideContainer}>
 
                 <TouchableOpacity onPress={this.handleCardPress}>
-                    <View style={STYLES.venueContainer} onLayout={this.setMinHeight.bind(this)}>
+                    <View style={STYLES.venueContainer}>
                         <View style={STYLES.leftVenueContainer}>
                             <Image
                                 style={{width: 50, height: 50}}
@@ -115,14 +63,8 @@ export default class VenueEventCard extends React.Component {
                 </TouchableOpacity>
 
 
-                <View style={STYLES.hiddenBody} onLayout={this.setMaxHeight.bind(this)}>
-                    <Text style={STYLES.upcomingEventsText}>Upcoming Events: Scroll Right</Text>
-                    <ScrollView horizontal={true} style={STYLES.eventScrollView}>
-                        {eventCards}
-                    </ScrollView>
-                </View>
 
-            </Animated.View>
+            </View>
 
 
 
@@ -136,22 +78,6 @@ const STYLES = {
         backgroundColor: 'transparent',
         overflow: 'hidden',
         width: Dimensions.get('window').width
-    },
-    hiddenBody: {
-        width: '90%',
-        backgroundColor: 'white',
-        opacity: .9,
-        marginTop: 2,
-        marginLeft: 17,
-        padding: 20,
-        borderRadius: 10
-    },
-    upcomingEventsText: {
-        paddingTop: 10,
-        paddingBottom: 20,
-        borderBottomWidth: 2,
-        borderColor: '#bfbfbf',
-        marginBottom: 20
     },
     venueContainer: {
         flexDirection: 'row',
@@ -199,9 +125,5 @@ const STYLES = {
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 15
-    },
-    eventScrollView: {
-        flexDirection: 'row',
-        height: 150
     }
 }
