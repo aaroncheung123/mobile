@@ -76,7 +76,12 @@ export default class Events extends React.Component {
 
 				<MemoryRouter ref={e => this.router = e}>
 					<View style={STYLES.routerContainer}>
-						<Route path="/venue" render={(props) => <Venue {...props} accounts={this.state.accounts} refreshing={this.state.refreshing} onRefresh={this.handleRefresh} onShowSpringPanel={this.props.onShowSpringPanel}/>} />
+						<Route path="/venue" render={(props) => <Venue {...props}
+							accounts={this.state.accounts}
+							refreshing={this.state.refreshing}
+							onRefresh={this.handleRefresh}
+							onShowSpringPanel={this.props.onShowSpringPanel}
+							onShowSidePanel={this.props.onShowSidePanel}/>} />
 						{/*<Route path="/date" component={Date} />*/}
 					</View>
 				</MemoryRouter>

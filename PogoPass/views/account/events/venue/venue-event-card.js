@@ -20,25 +20,21 @@ export default class VenueEventCard extends React.Component {
     }
 
     handleCardPress(){
-        console.log("handleCardPress");
         this.props.onShowSpringPanel(
             this.props.venue.name,
-            <EventPanel venue={this.props.venue}/>
+            <EventPanel venue={this.props.venue} accounts={this.props.accounts} onShowSidePanel={this.props.onShowSidePanel}/>
         )
     }
 
+
     render(){
         let icon = this.icons['down'];
-
-
 
         let logoUrl = 'https://www.pogopass.com/global/assets/images/unavailable.png';
         if (this.props.venue.logo_site_file) {
             if (GlobalUtil.inputToBool(this.props.venue.logo_site_file.images_resized)) logoUrl = this.props.venue.logo_site_file.image_urls.s100;
             else logoUrl = this.props.venue.logo_site_file.image_urls.url;
         }
-
-
         return(
 
             <View style={STYLES.outsideContainer}>
@@ -65,9 +61,6 @@ export default class VenueEventCard extends React.Component {
 
 
             </View>
-
-
-
         );
     }
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import NavigationBar from 'react-native-navbar';
 import {ScrollView, Text, View} from 'react-native';
 import VenueEventCard from './venue-event-card.js'
-import RegisterModal from './register-modal';
 
 export default class Venue extends React.Component {
 
@@ -14,7 +13,6 @@ export default class Venue extends React.Component {
 	  }
 
 	  this.accountLength = props.accounts.length
-	  this.handleShowRegisterEvent = this.handleShowRegisterEvent.bind(this);
 	}
 
 	componentDidMount() {
@@ -59,16 +57,6 @@ export default class Venue extends React.Component {
 	}
 
 
-	handleShowRegisterEvent(availability) {
-
-		this.props.onShowSidePanel(
-			'Register',
-			<RegisterModal accounts={this.props.accounts} availability={availability}/>
-		)
-	}
-
-
-
 
 	render() {
 
@@ -77,6 +65,7 @@ export default class Venue extends React.Component {
 			venue={venue}
 			accounts={this.props.accounts}
 			onShowSpringPanel={this.props.onShowSpringPanel}
+			onShowSidePanel={this.props.onShowSidePanel}
 			onRegister={this.handleShowRegisterEvent}/> )
 
 		return (

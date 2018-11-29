@@ -77,14 +77,14 @@ export default class RegisterModal extends React.Component {
 					this.state.available.length > 0 ?
 					<View style={STYLES.container}>
 						<Text style={STYLES.title}>Available Passes</Text>
-						{availableElements} 
+						{availableElements}
 					</View> : null
 				}
 				{
 					this.state.registered.length > 0 ?
 					<View style={STYLES.container}>
 						<Text style={STYLES.title}>Registered Passes</Text>
-						{registeredElements} 
+						{registeredElements}
 					</View> : null
 				}
 			</View>
@@ -104,7 +104,7 @@ const Pass = (props) => {
 				<Text style={STYLES.accountKey}>{props.account.account_key}</Text>
 			</View>
 			{
-				props.showRegister ? 
+				props.showRegister ?
 				<View style={STYLES.container}>
 					<TouchableOpacity
 	                    style={STYLES.registrationButton}
@@ -124,28 +124,28 @@ const STYLES = {
 		alignItems: 'center'
 	},
 	title: {
-		color: 'white',
+		color: 'black',
 		fontSize: 20,
 		textDecorationLine: 'underline'
 	},
 	passContainer: {
-		borderColor: 'white',
+		borderColor: 'black',
 		borderWidth: 1,
 		flexDirection: 'row',
 		marginTop: 20,
 		padding: 20,
-		borderRadius: 20,
+		borderRadius: 5,
 		width: Dimensions.get('window').width - 40,
 	},
 	accountDescriptionContainer: {
 		flex: 1
 	},
 	accountName: {
-		color: 'white',
+		color: 'black',
 		fontSize: 20
 	},
 	accountKey: {
-		color: 'white',
+		color: 'black',
 		fontSize: 16
 	},
     registrationButton: {
