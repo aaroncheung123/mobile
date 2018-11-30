@@ -22,34 +22,32 @@ export default class CameraComponent extends React.Component {
     }
 
 
-		// purpose
-		 //   add a site file / directory
-		 // args
-		 //   file_upload (required if file) - file that you want to upload
-		 //   site_file_parent_id (optional) (default is 0) (has to be a directory) - the directory you want the site file to be attached to
-		 //   name (required if directory) - name of directory you want to add
-		 //   private (optional) (default is false)
-		 // returns
-		 //   site_file - site file that you uploaded that you uploaded
-
-
-
     async handleSnap(){
-        if (this.camera) {
-            let photo = await this.camera.takePictureAsync();
-			let data = new FormData();
-			data.append('file_upload', {
-				uri: photo.uri,
-				type: 'image/jpeg',
-				name: 'CameraUpload'
-			});
-            data.append('private', 1);
-            data.append('site_file_parent_id', -1);
-            EliteAPI.CMS.SiteFile.add(data, (success) => {
-               if (this.props.onSnap) this.props.onSnap(success.data.site_file);
-            });
-        }
 
+				const soundObject = new Expo.Audio.Sound();
+				try {
+				  await soundObject.loadAsync(require('../assets/audio/camera_shutter.mp3'));
+				  await soundObject.playAsync();
+				} catch (error) {
+					console.log(error);
+				}
+
+
+
+        // if (this.camera) {
+        //     let photo = await this.camera.takePictureAsync();
+				// 		let data = new FormData();
+				// 		data.append('file_upload', {
+				// 			uri: photo.uri,
+				// 			type: 'image/jpeg',
+				// 			name: 'CameraUpload'
+				// 		});
+        //     data.append('private', 1);
+        //     data.append('site_file_parent_id', -1);
+        //     EliteAPI.CMS.SiteFile.add(data, (success) => {
+        //        if (this.props.onSnap) this.props.onSnap(success.data.site_file);
+        //     });
+        // }
     }
 
 
