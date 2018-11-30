@@ -34,8 +34,8 @@ export const Styles = StyleSheet.create({
 	overlayLogo: {
 		marginBottom: Platform.OS === 'ios' ? 80 : 50,
 		marginTop: Platform.OS === 'ios' ? 200 : 140,
-		width: Platform.OS === 'ios' ? 200 : 150,
-		height: Platform.OS === 'ios' ? 200 : 150,
+		width: 150,
+		height: 150,
 	},
 	overlayButton: {
 		height: 60,

@@ -55,7 +55,10 @@ export default class SpringPanel extends React.Component {
 
 
 					<ScrollView style={STYLES.scrollViewContainer}>
-						{this.props.content}
+                        <View style={STYLES.filler}>
+                            {this.props.content}
+                        </View>
+
 					</ScrollView>
 				</View>
 			</Animated.View>
@@ -81,7 +84,6 @@ const STYLES = {
 		width: '100%'
 	},
     titleContainer: {
-        height: 100,
         width: '70%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -90,10 +92,7 @@ const STYLES = {
 	springContainerText: {
 		color: 'white',
 		fontSize: 18,
-		borderBottomWidth: 2,
-		marginBottom: 20,
 		padding: 20,
-		borderColor: 'white',
 	},
 	toggleText: {
 		color: 'white',
@@ -111,5 +110,8 @@ const STYLES = {
 		right: 0,
 		top: 0,
 		padding: 15
-	}
+	},
+    filler: {
+        marginBottom: 80
+    }
 }

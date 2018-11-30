@@ -44,66 +44,72 @@ export default class Login extends React.Component {
 					<View style={Styles.overlay}>
 						<KeyboardAwareScrollView keyboardShouldPersistTaps='always'>
 							<View style={Styles.scrollView}>
-								<Image style={Styles.overlayLogo} source={require('../../assets/images/logos/login_logo.png')} />
-								<View style={IconInputStyles.container}>
-									<Icon
-										style={IconInputStyles.icon}
-										name='mail'
-  										type='favicon'
-										color='white'/>
-									<TextInput
-										autoCapitalize='none'
-										underlineColorAndroid='transparent'
-										returnKeyType="next"
-										placeholder="Email"
-										placeholderTextColor="#eeeeee"
-										keyboardType="email-address"
-										keyboardAppearance="dark"
-										style={IconInputStyles.text}
-										value={this.state.email}
-										onChangeText={(email) => this.setState({email: email, errorMessage: ''})}
-										onSubmitEditing={() => this.passwordInput.focus()}>
-									</TextInput>
+								<View style={Styles.scrollView}>
+                                    <Image style={Styles.overlayLogo} source={require('../../assets/images/logos/login_logo.png')} />
 								</View>
-								<View style={IconInputStyles.container}>
-									<Icon
-										style={IconInputStyles.icon}
-										name='lock'
-										type='favicon'
-										color='white'/>
-									<TextInput
-										autoCapitalize='none'
-										underlineColorAndroid='transparent'
-										ref={(e) => this.passwordInput = e}
-										returnKeyType="send"
-										keyboardAppearance="dark"
-										placeholder="Password"
-										secureTextEntry={true}
-										placeholderTextColor="#eeeeee"
-										style={IconInputStyles.text}
-										value={this.state.password}
-										onChangeText={(password) => this.setState({password: password, errorMessage: ''})}
-										onSubmitEditing={this.login}>
-									</TextInput>
-								</View>
-								{
-									this.state.errorMessage.trim() != '' ?
-									<Text style={Styles.overlayErrorText}>{this.state.errorMessage}</Text> : null
-								}
-								<Button
-									buttonStyle={Styles.overlayButton}
-									title="Login"
-									color="white"
-									onPress={this.login}
-									loading={this.state.loading}
-								/>
-								<Button
-									title="Forgot your password?"
-									icon={{name: 'question', type: 'evilicon', size: 15, color: "white"}}
-									buttonStyle={Styles.link}
-									color="white"
-									onPress={() => this.props.history.push('/forgot')}
-								/>
+
+                                <View style={Styles.scrollView}>
+                                    <View style={IconInputStyles.container}>
+    									<Icon
+    										style={IconInputStyles.icon}
+    										name='mail'
+      										type='favicon'
+    										color='white'/>
+    									<TextInput
+    										autoCapitalize='none'
+    										underlineColorAndroid='transparent'
+    										returnKeyType="next"
+    										placeholder="Email"
+    										placeholderTextColor="#eeeeee"
+    										keyboardType="email-address"
+    										keyboardAppearance="dark"
+    										style={IconInputStyles.text}
+    										value={this.state.email}
+    										onChangeText={(email) => this.setState({email: email, errorMessage: ''})}
+    										onSubmitEditing={() => this.passwordInput.focus()}>
+    									</TextInput>
+    								</View>
+    								<View style={IconInputStyles.container}>
+    									<Icon
+    										style={IconInputStyles.icon}
+    										name='lock'
+    										type='favicon'
+    										color='white'/>
+    									<TextInput
+    										autoCapitalize='none'
+    										underlineColorAndroid='transparent'
+    										ref={(e) => this.passwordInput = e}
+    										returnKeyType="send"
+    										keyboardAppearance="dark"
+    										placeholder="Password"
+    										secureTextEntry={true}
+    										placeholderTextColor="#eeeeee"
+    										style={IconInputStyles.text}
+    										value={this.state.password}
+    										onChangeText={(password) => this.setState({password: password, errorMessage: ''})}
+    										onSubmitEditing={this.login}>
+    									</TextInput>
+    								</View>
+    								{
+    									this.state.errorMessage.trim() != '' ?
+    									<Text style={Styles.overlayErrorText}>{this.state.errorMessage}</Text> : null
+    								}
+    								<Button
+    									buttonStyle={Styles.overlayButton}
+    									title="Login"
+    									color="white"
+    									onPress={this.login}
+    									loading={this.state.loading}
+    								/>
+    								<Button
+    									title="Forgot your password?"
+    									icon={{name: 'question', type: 'evilicon', size: 15, color: "white"}}
+    									buttonStyle={Styles.link}
+    									color="white"
+    									onPress={() => this.props.history.push('/forgot')}
+    								/>
+                                </View>
+
 							</View>
 						</KeyboardAwareScrollView>
 					</View>
