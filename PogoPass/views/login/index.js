@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, AsyncStorage} from 'react-native';
+import {StyleSheet, View, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, AsyncStorage, Dimensions} from 'react-native';
 import {KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {Icon, Button} from 'react-native-elements'
 import {Styles, IconInputStyles} from '../../assets/styles/styles'
@@ -39,18 +39,13 @@ export default class Login extends React.Component {
 
 	render() {
 		return (
-			<View >
+			<View>
 				<TouchableWithoutFeedback style={Styles.overlay} onPress={Keyboard.dismiss} accessible={false}>
-					<View
-						style={Styles.overlay}>
-						<KeyboardAwareScrollView
-							keyboardShouldPersistTaps='always'
-							>
-							<View
-								style={Styles.scrollView}>
+					<View style={Styles.overlay}>
+						<KeyboardAwareScrollView keyboardShouldPersistTaps='always'>
+							<View style={Styles.scrollView}>
 								<Image style={Styles.overlayLogo} source={require('../../assets/images/logos/login_logo.png')} />
-								<View
-									style={IconInputStyles.container}>
+								<View style={IconInputStyles.container}>
 									<Icon
 										style={IconInputStyles.icon}
 										name='mail'

@@ -37,12 +37,12 @@ export default class BaseNavigation extends React.Component {
 	render() {
 		return (
 			<MemoryRouter ref={e => this.router = e}>
-				<View>
-          			<StatusBar barStyle="light-content"/>
+    			<View>
+                	<StatusBar barStyle="light-content"/>
 					<Route path="/account" render={(props) => <Account {...props} onLogout={this.handleLogout}/>}/>
 					<Route path="/login" component={Login}/>
 					<Route path="/forgot" component={Forgot}/>
-				</View>
+    			</View>
 			</MemoryRouter>
 		)
 	}

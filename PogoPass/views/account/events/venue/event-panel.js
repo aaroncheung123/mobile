@@ -29,7 +29,7 @@ export default class EventPanel extends React.Component {
             <UpcomingEventCard key={event.event_id} event={event} onRegister={this.handleShowRegisterEvent}/>)
 
         return (
-            <ScrollView>
+            <ScrollView style={STYLES.scrollViewContainer}>
                 <View style={STYLES.container}>
                     {eventCards}
                 </View>
@@ -41,6 +41,12 @@ export default class EventPanel extends React.Component {
 
 const STYLES = {
     container: {
-        marginBottom: 60
+        width: '100%',
+        marginBottom: 60,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    scrollViewContainer: {
+        width: '100%'
     }
 }

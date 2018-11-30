@@ -42,9 +42,12 @@ export default class HeaderTitle extends React.Component {
 	render() {
 		return (
 			<View>
-				<Text style={STYLES.headerTitle}>
-					{this.props.title}
-				</Text>
+				<View style={STYLES.headerTitleContainer}>
+					<Text style={STYLES.headerTitle}>
+						{this.props.title}
+					</Text>
+				</View>
+
 
 				{this.state.notificationCount > 0 ? <NotificationBubble number={this.state.notificationCount}/> : null}
 
@@ -76,9 +79,12 @@ const STYLES = {
 		justifyContent: 'center',
 		padding: 10,
 		paddingTop: Platform.OS === 'ios' ? Constants.statusBarHeight + 5 : 10,
-		opacity: Platform.OS === 'ios' ? 1 : .95,
-		backgroundColor: Platform.OS === 'ios' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.6)'
+		//opacity: Platform.OS === 'ios' ? 1 : .95,
+		//backgroundColor: Platform.OS === 'ios' ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.6)'
 	},
+    headerTitleContainer: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)'
+    },
 	iconContainer:{
 		position: 'absolute',
 		top: 0,

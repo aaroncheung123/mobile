@@ -1,12 +1,11 @@
 
-import {StyleSheet, TextInput} from 'react-native';
+import {StyleSheet, TextInput, Dimensions, Platform} from 'react-native';
 import {Constants} from 'expo';
 
 export const PogoOrange = '#faa31a';
 
 export const Styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 		// marginTop: Constants.statusBarHeight,
@@ -27,16 +26,16 @@ export const Styles = StyleSheet.create({
 		height: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
-		//backgroundColor: 'rgba(0, 0, 0, 0.4)',
+		backgroundColor: 'rgba(0, 0, 0, 0.4)',
 		alignItems: 'center',
 		justifyContent: 'center',
-		width: 360
+		width: Dimensions.get('window').width
 	},
 	overlayLogo: {
-		marginBottom: 50,
-		marginTop: 140,
-		height:150,
-		width:150
+		marginBottom: Platform.OS === 'ios' ? 80 : 50,
+		marginTop: Platform.OS === 'ios' ? 200 : 140,
+		width: Platform.OS === 'ios' ? 200 : 150,
+		height: Platform.OS === 'ios' ? 200 : 150,
 	},
 	overlayButton: {
 		height: 60,
@@ -46,8 +45,7 @@ export const Styles = StyleSheet.create({
 		borderRadius: 15,
 		marginTop: 35,
 		backgroundColor: PogoOrange,
-		width: 240,
-		maxWidth: 240
+		width: 200,
 	},
 	scrollView: {
 		flex: 1,
@@ -83,8 +81,7 @@ export const IconInputStyles = StyleSheet.create({
 		marginLeft: 25
 	},
 	container:  {
-		width: '72%',
-		maxWidth: 350,
+		width: '90%',
 		borderStyle: 'solid',
 		borderBottomColor: 'white',
 		borderBottomWidth: 2,

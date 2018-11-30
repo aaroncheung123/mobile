@@ -49,11 +49,14 @@ export default class SpringPanel extends React.Component {
 
 		return (
 			<Animated.View style={{...STYLES.springContainer, height: this.springValue}}>
-				<Icon name='times' size= {20} style={STYLES.iconX} onPress={this.handleClose}/>
+				<Icon name='times' size= {20} style={STYLES.icon} onPress={this.handleClose}/>
 				<View style={STYLES.innerSpringContainer}>
-					<Text style={STYLES.springContainerText}>{this.props.title}</Text>
+					<View style={STYLES.titleContainer}>
+						<Text style={STYLES.springContainerText}>{this.props.title}</Text>
+					</View>
 
-					<ScrollView>
+
+					<ScrollView style={STYLES.scrollViewContainer}>
 						{this.props.content}
 					</ScrollView>
 				</View>
@@ -73,33 +76,42 @@ const STYLES = {
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: 'black',
-		opacity: Platform.OS === 'ios' ? 1 : .85,
+		opacity: .85,
 		overflow: 'hidden',
-		width: '100%'
 	},
+	scrollViewContainer: {
+		width: '100%',
+	},
+    titleContainer: {
+        height: 100,
+        width: '70%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: Platform.OS === 'ios' ? 0 : 60,
+    },
 	springContainerText: {
 		color: 'white',
 		fontSize: 18,
 		borderBottomWidth: 2,
 		marginBottom: 20,
-		paddingBottom: 20,
-		paddingHorizontal: 30,
-		borderColor: 'white'
+		padding: 20,
+		borderColor: 'white',
 	},
 	toggleText: {
 		color: 'white',
 		fontSize: 16
 	},
 	innerSpringContainer: {
-		margin: 20,
+		margin: 10,
 		justifyContent: 'flex-start',
 		alignItems: 'center',
+		width: '100%',
 	},
-	iconX: {
+	icon: {
 		color: 'white',
 		position: 'absolute',
 		right: 0,
 		top: 0,
-		margin: 15
+		padding: 15
 	}
 }

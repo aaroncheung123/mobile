@@ -74,7 +74,7 @@ const STYLES = {
     },
     venueContainer: {
         flexDirection: 'row',
-        height: 80,
+        height: 90,
         width: '90%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -109,7 +109,8 @@ const STYLES = {
     textStyle: {
         fontSize: 14,
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        marginTop: 10
     },
     buttonImage : {
         width: 12,
@@ -117,6 +118,6 @@ const STYLES = {
         opacity: .3,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 15
+        marginTop: 10
     }
 }

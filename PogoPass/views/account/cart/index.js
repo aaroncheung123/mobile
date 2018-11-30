@@ -10,8 +10,29 @@ export default class Cart extends React.Component {
 
 	constructor(props){
 		super(props);
+		this.state = {
+			loginLink: ''
+		}
 		this.screenHeight = Dimensions.get('window').height - 275;
 		this.screenWidth = Dimensions.get('window').width;
+	}
+
+	componentDidMount(){
+		Service.User.get(user => {
+			EliteAPI.CRM.User.getLoginToken(
+			 { user_id: user.id },
+			 success => {
+				 this.setState({
+					 loginLink: "http://www.pogopass.com/login/auto?one_time_login_token=" + success.data.user_login_token.token
+				 }, () => {
+						//this.updatePath('/cart');
+				 })
+			 },
+			 failure => {
+				 console.log(failure);
+			 }
+		 );
+		})
 	}
 
 	handleCheckout(){
@@ -20,10 +41,12 @@ export default class Cart extends React.Component {
 
 	render() {
 
+		if (GlobalUtil.isEmpty(this.state.loginLink)) return null;
+
 	  return (
 			<View style={STYLES.container}>
 				<WebView
-					source = {{ uri:'https://www.pogopass.com/cart' }}
+					source = {{ uri: this.state.loginLink + '&url=https://www.pogopass.com/cart' }}
 				/>
 			</View>
 	  )

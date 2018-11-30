@@ -58,7 +58,7 @@ const STYLES = {
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
         marginBottom: 10,
-        width: 300
+        width: '80%'
     },
     leftContainer: {
         flex: 1,
