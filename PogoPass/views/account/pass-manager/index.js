@@ -86,7 +86,7 @@ export default class Account extends React.Component {
 	share() {
 		if (this.state.referralCode) {
 
-			let message = 'Check out Pogo Pass! It gives you free access to tons of entertainment venues in your area. Click the link below to get up your membership 60% off. ' + this.state.referralCode.url_referral;
+			let message = 'Check out Pogo Pass! It gives you free access to tons of entertainment venues in your area. Click the link below to get your pass for only $39.95 through my referral. ' + this.state.referralCode.url_referral;
 			Share.share({
 				message: message,
 				url: this.state.referralCode.url_referral,
