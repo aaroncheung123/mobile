@@ -77,7 +77,6 @@ const STYLES = {
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		backgroundColor: 'rgba(0, 0, 0, 0.8)',
-		//opacity: .85,
 		overflow: 'hidden',
 	},
 	scrollViewContainer: {
@@ -86,8 +85,7 @@ const STYLES = {
     titleContainer: {
         width: '70%',
         justifyContent: 'center',
-        alignItems: 'center',
-        //marginTop: Platform.OS === 'ios' ? 30 : 60,
+        alignItems: 'center'
     },
 	springContainerText: {
 		color: 'white',

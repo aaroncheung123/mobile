@@ -92,9 +92,14 @@ export default class AccountNavigation extends React.Component {
 
 
   updatePath(path) {
-		this.setTitle(path);
-    this.router.history.push(path);
-    this.forceUpdate();
+    this.springPanel.handleClose();
+    this.sidePanel.handleClose();
+    setTimeout(() => {
+      this.setTitle(path);
+      this.router.history.push(path);
+      this.forceUpdate();
+    }, 500)
+
   }
 
 	setTitle(path){
@@ -130,7 +135,7 @@ export default class AccountNavigation extends React.Component {
 		this.setState({
 			springPanelTitle: '',
 			springPanelContent: null
-		})
+		});
 	}
 
   handleShowSpringPanel(title, content){
