@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Animated, ScrollView, Dimensions, Platform} from 'react-native';
+import {View, Text, Animated, ScrollView, Dimensions, Platform, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class SpringPanel extends React.Component {
@@ -47,19 +47,24 @@ export default class SpringPanel extends React.Component {
 
 		return (
 			<Animated.View style={{...STYLES.springContainer, height: this.springValue}}>
-				<Icon name='times' size= {20} style={STYLES.icon} onPress={this.handleClose}/>
+                <TouchableOpacity
+                    style={STYLES.iconContainer}
+                    onPress={this.handleClose}>
+                        <Icon name='times' size= {20} color='white'/>
+                </TouchableOpacity>
+
 				<View style={STYLES.innerSpringContainer}>
-					<View style={STYLES.titleContainer}>
-						<Text style={STYLES.springContainerText}>{this.props.title}</Text>
-					</View>
+        			<View style={STYLES.titleContainer}>
+        				<Text style={STYLES.springContainerText}>{this.props.title}</Text>
+        			</View>
 
 
 					<ScrollView style={STYLES.scrollViewContainer}>
                         <View style={STYLES.filler}>
-                            {this.props.content}
-                        </View>
-
+        	              {this.props.content}
+        	            </View>
 					</ScrollView>
+
 				</View>
 			</Animated.View>
 		);
@@ -102,12 +107,12 @@ const STYLES = {
 		alignItems: 'center',
 		width: '100%',
 	},
-	icon: {
-		color: 'white',
+	iconContainer: {
 		position: 'absolute',
 		right: 0,
 		top: 0,
-		padding: 15
+		padding: 15,
+        zIndex: 1
 	},
     filler: {
         marginBottom: 80
