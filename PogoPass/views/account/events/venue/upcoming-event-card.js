@@ -58,7 +58,8 @@ const STYLES = {
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
         marginBottom: 10,
-        width: '80%'
+        width: '80%',
+        //backgroundColor: 'black'
     },
     leftContainer: {
         flex: 1,

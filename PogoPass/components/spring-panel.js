@@ -73,8 +73,8 @@ const STYLES = {
 		borderTopRightRadius: 20,
 		justifyContent: 'flex-start',
 		alignItems: 'center',
-		backgroundColor: 'black',
-		opacity: .85,
+		backgroundColor: 'rgba(0, 0, 0, 0.8)',
+		//opacity: .85,
 		overflow: 'hidden',
 	},
 	scrollViewContainer: {
