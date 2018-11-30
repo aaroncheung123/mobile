@@ -53,7 +53,8 @@ const STYLES ={
         borderRadius: 10,
         padding: 20,
         margin: 1,
-        width: 300
+        width: '80%',
+        alignSelf: 'center'
     },
     notificationCardActive: {
         backgroundColor: 'white',

@@ -26,7 +26,7 @@ export default class SpringPanelNotifications extends React.Component {
             EliteAPI.CRM.Notification.search({user_id: user.id, take: 50}, (success) => {
                 this.setState({notifications: success.data.models})
             })
-        })  
+        })
     }
 
     handleNotification(notification, removeCallback) {
@@ -48,6 +48,6 @@ export default class SpringPanelNotifications extends React.Component {
 
 const STYLES = {
     container: {
-        marginBottom: 75
+        //marginBottom: 75
     }
 }

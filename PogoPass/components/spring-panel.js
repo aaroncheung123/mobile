@@ -28,8 +28,6 @@ export default class SpringPanel extends React.Component {
 	}
 
 	handleClose() {
-
-
 		Animated.timing(
 			this.springValue,
 			{
@@ -73,21 +71,21 @@ const STYLES = {
 		width: '100%',
 		borderTopLeftRadius: 20,
 		borderTopRightRadius: 20,
-		justifyContent: 'center',
+		justifyContent: 'flex-start',
 		alignItems: 'center',
 		backgroundColor: 'black',
 		opacity: .85,
 		overflow: 'hidden',
 	},
 	scrollViewContainer: {
-		width: '100%',
+		width: '100%'
 	},
     titleContainer: {
         height: 100,
         width: '70%',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: Platform.OS === 'ios' ? 0 : 60,
+        //marginTop: Platform.OS === 'ios' ? 30 : 60,
     },
 	springContainerText: {
 		color: 'white',
