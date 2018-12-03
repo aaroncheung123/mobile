@@ -18,11 +18,11 @@ export default class PhotoRow extends React.Component {
 
     componentDidMount(){
         EliteAPI.GEN.ModelFile.search({
-			take: 1000,
-			model_id: this.props.workOrder.work_order_id,
-			class_key: 'workorder',
-			type: this.props.type,
-            include_classes: 'sitefile'
+					take: 1000,
+					model_id: this.props.workOrder.work_order_id,
+					class_key: 'workorder',
+					type: this.props.type,
+          include_classes: 'sitefile'
 		}, (success) => {
 			//console.log(success.data.models);
             this.setState({
@@ -52,7 +52,7 @@ export default class PhotoRow extends React.Component {
         }, (success) => {
             let photos = this.state.photos;
             photos.push(success.data.model_file);
-            this.setState({photos: photos});  
+            this.setState({photos: photos});
         }, (failure) => {
             console.log(failure);
         })
@@ -60,13 +60,13 @@ export default class PhotoRow extends React.Component {
 
     render() {
 
-        let photos = this.state.photos.map(photo => <PhotoCard
-            key={photo.site_file_id}
-			photo={photo}
-            onPress={ () => {
-				this.props.onPress({photo});
-            }}
-		/>);
+      let photos = this.state.photos.map(photo => <PhotoCard
+      	key={photo.site_file_id}
+				photo={photo}
+        onPress={ () => {
+					this.props.onPress({photo});
+      		}
+				}/>);
 
         return (
             <View>
@@ -88,7 +88,7 @@ export default class PhotoRow extends React.Component {
 }
 
 const PhotoCard = (props) => {
-    return (
+	return (
         <TouchableOpacity onPress= {props.onPress}>
             <Image
               style={STYLES.photoCardContainer}
@@ -96,6 +96,18 @@ const PhotoCard = (props) => {
             />
         </TouchableOpacity>
     );
+}
+
+const Loader = props => {
+	const {
+        loading,
+        ...attributes
+    } = props;
+	return (
+  	     <Modal
+             visible={loading}>
+		</Modal>
+	 )
 }
 
 const STYLES = {
