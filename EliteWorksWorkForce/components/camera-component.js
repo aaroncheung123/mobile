@@ -27,6 +27,7 @@ export default class CameraComponent extends React.Component {
 
 
     async handleSnap(){
+				//AUDIO
 				const soundObject = new Expo.Audio.Sound();
 				try {
 				  await soundObject.loadAsync(require('../assets/audio/camera_shutter.mp3'));
@@ -34,24 +35,30 @@ export default class CameraComponent extends React.Component {
 				} catch (error) {
 					console.log(error);
 				}
+
+				//VISUAL
 				this.animate()
 
+				//SERVER
+        if (this.camera) {
 
-
-        // if (this.camera) {
-        //     let photo = await this.camera.takePictureAsync();
-				// 		let data = new FormData();
-				// 		data.append('file_upload', {
-				// 			uri: photo.uri,
-				// 			type: 'image/jpeg',
-				// 			name: 'CameraUpload'
-				// 		});
-        //     data.append('private', 1);
-        //     data.append('site_file_parent_id', -1);
-        //     EliteAPI.CMS.SiteFile.add(data, (success) => {
-        //        if (this.props.onSnap) this.props.onSnap(success.data.site_file);
-        //     });
-        // }
+						//LOADING SCREEN
+						if(this.props.onSnapStart){
+							this.props.onSnapStart()
+						}
+            let photo = await this.camera.takePictureAsync();
+						let data = new FormData();
+						data.append('file_upload', {
+							uri: photo.uri,
+							type: 'image/jpeg',
+							name: 'CameraUpload'
+						});
+            data.append('private', 1);
+            data.append('site_file_parent_id', -1);
+            EliteAPI.CMS.SiteFile.add(data, (success) => {
+               if (this.props.onSnap) this.props.onSnap(success.data.site_file);
+            });
+        }
     }
 
 		animate () {
