@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {View, Text, TouchableOpacity, Dimensions, Animated} from 'react-native';
 import {Camera, Permissions} from 'expo';
 import {Container, Content, Header, Item, Input, Button} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 export default class CameraComponent extends React.Component {
 
@@ -13,8 +14,11 @@ export default class CameraComponent extends React.Component {
             hasCameraPermission: null,
             type: Camera.Constants.Type.back
         }
+				this.animatedValue = new Animated.Value(0)
         this.handleSnap = this.handleSnap.bind(this);
+				this.animate = this.animate.bind(this);
     }
+
 
     async componentWillMount(){
         const{ status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -23,7 +27,7 @@ export default class CameraComponent extends React.Component {
 
 
     async handleSnap(){
-
+				this.animate()
 				const soundObject = new Expo.Audio.Sound();
 				try {
 				  await soundObject.loadAsync(require('../assets/audio/camera_shutter.mp3'));
@@ -50,10 +54,27 @@ export default class CameraComponent extends React.Component {
         // }
     }
 
+		animate () {
+		  this.animatedValue.setValue(0)
+		  Animated.timing(
+		    this.animatedValue,
+		    {
+		      toValue: 1,
+		      duration: 1500
+		    }
+		  ).start(() => this.animate())
+		}
+
 
 
     render() {
-        const {hasCameraPermission} = this.state
+
+				let opacity = this.animatedValue.interpolate({
+			    inputRange: [0, 0.05, .1],
+			    outputRange: [0, .2, 0]
+			  })
+
+        let {hasCameraPermission} = this.state
         if(hasCameraPermission === null){
             return  <View/>
         }
@@ -64,6 +85,7 @@ export default class CameraComponent extends React.Component {
             return(
                 <View style={STYLES.cameraContainer}>
                     <Camera ref = {e => this.camera = e} style={STYLES.cameraContainer} type={this.state.type}>
+												<Animated.View style={{...STYLES.flashContainer, opacity}} />
                         <TouchableOpacity
                             onPress={this.handleSnap}
                             style={STYLES.cameraButton}>
@@ -84,17 +106,19 @@ const STYLES = {
     container: {
         backgroundColor: 'white'
     },
+		flashContainer: {
+				position: 'absolute',
+				top: 0,
+				left: 0,
+				height: Dimensions.get('window').height - 310,
+				width: Dimensions.get('window').width,
+				backgroundColor: 'white',
+				zIndex: 1
+		},
     cameraContainer: {
         height: Dimensions.get('window').height - 225,
-				width: Dimensions.get('window').width
-    },
-    headerContainer: {
-        position: 'absolute',
-        backgroundColor: 'transparent',
-        left: 0,
-        top: 0,
-        right: 0,
-        zIndex: 100
+				width: Dimensions.get('window').width,
+				zIndex: 2
     },
     footerContainer: {
         position: 'absolute',
@@ -115,6 +139,7 @@ const STYLES = {
         height: 50,
         width: 50,
         padding: 10,
-        marginBottom: 30
+        marginBottom: 30,
+				zIndex: 0
     }
 }
