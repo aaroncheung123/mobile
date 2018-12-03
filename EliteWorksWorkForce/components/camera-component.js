@@ -27,7 +27,6 @@ export default class CameraComponent extends React.Component {
 
 
     async handleSnap(){
-				this.animate()
 				const soundObject = new Expo.Audio.Sound();
 				try {
 				  await soundObject.loadAsync(require('../assets/audio/camera_shutter.mp3'));
@@ -35,6 +34,7 @@ export default class CameraComponent extends React.Component {
 				} catch (error) {
 					console.log(error);
 				}
+				this.animate()
 
 
 
@@ -62,7 +62,7 @@ export default class CameraComponent extends React.Component {
 		      toValue: 1,
 		      duration: 1500
 		    }
-		  ).start(() => this.animate())
+		  ).start()
 		}
 
 
@@ -71,7 +71,7 @@ export default class CameraComponent extends React.Component {
 
 				let opacity = this.animatedValue.interpolate({
 			    inputRange: [0, 0.05, .1],
-			    outputRange: [0, .2, 0]
+			    outputRange: [0, .3, 0]
 			  })
 
         let {hasCameraPermission} = this.state
@@ -85,7 +85,6 @@ export default class CameraComponent extends React.Component {
             return(
                 <View style={STYLES.cameraContainer}>
                     <Camera ref = {e => this.camera = e} style={STYLES.cameraContainer} type={this.state.type}>
-												<Animated.View style={{...STYLES.flashContainer, opacity}} />
                         <TouchableOpacity
                             onPress={this.handleSnap}
                             style={STYLES.cameraButton}>
@@ -93,6 +92,7 @@ export default class CameraComponent extends React.Component {
                         <View style={STYLES.footerContainer}>
                             <Icon name='photo' size={30} color='white'/>
                         </View>
+												<Animated.View style={{...STYLES.flashContainer, opacity}} />
 
                     </Camera>
 
@@ -110,15 +110,13 @@ const STYLES = {
 				position: 'absolute',
 				top: 0,
 				left: 0,
-				height: Dimensions.get('window').height - 310,
+				height: Dimensions.get('window').height,
 				width: Dimensions.get('window').width,
-				backgroundColor: 'white',
-				zIndex: 1
+				backgroundColor: 'white'
 		},
     cameraContainer: {
         height: Dimensions.get('window').height - 225,
-				width: Dimensions.get('window').width,
-				zIndex: 2
+				width: Dimensions.get('window').width
     },
     footerContainer: {
         position: 'absolute',
@@ -139,7 +137,6 @@ const STYLES = {
         height: 50,
         width: 50,
         padding: 10,
-        marginBottom: 30,
-				zIndex: 0
+        marginBottom: 30
     }
 }
