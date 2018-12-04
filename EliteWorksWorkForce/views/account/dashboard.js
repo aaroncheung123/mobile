@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated, Switch,Picker} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated, Switch,Picker, RefreshControl} from 'react-native';
 import DealCard from '../../components/deal-card.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../../assets/styles/constants';
@@ -14,18 +14,24 @@ export default class Dashboard extends React.Component {
         this.state = {
             deals: [],
             searchText: '',
-            zones: []
+            zones: [],
+            refreshing: false,
         }
         this.filterDeals = this.filterDeals.bind(this);
+        this.onRefresh = this.onRefresh.bind(this);
     }
 
     componentDidMount() {
+        this.onRefresh()
+    }
+
+    onRefresh() {
         EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
             //console.log(success.data.models);
             this.setState({deals: success.data.models})
         });
         EliteAPI.CRM.Zone.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
-            console.log(success.data.models);
+            //console.log(success.data.models);
             this.setState({zones: success.data.models})
         })
     }
@@ -35,7 +41,7 @@ export default class Dashboard extends React.Component {
         console.log(item);
         if(item != 'no_filter'){
             EliteAPI.CRM.Deal.search({zone_id: item, take: 1000, include_classes: 'user', status: 'WON'}, success => {
-                console.log(success.data.models);
+                //console.log(success.data.models);
                 this.setState({searchText: item})
                 this.setState({deals: success.data.models})
             })
@@ -81,7 +87,8 @@ export default class Dashboard extends React.Component {
                 </View>
 
                 <View style={STYLES.scrollViewContainer}>
-                    <ScrollView>
+                    <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
+
                         <View style={STYLES.transparentFiller}>
                             {deals}
                         </View>
