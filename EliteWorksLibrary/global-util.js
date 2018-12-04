@@ -336,7 +336,7 @@ class StrModels {
         this.Product = Product;
         this.Credit = Credit;
     }
-} 
+}
 
 // crm models
 import User from './models/crm/user';

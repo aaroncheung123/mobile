@@ -26,8 +26,8 @@ export class Model {
     // purpose
     //   generic search based on class string that you pass
     // args
-    //   class_string (required) 
-    //   query_search (optional)    
+    //   class_string (required)
+    //   query_search (optional)
     //   take (optional) (default is 25) (max = 1000) - the number of pages to take
     //   page (optional) (default is 0) - starts at page 0, so display to the end user page + 1
     //   sort_columns (optional) (default is "created_at DESC") (seperate columns by comma ex "{column_1} {ASC:DESC}, {column_2} {ASC:DESC}")
@@ -43,7 +43,7 @@ export class Model {
 		let url = '/global/gen/model/search';
 		return WebClient.basicGet(form_data, url, success => {
 			let modelClass = (this.classModel) ? this.classModel : GlobalUtil.getClassFromString(form_data['class_string']);
-		
+
 			if (modelClass) {
 				success.data.models = success.data.models.map(model => new modelClass(model));
 				if (tempClass) success.data[tempClass.dataModelPlural] = success.data.models;
@@ -87,9 +87,9 @@ export class Model {
     // returns
     //   (none)
     delete (form_data, success_callback, failure_callback) {
-		
+
 		if (this.classString) form_data.class_string = this.classString;
-		
+
 		let url = '/global/gen/model/delete';
 
 		if (this.classModel)
@@ -110,7 +110,7 @@ export class Model {
     //   model
     add (form_data, success_callback, failure_callback) {
     	if (this.classString) form_data.class_string = this.classString;
-    	
+
     	let url = '/global/gen/model/add';
 
 
@@ -119,7 +119,7 @@ export class Model {
 
 		return WebClient.basicPost(form_data, url, success => {
 			let modelClass = (this.classModel) ? this.classModel : GlobalUtil.getClassFromString(form_dpata['class_string']);
-		
+
 			if (modelClass) {
 				success.data.model = new modelClass(success.data.model)
 				if (tempClass) success.data[tempClass.dataModel] = success.data.model;
@@ -136,7 +136,7 @@ export class Model {
     //   include_map (optional) (0 or 1) (default is 0)
     //   tick_size (optional) (default is ALL) (ALL, YEAR, MONTH, WEEK, DAY, HOUR, MINUTE)
     //   methods (optional) (default is based on class_string)
-    //   seperators (optional) 
+    //   seperators (optional)
     // returns
     //   report
    	report (form_data, success_callback, failure_callback)
@@ -166,7 +166,10 @@ export class ModelFile extends Model {
     add (form_data, success_callback, failure_callback)
     {
         let url = '/global/gen/model/file/add';
-        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+        return WebClient.basicPost(form_data, url, success => {
+					success.data.model_file = new EliteAPI.Models.GEN.ModelFile(success.data.model_file);
+					if (success_callback) success_callback(success);
+				}, failure_callback);
     }
 
     // purpose
@@ -174,7 +177,7 @@ export class ModelFile extends Model {
     // args
     //   model_file_id (required)
     //   name (optional)
-    // returns 
+    // returns
     //   (none)
    	set (form_data, success_callback, failure_callback)
     {
@@ -190,7 +193,7 @@ export class ModelActivity extends Model {
 	}
 
     // purpose
-    //   add a model activity 
+    //   add a model activity
     // args
     //   model_id (required)
     //   class_string (required)
@@ -257,7 +260,7 @@ export class ModelTimeSpan extends Model {
     //   model_time_span
     stop (form_data, success_callback, failure_callback)
     {
-        let url = '/global/gen/model/time/span/stop'; 
+        let url = '/global/gen/model/time/span/stop';
         return WebClient.basicPost(form_data, url, success => {
         	success.data.model_time_span = new EliteAPI.Models.GEN.ModelTimeSpan(success.data.model_time_span);
         	if (success_callback) success_callback(success);

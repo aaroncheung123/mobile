@@ -12,19 +12,36 @@ export default class Dashboard extends React.Component {
         super(props)
 
         this.state = {
-            deals: []
+            deals: [],
+            searchText: ''
         }
+        this.filterDeals = this.filterDeals.bind(this);
     }
 
     componentDidMount() {
         EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
+            console.log(success.data.models);
+            this.setState({deals: success.data.models})
+        })
+    }
+
+
+    filterDeals(text){
+        console.log(text);
+        this.setState({text});
+        EliteAPI.CRM.Deal.search({zone_id: text, take: 1000, include_classes: 'user', status: 'WON'}, success => {
+            console.log(success.data.models);
             this.setState({deals: success.data.models})
         })
     }
 
     render() {
 
-        let deals = this.state.deals.map(deal => <DealCard deal={deal} key={deal.deal_id} onShowSpringPanel={this.props.onShowSpringPanel} onShowSidePanel={this.props.onShowSidePanel}/>);
+        let deals = this.state.deals.map(deal => <DealCard
+            key={deal.deal_id}
+            deal={deal}
+            onShowSpringPanel={this.props.onShowSpringPanel}
+            onShowSidePanel={this.props.onShowSidePanel}/>);
 
         return (
             <View style={STYLES.container}>
@@ -36,7 +53,9 @@ export default class Dashboard extends React.Component {
                         <TextInput
                             style={STYLES.textInputStyle}
                             placeholder = "Search Deals by Zone"
-                            underlineColorAndroid = "transparent"/>
+                            underlineColorAndroid = "transparent"
+                            onChangeText={(text) => this.filterDeals(text)}
+                            value={this.state.text}/>
                     </View>
                 </View>
 

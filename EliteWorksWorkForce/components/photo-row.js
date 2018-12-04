@@ -17,6 +17,7 @@ export default class PhotoRow extends React.Component {
         this.handleSnap = this.handleSnap.bind(this);
         this.onStartLoadingBox = this.onStartLoadingBox.bind(this);
         this.onStopLoadingBox = this.onStopLoadingBox.bind(this);
+        this.handleDeletePhoto = this.handleDeletePhoto.bind(this);
     }
 
     componentDidMount(){
@@ -27,7 +28,7 @@ export default class PhotoRow extends React.Component {
 			type: this.props.type,
             include_classes: 'sitefile'
 		}, (success) => {
-			console.log(success.data.models[0]);
+			//console.log(success.data.models[0]);
             this.setState({
                 photos: success.data.models
             });
@@ -76,14 +77,26 @@ export default class PhotoRow extends React.Component {
         })
     }
 
+    handleDeletePhoto(photo){
+        console.log('test: ', photo);
+        photo.delete((success) => {
+            console.log('success');
+            this.setState({
+                photos: this.state.photos.filter(x => x.model_file_id != photo.model_file_id)
+            })
+        }, failure => {
+            console.log('failed')
+        })
+    }
+
     render() {
 
       let photos = this.state.photos.map(photo => <PhotoCard
           key={photo.site_file_id}
 	      photo={photo}
+          onDelete={this.handleDeletePhoto}
           onPress={ () => {
               this.props.onPress({photo});
-              console.log('photo: ', {photo});
           }
       }/>);
 
@@ -114,12 +127,20 @@ export default class PhotoRow extends React.Component {
 
 const PhotoCard = (props) => {
 	return (
-        <TouchableOpacity onPress= {props.onPress}>
-            <Image
-              style={STYLES.photoCardContainer}
-              source={{uri: props.photo.site_file.proxy_url_full}}
-            />
-        </TouchableOpacity>
+        <View>
+            <TouchableOpacity onPress= {props.onPress}>
+                <Image
+                  style={STYLES.photoCardContainer}
+                  source={{uri: props.photo.site_file.proxy_url_full}}
+                />
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={STYLES.deletePhotoButton}
+                onPress={() => props.onDelete(props.photo)}>
+                <Icon name='times' size={12} color='white'/>
+            </TouchableOpacity>
+        </View>
+
     );
 }
 
@@ -138,6 +159,17 @@ const STYLES = {
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold'
+    },
+    deletePhotoButton: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        backgroundColor: 'red',
+        opacity: .9,
+        paddingHorizontal: 8,
+        paddingVertical: 6,
+        borderRadius: 50,
+        margin: 5
     },
     photoRow: {
         flexDirection: 'row'
