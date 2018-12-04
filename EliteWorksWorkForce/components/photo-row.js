@@ -11,7 +11,7 @@ export default class PhotoRow extends React.Component {
         super(props)
         this.state = {
             photos: [],
-            loading: false,
+            loadingCards: 0
         }
         this.handleCameraDisplay = this.handleCameraDisplay.bind(this);
         this.handleSnap = this.handleSnap.bind(this);
@@ -27,10 +27,11 @@ export default class PhotoRow extends React.Component {
 			type: this.props.type,
             include_classes: 'sitefile'
 		}, (success) => {
-			//console.log(success.data.models);
+			console.log(success.data.models[0]);
             this.setState({
                 photos: success.data.models
             });
+
 		}, (failure) => {
 			console.log('failure');
 		});
@@ -47,14 +48,13 @@ export default class PhotoRow extends React.Component {
 
     onStartLoadingBox(){
         this.setState({
-            loading: true
+            loadingCards: this.state.loadingCards + 1
         });
     }
 
     onStopLoadingBox(){
-        console.log('stop');
         this.setState({
-            loading: false
+            loadingCards: this.state.loadingCards - 1
         });
     }
 
@@ -66,10 +66,11 @@ export default class PhotoRow extends React.Component {
             site_file_id: siteFile.site_file_id,
             include_classes: 'sitefile'
         }, (success) => {
-            this.onStopLoadingBox();
             let photos = this.state.photos;
             photos.push(success.data.model_file);
-            this.setState({photos: photos});
+            this.setState({photos: photos}, () => {
+                this.onStopLoadingBox();
+            });
         }, (failure) => {
             console.log(failure);
         })
@@ -80,11 +81,16 @@ export default class PhotoRow extends React.Component {
       let photos = this.state.photos.map(photo => <PhotoCard
           key={photo.site_file_id}
 	      photo={photo}
-          loading={this.state.loading}
           onPress={ () => {
               this.props.onPress({photo});
+              console.log('photo: ', {photo});
           }
       }/>);
+
+      let loadingCards = [];
+      for(let i = 0; i < this.state.loadingCards; i++){
+          loadingCards.push(<Loader key={i}/>);
+      }
 
         return (
             <View>
@@ -92,6 +98,7 @@ export default class PhotoRow extends React.Component {
                 <View style={STYLES.photoRow}>
                     <ScrollView horizontal={true}>
                         {photos}
+                        {loadingCards}
                         <TouchableOpacity
                             style={STYLES.photoAddContainer}
                             onPress={this.handleCameraDisplay}>
@@ -108,15 +115,10 @@ export default class PhotoRow extends React.Component {
 const PhotoCard = (props) => {
 	return (
         <TouchableOpacity onPress= {props.onPress}>
-
-            {props.loading ?
-                <Loader/> :
-                <Image
-                  style={STYLES.photoCardContainer}
-                  source={{uri: props.photo.site_file.proxy_url_full}}
-                />
-            }
-
+            <Image
+              style={STYLES.photoCardContainer}
+              source={{uri: props.photo.site_file.proxy_url_full}}
+            />
         </TouchableOpacity>
     );
 }
