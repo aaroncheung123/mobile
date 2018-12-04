@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated, Switch} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated, Switch,Picker} from 'react-native';
 import DealCard from '../../components/deal-card.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../../assets/styles/constants';
@@ -13,35 +13,55 @@ export default class Dashboard extends React.Component {
 
         this.state = {
             deals: [],
-            searchText: ''
+            searchText: '',
+            zones: []
         }
         this.filterDeals = this.filterDeals.bind(this);
     }
 
     componentDidMount() {
         EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
-            console.log(success.data.models);
+            //console.log(success.data.models);
             this.setState({deals: success.data.models})
+        });
+        EliteAPI.CRM.Zone.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
+            console.log(success.data.models);
+            this.setState({zones: success.data.models})
         })
     }
 
 
-    filterDeals(text){
-        console.log(text);
-        this.setState({text});
-        EliteAPI.CRM.Deal.search({zone_id: text, take: 1000, include_classes: 'user', status: 'WON'}, success => {
-            console.log(success.data.models);
-            this.setState({deals: success.data.models})
-        })
+    filterDeals(item){
+        console.log(item);
+        if(item != 'no_filter'){
+            EliteAPI.CRM.Deal.search({zone_id: item, take: 1000, include_classes: 'user', status: 'WON'}, success => {
+                console.log(success.data.models);
+                this.setState({searchText: item})
+                this.setState({deals: success.data.models})
+            })
+        }
+        else{
+            this.setState({searchText: item})
+            EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
+                this.setState({deals: success.data.models})
+            });
+        }
     }
 
     render() {
 
-        let deals = this.state.deals.map(deal => <DealCard
-            key={deal.deal_id}
-            deal={deal}
-            onShowSpringPanel={this.props.onShowSpringPanel}
-            onShowSidePanel={this.props.onShowSidePanel}/>);
+        let deals = this.state.deals.map(deal =>
+            <DealCard
+                key={deal.deal_id}
+                deal={deal}
+                onShowSpringPanel={this.props.onShowSpringPanel}
+                onShowSidePanel={this.props.onShowSidePanel}/>);
+
+        let zones = this.state.zones.map(zone =>
+            <Picker.Item
+                key={zone.zone_id}
+                label={zone.name}
+                value={zone.zone_id} />)
 
         return (
             <View style={STYLES.container}>
@@ -50,12 +70,13 @@ export default class Dashboard extends React.Component {
                         <Icon name='search' size= {20}/>
                     </View>
                     <View style={STYLES.textInputContainer}>
-                        <TextInput
-                            style={STYLES.textInputStyle}
-                            placeholder = "Search Deals by Zone"
-                            underlineColorAndroid = "transparent"
-                            onChangeText={(text) => this.filterDeals(text)}
-                            value={this.state.text}/>
+                        <Picker
+                          selectedValue={this.state.searchText}
+                          style={STYLES.pickerStyle}
+                          onValueChange={(itemValue, itemIndex) => this.filterDeals(itemValue)}>
+                          <Picker.Item label="Search by zone - no filter" value="no_filter" />
+                          {zones}
+                        </Picker>
                     </View>
                 </View>
 
@@ -83,24 +104,28 @@ const STYLES = {
         borderBottomWidth: 2,
         borderColor: '#6B7A8F'
     },
+    pickerStyle: {
+        height: 50,
+        width: 200
+    },
     searchContainer: {
         width: '80%',
         flexDirection: 'row',
         marginHorizontal: 20,
-        marginVertical: 30
+        marginVertical: 30,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     scrollViewContainer: {
         flex: 1,
         width: '100%'
     },
     iconContainer: {
-        flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        marginRight: 5
+        marginRight: 20
     },
     textInputContainer: {
-        flex: 9,
         justifyContent: 'flex-start',
         alignItems: 'center'
     },
