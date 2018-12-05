@@ -10,7 +10,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/icons/icon-ios.png",
     "splash": {
-      "image": "./assets/images/backgrounds/splash.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -44,7 +44,7 @@
           }
         }
       },
-      "buildNumber": "3.0.3"
+      "buildNumber": "3.0.4"
     },
     "android": {
       "versionCode": 25000,
