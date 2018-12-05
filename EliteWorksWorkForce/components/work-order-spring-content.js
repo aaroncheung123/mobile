@@ -444,15 +444,15 @@ const STYLES = {
         justifyContent: 'flex-start',
         alignItems: 'flex-start'
 	},
-    saveNotes: {
-        width: '90%',
-        backgroundColor: EliteWorksOrange,
-        padding: 15,
-        justifyContent: 'center',
+  saveNotes: {
+	  width: '90%',
+	  backgroundColor: EliteWorksOrange,
+	  padding: 15,
+	  justifyContent: 'center',
 		alignItems: 'center',
-        marginVertical: 15,
-        borderRadius: 5,
-    },
+	  marginVertical: 15,
+	  borderRadius: 5,
+  },
 	completeButton: {
 		padding: 15,
 		width: '90%',

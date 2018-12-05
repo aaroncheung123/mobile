@@ -1,6 +1,8 @@
 import React from 'react';
-import {View, Text, TextInput, Picker} from 'react-native';
+import {View, Text, TextInput, Picker, TouchableOpacity} from 'react-native';
 import AddressSelect from '../../EliteWorksLibrary/components/address/address-select';
+import DatePicker from 'react-native-datepicker';
+import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 
 export default class AddWorkOrderForm extends React.Component {
 
@@ -12,7 +14,8 @@ export default class AddWorkOrderForm extends React.Component {
             productSelect: '',
             clientSelect: '',
             emplyeeSelect: '',
-            shippingAddress : undefined
+            shippingAddress : undefined,
+            selectedDay: new Date(),
         }
         this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
     }
@@ -57,7 +60,7 @@ export default class AddWorkOrderForm extends React.Component {
                         <Picker.Item label="-- Nothing Selected --" value="default" />
                </Picker>
 
-               <Text style = {STYLES.textStyle}>Employee Role</Text>
+               <Text style={STYLES.textStyle}>Employee Role</Text>
                <Picker
                     selectedValue={this.state.productSelect}
                     style={STYLES.pickerStyle}
@@ -66,6 +69,28 @@ export default class AddWorkOrderForm extends React.Component {
                </Picker>
 
                <AddressSelect ref={e => this.addressSelect = e}/>
+
+               <View style={STYLES.bottomContainer}>
+                   <Text style = {STYLES.textStyle}>Scheduled Date</Text>
+                   <DatePicker
+                       style={STYLES.datePickerContainer}
+                       date={this.state.selectedDay}
+                       showIcon={false}
+                       onDateChange={(date) => {this.setState({selectedDay: new Date(date)} )}}
+                       confirmBtnText="Confirm"
+                       cancelBtnText="Cancel"
+                       format="MM/DD/YYYY"
+                   />
+               </View>
+
+
+               <TouchableOpacity
+                   style={STYLES.saveNotes}
+                   onPress={this.handleShippingAddressSubmit}>
+                   <Text style={STYLES.toggleText}>Add</Text>
+               </TouchableOpacity>
+
+
 
 
             </View>
@@ -91,6 +116,26 @@ const STYLES = {
     pickerStyle: {
         margin: 10
     },
+    datePickerContainer: {
+        margin: 10,
+    },
+    bottomContainer: {
+        marginVertical: 20
+    },
+    saveNotes: {
+        width: '90%',
+        backgroundColor: EliteWorksOrange,
+        padding: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginVertical: 15,
+        borderRadius: 5,
+    },
+    toggleText: {
+        color: 'white',
+        fontSize: 16
+    }
 }
 
 
