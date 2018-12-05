@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Button, Image, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry, AppleCore} from '../assets/styles/constants';
 import WorkOrderCard from './work-order-card';
+import AddWorkOrderForm from './add-work-order-form';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 const ICONS = {
@@ -23,6 +25,7 @@ export default class DealCard extends React.Component {
 		};
 
 		this.toggle = this.toggle.bind(this);
+        this.handleAddWorkOrder = this.handleAddWorkOrder.bind(this);
 	}
 
 	componentDidMount() {
@@ -65,15 +68,26 @@ export default class DealCard extends React.Component {
 		});
 	}
 
-	render(){
+    handleAddWorkOrder() {
+        this.props.onShowSpringPanel(
+            "Add Work Order",
+            <AddWorkOrderForm/>
+        )
+    }
 
+	render(){
 
 		let lastScheduledService = null
 		if (this.props.deal.lastest_scheduled_work_order) {
 			lastScheduledService = <Text style={STYLES.textStyle}>Latest Service: {GlobalUtil.convertMysqlToDate(this.props.deal.lastest_scheduled_work_order).formatDate('n/d/y H:m A')}</Text>
 		}
 
-		let workOrders = this.state.workOrders.map(workOrder => <WorkOrderCard workOrder={workOrder} key={workOrder.work_order_id} onShowSpringPanel={this.props.onShowSpringPanel} onShowSidePanel={this.props.onShowSidePanel}/>)
+		let workOrders = this.state.workOrders.map(workOrder =>
+            <WorkOrderCard
+                workOrder={workOrder}
+                key={workOrder.work_order_id}
+                onShowSpringPanel={this.props.onShowSpringPanel}
+                onShowSidePanel={this.props.onShowSidePanel}/>)
 
 		return(
 			<View style={STYLES.container}>
@@ -100,6 +114,12 @@ export default class DealCard extends React.Component {
 							<Text style={STYLES.textStyle3}>{GlobalUtil.htmlTextStripper(this.props.deal.description)}</Text>
 						</View>
 
+						<TouchableOpacity
+                            onPress={this.handleAddWorkOrder}
+                            style={STYLES.addButton}>
+                            <Text style={STYLES.textStyle}>+ Work Order</Text>
+						</TouchableOpacity>
+
 						{
 							this.state.workOrders.length > 0 ?
 							<View>
@@ -124,6 +144,17 @@ const STYLES = {
 		paddingLeft: 20,
 		paddingRight: 20
 	},
+    addButton: {
+        borderRadius: 5,
+        backgroundColor: 'orange',
+        padding: 10,
+        margin: 10,
+        marginBottom: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '50%',
+        alignSelf: 'center'
+    },
 	hiddenBody: {
 		width: '100%',
 		backgroundColor: 'white',

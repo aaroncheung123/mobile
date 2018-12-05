@@ -16,14 +16,6 @@ export default class SpringPanel extends React.Component {
     this.screenHeight = Dimensions.get('window').height;
     this.open = this.open.bind(this);
     this.handleClose = this.handleClose.bind(this);
-		this.onRefresh = this.onRefresh.bind(this);
-	}
-
-	onRefresh = () => {
-		this.setState({refreshing: true});
-		fetchData().then(() => {
-			this.setState({refreshing: false});
-		});
 	}
 
 
@@ -58,13 +50,7 @@ export default class SpringPanel extends React.Component {
 	            <Icon name='times' size= {25} style={STYLES.icon} onPress={this.handleClose}/>
 	            <View style={STYLES.innerSpringContainer}>
 	                <Text style={STYLES.springContainerText}>{this.props.title}</Text>
-	                <ScrollView
-										refreshControl={
-											<RefreshControl
-												refreshing={this.state.refreshing}
-												onRefresh={this.onRefresh}
-											/>
-										}>
+	                <ScrollView>
 	                	{this.props.content}
 	                </ScrollView>
 	            </View>
@@ -84,7 +70,6 @@ const STYLES = {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Blueberry,
-        opacity: .9,
         overflow: 'hidden'
     },
     springContainerText: {
