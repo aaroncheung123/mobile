@@ -42,7 +42,8 @@ export default class WorkOrderSpringContent extends React.Component {
 			workingTotalMinutes: 0,
             beforePhotos: [],
             showPictureModal: false,
-            selectedImage: undefined
+            selectedImage: undefined,
+            notes: ''
 		}
 
 		this.timeSpans = {
@@ -54,8 +55,6 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.addNewTimeSpan = this.addNewTimeSpan.bind(this);
 		this.loadData = this.loadData.bind(this);
 		this.updateTime = this.updateTime.bind(this);
-		this.handleNoteChange = this.handleNoteChange.bind(this);
-		this.handleWorkOrderSave = this.handleWorkOrderSave.bind(this);
 		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
         this.handlePhotoZoom = this.handlePhotoZoom.bind(this);
 	}
@@ -205,17 +204,9 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
-	handleNoteChange(value) {
-		this.props.workOrder.notes = value;
-		this.forceUpdate();
-	}
-
-	handleWorkOrderSave(){
-		this.props.workOrder.save();
-		alert('Work order saved');
-	}
-
 	handleCompleteWorkOrder() {
+        this.props.workOrder.notes = this.state.notes;
+        this.props.workOrder.save();
 		this.props.workOrder.complete((success) => {
 			this.props.workOrder.status = "COMPLETED";
 			if (this.props.onWorkOrderUpdated) this.props.onWorkOrderUpdated()
@@ -317,16 +308,10 @@ export default class WorkOrderSpringContent extends React.Component {
                     <TextInput
                         placeholder = "Enter notes here"
                         underlineColorAndroid = "transparent"
-                        value={this.props.workOrder.notes}
-                        onChangeText={this.handleNoteChange}
+                        value={this.state.notes}
+                        onChangeText = {(text) => this.setState({notes: text})}
                         multiline={true}/>
                 </View>
-
-                <TouchableOpacity
-                    style={STYLES.saveNotes}
-                    onPress={this.handleWorkOrderSave}>
-                    <Text style={STYLES.toggleText}>Save Notes</Text>
-                </TouchableOpacity>
 
 
                 {/* =========================================================
@@ -339,6 +324,7 @@ export default class WorkOrderSpringContent extends React.Component {
                     onPress={this.handleCompleteWorkOrder}>
                     <Text style={STYLES.toggleText}>Complete</Text>
                 </TouchableOpacity>
+
 
 
 			</View>
@@ -444,21 +430,22 @@ const STYLES = {
         justifyContent: 'flex-start',
         alignItems: 'flex-start'
 	},
-  saveNotes: {
-	  width: '90%',
-	  backgroundColor: EliteWorksOrange,
-	  padding: 15,
-	  justifyContent: 'center',
-		alignItems: 'center',
-	  marginVertical: 15,
-	  borderRadius: 5,
-  },
-	completeButton: {
-		padding: 15,
-		width: '90%',
-		backgroundColor: EliteWorksOrange,
-		borderRadius: 5,
-		justifyContent: 'center',
-		alignItems: 'center'
+    saveNotes: {
+        width: '90%',
+    	backgroundColor: EliteWorksOrange,
+    	padding: 15,
+    	justifyContent: 'center',
+    	alignItems: 'center',
+    	marginVertical: 15,
+    	borderRadius: 5,
+      },
+    completeButton: {
+    	padding: 15,
+    	width: '90%',
+    	backgroundColor: EliteWorksOrange,
+    	borderRadius: 5,
+    	justifyContent: 'center',
+    	alignItems: 'center',
+        marginTop: 20
 	}
 }

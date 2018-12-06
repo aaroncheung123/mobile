@@ -17,7 +17,8 @@ export default class AddWorkOrderForm extends React.Component {
             shippingAddress : undefined,
             selectedDay: new Date(),
             recurring: false,
-            users: []
+            users: [],
+            products: []
         }
         this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
     }
@@ -25,7 +26,12 @@ export default class AddWorkOrderForm extends React.Component {
     componentDidMount(){
         EliteAPI.CRM.User.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
             //console.log(success.data.users);
-            this.setState({users: success.data.users})
+            this.setState({users: success.data.users});
+        });
+
+        EliteAPI.STR.Product.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
+            //console.log(success.data.models[0]);
+            this.setState({products: success.data.models});
         });
     }
 
@@ -40,6 +46,7 @@ export default class AddWorkOrderForm extends React.Component {
             this.state.shippingAddress.save((success) => {
                 alert('Your information has been successfully updated');
                 this.forceUpdate();
+                //console.log(this.state.shippingAddress.address);
             })
         });
     }
@@ -47,6 +54,7 @@ export default class AddWorkOrderForm extends React.Component {
 
     render() {
         let clients = this.state.users.map(user => <Picker.Item key={user.id} label={user.full_name + ' - ' + user.email} value={user}/>)
+        let products = this.state.products.map(product => <Picker.Item key={product.product_id} label={product.name} value={product}/>)
 
         return (
             <View style={STYLES.container}>
@@ -62,6 +70,7 @@ export default class AddWorkOrderForm extends React.Component {
                     style={STYLES.pickerStyle}
                     onValueChange={(itemValue, itemIndex) => this.setState({productSelect: itemValue})}>
                         <Picker.Item label="-- Add product(s) --" value="default" />
+                        {products}
                </Picker>
 
                <Text style = {STYLES.textStyle}>Client</Text>
