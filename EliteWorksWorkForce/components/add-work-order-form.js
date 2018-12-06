@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput, Picker, TouchableOpacity} from 'react-native';
+import {View, Text, TextInput, Picker, TouchableOpacity, Switch} from 'react-native';
 import AddressSelect from '../../EliteWorksLibrary/components/address/address-select';
 import DatePicker from 'react-native-datepicker';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
@@ -16,8 +16,17 @@ export default class AddWorkOrderForm extends React.Component {
             emplyeeSelect: '',
             shippingAddress : undefined,
             selectedDay: new Date(),
+            recurring: false,
+            users: []
         }
         this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
+    }
+
+    componentDidMount(){
+        EliteAPI.CRM.User.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
+            //console.log(success.data.users);
+            this.setState({users: success.data.users})
+        });
     }
 
     handleShippingAddressSubmit() {
@@ -35,7 +44,10 @@ export default class AddWorkOrderForm extends React.Component {
         });
     }
 
+
     render() {
+        let clients = this.state.users.map(user => <Picker.Item key={user.id} label={user.full_name + ' - ' + user.email} value={user}/>)
+
         return (
             <View style={STYLES.container}>
                 <Text style = {STYLES.textStyle}>Worder Order Name</Text>
@@ -58,6 +70,7 @@ export default class AddWorkOrderForm extends React.Component {
                     style={STYLES.pickerStyle}
                     onValueChange={(itemValue, itemIndex) => this.setState({clientSelect: itemValue})}>
                         <Picker.Item label="-- Nothing Selected --" value="default" />
+                        {clients}
                </Picker>
 
                <Text style={STYLES.textStyle}>Employee Role</Text>
@@ -70,24 +83,23 @@ export default class AddWorkOrderForm extends React.Component {
 
                <AddressSelect ref={e => this.addressSelect = e}/>
 
-               <View style={STYLES.bottomContainer}>
-                   <Text style = {STYLES.textStyle}>Scheduled Date</Text>
-                   <DatePicker
-                       style={STYLES.datePickerContainer}
-                       date={this.state.selectedDay}
-                       showIcon={false}
-                       onDateChange={(date) => {this.setState({selectedDay: new Date(date)} )}}
-                       confirmBtnText="Confirm"
-                       cancelBtnText="Cancel"
-                       format="MM/DD/YYYY"
-                   />
-               </View>
+
+               <Text style = {STYLES.textStyle}>Scheduled Date</Text>
+               <DatePicker
+                   style={STYLES.datePickerContainer}
+                   date={this.state.selectedDay}
+                   showIcon={false}
+                   onDateChange={(date) => {this.setState({selectedDay: new Date(date)} )}}
+                   confirmBtnText="Confirm"
+                   cancelBtnText="Cancel"
+                   format="MM/DD/YYYY"
+               />
 
 
                <TouchableOpacity
-                   style={STYLES.saveNotes}
+                   style={STYLES.addButton}
                    onPress={this.handleShippingAddressSubmit}>
-                   <Text style={STYLES.toggleText}>Add</Text>
+                   <Text style={STYLES.whiteText}>Add</Text>
                </TouchableOpacity>
 
 
@@ -119,10 +131,7 @@ const STYLES = {
     datePickerContainer: {
         margin: 10,
     },
-    bottomContainer: {
-        marginVertical: 20
-    },
-    saveNotes: {
+    addButton: {
         width: '90%',
         backgroundColor: EliteWorksOrange,
         padding: 15,
@@ -132,7 +141,7 @@ const STYLES = {
         marginVertical: 15,
         borderRadius: 5,
     },
-    toggleText: {
+    whiteText: {
         color: 'white',
         fontSize: 16
     }

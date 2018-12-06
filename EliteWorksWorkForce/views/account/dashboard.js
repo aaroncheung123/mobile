@@ -12,8 +12,8 @@ export default class Dashboard extends React.Component {
         super(props)
 
         this.state = {
-            deals: [],
             searchText: '',
+            deals: [],
             zones: [],
             refreshing: false,
         }
@@ -22,7 +22,7 @@ export default class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        this.onRefresh()
+        this.onRefresh();
     }
 
     onRefresh() {
@@ -39,7 +39,7 @@ export default class Dashboard extends React.Component {
 
 
     filterDeals(item){
-        console.log(item);
+        //console.log(item);
         if(item != 'no_filter'){
             EliteAPI.CRM.Deal.search({zone_id: item, take: 1000, include_classes: 'user', status: 'WON'}, success => {
                 //console.log(success.data.models);

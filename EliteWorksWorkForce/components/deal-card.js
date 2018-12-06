@@ -31,9 +31,14 @@ export default class DealCard extends React.Component {
 	componentDidMount() {
 		let startOfDay = (new Date()).getStartOfDay();
 
-		EliteAPI.STR.WorkOrder.search({include_classes: 'user,address', take: 1000, deal_id: this.props.deal.deal_id, scheduled_after: GlobalUtil.convertDateToMysql(startOfDay)}, success => {
-			this.setState({workOrders: success.data.models})
-		})
+		EliteAPI.STR.WorkOrder.search({
+            include_classes: 'user,address',
+            take: 1000,
+            deal_id: this.props.deal.deal_id,
+            scheduled_after: GlobalUtil.convertDateToMysql(startOfDay)}, success => {
+                //console.log(success.data.models)
+                this.setState({workOrders: success.data.models})
+            })
 	}
 
 
@@ -71,7 +76,7 @@ export default class DealCard extends React.Component {
     handleAddWorkOrder() {
         this.props.onShowSpringPanel(
             "Add Work Order",
-            <AddWorkOrderForm/>
+            <AddWorkOrderForm onShowSidePanel={this.props.onShowSidePanel}/>
         )
     }
 
