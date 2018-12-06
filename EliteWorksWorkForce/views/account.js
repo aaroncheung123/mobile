@@ -33,7 +33,8 @@ export default class Account extends React.Component {
 			springPanelTitle: '',
 			springPanelContent: null,
 			sidePanelTitle: '',
-			sidePanelContent: null
+			sidePanelContent: null,
+			title: ''
 		}
 
 		this.updateSideMenu = this.updateSideMenu.bind(this);
@@ -53,13 +54,21 @@ export default class Account extends React.Component {
 		this.populateData();
 	}
 
-	updateSideMenu()
-	{
+	updateSideMenu() {
 		if (this.state.sideMenuOpen) Animated.timing(this.state.sideMenuWidth, {toValue: SIDE_MENU_WIDTH, duration: 200}).start(() => this.setState({sideMenuShowContent: true}));
 		else this.setState({sideMenuShowContent: false}, () => {Animated.timing(this.state.sideMenuWidth, {toValue: 0, duration: 200}).start()});
 	}
 
 	updatePath(path) {
+		if(path == '/dashboard'){
+			this.setState({title: 'Dashboard'});
+		}
+		else if(path == '/orders'){
+			this.setState({title: 'Orders'});
+		}
+		else if(path == '/time'){
+			this.setState({title: 'Time'});
+		}
 		this.router.history.push(path);
 		this.setState({sideMenuOpen: false}, this.updateSideMenu)
 	}
@@ -91,8 +100,7 @@ export default class Account extends React.Component {
 		});
 	}
 
-	handleSpringPanelClose()
-	{
+	handleSpringPanelClose() {
 		this.setState({
 			springPanelTitle: '',
 			springPanelContent: null
@@ -110,8 +118,7 @@ export default class Account extends React.Component {
 		})
 	}
 
-	handleSidePanelClose()
-	{
+	handleSidePanelClose() {
 		this.setState({
 			sidePanelTitle: '',
 			sidePanelContent: null
@@ -207,7 +214,7 @@ export default class Account extends React.Component {
 							/>
 						</View>
 						<View style={TOP_MENU_STYLES.companyNameContainer}>
-							<Text style={TOP_MENU_STYLES.companyName}>Deals</Text>
+							<Text style={TOP_MENU_STYLES.companyName}>{this.state.title}</Text>
 						</View>
 
 					</View>

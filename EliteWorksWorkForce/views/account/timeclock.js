@@ -37,8 +37,6 @@ export default class TimeClock extends React.Component {
 	componentDidMount() {
 		this.updateTime();
 		this.populateData();
-
-
 	}
 
 	updateTime = () => {
@@ -80,7 +78,9 @@ export default class TimeClock extends React.Component {
 
 	populateData = () => {
 		EliteAPI.CRM.TimeClock.status({}, (success) => {
-			this.setState({clockedInStatus: success.data.status, clockedInTimeClock: success.data.time_clock})
+			this.setState({clockedInStatus: success.data.status, clockedInTimeClock: success.data.time_clock}, () => {
+				this.state.clockedInStatus === 'IN' ? this.setState({clockIn: true}) : this.setState({clockIn: false})
+			})
 		}, failure => {
 			alert(failure.error_message)
 		});
@@ -176,7 +176,13 @@ export default class TimeClock extends React.Component {
 	}
 
 	toggleClockInStatus = (value) => {
-			this.setState({clockIn: value})
+			if(value){
+				this.handleClockIn();
+			}
+			else{
+				this.handleClockOut();
+			}
+			this.setState({clockIn: value});
 	}
 
 	render() {
@@ -184,6 +190,7 @@ export default class TimeClock extends React.Component {
 		let ClockedStatusMessage = (this.state.clockedInStatus === 'IN') ?
 			'CLOCKED IN - ' + GlobalUtil.convertMysqlToDate(this.state.clockedInTimeClock.start).formatDate('H:m A') :
 			'CLOCKED OUT'
+
 		return (
 			<View style={PANEL.tester}>
 
@@ -211,7 +218,7 @@ export default class TimeClock extends React.Component {
 									<View style={PANEL.innerContainer}>
 										<Text style={PANEL.headerText}>Current Time:</Text>
 									</View>
-									<View style={PANEL.innerContainer}>
+									<View style={PANEL.innerContainer1}>
 										<Text style={PANEL.headerText}>{this.state.currentTime}</Text>
 									</View>
 							</View>
@@ -220,7 +227,7 @@ export default class TimeClock extends React.Component {
 								<View style={PANEL.innerContainer}>
 									<Text style={PANEL.headerText}>Week Total:</Text>
 								</View>
-								<View style={PANEL.innerContainer}>
+								<View style={PANEL.innerContainer1}>
 									<Text style={PANEL.headerText}>{`${this.state.weekClockedInHours} Hours - ${this.state.weekClockedInMinutes} Minutes`}</Text>
 								</View>
 							</View>
@@ -229,7 +236,7 @@ export default class TimeClock extends React.Component {
 									<View style={PANEL.innerContainer}>
 										<Text style={PANEL.headerText}>Status:</Text>
 									</View>
-									<View style={PANEL.innerContainer}>
+									<View style={PANEL.innerContainer1}>
 										<Text style={PANEL.headerText}>{ClockedStatusMessage}</Text>
 									</View>
 							</View>
@@ -350,7 +357,10 @@ const PANEL = {
 		flexDirection: 'row',
 	},
 	innerContainer: {
-		flex: 1
+		flex: 2
+	},
+	innerContainer1: {
+		flex: 3
 	},
 	toggleContainer: {
 			flexDirection: 'row',
