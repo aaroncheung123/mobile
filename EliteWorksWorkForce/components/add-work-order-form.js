@@ -36,7 +36,7 @@ export default class AddWorkOrderForm extends React.Component {
     }
 
     handleShippingAddressSubmit() {
-
+        this.props.handleClose()
         this.addressSelect.getAddress((address) => {
 
             if (address === undefined) return

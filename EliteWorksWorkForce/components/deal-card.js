@@ -76,7 +76,7 @@ export default class DealCard extends React.Component {
     handleAddWorkOrder() {
         this.props.onShowSpringPanel(
             "Add Work Order",
-            <AddWorkOrderForm onShowSidePanel={this.props.onShowSidePanel}/>
+            <AddWorkOrderForm onShowSidePanel={this.props.onShowSidePanel} onComplete={this.props.onComplete}/>
         )
     }
 
@@ -89,6 +89,7 @@ export default class DealCard extends React.Component {
 
 		let workOrders = this.state.workOrders.map(workOrder =>
             <WorkOrderCard
+								onComplete={this.props.onComplete}
                 workOrder={workOrder}
                 key={workOrder.work_order_id}
                 onShowSpringPanel={this.props.onShowSpringPanel}
@@ -120,9 +121,9 @@ export default class DealCard extends React.Component {
 						</View>
 
 						<TouchableOpacity
-                            onPress={this.handleAddWorkOrder}
-                            style={STYLES.addButton}>
-                            <Text style={STYLES.textStyle}>+ Work Order</Text>
+              onPress={this.handleAddWorkOrder}
+              style={STYLES.addButton}>
+              <Text style={STYLES.textStyle}>+ Work Order</Text>
 						</TouchableOpacity>
 
 						{

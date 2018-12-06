@@ -44,6 +44,7 @@ export default class Account extends React.Component {
 		this.handleSpringPanelClose = this.handleSpringPanelClose.bind(this);
 		this.handleShowSidePanel = this.handleShowSidePanel.bind(this);
 		this.handleSidePanelClose = this.handleSidePanelClose.bind(this);
+    this.handleComplete = this.handleComplete.bind(this);
 	}
 
 
@@ -128,6 +129,10 @@ export default class Account extends React.Component {
 		})
 	}
 
+	handleComplete(){
+		this.springPanel.handleClose();
+	}
+
 	handleLogout() {
 		AsyncStorage.getItem('workspaces').then((value) => {
 			// set default route as login
@@ -143,8 +148,8 @@ export default class Account extends React.Component {
 					let selectedWorkspace = undefined
 					if (Object.keys(workspaces).length > 0) {
 						selectedWorkspace = Object.keys(workspaces)[0];
-			            GlobalUtil.webClientKey = selectedWorkspace;
-			            GlobalUtil.webClientApiKey = workspaces[selectedWorkspace].apiKey
+			      GlobalUtil.webClientKey = selectedWorkspace;
+			      GlobalUtil.webClientApiKey = workspaces[selectedWorkspace].apiKey
 						Service.Config.refresh(() => {
 							Service.User.refresh(() => {
 								AsyncStorage.setItem('workspaceSelected', selectedWorkspace, () => {
@@ -209,9 +214,17 @@ export default class Account extends React.Component {
 
 					{/*content*/}
 						<View style={CONTENT_STYLES.container}>
-							<Route path="/dashboard" render={(props) => <AccountDashBoard {...props} onShowSpringPanel={this.handleShowSpringPanel} onShowSidePanel={this.handleShowSidePanel}/>} />
-							<Route path="/orders" render={(props) => <AccountWorkOrders {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
-							<Route path="/time" render={(props) => <AccountTimeClock {...props} onShowSpringPanel={this.handleShowSpringPanel}/>} />
+							<Route path="/dashboard" render={(props) =>
+	              <AccountDashBoard {...props}
+	                  onComplete={this.handleComplete}
+	                  onShowSpringPanel={this.handleShowSpringPanel}
+	                  onShowSidePanel={this.handleShowSidePanel}/>} />
+							<Route path="/orders" render={(props) =>
+                <AccountWorkOrders {...props}
+                    onShowSpringPanel={this.handleShowSpringPanel}/>} />
+							<Route path="/time" render={(props) =>
+                <AccountTimeClock {...props}
+                    onShowSpringPanel={this.handleShowSpringPanel}/>} />
 
 							{/* slide up model */}
 							<SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent} onClose={this.handleSpringPanelClose}/>

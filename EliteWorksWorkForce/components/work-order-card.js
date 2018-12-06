@@ -36,6 +36,7 @@ export default class WorkOrderCard extends React.Component {
             this.props.onShowSpringPanel(
                 this.props.workOrder.name,
                 <WorkOrderSpringContent
+									onComplete={this.props.onComplete}
 									onShowSpringPanel={this.props.onShowSpringPanel}
 									onShowSidePanel={this.props.onShowSidePanel}
 									workOrder={this.props.workOrder}

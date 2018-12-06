@@ -61,6 +61,7 @@ export default class Dashboard extends React.Component {
             <DealCard
                 key={deal.deal_id}
                 deal={deal}
+                onComplete={this.props.onComplete}
                 onShowSpringPanel={this.props.onShowSpringPanel}
                 onShowSidePanel={this.props.onShowSidePanel}/>);
 

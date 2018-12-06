@@ -1,22 +1,10 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, Dimensions, Image, Modal} from 'react-native';
+import {View, Text, TouchableOpacity, Animated, Switch, ScrollView, TextInput, Dimensions, Image, Modal, Alert} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import PhotoRow from './photo-row';
 
-{/* =========================================================
-
-Map of the colors based off of the status.  Color is reflected in the background of toggle section
-
-============================================================*/}
-const STATUS_COLOR = {
-	'SCHEDULED' : Blueberry,
-	'PENDING' : Blueberry,
-	'TRAVELLING' : EliteWorksOrange,
-	'IN PROGRESS' : EliteWorksOrange,
-	'COMPLETED' : AccountMenuGrey
-}
 
 const TIMESPAN_STATUS_TO_WORK_ORDER_STATUS = {
 	TRAVELLING: 'TRAVELLING',
@@ -40,10 +28,10 @@ export default class WorkOrderSpringContent extends React.Component {
 			travellingTotalMinutes: 0,
 			workingTotalHours: 0,
 			workingTotalMinutes: 0,
-            beforePhotos: [],
-            showPictureModal: false,
-            selectedImage: undefined,
-            notes: ''
+      beforePhotos: [],
+      showPictureModal: false,
+      selectedImage: undefined,
+      notes: ''
 		}
 
 		this.timeSpans = {
@@ -56,7 +44,8 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.loadData = this.loadData.bind(this);
 		this.updateTime = this.updateTime.bind(this);
 		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
-        this.handlePhotoZoom = this.handlePhotoZoom.bind(this);
+    this.handlePhotoZoom = this.handlePhotoZoom.bind(this);
+		this.handleConfirmAlert = this.handleConfirmAlert.bind(this);
 	}
 
 	componentDidMount() {
@@ -145,13 +134,13 @@ export default class WorkOrderSpringContent extends React.Component {
 			let activeTimeSpan = new EliteAPI.Models.GEN.ModelTimeSpan(this.state.activeTimeSpan);
 
 			navigator.geolocation.getCurrentPosition(position => {
-				activeTimeSpan.stop_longitude = position.coords.longitude;
-				activeTimeSpan.stop_latitude = position.coords.latitude;
-				activeTimeSpan.stop((success) => {
+					activeTimeSpan.stop_longitude = position.coords.longitude;
+					activeTimeSpan.stop_latitude = position.coords.latitude;
+					activeTimeSpan.stop((success) => {
 					this.timeSpans[success.data.model_time_span.type].push(success.data.model_time_span);
 				})
 			}, () => {
-				activeTimeSpan.stop((success) => {
+					activeTimeSpan.stop((success) => {
 					this.timeSpans[success.data.model_time_span.type].push(success.data.model_time_span);
 				})
 			}, {
@@ -204,20 +193,34 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
+	handleConfirmAlert(){
+		Alert.alert(
+	  'Complete Confirmation',
+	  'Are you sure you have completed this work order?',
+	  [
+	    {text: 'NO', style: 'cancel'},
+	    {text: 'YES', onPress: () => this.handleCompleteWorkOrder()}
+	  ],
+	  { cancelable: false }
+	);
+	}
+
 	handleCompleteWorkOrder() {
-        this.props.workOrder.notes = this.state.notes;
-        this.props.workOrder.save();
+		console.log('handleCompleteWorkOrder');
+		this.props.onComplete();
+    this.props.workOrder.notes = this.state.notes;
+    this.props.workOrder.save();
 
 		this.props.workOrder.complete((success) => {
-			this.props.workOrder.status = "COMPLETED";
-			if (this.props.onWorkOrderUpdated) this.props.onWorkOrderUpdated()
-			alert('Work order marked as complete');
+		this.props.workOrder.status = "COMPLETED";
+		if (this.props.onWorkOrderUpdated) this.props.onWorkOrderUpdated()
+		alert('Work order marked as complete');
 		}, (failure) => {
 			alert(failure.error_message);
 		})
 	}
 
-    handlePhotoZoom(photo){
+  handlePhotoZoom(photo){
         this.setState({
             showPictureModal: true,
             selectedImage: [{url: photo.photo.site_file.proxy_url_full}]
@@ -225,8 +228,6 @@ export default class WorkOrderSpringContent extends React.Component {
     }
 
 	render() {
-        let activeColorTravelling = this.props.workOrder.status == 'TRAVELLING' ? EliteWorksOrange : Blueberry;
-        let activeColorJob = this.props.workOrder.status == 'IN PROGRESS' ? EliteWorksOrange : Blueberry;
 
 		return (
 
@@ -253,7 +254,6 @@ export default class WorkOrderSpringContent extends React.Component {
 
                 ============================================================*/}
                 <ToggleSection
-                    activeColor={activeColorTravelling}
                     title='Travel'
                     hours={this.state.travellingTotalHours}
                     minutes={this.state.travellingTotalMinutes}
@@ -262,7 +262,6 @@ export default class WorkOrderSpringContent extends React.Component {
                     job='TRAVELLING'/>
 
                 <ToggleSection
-                    activeColor={activeColorJob}
                     title='Job'
                     hours={this.state.workingTotalHours}
                     minutes={this.state.workingTotalMinutes}
@@ -323,7 +322,7 @@ export default class WorkOrderSpringContent extends React.Component {
                 ============================================================*/}
                 <TouchableOpacity
                     style={STYLES.completeButton}
-                    onPress={this.handleCompleteWorkOrder}>
+                    onPress={this.handleConfirmAlert}>
                     <Text style={STYLES.toggleText}>Complete</Text>
                 </TouchableOpacity>
 
@@ -337,10 +336,17 @@ export default class WorkOrderSpringContent extends React.Component {
 
 const ToggleSection = (props) => {
     return (
+
+
         <View style={STYLES.outsideToggleContainer}>
-            <View style={{...STYLES.leftToggleContainer, backgroundColor: props.activeColor}}>
-                <Text style={STYLES.toggleTextTitle}>{props.title}</Text>
-            </View>
+						{props.activeStatus === props.job ?
+							<View style={{...STYLES.leftToggleContainer, backgroundColor: EliteWorksOrange}}>
+									<Text style={STYLES.toggleTextTitle}>{props.title}</Text>
+							</View> :
+							<View style={{...STYLES.leftToggleContainer, backgroundColor: Blueberry}}>
+									<Text style={STYLES.toggleTextTitle}>{props.title}</Text>
+							</View>
+						}
 
             <View style={STYLES.rightToggleContainer}>
                 <Text style={STYLES.toggleText}>

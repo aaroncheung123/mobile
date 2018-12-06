@@ -51,7 +51,7 @@ export default class SpringPanel extends React.Component {
 	            <View style={STYLES.innerSpringContainer}>
 	                <Text style={STYLES.springContainerText}>{this.props.title}</Text>
 	                <ScrollView>
-						<View style={STYLES.filler}>
+                        <View style={STYLES.filler}>
                             {this.props.content}
                         </View>
 	                </ScrollView>
