@@ -93,16 +93,19 @@ export default class AddWorkOrderForm extends React.Component {
                <AddressSelect ref={e => this.addressSelect = e}/>
 
 
-               <Text style = {STYLES.textStyle}>Scheduled Date</Text>
-               <DatePicker
-                   style={STYLES.datePickerContainer}
-                   date={this.state.selectedDay}
-                   showIcon={false}
-                   onDateChange={(date) => {this.setState({selectedDay: new Date(date)} )}}
-                   confirmBtnText="Confirm"
-                   cancelBtnText="Cancel"
-                   format="MM/DD/YYYY"
-               />
+               <View style = {STYLES.dateContainer}>
+                   <Text style = {STYLES.textStyle}>Scheduled Date</Text>
+                   <DatePicker
+                       style={STYLES.datePickerContainer}
+                       date={this.state.selectedDay}
+                       showIcon={false}
+                       onDateChange={(date) => {this.setState({selectedDay: new Date(date)} )}}
+                       confirmBtnText="Confirm"
+                       cancelBtnText="Cancel"
+                       format="MM/DD/YYYY"
+                   />
+               </View>
+
 
 
                <TouchableOpacity
@@ -153,6 +156,9 @@ const STYLES = {
     whiteText: {
         color: 'white',
         fontSize: 16
+    },
+    dateContainer: {
+        marginTop: 10
     }
 }
 

@@ -128,7 +128,6 @@ export default class WorkOrderSpringContent extends React.Component {
 	}
 
 	toggleActiveStatus(type, value) {
-
 		if (this.state.activeTimeSpan) {
 
 			let activeTimeSpan = new EliteAPI.Models.GEN.ModelTimeSpan(this.state.activeTimeSpan);
@@ -206,10 +205,13 @@ export default class WorkOrderSpringContent extends React.Component {
 	}
 
 	handleCompleteWorkOrder() {
-		console.log('handleCompleteWorkOrder');
+		//console.log('handleCompleteWorkOrder');
 		this.props.onComplete();
     this.props.workOrder.notes = this.state.notes;
     this.props.workOrder.save();
+
+		this.toggleActiveStatus('TRAVELLING',false);
+		this.toggleActiveStatus('WORKING',false);
 
 		this.props.workOrder.complete((success) => {
 		this.props.workOrder.status = "COMPLETED";
