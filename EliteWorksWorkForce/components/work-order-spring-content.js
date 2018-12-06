@@ -207,6 +207,7 @@ export default class WorkOrderSpringContent extends React.Component {
 	handleCompleteWorkOrder() {
         this.props.workOrder.notes = this.state.notes;
         this.props.workOrder.save();
+
 		this.props.workOrder.complete((success) => {
 			this.props.workOrder.status = "COMPLETED";
 			if (this.props.onWorkOrderUpdated) this.props.onWorkOrderUpdated()
@@ -225,6 +226,7 @@ export default class WorkOrderSpringContent extends React.Component {
 
 	render() {
         let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry;
+        let activeColorTravelling = this.props.workOrder.status == 'TRAVELLING' ? EliteWorksOrange : Blueberry;
 
 		return (
 
@@ -251,7 +253,7 @@ export default class WorkOrderSpringContent extends React.Component {
 
                 ============================================================*/}
                 <ToggleSection
-                    activeColor={activeColor}
+                    activeColor={activeColorTravelling}
                     title='Travel'
                     hours={this.state.travellingTotalHours}
                     minutes={this.state.travellingTotalMinutes}

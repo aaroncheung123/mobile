@@ -117,6 +117,7 @@ const STYLES = {
         width: 200
     },
     searchContainer: {
+        height: 30,
         width: '80%',
         flexDirection: 'row',
         marginHorizontal: 20,
