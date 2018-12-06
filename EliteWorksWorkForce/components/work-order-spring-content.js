@@ -225,8 +225,8 @@ export default class WorkOrderSpringContent extends React.Component {
     }
 
 	render() {
-        let activeColor = STATUS_COLOR[this.props.workOrder.status] ? STATUS_COLOR[this.props.workOrder.status] : Blueberry;
         let activeColorTravelling = this.props.workOrder.status == 'TRAVELLING' ? EliteWorksOrange : Blueberry;
+        let activeColorJob = this.props.workOrder.status == 'IN PROGRESS' ? EliteWorksOrange : Blueberry;
 
 		return (
 
@@ -262,7 +262,7 @@ export default class WorkOrderSpringContent extends React.Component {
                     job='TRAVELLING'/>
 
                 <ToggleSection
-                    activeColor={activeColor}
+                    activeColor={activeColorJob}
                     title='Job'
                     hours={this.state.workingTotalHours}
                     minutes={this.state.workingTotalMinutes}
