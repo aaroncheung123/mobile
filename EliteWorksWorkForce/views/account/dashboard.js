@@ -43,8 +43,8 @@ export default class Dashboard extends React.Component {
         if(item != 'no_filter'){
             EliteAPI.CRM.Deal.search({zone_id: item, take: 1000, include_classes: 'user', status: 'WON'}, success => {
                 //console.log(success.data.models);
-                this.setState({searchText: item})
-                this.setState({deals: success.data.models})
+                this.setState({searchText: item, deals: success.data.models})
+                //this.setState({deals: success.data.models})
             })
         }
         else{

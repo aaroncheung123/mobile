@@ -3,6 +3,27 @@ import {View, Text, TextInput, Picker, TouchableOpacity, Switch} from 'react-nat
 import AddressSelect from '../../EliteWorksLibrary/components/address/address-select';
 import DatePicker from 'react-native-datepicker';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
+import SearchableDropdown from 'react-native-searchable-dropdown';
+
+
+const items = [
+  {
+    id: 1,
+    name: 'JavaScript',
+  },
+  {
+    id: 2,
+    name: 'Java',
+  },
+  {
+    id: 3,
+    name: 'Ruby',
+  },
+  {
+    id: 4,
+    name: 'React Native',
+  }
+];
 
 export default class AddWorkOrderForm extends React.Component {
 
@@ -18,9 +39,12 @@ export default class AddWorkOrderForm extends React.Component {
             selectedDay: new Date(),
             recurring: false,
             users: [],
-            products: []
+            products: [],
+            searchText: ''
         }
         this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
+        this.handleDropdownOnChangeText = this.handleDropdownOnChangeText.bind(this);
+        this.renderDropdown = this.renderDropdown.bind(this);
     }
 
     componentDidMount(){
@@ -29,10 +53,10 @@ export default class AddWorkOrderForm extends React.Component {
             this.setState({users: success.data.users});
         });
 
-        EliteAPI.STR.Product.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
-            //console.log(success.data.models[0]);
-            this.setState({products: success.data.models});
-        });
+        // EliteAPI.STR.Product.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
+        //     //console.log(success.data.models[0]);
+        //     this.setState({products: success.data.models});
+        // });
     }
 
     handleShippingAddressSubmit() {
@@ -51,10 +75,43 @@ export default class AddWorkOrderForm extends React.Component {
         });
     }
 
+    handleDropdownOnChangeText(text){
+        console.log("handleDropdown: ", text);
+        this.setState({searchText: text})
+        //this.state.dropdownMenuItems.push(text);
+        //console.log(this.state.dropdownMenuItems[0].name);
+
+
+        EliteAPI.STR.Product.search({query_search: text, take: 1000, include_classes: 'user', status: 'WON'}, success => {
+            console.log(success.data.models[0].name);
+            this.setState({products: success.data.models});
+        });
+
+        //this.forceUpdate();
+    }
+
+    handleDropdownPress(product){
+        console.log("handleDropdownPress: ", product.name);
+    }
+
+    renderDropdown(product) {
+        //console.log('renderDropdown: ', product.name);
+        return (
+            <TouchableOpacity onPress={() => this.handleDropdownPress(product)}>
+                <Text
+                    key={product.product_id}
+                    style={STYLES.dropdownText}>
+                        {product.name}
+                </Text>
+            </TouchableOpacity>
+
+        )
+    }
 
     render() {
         let clients = this.state.users.map(user => <Picker.Item key={user.id} label={user.full_name + ' - ' + user.email} value={user}/>)
-        let products = this.state.products.map(product => <Picker.Item key={product.product_id} label={product.name} value={product}/>)
+        //let products = this.state.products.map(product => <Picker.Item key={product.product_id} label={product.name} value={product}/>)
+        let dropdownMenu = this.state.products.map(product => {return this.renderDropdown(product)});
 
         return (
             <View style={STYLES.container}>
@@ -64,14 +121,6 @@ export default class AddWorkOrderForm extends React.Component {
                    onChangeText = {(text) => this.setState({workOrderName: text})}
                    value={this.state.workOrderName}/>
 
-               <Text style = {STYLES.textStyle}>Products</Text>
-               <Picker
-                    selectedValue={this.state.productSelect}
-                    style={STYLES.pickerStyle}
-                    onValueChange={(itemValue, itemIndex) => this.setState({productSelect: itemValue})}>
-                        <Picker.Item label="-- Add product(s) --" value="default" />
-                        {products}
-               </Picker>
 
                <Text style = {STYLES.textStyle}>Client</Text>
                <Picker
@@ -89,6 +138,32 @@ export default class AddWorkOrderForm extends React.Component {
                     onValueChange={(itemValue, itemIndex) => this.setState({emplyeeSelect: itemValue})}>
                         <Picker.Item label="-- Nothing Selected --" value="default" />
                </Picker>
+
+
+               {/*---------------------------------------------------------------------------------
+
+                  Products searchable drop down
+
+                  ---------------------------------------------------------------------------------*/}
+              <Text style={STYLES.textStyle}>Products</Text>
+              <TextInput style={STYLES.dropdownTextInput}
+                  underlineColorAndroid = "transparent"
+                  autoCapitalize = "none"
+                  onChangeText = {(text) => this.handleDropdownOnChangeText(text)}
+                  value={this.state.searchText}/>
+
+              {
+                  this.state.products.length > 0 ?
+                  <View style={STYLES.dropdownMenu}>
+                      {dropdownMenu}
+                  </View> : null
+              }
+
+
+
+
+
+
 
                <AddressSelect ref={e => this.addressSelect = e}/>
 
@@ -125,6 +200,20 @@ export default class AddWorkOrderForm extends React.Component {
 const STYLES = {
     container: {
         margin: 10
+    },
+    dropdownTextInput: {
+        padding: 5,
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 5
+    },
+    dropdownMenu: {
+        backgroundColor: '#eaeaea',
+        padding: 10,
+        borderRadius: 5
+    },
+    dropdownText: {
+        padding: 10
     },
     textInputContainer: {
         height: 35,
@@ -164,3 +253,13 @@ const STYLES = {
 
 
 // address={this.props.shippingAddress.address}
+
+
+// <Text style = {STYLES.textStyle}>Products</Text>
+// <Picker
+//      selectedValue={this.state.productSelect}
+//      style={STYLES.pickerStyle}
+//      onValueChange={(itemValue, itemIndex) => this.setState({productSelect: itemValue})}>
+//          <Picker.Item label="-- Add product(s) --" value="default" />
+//          {products}
+// </Picker>
