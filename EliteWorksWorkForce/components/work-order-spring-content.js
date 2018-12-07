@@ -423,7 +423,8 @@ const STYLES = {
     fontWeight: 'bold'
   },
   notesTitleContainer: {
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
+		marginLeft: 15
   },
 	switchStyle: {
 		marginHorizontal: 10,
