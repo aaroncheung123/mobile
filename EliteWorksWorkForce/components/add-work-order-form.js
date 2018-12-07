@@ -97,11 +97,12 @@ export default class AddWorkOrderForm extends React.Component {
     renderDropdown(product) {
         //console.log('renderDropdown: ', product.name);
         return (
-            <TouchableOpacity onPress={() => this.handleDropdownPress(product)}>
-                <Text
-                    key={product.product_id}
-                    style={STYLES.dropdownText}>
-                        {product.name}
+            <TouchableOpacity
+                key={product.product_id}
+                onPress={() => this.handleDropdownPress(product)}
+                style={STYLES.dropdownText}>
+                <Text>
+                    {product.name}
                 </Text>
             </TouchableOpacity>
 
@@ -213,7 +214,7 @@ const STYLES = {
         borderRadius: 5
     },
     dropdownText: {
-        padding: 10
+        margin: 10
     },
     textInputContainer: {
         height: 35,
