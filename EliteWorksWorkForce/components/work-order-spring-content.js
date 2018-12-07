@@ -207,6 +207,7 @@ export default class WorkOrderSpringContent extends React.Component {
 	handleCompleteWorkOrder() {
 		//console.log('handleCompleteWorkOrder');
 		this.props.onComplete();
+		console.log('notes: ', this.state.notes);
     this.props.workOrder.notes = this.state.notes;
     this.props.workOrder.save();
 
@@ -216,7 +217,6 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.props.workOrder.complete((success) => {
 		this.props.workOrder.status = "COMPLETED";
 		if (this.props.onWorkOrderUpdated) this.props.onWorkOrderUpdated()
-		alert('Work order marked as complete');
 		}, (failure) => {
 			alert(failure.error_message);
 		})
@@ -376,54 +376,55 @@ const STYLES = {
 	container: {
 		justifyContent: 'center',
 		alignItems: 'center',
-        width: '100%'
+    width: '100%'
 	},
 	outsideToggleContainer: {
-        flexDirection: 'row',
-        height: 120,
+    flexDirection: 'row',
+    height: 120,
 		width: 300,
-		borderWidth: 2,
-		borderColor: 'white',
-		borderRadius: 5,
 		margin: 10
 	},
-    leftToggleContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRightWidth: 2,
-        borderColor: 'white'
-    },
-    rightToggleContainer: {
-        flex: 2,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingVertical: 30,
-        backgroundColor: Blueberry
-    },
-    toggleTextTitle: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
+  leftToggleContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRightWidth: 2,
+    borderColor: 'white',
+		borderTopLeftRadius: 5,
+		borderBottomLeftRadius: 5
+  },
+  rightToggleContainer: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 30,
+    backgroundColor: Blueberry,
+		borderTopRightRadius: 5,
+		borderBottomRightRadius: 5
+  },
+  toggleTextTitle: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
 	toggleContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-        marginTop: 5
+    marginTop: 5
 	},
 	toggleText: {
 		color: 'white',
 		fontSize: 16
 	},
-    notesTitle: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    notesTitleContainer: {
-        alignSelf: 'flex-start'
-    },
+  notesTitle: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  notesTitleContainer: {
+    alignSelf: 'flex-start'
+  },
 	switchStyle: {
 		marginHorizontal: 10,
 	},
@@ -433,29 +434,30 @@ const STYLES = {
 		backgroundColor: 'white',
 		borderRadius: 10,
 		padding: 10,
-        marginTop: 15
+    marginTop: 15,
+		borderWidth: 2
 	},
 	outsidePhotoContainer: {
-        marginVertical: 20,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start'
+    marginVertical: 20,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'
 	},
-    saveNotes: {
-        width: '90%',
-    	backgroundColor: EliteWorksOrange,
-    	padding: 15,
-    	justifyContent: 'center',
-    	alignItems: 'center',
-    	marginVertical: 15,
-    	borderRadius: 5,
-      },
-    completeButton: {
-    	padding: 15,
-    	width: '90%',
-    	backgroundColor: EliteWorksOrange,
-    	borderRadius: 5,
-    	justifyContent: 'center',
-    	alignItems: 'center',
-        marginTop: 20
-	}
+  saveNotes: {
+    width: '90%',
+  	backgroundColor: EliteWorksOrange,
+  	padding: 15,
+  	justifyContent: 'center',
+  	alignItems: 'center',
+  	marginVertical: 15,
+  	borderRadius: 5,
+  },
+  completeButton: {
+  	padding: 15,
+  	width: '90%',
+  	backgroundColor: EliteWorksOrange,
+  	borderRadius: 5,
+  	justifyContent: 'center',
+  	alignItems: 'center',
+    marginTop: 20
+}
 }

@@ -22,11 +22,11 @@ export default class PhotoRow extends React.Component {
 
     componentDidMount(){
         EliteAPI.GEN.ModelFile.search({
-            take: 1000,
-			model_id: this.props.workOrder.work_order_id,
-			class_key: 'workorder',
-			type: this.props.type,
-            include_classes: 'sitefile'
+					take: 1000,
+			    model_id: this.props.workOrder.work_order_id,
+					class_key: 'workorder',
+					type: this.props.type,
+          include_classes: 'sitefile'
 		}, (success) => {
 			//console.log(success.data.models[0]);
             this.setState({
@@ -156,8 +156,8 @@ const Loader = props => {
 
 const STYLES = {
     textTitle: {
-        color: 'white',
-        fontSize: 20,
+        color: 'black',
+        fontSize: 16,
         fontWeight: 'bold'
     },
     deletePhotoButton: {
@@ -191,7 +191,7 @@ const STYLES = {
 		margin: 15,
 		borderRadius: 5,
 		borderWidth: 2,
-		borderColor: 'white'
+		borderColor: Blueberry
 	},
     modalBackground: {
         flex: 1,

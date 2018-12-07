@@ -71,20 +71,20 @@ const STYLES = {
         borderTopRightRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Blueberry,
+        backgroundColor: 'white',
         overflow: 'hidden'
     },
     springContainerText: {
-        color: 'white',
-        fontSize: 24,
+        color: 'black',
+        fontSize: 16,
         fontWeight: 'bold',
         borderBottomWidth: 2,
         marginTop: 20,
         paddingBottom: 20,
-        borderColor: 'white',
+        borderColor: 'black',
     },
     toggleText: {
-        color: 'white',
+        color: 'black',
         fontSize: 16
     },
     innerSpringContainer: {
@@ -95,7 +95,7 @@ const STYLES = {
 				paddingHorizontal: 20
     },
     icon: {
-        color: 'white',
+        color: 'black',
         position: 'absolute',
         right: 0,
         top: 0,
