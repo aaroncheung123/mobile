@@ -4,26 +4,7 @@ import AddressSelect from '../../EliteWorksLibrary/components/address/address-se
 import DatePicker from 'react-native-datepicker';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import SearchableDropdown from 'react-native-searchable-dropdown';
-
-
-const items = [
-  {
-    id: 1,
-    name: 'JavaScript',
-  },
-  {
-    id: 2,
-    name: 'Java',
-  },
-  {
-    id: 3,
-    name: 'Ruby',
-  },
-  {
-    id: 4,
-    name: 'React Native',
-  }
-];
+import ProductSelectRow from './product-select-row';
 
 export default class AddWorkOrderForm extends React.Component {
 
@@ -40,7 +21,8 @@ export default class AddWorkOrderForm extends React.Component {
             recurring: false,
             users: [],
             products: [],
-            searchText: ''
+            searchText: '',
+            selectedProducts: []
         }
         this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
         this.handleDropdownOnChangeText = this.handleDropdownOnChangeText.bind(this);
@@ -52,11 +34,6 @@ export default class AddWorkOrderForm extends React.Component {
             //console.log(success.data.users);
             this.setState({users: success.data.users});
         });
-
-        // EliteAPI.STR.Product.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
-        //     //console.log(success.data.models[0]);
-        //     this.setState({products: success.data.models});
-        // });
     }
 
     handleShippingAddressSubmit() {
@@ -76,26 +53,22 @@ export default class AddWorkOrderForm extends React.Component {
     }
 
     handleDropdownOnChangeText(text){
-        console.log("handleDropdown: ", text);
         this.setState({searchText: text})
-        //this.state.dropdownMenuItems.push(text);
-        //console.log(this.state.dropdownMenuItems[0].name);
-
-
         EliteAPI.STR.Product.search({query_search: text, take: 1000, include_classes: 'user', status: 'WON'}, success => {
-            console.log(success.data.models[0].name);
             this.setState({products: success.data.models});
         });
-
-        //this.forceUpdate();
     }
 
     handleDropdownPress(product){
-        console.log("handleDropdownPress: ", product.name);
+        console.log(product);
+        this.setState({
+            searchText: '',
+            products: []
+        });
+        this.state.selectedProducts.push(product);
     }
 
     renderDropdown(product) {
-        //console.log('renderDropdown: ', product.name);
         return (
             <TouchableOpacity
                 key={product.product_id}
@@ -111,8 +84,10 @@ export default class AddWorkOrderForm extends React.Component {
 
     render() {
         let clients = this.state.users.map(user => <Picker.Item key={user.id} label={user.full_name + ' - ' + user.email} value={user}/>)
-        //let products = this.state.products.map(product => <Picker.Item key={product.product_id} label={product.name} value={product}/>)
         let dropdownMenu = this.state.products.map(product => {return this.renderDropdown(product)});
+        let ProductRow = this.state.selectedProducts.map(product =>
+            <ProductSelectRow key={product.product_id} product={product}/>
+        )
 
         return (
             <View style={STYLES.container}>
@@ -160,10 +135,17 @@ export default class AddWorkOrderForm extends React.Component {
                   </View> : null
               }
 
+              <View>
+                  <View style={STYLES.selectedBox}>
+                      <Text style={[STYLES.selectedBoxTitle,STYLES.flexBox2]}>NAME</Text>
+                      <Text style={[STYLES.selectedBoxTitle,STYLES.flexBox1]}>PRICE</Text>
+                      <Text style={[STYLES.selectedBoxTitle,STYLES.flexBox1]}>QUANTITY</Text>
+                  </View>
+                  <View style={STYLES.selectedBoxBody}>
+                      {ProductRow}
+                  </View>
 
-
-
-
+              </View>
 
 
                <AddressSelect ref={e => this.addressSelect = e}/>
@@ -201,6 +183,29 @@ export default class AddWorkOrderForm extends React.Component {
 const STYLES = {
     container: {
         margin: 10
+    },
+    selectedBoxTitle: {
+        color: 'white',
+    },
+    flexBox1: {
+        flex: 1
+    },
+    flexBox2: {
+        flex: 2
+    },
+    selectedBox: {
+        flexDirection: 'row',
+        backgroundColor: 'black',
+        padding: 10,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        marginTop: 10
+    },
+    selectedBoxBody: {
+        padding: 10,
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5,
+        borderWidth: 1
     },
     dropdownTextInput: {
         padding: 5,
@@ -251,16 +256,3 @@ const STYLES = {
         marginTop: 10
     }
 }
-
-
-// address={this.props.shippingAddress.address}
-
-
-// <Text style = {STYLES.textStyle}>Products</Text>
-// <Picker
-//      selectedValue={this.state.productSelect}
-//      style={STYLES.pickerStyle}
-//      onValueChange={(itemValue, itemIndex) => this.setState({productSelect: itemValue})}>
-//          <Picker.Item label="-- Add product(s) --" value="default" />
-//          {products}
-// </Picker>
