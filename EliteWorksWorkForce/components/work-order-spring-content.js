@@ -4,6 +4,7 @@ import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleC
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import PhotoRow from './photo-row';
+import ProductSelectRow from './product-select-row';
 
 
 const TIMESPAN_STATUS_TO_WORK_ORDER_STATUS = {
@@ -31,7 +32,10 @@ export default class WorkOrderSpringContent extends React.Component {
       beforePhotos: [],
       showPictureModal: false,
       selectedImage: undefined,
-      notes: ''
+      notes: '',
+			products: [],
+			searchText: '',
+			selectedProducts: []
 		}
 
 		this.timeSpans = {
@@ -46,6 +50,9 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
     this.handlePhotoZoom = this.handlePhotoZoom.bind(this);
 		this.handleConfirmAlert = this.handleConfirmAlert.bind(this);
+		this.handleDropdownOnChangeText = this.handleDropdownOnChangeText.bind(this);
+		this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
+		this.renderDropdown = this.renderDropdown.bind(this);
 	}
 
 	componentDidMount() {
@@ -193,15 +200,15 @@ export default class WorkOrderSpringContent extends React.Component {
 	}
 
 	handleConfirmAlert(){
-		Alert.alert(
-	  'Complete Confirmation',
-	  'Are you sure you have completed this work order?',
-	  [
-	    {text: 'NO', style: 'cancel'},
-	    {text: 'YES', onPress: () => this.handleCompleteWorkOrder()}
-	  ],
-	  { cancelable: false }
-	);
+			Alert.alert(
+		  'Complete Confirmation',
+		  'Are you sure you have completed this work order?',
+		  [
+		    {text: 'NO', style: 'cancel'},
+		    {text: 'YES', onPress: () => this.handleCompleteWorkOrder()}
+		  ],
+		  { cancelable: false }
+		);
 	}
 
 	handleCompleteWorkOrder() {
@@ -229,8 +236,49 @@ export default class WorkOrderSpringContent extends React.Component {
         })
     }
 
-	render() {
+	handleDropdownOnChangeText(text){
+			this.setState({searchText: text})
+			EliteAPI.STR.Product.search({query_search: text, take: 1000, include_classes: 'productprice', status: 'WON'}, success => {
+					//console.log(success.data.models[0]);
+					this.setState({products: success.data.models});
+			});
+	}
 
+	handleRemoveProduct(product){
+			let myArray = this.state.selectedProducts.filter(item => item != product);
+			this.setState({
+					selectedProducts: myArray
+			})
+	}
+
+	handleDropdownPress(product){
+			//console.log(product);
+			this.setState({
+					searchText: '',
+					products: []
+			});
+			this.state.selectedProducts.push(product);
+	}
+
+	renderDropdown(product) {
+			return (
+					<TouchableOpacity
+							key={product.product_id}
+							onPress={() => this.handleDropdownPress(product)}
+							style={STYLES.dropdownText}>
+							<Text>
+									{product.name}
+							</Text>
+					</TouchableOpacity>
+
+			)
+	}
+
+	render() {
+		let dropdownMenu = this.state.products.map(product => {return this.renderDropdown(product)});
+		let ProductRow = this.state.selectedProducts.map(product =>
+				<ProductSelectRow key={product.product_id} product={product} onRemoveProduct={this.handleRemoveProduct}/>
+		)
 		return (
 
 			<View style={STYLES.container}>
@@ -270,6 +318,42 @@ export default class WorkOrderSpringContent extends React.Component {
                     onValueChange={(value) => this.toggleActiveStatus('WORKING',value)}
                     activeStatus={this.state.activeStatus}
                     job='WORKING'/>
+
+
+								{/* =========================================================
+
+                Product Select Row
+
+                ============================================================*/}
+								<View style={STYLES.productSelectContainer}>
+									<Text style={STYLES.notesTitle}>Products</Text>
+									<TextInput style={STYLES.dropdownTextInput}
+											underlineColorAndroid = "transparent"
+											autoCapitalize = "none"
+											onChangeText = {(text) => this.handleDropdownOnChangeText(text)}
+											value={this.state.searchText}/>
+
+									{
+											this.state.products.length > 0 ?
+											<View style={STYLES.dropdownMenu}>
+													{dropdownMenu}
+											</View> : null
+									}
+
+									{
+											this.state.selectedProducts.length > 0 ?
+											<View>
+													<View style={STYLES.selectedBox}>
+															<Text style={[STYLES.selectedBoxTitle,STYLES.nameContainer]}>NAME</Text>
+															<Text style={[STYLES.selectedBoxTitle,STYLES.flexBox1]}>PRICE</Text>
+															<Text style={[STYLES.selectedBoxTitle,STYLES.flexBox2]}>QUANTITY</Text>
+													</View>
+													<View style={STYLES.selectedBoxBody}>
+															{ProductRow}
+													</View>
+											</View> : null
+									}
+								</View>
 
 
                 {/* =========================================================
@@ -378,6 +462,50 @@ const STYLES = {
 		alignItems: 'center',
     width: '100%'
 	},
+	selectedBox: {
+			flexDirection: 'row',
+			backgroundColor: 'black',
+			padding: 10,
+			borderTopLeftRadius: 5,
+			borderTopRightRadius: 5,
+			marginTop: 10
+	},
+	selectedBoxBody: {
+			padding: 10,
+			borderBottomLeftRadius: 5,
+			borderBottomRightRadius: 5,
+			borderWidth: 1
+	},
+	selectedBoxTitle: {
+			color: 'white'
+	},
+	flexBox1: {
+			flex: 1
+	},
+	flexBox2: {
+			flex: 2
+	},
+	nameContainer: {
+			width: 100
+	},
+	productSelectContainer: {
+		width: '100%',
+		marginVertical: 20
+	},
+	dropdownTextInput: {
+			padding: 5,
+			borderWidth: 1,
+			borderRadius: 5,
+			width: '100%'
+	},
+	dropdownText: {
+			margin: 10
+	},
+	dropdownMenu: {
+			backgroundColor: '#eaeaea',
+			padding: 10,
+			borderRadius: 5
+	},
 	outsideToggleContainer: {
     flexDirection: 'row',
     height: 120,
@@ -436,12 +564,13 @@ const STYLES = {
 		borderRadius: 10,
 		padding: 10,
     marginTop: 15,
-		borderWidth: 2
+		borderWidth: 1
 	},
 	outsidePhotoContainer: {
     marginVertical: 20,
     justifyContent: 'flex-start',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+		alignSelf: 'flex-start'
 	},
   saveNotes: {
     width: '90%',

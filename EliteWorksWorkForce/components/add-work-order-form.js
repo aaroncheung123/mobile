@@ -89,7 +89,6 @@ export default class AddWorkOrderForm extends React.Component {
         this.setState({
             selectedProducts: myArray
         })
-
     }
 
     render() {
