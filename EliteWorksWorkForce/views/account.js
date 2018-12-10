@@ -48,7 +48,6 @@ export default class Account extends React.Component {
     this.handleComplete = this.handleComplete.bind(this);
 	}
 
-
 	componentDidMount() {
 		this.updatePath('/dashboard');
 		this.populateData();
@@ -64,7 +63,7 @@ export default class Account extends React.Component {
 			this.setState({title: 'Dashboard'});
 		}
 		else if(path == '/orders'){
-			this.setState({title: 'Orders'});
+			this.setState({title: 'Work Orders'});
 		}
 		else if(path == '/time'){
 			this.setState({title: 'Time'});
@@ -270,21 +269,21 @@ export default class Account extends React.Component {
 								<View style={SIDE_MENU_STYLES.companiesContainer}>
 									<ScrollView>
 										{
-											Object.keys(this.state.workSpaces).map((key) => <WorkSpaceSideBarRow key={key} workSpaceKey={key} workspace={this.state.workSpaces[key]} onSelectWorkspace={() => this.handleSelectWorkspace(key)}/>)
+											Object.keys(this.state.workSpaces).map((key) =>
+												<WorkSpaceSideBarRow
+													key={key}
+													workSpaceKey={key}
+													workspace={this.state.workSpaces[key]}
+													onSelectWorkspace={() => this.handleSelectWorkspace(key)}/>)
 										}
-										<TouchableWithoutFeedback
-											onPress={() => this.setState({showLoginModal: true})}
-										>
-											<View style={{...SIDE_MENU_STYLES.workSpaceRowContainer, backgroundColor: '#222222'}}>
-												<Text style={SIDE_MENU_STYLES.text}>Add New Workspace</Text>
+										<TouchableWithoutFeedback onPress={() => this.setState({showLoginModal: true})}>
+											<View style={SIDE_MENU_STYLES.workSpaceRowContainer}>
+												<Text style={SIDE_MENU_STYLES.text}>+ New Workspace</Text>
 											</View>
 										</TouchableWithoutFeedback>
 									</ScrollView>
 								</View>
-								<TouchableWithoutFeedback
-
-									onPress={this.handleLogout}
-								>
+								<TouchableWithoutFeedback onPress={this.handleLogout}>
 									<View style={SIDE_MENU_STYLES.logoutContainer}>
 										<Text style={SIDE_MENU_STYLES.text}>Logout</Text>
 									</View>
@@ -384,8 +383,8 @@ const SIDE_MENU_STYLES = {
 		bottom: 65,
 		backgroundColor: 'white',
 		elevation: 3,
-		borderTopRightRadius: 10,
-		borderBottomRightRadius: 10
+		borderTopRightRadius: 5,
+		borderBottomRightRadius: 5
 	},
 	innerContainer: {
 		minWidth: 300,
@@ -425,7 +424,7 @@ const SIDE_MENU_STYLES = {
 	},
 	workSpaceRowContainer: {
 		flex: 1,
-		borderBottomColor: AccountMenuGrey,
+		borderColor: '#dddddd',
 		borderBottomWidth: 1
 	}
 }

@@ -114,7 +114,7 @@ const STYLES = {
         borderColor: '#6B7A8F'
     },
     pickerStyle: {
-        height: 50,
+        height: 40,
         width: 200
     },
     searchContainer: {
@@ -137,7 +137,9 @@ const STYLES = {
     },
     textInputContainer: {
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#c4c4c4'
     },
     transparentFiller: {
         marginBottom: 200,

@@ -5,6 +5,7 @@ import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey} from '../../asset
 import DatePicker from 'react-native-datepicker'
 import WorkOrderModal from './work-order-modal';
 import WorkOrderCard from '../../components/work-order-card.js';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class WorkOrders extends React.Component {
 
@@ -40,17 +41,20 @@ export default class WorkOrders extends React.Component {
 		return (
 			<View>
 				<View style={PANEL.container}>
-					<View style={PANEL.dateSearch}>
-						<Text>Search by date</Text>
-						<DatePicker
-							style={PANEL.datePickerContainer}
-							date={this.state.selectedDay}
-							showIcon={false}
-							onDateChange={(date) => {this.setState({selectedDay: new Date(date)}, this.loadWorkOrders)}}
-							confirmBtnText="Confirm"
-							cancelBtnText="Cancel"
-							format="MM/DD/YYYY"
-						/>
+
+					<View style={PANEL.searchContainer}>
+							<View style={PANEL.iconContainer}>
+									<Icon name='search' size= {20}/>
+							</View>
+							<DatePicker
+								style={PANEL.datePickerContainer}
+								date={this.state.selectedDay}
+								showIcon={false}
+								onDateChange={(date) => {this.setState({selectedDay: new Date(date)}, this.loadWorkOrders)}}
+								confirmBtnText="Confirm"
+								cancelBtnText="Cancel"
+								format="MM/DD/YYYY"
+							/>
 					</View>
 
 
@@ -132,19 +136,28 @@ const PANEL = {
 		alignItems: 'center',
 		margin: 10
 	},
+	iconContainer: {
+			justifyContent: 'flex-start',
+			alignItems: 'center',
+			marginRight: 20
+	},
 	workOrderContainer: {
 		padding: 20,
 		backgroundColor: 'white',
 		width: '100%',
 	},
-	dateSearch: {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		padding: 10
+	searchContainer: {
+			height: 30,
+			width: '80%',
+			flexDirection: 'row',
+			marginHorizontal: 20,
+			marginVertical: 30,
+			justifyContent: 'center',
+			alignItems: 'center'
 	},
 	datePickerContainer: {
-		margin: 10
+		margin: 10,
+		width: 200
 	},
 	headerText: {
 		margin: 15,
