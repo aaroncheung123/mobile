@@ -27,6 +27,7 @@ export default class AddWorkOrderForm extends React.Component {
         this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
         this.handleDropdownOnChangeText = this.handleDropdownOnChangeText.bind(this);
         this.renderDropdown = this.renderDropdown.bind(this);
+        this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
     }
 
     componentDidMount(){
@@ -54,13 +55,14 @@ export default class AddWorkOrderForm extends React.Component {
 
     handleDropdownOnChangeText(text){
         this.setState({searchText: text})
-        EliteAPI.STR.Product.search({query_search: text, take: 1000, include_classes: 'user', status: 'WON'}, success => {
+        EliteAPI.STR.Product.search({query_search: text, take: 1000, include_classes: 'productprice', status: 'WON'}, success => {
+            //console.log(success.data.models[0]);
             this.setState({products: success.data.models});
         });
     }
 
     handleDropdownPress(product){
-        console.log(product);
+        //console.log(product);
         this.setState({
             searchText: '',
             products: []
@@ -82,16 +84,24 @@ export default class AddWorkOrderForm extends React.Component {
         )
     }
 
+    handleRemoveProduct(product){
+        let myArray = this.state.selectedProducts.filter(item => item != product);
+        this.setState({
+            selectedProducts: myArray
+        })
+
+    }
+
     render() {
         let clients = this.state.users.map(user => <Picker.Item key={user.id} label={user.full_name + ' - ' + user.email} value={user}/>)
         let dropdownMenu = this.state.products.map(product => {return this.renderDropdown(product)});
         let ProductRow = this.state.selectedProducts.map(product =>
-            <ProductSelectRow key={product.product_id} product={product}/>
+            <ProductSelectRow key={product.product_id} product={product} onRemoveProduct={this.handleRemoveProduct}/>
         )
 
         return (
             <View style={STYLES.container}>
-                <Text style = {STYLES.textStyle}>Worder Order Name</Text>
+                <Text style = {STYLES.textStyle}>Work Order Name</Text>
                 <TextInput style = {STYLES.textInputContainer}
                    underlineColorAndroid = "transparent"
                    onChangeText = {(text) => this.setState({workOrderName: text})}
@@ -135,17 +145,23 @@ export default class AddWorkOrderForm extends React.Component {
                   </View> : null
               }
 
-              <View>
-                  <View style={STYLES.selectedBox}>
-                      <Text style={[STYLES.selectedBoxTitle,STYLES.flexBox2]}>NAME</Text>
-                      <Text style={[STYLES.selectedBoxTitle,STYLES.flexBox1]}>PRICE</Text>
-                      <Text style={[STYLES.selectedBoxTitle,STYLES.flexBox1]}>QUANTITY</Text>
-                  </View>
-                  <View style={STYLES.selectedBoxBody}>
-                      {ProductRow}
-                  </View>
+              {
+                  this.state.selectedProducts.length > 0 ?
+                  <View>
+                      <View style={STYLES.selectedBox}>
+                          <Text style={[STYLES.selectedBoxTitle,STYLES.nameContainer]}>NAME</Text>
+                          <Text style={[STYLES.selectedBoxTitle,STYLES.flexBox1]}>PRICE</Text>
+                          <Text style={[STYLES.selectedBoxTitle,STYLES.flexBox2]}>QUANTITY</Text>
+                      </View>
+                      <View style={STYLES.selectedBoxBody}>
+                          {ProductRow}
+                      </View>
+                  </View> : null
+              }
 
-              </View>
+
+
+
 
 
                <AddressSelect ref={e => this.addressSelect = e}/>
@@ -185,13 +201,16 @@ const STYLES = {
         margin: 10
     },
     selectedBoxTitle: {
-        color: 'white',
+        color: 'white'
     },
     flexBox1: {
         flex: 1
     },
     flexBox2: {
         flex: 2
+    },
+    nameContainer: {
+        width: 100
     },
     selectedBox: {
         flexDirection: 'row',

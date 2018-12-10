@@ -185,26 +185,27 @@ const STYLES = {
         alignItems: 'center',
         backgroundColor: Blueberry
     },
-	photoCardContainer: {
-		height: 120,
-		width: 100,
-		margin: 15,
-		borderRadius: 5,
-		borderWidth: 2,
-		borderColor: Blueberry
-	},
+		photoCardContainer: {
+				height: 120,
+				width: 100,
+				margin: 15,
+				borderRadius: 5,
+				borderWidth: 2,
+				borderColor: Blueberry
+		},
     modalBackground: {
-        flex: 1,
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'space-around'
+	      flex: 1,
+	      alignItems: 'center',
+	      flexDirection: 'column',
+	      justifyContent: 'space-around'
     },
     ActivityIndicatorContainer: {
         height: 120,
         width: 100,
         margin: 15,
         borderRadius: 5,
-        backgroundColor:'white',
+        borderWidth: 2,
+				borderColor: Blueberry,
         justifyContent: 'center',
         alignItems: 'center',
     },

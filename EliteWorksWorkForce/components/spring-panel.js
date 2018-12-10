@@ -50,7 +50,9 @@ export default class SpringPanel extends React.Component {
 	            <Icon name='times' size= {25} style={STYLES.icon} onPress={this.handleClose}/>
 	            <View style={STYLES.innerSpringContainer}>
 	                <Text style={STYLES.springContainerText}>{this.props.title}</Text>
-	                <ScrollView>
+	                <ScrollView
+										keyboardDismissMode="on-drag"
+										keyboardShouldPersistTaps='always'>
                         <View style={STYLES.filler}>
                             {this.props.content}
                         </View>
