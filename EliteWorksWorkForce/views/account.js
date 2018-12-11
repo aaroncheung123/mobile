@@ -318,16 +318,19 @@ const AccountMenuItem = (props) => {
 }
 
 const WorkSpaceSideBarRow = (props) => {
-	let backgroundColor = GlobalUtil.webClientKey === props.workSpaceKey ? EliteWorksOrange : '#222222'
 	return (
-		<TouchableWithoutFeedback
-			onPress={props.onSelectWorkspace}
-		>
-			<View style={{...SIDE_MENU_STYLES.workSpaceRowContainer, backgroundColor: backgroundColor}}>
-				<Text style={SIDE_MENU_STYLES.text}>{props.workspace.companyName}</Text>
-				<Text style={SIDE_MENU_STYLES.subText}>{props.workSpaceKey}</Text>
-			</View>
-		</TouchableWithoutFeedback>
+		<View>
+			{
+				GlobalUtil.webClientKey === props.workSpaceKey ? <View style={SIDE_MENU_STYLES.orangeCircle}></View> : null
+			}
+			<View style={SIDE_MENU_STYLES.orangeCircle}></View>
+			<TouchableWithoutFeedback onPress={props.onSelectWorkspace}>
+
+				<View style={SIDE_MENU_STYLES.workSpaceRowContainer}>
+					<Text style={SIDE_MENU_STYLES.text}>{props.workspace.companyName}</Text>
+				</View>
+			</TouchableWithoutFeedback>
+		</View>
 	)
 }
 
@@ -386,6 +389,15 @@ const SIDE_MENU_STYLES = {
 		borderTopRightRadius: 5,
 		borderBottomRightRadius: 5
 	},
+	orangeCircle:{
+		position: 'absolute',
+		left:0,
+		backgroundColor: EliteWorksOrange,
+		height: 20,
+		width: 20,
+		borderRadius: 50,
+		margin: 15
+	},
 	innerContainer: {
 		minWidth: 300,
 		flex: 1
@@ -398,7 +410,6 @@ const SIDE_MENU_STYLES = {
 	},
 	text: {
 		flex: 1,
-		color: '#dddddd',
 		fontSize: 14,
 		width: '100%',
 		textAlign: 'center',
