@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Animated, ScrollView, Dimensions} from 'react-native';
+import {View, Text, Animated, ScrollView, Dimensions, RefreshControl} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 
@@ -13,12 +13,19 @@ export default class SpringPanel extends React.Component {
 		}
 
 		this.springValue = new Animated.Value(0);
-        this.screenHeight = Dimensions.get('window').height;
-
-
-        this.open = this.open.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+    this.screenHeight = Dimensions.get('window').height;
+    this.open = this.open.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+		this.onRefresh = this.onRefresh.bind(this);
 	}
+
+	onRefresh = () => {
+		this.setState({refreshing: true});
+		fetchData().then(() => {
+			this.setState({refreshing: false});
+		});
+	}
+
 
 	open() {
 		this.setState({open: true}, () => {
@@ -51,7 +58,13 @@ export default class SpringPanel extends React.Component {
 	            <Icon name='times' size= {25} style={STYLES.icon} onPress={this.handleClose}/>
 	            <View style={STYLES.innerSpringContainer}>
 	                <Text style={STYLES.springContainerText}>{this.props.title}</Text>
-	                <ScrollView>
+	                <ScrollView
+										refreshControl={
+											<RefreshControl
+												refreshing={this.state.refreshing}
+												onRefresh={this.onRefresh}
+											/>
+										}>
 	                	{this.props.content}
 	                </ScrollView>
 	            </View>
