@@ -36,7 +36,11 @@ export default class WorkOrders extends React.Component {
 
 
 		let workOrderCards = this.state.workOrders.map(workOrder => {
-			return <WorkOrderCard key={workOrder.work_order_id} workOrder={workOrder} onShowSpringPanel={this.props.onShowSpringPanel} />
+			return <WorkOrderCard
+				key={workOrder.work_order_id}
+				onComplete={this.props.onComplete}
+				workOrder={workOrder}
+				onShowSpringPanel={this.props.onShowSpringPanel} />
 		})
 		return (
 			<View>
