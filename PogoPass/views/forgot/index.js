@@ -93,7 +93,7 @@ export default class Forgot extends React.Component {
 						</KeyboardAwareScrollView>
 					</View>
 				</TouchableWithoutFeedback>
-            	<Text style={{position: 'absolute', textAlign: 'center', bottom: 15, color: 'white', width: '100%'}}>V. 2.2</Text>
+            	<Text style={{position: 'absolute', textAlign: 'center', bottom: 15, color: 'white', width: '100%'}}>V. 3.0</Text>
 			</View>
 		);
 	}

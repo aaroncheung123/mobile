@@ -115,7 +115,7 @@ export default class Login extends React.Component {
 					</View>
 				</TouchableWithoutFeedback>
 
-            	<Text style={{position: 'absolute', textAlign: 'center', bottom: 15, color: 'white', width: '100%'}}>V. 2.5</Text>
+            	<Text style={{position: 'absolute', textAlign: 'center', bottom: 15, color: 'white', width: '100%'}}>V. 3.0</Text>
 			</View>
 		);
 	}
