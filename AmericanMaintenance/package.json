@@ -12,6 +12,7 @@
     "@babel/core": "^7.1.5",
     "@babel/runtime": "^7.1.5",
     "expo": "^31.0.2",
+    "expo-pixi": "^0.3.2",
     "native-base": "^2.8.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",

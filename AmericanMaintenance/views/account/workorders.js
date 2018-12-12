@@ -40,6 +40,7 @@ export default class WorkOrders extends React.Component {
 				key={workOrder.work_order_id}
 				onComplete={this.props.onComplete}
 				workOrder={workOrder}
+				onShowSidePanel={this.props.onShowSidePanel}
 				onShowSpringPanel={this.props.onShowSpringPanel} />
 		})
 		return (

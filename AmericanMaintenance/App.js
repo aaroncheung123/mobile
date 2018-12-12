@@ -47,17 +47,17 @@ export default class App extends React.Component {
   render() {
     return (
       <MemoryRouter ref={(e) => this.router = e}>
-        <View style={STYLES.container} >
-          <StatusBar barStyle="light-content"/>
-            <LinearGradient
-              colors={['rgb(36,36,36)', 'rgb(66,66,66)', 'rgb(122,122,122)']}
-              style={STYLES.gradient}
-            >
-              <Route path="/login" component={Login} />
-              <Route path="/account" component={Account} />
-            </LinearGradient>
-        </View>
-      </MemoryRouter>
+          <View style={STYLES.container} >
+            <StatusBar barStyle="light-content"/>
+              <LinearGradient
+                colors={['rgb(36,36,36)', 'rgb(66,66,66)', 'rgb(122,122,122)']}
+                style={STYLES.gradient}
+              >
+                <Route path="/login" component={Login} />
+                <Route path="/account" component={Account} />
+              </LinearGradient>
+          </View>
+        </MemoryRouter>
     );
   }
 

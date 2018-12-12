@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import PhotoRow from './photo-row';
 import ProductSelectRow from './product-select-row';
+import ExpoPixi from 'expo-pixi';
 
 
 const TIMESPAN_STATUS_TO_WORK_ORDER_STATUS = {
@@ -53,6 +54,7 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.handleDropdownOnChangeText = this.handleDropdownOnChangeText.bind(this);
 		this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
 		this.renderDropdown = this.renderDropdown.bind(this);
+		this.handleSignature = this.handleSignature.bind(this);
 	}
 
 	componentDidMount() {
@@ -205,10 +207,31 @@ export default class WorkOrderSpringContent extends React.Component {
 		  'Are you sure you have completed this work order?',
 		  [
 		    {text: 'NO', style: 'cancel'},
-		    {text: 'YES', onPress: () => this.handleCompleteWorkOrder()}
+		    {text: 'YES', onPress: () => this.handleSignature()}
 		  ],
 		  { cancelable: false }
 		);
+	}
+
+	handleSignature(){
+		console.log('sig');
+		this.props.onShowSidePanel(
+			'Signature',
+			<View>
+				<Text>Please sign to verify completion</Text>
+				<View style={STYLES.signatureContainer}>
+					<Text style={STYLES.signatureText}>X</Text>
+					<View style={STYLES.innerSignatureContainer}>
+						<ExpoPixi.Sketch
+							style={{width: 260, height: 120}}
+							strokeColor={'black'}
+							strokeWidth={6}
+							strokeAlpha={.7}/>
+					</View>
+				</View>
+			</View>
+
+		)
 	}
 
 	handleCompleteWorkOrder() {
@@ -417,7 +440,7 @@ export default class WorkOrderSpringContent extends React.Component {
 			</View>
 		)
 	}
-}
+	}
 
 
 const ToggleSection = (props) => {
@@ -442,8 +465,8 @@ const ToggleSection = (props) => {
                 <View style={STYLES.toggleContainer}>
                     <Text style={STYLES.toggleText}>Stop</Text>
                     <Switch
-                        onTintColor = '#F7882F'
-                        thumbTintColor = 'white'
+                        trackColor = '#F7882F'
+                        _thumbColor = 'white'
                         style={STYLES.switchStyle}
                         onValueChange = {props.onValueChange}
                         value = {props.activeStatus === props.job}/>
@@ -461,6 +484,21 @@ const STYLES = {
 		justifyContent: 'center',
 		alignItems: 'center',
     width: '100%'
+	},
+	signatureText: {
+		fontSize: 24
+	},
+	signatureContainer: {
+		flexDirection: 'row',
+		backgroundColor: 'white',
+		borderRadius: 5,
+		margin: 10,
+		padding: 15,
+		alignItems: 'flex-end',
+	},
+	innerSignatureContainer: {
+		marginHorizontal: 5,
+		borderBottomWidth: 2
 	},
 	selectedBox: {
 			flexDirection: 'row',

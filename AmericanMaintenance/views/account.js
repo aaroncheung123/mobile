@@ -228,7 +228,8 @@ export default class Account extends React.Component {
 							<Route path="/orders" render={(props) =>
                 <AccountWorkOrders {...props}
 										onComplete={this.handleComplete}
-                    onShowSpringPanel={this.handleShowSpringPanel}/>} />
+                    onShowSpringPanel={this.handleShowSpringPanel}
+										onShowSidePanel={this.handleShowSidePanel}/>} />
 							<Route path="/time" render={(props) =>
                 <AccountTimeClock {...props}
                     onShowSpringPanel={this.handleShowSpringPanel}/>} />
