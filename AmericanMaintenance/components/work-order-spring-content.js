@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import PhotoRow from './photo-row';
 import ProductSelectRow from './product-select-row';
-import ExpoPixi from 'expo-pixi';
+import SignaturePanel from './signature-panel';
 
 
 const TIMESPAN_STATUS_TO_WORK_ORDER_STATUS = {
@@ -50,7 +50,6 @@ export default class WorkOrderSpringContent extends React.Component {
 		this.updateTime = this.updateTime.bind(this);
 		this.handleCompleteWorkOrder = this.handleCompleteWorkOrder.bind(this);
     this.handlePhotoZoom = this.handlePhotoZoom.bind(this);
-		this.handleConfirmAlert = this.handleConfirmAlert.bind(this);
 		this.handleDropdownOnChangeText = this.handleDropdownOnChangeText.bind(this);
 		this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
 		this.renderDropdown = this.renderDropdown.bind(this);
@@ -201,36 +200,10 @@ export default class WorkOrderSpringContent extends React.Component {
 		})
 	}
 
-	handleConfirmAlert(){
-			Alert.alert(
-		  'Complete Confirmation',
-		  'Are you sure you have completed this work order?',
-		  [
-		    {text: 'NO', style: 'cancel'},
-		    {text: 'YES', onPress: () => this.handleSignature()}
-		  ],
-		  { cancelable: false }
-		);
-	}
-
 	handleSignature(){
-		console.log('sig');
 		this.props.onShowSidePanel(
 			'Signature',
-			<View>
-				<Text>Please sign to verify completion</Text>
-				<View style={STYLES.signatureContainer}>
-					<Text style={STYLES.signatureText}>X</Text>
-					<View style={STYLES.innerSignatureContainer}>
-						<ExpoPixi.Sketch
-							style={{width: 260, height: 120}}
-							strokeColor={'black'}
-							strokeWidth={6}
-							strokeAlpha={.7}/>
-					</View>
-				</View>
-			</View>
-
+			<SignaturePanel/>
 		)
 	}
 
@@ -431,7 +404,7 @@ export default class WorkOrderSpringContent extends React.Component {
                 ============================================================*/}
                 <TouchableOpacity
                     style={STYLES.completeButton}
-                    onPress={this.handleConfirmAlert}>
+                    onPress={this.handleSignature}>
                     <Text style={STYLES.toggleText}>Complete</Text>
                 </TouchableOpacity>
 
@@ -484,21 +457,6 @@ const STYLES = {
 		justifyContent: 'center',
 		alignItems: 'center',
     width: '100%'
-	},
-	signatureText: {
-		fontSize: 24
-	},
-	signatureContainer: {
-		flexDirection: 'row',
-		backgroundColor: 'white',
-		borderRadius: 5,
-		margin: 10,
-		padding: 15,
-		alignItems: 'flex-end',
-	},
-	innerSignatureContainer: {
-		marginHorizontal: 5,
-		borderBottomWidth: 2
 	},
 	selectedBox: {
 			flexDirection: 'row',
