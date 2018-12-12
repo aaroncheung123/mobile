@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, Modal, TextInput} from 'react-native';
 import ExpoPixi from 'expo-pixi';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 
@@ -8,11 +8,13 @@ export default class Test extends React.Component {
     constructor(props)
     {
         super(props)
-        this.state = {
-        }
+
+		this.state = {
+			modalVisible: false,
+			notes: ''
+		}
 		this.handleComplete = this.handleComplete.bind(this);
-		this.handleSkipAlert = this.handleSkipAlert.bind(this);
-		this.handleSkip = this.handleSkip.bind(this);
+		this.handleModal = this.handleModal.bind(this);
 		this.handleConfirmAlert = this.handleConfirmAlert.bind(this);
 		this.handleSignatureSave = this.handleSignatureSave.bind(this);
     }
@@ -24,18 +26,6 @@ export default class Test extends React.Component {
 		  [
 			{text: 'NO', style: 'cancel'},
 			{text: 'YES', onPress: () => this.handleComplete()}
-		  ],
-		  { cancelable: false }
-		);
-	}
-
-	handleSkipAlert(){
-		Alert.alert(
-		  'Skip Confirmation',
-		  'Are you sure you want to skip?',
-		  [
-			{text: 'NO', style: 'cancel'},
-			{text: 'YES', onPress: () => this.handleSkip()}
 		  ],
 		  { cancelable: false }
 		);
@@ -77,8 +67,9 @@ export default class Test extends React.Component {
 		})
 	}
 
-	handleSkip(){
-		console.log("handleSkip");
+	handleModal(){
+		console.log(this.state.modalVisible);
+		this.setState({ modalVisible: !this.state.modalVisible });
 	}
 
     render() {
@@ -103,10 +94,45 @@ export default class Test extends React.Component {
 					<Text style={STYLES.buttonText}>Complete</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={this.handleSkipAlert}
+					onPress={this.handleModal}
 					style={STYLES.myButton}>
 					<Text style={STYLES.buttonText}>Skip</Text>
 				</TouchableOpacity>
+
+				<Modal
+					animationType = {"slide"}
+					transparent = {true}
+					visible = {this.state.modalVisible}
+					onRequestClose = {() => { console.log("Modal has been closed.") } }>
+
+				   <View style = {STYLES.modal}>
+				   		<View style = {STYLES.modalContainer}>
+							<Text style = {STYLES.textTitle}>Skipping?</Text>
+							<Text>Please write the reason for skipping the signature</Text>
+							<View style={STYLES.notesContainer}>
+
+								<TextInput
+									style={STYLES.textInput}
+								  	placeholder = "Enter notes here"
+								  	underlineColorAndroid = "transparent"
+								  	value={this.state.notes}
+								  	onChangeText = {(text) => this.setState({notes: text})}
+								  	multiline={true}/>
+							</View>
+							<TouchableOpacity
+							  style={STYLES.myButton}
+							  onPress ={this.handleComplete}>
+								  <Text style={STYLES.buttonText}>Complete</Text>
+							</TouchableOpacity>
+
+							<TouchableOpacity
+							  style={STYLES.myButton}
+							  onPress ={this.handleModal}>
+								  <Text style={STYLES.buttonText}>Back</Text>
+							</TouchableOpacity>
+						</View>
+				   </View>
+				</Modal>
             </View>
         );
     }
@@ -117,6 +143,28 @@ const STYLES = {
 	container: {
 		margin: 10,
 		width: '80%'
+	},
+	modalContainer: {
+		width: 300
+	},
+	textTitle: {
+		fontSize: 20,
+		fontWeight: 'bold'
+	},
+	notesContainer: {
+		width: 300,
+		minHeight: 200,
+		backgroundColor: 'white',
+		borderRadius: 10,
+		padding: 10,
+		marginVertical: 20
+	},
+	modal: {
+	   flex: 1,
+	   justifyContent: 'flex-start',
+	   alignItems: 'center',
+	   backgroundColor: '#d6d6d6',
+	   padding: 20
 	},
 	myButton: {
 		padding: 10,
