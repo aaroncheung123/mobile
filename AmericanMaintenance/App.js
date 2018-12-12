@@ -45,7 +45,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    return null;
     return (
       <MemoryRouter ref={(e) => this.router = e}>
         <View style={STYLES.container} >
