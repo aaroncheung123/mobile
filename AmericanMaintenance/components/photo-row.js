@@ -27,15 +27,15 @@ export default class PhotoRow extends React.Component {
 					class_key: 'workorder',
 					type: this.props.type,
           include_classes: 'sitefile'
-		}, (success) => {
-			//console.log(success.data.models[0]);
-            this.setState({
-                photos: success.data.models
-            });
+				}, (success) => {
+					//console.log(success.data.models[0]);
+		            this.setState({
+		                photos: success.data.models
+		            });
 
-		}, (failure) => {
-			console.log('failure');
-		});
+				}, (failure) => {
+					console.log('failure');
+				});
     }
 
     handleCameraDisplay() {
@@ -131,8 +131,7 @@ const PhotoCard = (props) => {
             <TouchableOpacity onPress= {props.onPress}>
                 <Image
                   style={STYLES.photoCardContainer}
-                  source={{uri: props.photo.site_file.proxy_url_full}}
-                />
+                  source={{uri: props.photo.site_file.proxy_url_full}}/>
             </TouchableOpacity>
             <TouchableOpacity
                 style={STYLES.deletePhotoButton}

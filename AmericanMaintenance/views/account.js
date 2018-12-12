@@ -137,6 +137,7 @@ export default class Account extends React.Component {
 
 	handleComplete(){
 		this.springPanel.handleClose();
+		this.sidePanel.handleClose();
 	}
 
 	handleLogout() {

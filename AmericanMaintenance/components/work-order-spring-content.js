@@ -203,7 +203,7 @@ export default class WorkOrderSpringContent extends React.Component {
 	handleSignature(){
 		this.props.onShowSidePanel(
 			'Signature',
-			<SignaturePanel/>
+			<SignaturePanel workOrder={this.props.workOrder} onCompleteWorkOrder={this.handleCompleteWorkOrder}/>
 		)
 	}
 
@@ -418,8 +418,6 @@ export default class WorkOrderSpringContent extends React.Component {
 
 const ToggleSection = (props) => {
     return (
-
-
         <View style={STYLES.outsideToggleContainer}>
 						{props.activeStatus === props.job ?
 							<View style={{...STYLES.leftToggleContainer, backgroundColor: EliteWorksOrange}}>
