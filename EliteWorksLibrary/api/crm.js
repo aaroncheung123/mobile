@@ -7,7 +7,7 @@ export default class CrmApi {
         this.User = new User();
         this.TimeClock = new TimeClock();
         this.Address = new Address();
-        this.Deal = new Deal();
+        this.Deal = new Model('deal');
         this.Zone = new Zone();
         this.Notification = new Notification();
         this.Device = new Model('device');
@@ -533,48 +533,6 @@ class Address {
             success.data.address = new EliteAPI.Models.CRM.Address(success.data.address);
             if (success_callback !== undefined) success_callback(success);
         }, failure_callback, async);
-    }
-}
-
-class Deal extends Model {
-    constructor() {
-        super('deal')
-    }
-
-    // purpose
-    //   add a deal
-    // args
-    //   status (default is OPPORTUNITY)
-    //   name (required)
-    //   zone_id (optional)
-    //   description (optional)
-    //   user_id (required)
-    // returns
-    //   deal
-    add (form_data, success_callback, failure_callback)
-    {
-        let url = '/global/crm/deal/add';
-        return WebClient.basicPost(form_data, url, success => {
-            success.data.deal = new EliteAPI.Models.CRM.Deal(success.data.deal);
-            if (success_callback) success_callback(success)
-        }, failure_callback);
-    }
-
-    // purpose
-    //   set a deal
-    // args
-    //   deal_id (required)
-    //   zone_id (optional)
-    //   status (optional)
-    //   name (optional)
-    //   description (optional)
-    //   user_id (optional)
-    // returns
-    //   (none)
-    set (form_data, success_callback, failure_callback)
-    {
-        let url = '/global/crm/deal/set';
-        return WebClient.basicPost(form_data, url, success_callback, failure_callback);
     }
 }
 

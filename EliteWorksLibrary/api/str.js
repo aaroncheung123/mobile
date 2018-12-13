@@ -17,52 +17,10 @@ export default class StrApi {
   }
 }
 
-
-
-
 class WorkOrder extends Model {
   constructor() {  
-    super("workorder");
+    super('workorder');
   }
-
-  // purpose
-  //   add a work order
-  // args
-  //   user_id (required)
-  //   name (required)
-  //   notes (optional)
-  //   scheduled_at (optional) (default is NULL)
-  //   address_id (required)
-  // returns
-  //   work_order
-  add(form_data, success_callback, failure_callback) {
-    var url = "/global/str/work/order/add";
-    return WebClient.basicPost(
-      form_data,
-      url,
-      success => {
-        success.data.work_order = new EliteAPI.Models.STR.WorkOrder(success.data.work_order);
-        if (success_callback) success_callback(success);
-      },
-      failure_callback
-    );
-  }
-
-  // purpose
-  //   set a work order
-  // args
-  //   user_id (optional)
-  //   name (optional)
-  //   notes (optional)
-  //   scheduled_at (optional)
-  //   address_id (optional)
-  // returns
-  //   (none)
-  set(form_data, success_callback, failure_callback) {
-    var url = "/global/str/work/order/set";
-    return WebClient.basicPost(form_data, url, success_callback, failure_callback);
-  }
-
   
   // purpose
   //   mark a work order complete
@@ -96,7 +54,6 @@ class WorkOrder extends Model {
     var url = "/global/str/work/order/process";
     return WebClient.basicPost(form_data, url, success_callback, failure_callback);
   }
-
 }
 
 class WorkOrderProduct extends Model {
