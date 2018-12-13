@@ -3,7 +3,7 @@ export default class WebClient {
 
 	static getFullUrl(url)
 	{
-		return `https://${GlobalUtil.webClientKey}.eliteworks.com${url}`;
+		return `http://${GlobalUtil.webClientKey}.staging.eliteworks.com${url}`;
 	}
 
 	static addApiKey(args)
