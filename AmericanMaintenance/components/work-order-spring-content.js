@@ -36,7 +36,7 @@ export default class WorkOrderSpringContent extends React.Component {
       notes: '',
 			products: [],
 			searchText: '',
-			selectedProducts: []
+			selectedProducts: this.props.workOrder.work_order_products
 		}
 
 		this.timeSpans = {
@@ -210,9 +210,11 @@ export default class WorkOrderSpringContent extends React.Component {
 	handleCompleteWorkOrder() {
 		//console.log('handleCompleteWorkOrder');
 		this.props.onComplete();
-		console.log('notes: ', this.state.notes);
     this.props.workOrder.notes = this.state.notes;
     this.props.workOrder.save();
+		this.setState({
+			notes: ''
+		});
 
 		this.toggleActiveStatus('TRAVELLING',false);
 		this.toggleActiveStatus('WORKING',false);
@@ -249,11 +251,20 @@ export default class WorkOrderSpringContent extends React.Component {
 
 	handleDropdownPress(product){
 			//console.log(product);
-			this.setState({
-					searchText: '',
-					products: []
-			});
-			this.state.selectedProducts.push(product);
+			this.setState({products: []}, () => {
+				let workOrderProduct = new EliteAPI.Models.STR.WorkOrderProduct({
+						work_order_id: this.props.workOrder.work_order_id,
+						product_id: product.product_id,
+						name: product.name,
+						price: (product.price_current) ? product.price_current.price : 0,
+						quantity: 1,
+						notes: ''
+				})
+				workOrderProduct.save((success) => {
+					this.state.selectedProducts.push(success.data.model);
+				});
+			})
+
 	}
 
 	renderDropdown(product) {
@@ -273,7 +284,7 @@ export default class WorkOrderSpringContent extends React.Component {
 	render() {
 		let dropdownMenu = this.state.products.map(product => {return this.renderDropdown(product)});
 		let ProductRow = this.state.selectedProducts.map(product =>
-				<ProductSelectRow key={product.product_id} product={product} onRemoveProduct={this.handleRemoveProduct}/>
+				<ProductSelectRow key={product.work_order_product_id} product={product} onRemoveProduct={this.handleRemoveProduct}/>
 		)
 		return (
 
@@ -342,7 +353,7 @@ export default class WorkOrderSpringContent extends React.Component {
 													<View style={STYLES.selectedBox}>
 															<Text style={[STYLES.selectedBoxTitle,STYLES.nameContainer]}>NAME</Text>
 															<Text style={[STYLES.selectedBoxTitle,STYLES.flexBox1]}>PRICE</Text>
-															<Text style={[STYLES.selectedBoxTitle,STYLES.flexBox2]}>QUANTITY</Text>
+															{/*<Text style={[STYLES.selectedBoxTitle,STYLES.flexBox2]}>QUANTITY</Text>*/}
 													</View>
 													<View style={STYLES.selectedBoxBody}>
 															{ProductRow}
@@ -480,7 +491,7 @@ const STYLES = {
 			flex: 2
 	},
 	nameContainer: {
-			width: 100
+			flex: 4
 	},
 	productSelectContainer: {
 		width: '100%',
@@ -553,7 +564,6 @@ const STYLES = {
 	},
 	notesContainer: {
 		width: 300,
-		minHeight: 300,
 		backgroundColor: 'white',
 		borderRadius: 10,
 		padding: 10,

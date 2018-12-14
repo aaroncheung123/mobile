@@ -22,7 +22,8 @@ export default class AddWorkOrderForm extends React.Component {
             users: [],
             products: [],
             searchText: '',
-            selectedProducts: []
+            selectedProducts: [],
+            notes: ''
         }
         this.handleShippingAddressSubmit = this.handleShippingAddressSubmit.bind(this);
         this.handleDropdownOnChangeText = this.handleDropdownOnChangeText.bind(this);
@@ -38,19 +39,59 @@ export default class AddWorkOrderForm extends React.Component {
     }
 
     handleShippingAddressSubmit() {
-        this.props.handleClose()
-        this.addressSelect.getAddress((address) => {
+        this.props.onComplete()
 
-            if (address === undefined) return
+        Service.User.get(user => {
+            EliteAPI.STR.WorkOrder.add({
+                model_id: this.props.deal.model_id,
+                class_key: this.props.deal.class_key,
+                zone_id: this.props.deal.zone_id,
+                deal_id: this.props.deal.deal_id,
+                assigned_role_id: user.role_id,
+                assigned_user: user.id,
+                name: this.state.workOrderName,
+                address_id: this.props.deal.address_id,
+                scheduled_at: GlobalUtil.convertDateToMysql(this.state.selectedDay),
+                notes: this.state.notes
+            }, (success) => {
 
-            this.state.shippingAddress.address_id = address.address_id;
-            this.state.shippingAddress.address = address;
-            this.state.shippingAddress.save((success) => {
-                alert('Your information has been successfully updated');
-                this.forceUpdate();
-                //console.log(this.state.shippingAddress.address);
+                let workOrder = success.data.model;
+                workOrder.work_order_products = [];
+
+                let numberOfProdutsToAdd = this.state.selectedProducts.length;
+                if (numberOfProdutsToAdd)
+                this.state.selectedProducts.forEach((product) => {
+                    let workOrderProduct = new EliteAPI.Models.STR.WorkOrderProduct({
+                        work_order_id: workOrder.work_order_id,
+                        product_id: product.product_id,
+                        name: product.name,
+                        price: (product.price_current) ? product.price_current.price : 0,
+                        quantity: 1,
+                        notes: ''
+                    })
+                    workOrderProduct.save((success) => {
+                        workOrder.work_order_products.push(success.data.model)
+                        console.log(numberOfProdutsToAdd);
+                        if (numberOfProdutsToAdd == workOrder.work_order_products.length) {
+                            if (this.props.onWorkOrderAdd) this.props.onWorkOrderAdd(workOrder);
+                        }
+                    });
+                })
+
+                this.setState({
+                    workOrderName: '',
+                    selectedProducts: [],
+                    products: [],
+                    searchText: '',
+                    notes: ''
+                })
+
+            }, (failure) => {
             })
-        });
+        })
+
+
+
     }
 
     handleDropdownOnChangeText(text){
@@ -94,8 +135,8 @@ export default class AddWorkOrderForm extends React.Component {
     render() {
         let clients = this.state.users.map(user => <Picker.Item key={user.id} label={user.full_name + ' - ' + user.email} value={user}/>)
         let dropdownMenu = this.state.products.map(product => {return this.renderDropdown(product)});
-        let ProductRow = this.state.selectedProducts.map(product =>
-            <ProductSelectRow key={product.product_id} product={product} onRemoveProduct={this.handleRemoveProduct}/>
+        let ProductRow = this.state.selectedProducts.map((product, i) =>
+            <ProductSelectRow key={i} product={product} onRemoveProduct={this.handleRemoveProduct}/>
         )
 
         return (
@@ -105,24 +146,6 @@ export default class AddWorkOrderForm extends React.Component {
                    underlineColorAndroid = "transparent"
                    onChangeText = {(text) => this.setState({workOrderName: text})}
                    value={this.state.workOrderName}/>
-
-
-               <Text style = {STYLES.textStyle}>Client</Text>
-               <Picker
-                    selectedValue={this.state.productSelect}
-                    style={STYLES.pickerStyle}
-                    onValueChange={(itemValue, itemIndex) => this.setState({clientSelect: itemValue})}>
-                        <Picker.Item label="-- Nothing Selected --" value="default" />
-                        {clients}
-               </Picker>
-
-               <Text style={STYLES.textStyle}>Employee Role</Text>
-               <Picker
-                    selectedValue={this.state.productSelect}
-                    style={STYLES.pickerStyle}
-                    onValueChange={(itemValue, itemIndex) => this.setState({emplyeeSelect: itemValue})}>
-                        <Picker.Item label="-- Nothing Selected --" value="default" />
-               </Picker>
 
 
                {/*---------------------------------------------------------------------------------
@@ -150,21 +173,13 @@ export default class AddWorkOrderForm extends React.Component {
                       <View style={STYLES.selectedBox}>
                           <Text style={[STYLES.selectedBoxTitle,STYLES.nameContainer]}>NAME</Text>
                           <Text style={[STYLES.selectedBoxTitle,STYLES.flexBox1]}>PRICE</Text>
-                          <Text style={[STYLES.selectedBoxTitle,STYLES.flexBox2]}>QUANTITY</Text>
+                          {/*}<Text style={[STYLES.selectedBoxTitle,STYLES.flexBox2]}>QUANTITY</Text>*/}
                       </View>
                       <View style={STYLES.selectedBoxBody}>
                           {ProductRow}
                       </View>
                   </View> : null
               }
-
-
-
-
-
-
-               <AddressSelect ref={e => this.addressSelect = e}/>
-
 
                <View style = {STYLES.dateContainer}>
                    <Text style = {STYLES.textStyle}>Scheduled Date</Text>
@@ -209,7 +224,7 @@ const STYLES = {
         flex: 2
     },
     nameContainer: {
-        width: 100
+        flex: 4
     },
     selectedBox: {
         flexDirection: 'row',

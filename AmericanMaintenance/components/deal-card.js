@@ -26,19 +26,28 @@ export default class DealCard extends React.Component {
 
 		this.toggle = this.toggle.bind(this);
         this.handleAddWorkOrder = this.handleAddWorkOrder.bind(this);
+				this.handleWorkOrderAdd = this.handleWorkOrderAdd.bind(this);
 	}
 
 	componentDidMount() {
 		let startOfDay = (new Date()).getStartOfDay();
 
 		EliteAPI.STR.WorkOrder.search({
-            include_classes: 'user,address',
+            include_classes: 'model,address,workorderproduct',
             take: 1000,
             deal_id: this.props.deal.deal_id,
             scheduled_after: GlobalUtil.convertDateToMysql(startOfDay)}, success => {
-                //console.log(success.data.models)
+                console.log(success.data.models)
                 this.setState({workOrders: success.data.models})
             })
+	}
+
+	handleWorkOrderAdd(workOrder)
+	{
+		this.props.onComplete();
+							console.log(workOrder, 'test mate');
+		this.state.workOrders.push(workOrder);
+		this.forceUpdate();
 	}
 
 
@@ -73,11 +82,15 @@ export default class DealCard extends React.Component {
 		});
 	}
 
-    handleAddWorkOrder() {
-        this.props.onShowSpringPanel(
-            "Add Work Order",
-            <AddWorkOrderForm onShowSidePanel={this.props.onShowSidePanel} onComplete={this.props.onComplete}/>
-        )
+	  handleAddWorkOrder() {
+	      this.props.onShowSpringPanel(
+	          "Add Work Order",
+	          <AddWorkOrderForm
+							onComplete={this.props.onComplete}
+							deal={this.props.deal}
+							onShowSidePanel={this.props.onShowSidePanel}
+							onWorkOrderAdd={this.handleWorkOrderAdd}/>
+	      )
     }
 
 	render(){
@@ -101,7 +114,7 @@ export default class DealCard extends React.Component {
 						<View>
 							<View style={STYLES.textContainer}>
 								<Text style={STYLES.textStyleTitle}>{this.props.deal.name}</Text>
-								<Text style={STYLES.textStyle}>Client: {this.props.deal.user.full_name}</Text>
+
 								{lastScheduledService}
 							</View>
 							<View style={STYLES.arrowContainer}>

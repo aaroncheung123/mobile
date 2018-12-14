@@ -26,7 +26,7 @@ export default class Dashboard extends React.Component {
     }
 
     onRefresh() {
-        this.setState({refreshing: true});
+        this.setState({refreshing: true, deals: []});
         EliteAPI.CRM.Zone.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
             //console.log(success.data.models);
             this.setState({zones: success.data.models})

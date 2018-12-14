@@ -145,6 +145,30 @@ export class Model {
 		let url = '/global/gen/model/report';
 		return WebClient.basicGet(form_data, url, success_callback, failure_callback);
    	}
+
+
+    // purpose
+    //   set a model
+    // args
+    //   class_string (required)
+    //   model_id (required)
+    // returns
+    //   (none)
+    set (form_data, success_callback, failure_callback) {
+
+		if (this.classString) form_data.class_string = this.classString;
+
+		let url = '/global/gen/model/set';
+
+		if (this.classModel)
+		{
+			let tempClass = new this.classModel();
+			form_data['model_id'] = form_data[tempClass.primaryKey];
+			if (this.classModel.API_ELITE_CLASS) form_data.elite_class = true;
+		}
+
+		return WebClient.basicPost(form_data, url, success_callback, failure_callback);
+    }
 }
 
 

@@ -9,14 +9,15 @@ export default class Test extends React.Component {
     {
         super(props)
 
-		this.state = {
-			modalVisible: false,
-			notes: ''
-		}
-		this.handleComplete = this.handleComplete.bind(this);
-		this.handleModal = this.handleModal.bind(this);
-		this.handleConfirmAlert = this.handleConfirmAlert.bind(this);
-		this.handleSignatureSave = this.handleSignatureSave.bind(this);
+				this.state = {
+					modalVisible: false,
+					notes: ''
+				}
+				this.handleComplete = this.handleComplete.bind(this);
+				this.handleModal = this.handleModal.bind(this);
+				this.handleConfirmAlert = this.handleConfirmAlert.bind(this);
+				this.handleSignatureSave = this.handleSignatureSave.bind(this);
+				this.handleSkipComplete = this.handleSkipComplete.bind(this);
     }
 
 	handleConfirmAlert(){
@@ -31,7 +32,20 @@ export default class Test extends React.Component {
 		);
 	}
 
+	handleSkipComplete(){
+		this.props.workOrder.data.signature.skip_message = this.state.notes;
+		this.props.workOrder.save((success) => {
+				console.log(success);
+				this.setState({
+					notes: ''
+				})
+				this.handleModal();
+				this.props.onCompleteWorkOrder();
+		});
+	}
+
 	async handleComplete(){
+
 		let options = {format: 'png', quality: 0.1, result: 'file', height: 120, width: '100%'};
 		let uriSignature = await Expo.takeSnapshotAsync(this.sketch, options);
 
@@ -121,7 +135,7 @@ export default class Test extends React.Component {
 							</View>
 							<TouchableOpacity
 							  style={STYLES.myButton}
-							  onPress ={this.handleComplete}>
+							  onPress ={this.handleSkipComplete}>
 								  <Text style={STYLES.buttonText}>Complete</Text>
 							</TouchableOpacity>
 
