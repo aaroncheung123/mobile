@@ -71,7 +71,7 @@ export default class AddWorkOrderForm extends React.Component {
                     })
                     workOrderProduct.save((success) => {
                         workOrder.work_order_products.push(success.data.model)
-                        console.log(numberOfProdutsToAdd);
+                        //console.log(numberOfProdutsToAdd);
                         if (numberOfProdutsToAdd == workOrder.work_order_products.length) {
                             if (this.props.onWorkOrderAdd) this.props.onWorkOrderAdd(workOrder);
                         }
@@ -244,7 +244,9 @@ const STYLES = {
         padding: 5,
         borderWidth: 1,
         borderColor: 'black',
-        borderRadius: 5
+        borderRadius: 5,
+        height: 35,
+        width: 300,
     },
     dropdownMenu: {
         backgroundColor: '#eaeaea',
@@ -270,6 +272,7 @@ const STYLES = {
     },
     datePickerContainer: {
         margin: 10,
+        width: '95%'
     },
     addButton: {
         width: '90%',

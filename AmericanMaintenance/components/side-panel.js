@@ -108,6 +108,7 @@ const STYLES = {
 		position: 'absolute',
 		left: 0,
 		top: 0,
-		padding: 20
+		padding: 20,
+		zIndex: 1
 	}
 }

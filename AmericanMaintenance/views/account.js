@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, AsyncStorage} from 'react-native';
+import {StyleSheet, View, ScrollView, TextInput, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, AsyncStorage, Platform} from 'react-native';
 import {MemoryRouter, Route, Redirect} from "react-router-dom";
 import {Icon} from 'react-native-elements';
 import {Constants} from 'expo';
@@ -356,12 +356,14 @@ const TOP_MENU_STYLES = {
 	container: {
 		flex: 1,
 		width: '100%',
-		maxHeight: 70,
+		maxHeight: Platform.OS === 'ios' ? 100 : 70,
 		backgroundColor: 'white',
 		elevation: 2,
 		shadowOffset: { height: 1, width: 1 }, // IOS
 		shadowOpacity: 2, // IOS
-		shadowRadius: 2, //IOS
+		shadowRadius: 2, //IOS,
+		zIndex: 1,
+		paddingTop: Platform.OS === 'ios' ? 30 : 0,
 	},
 	leftMenuIconContainer: {
 		position: 'absolute',

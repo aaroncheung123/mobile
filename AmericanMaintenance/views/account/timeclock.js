@@ -197,8 +197,8 @@ export default class TimeClock extends React.Component {
 				<View style={PANEL.toggleContainer}>
 						<Text style={PANEL.toggleText}>Clock Out</Text>
 						<Switch
-								onTintColor = '#F7882F'
-								thumbTintColor = 'white'
+								trackColor = '#F7882F'
+								_thumbColor = 'white'
 								style = {PANEL.switchStyle}
 								onValueChange = {this.toggleClockInStatus}
 								value = {this.state.clockIn}/>

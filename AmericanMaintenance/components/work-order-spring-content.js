@@ -59,6 +59,7 @@ export default class WorkOrderSpringContent extends React.Component {
 	componentDidMount() {
 		this.loadData();
 		this.updateTime(true);
+		console.log('TEST: ',this.props.workOrder.data);
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -413,11 +414,16 @@ export default class WorkOrderSpringContent extends React.Component {
                 Complete Work Order Button
 
                 ============================================================*/}
-                <TouchableOpacity
-                    style={STYLES.completeButton}
-                    onPress={this.handleSignature}>
-                    <Text style={STYLES.toggleText}>Complete</Text>
-                </TouchableOpacity>
+								{
+									this.props.workOrder.status != 'COMPLETED' ?
+									<TouchableOpacity
+	                    style={STYLES.completeButton}
+	                    onPress={this.handleSignature}>
+	                    <Text style={STYLES.toggleText}>Complete</Text>
+	                </TouchableOpacity> : null
+								}
+
+
 
 
 
@@ -547,8 +553,7 @@ const STYLES = {
     marginTop: 5
 	},
 	toggleText: {
-		color: 'white',
-		fontSize: 16
+		color: 'white'
 	},
   notesTitle: {
     color: 'black',
@@ -586,12 +591,12 @@ const STYLES = {
   	borderRadius: 5,
   },
   completeButton: {
-  	padding: 15,
-  	width: '90%',
-  	backgroundColor: EliteWorksOrange,
-  	borderRadius: 5,
-  	justifyContent: 'center',
-  	alignItems: 'center',
-    marginTop: 20
-}
+		padding: 10,
+		backgroundColor: EliteWorksOrange,
+		borderRadius: 5,
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginTop: 30,
+		width: '90%'
+	}
 }

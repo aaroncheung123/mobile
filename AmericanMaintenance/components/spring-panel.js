@@ -102,9 +102,10 @@ const STYLES = {
         position: 'absolute',
         right: 0,
         top: 0,
-        padding: 15
+        padding: 15,
+				zIndex: 1
     },
     filler: {
-        marginBottom: 300
+        marginBottom: 200
     }
 }

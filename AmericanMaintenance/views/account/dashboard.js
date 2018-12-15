@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated, Switch,Picker, RefreshControl} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated, Switch,Picker, RefreshControl, Platform} from 'react-native';
 import DealCard from '../../components/deal-card.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../../assets/styles/constants';
@@ -74,9 +74,13 @@ export default class Dashboard extends React.Component {
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.searchContainer}>
-                    <View style={STYLES.iconContainer}>
-                        <Icon name='search' size= {20}/>
-                    </View>
+                    {
+                        Platform.OS != 'ios' ?
+                        <View style={STYLES.iconContainer}>
+                            <Icon name='search' size= {20}/>
+                        </View> : null
+                    }
+
                     <View style={STYLES.textInputContainer}>
                         <Picker
                           selectedValue={this.state.searchText}
@@ -124,7 +128,7 @@ const STYLES = {
         marginHorizontal: 20,
         marginVertical: 30,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: Platform.OS === 'ios' ? 'flex-start' : 'center',
     },
     scrollViewContainer: {
         flex: 1,
@@ -138,8 +142,11 @@ const STYLES = {
     textInputContainer: {
         justifyContent: 'flex-start',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#c4c4c4'
+        borderWidth: Platform.OS === 'ios' ? 0 : 1,
+        position: Platform.OS === 'ios' ? 'absolute' : null,
+        top: Platform.OS === 'ios' ? -80 : 0,
+        borderColor: '#c4c4c4',
+        zIndex: 0
     },
     transparentFiller: {
         marginBottom: 200,
