@@ -106,6 +106,6 @@ const STYLES = {
 				zIndex: 1
     },
     filler: {
-        marginBottom: 200
+        marginBottom: 300
     }
 }

@@ -28,6 +28,7 @@ export default class CameraComponent extends React.Component {
 
     async handleSnap(){
 				//AUDIO
+        console.log('handle snap');
 				const soundObject = new Expo.Audio.Sound();
 				try {
 				  await soundObject.loadAsync(require('../assets/audio/camera_shutter.mp3'));
@@ -92,17 +93,12 @@ export default class CameraComponent extends React.Component {
             return(
                 <View style={STYLES.cameraContainer}>
                     <Camera ref = {e => this.camera = e} style={STYLES.cameraContainer} type={this.state.type}>
-                        <TouchableOpacity
-                            onPress={this.handleSnap}
-                            style={STYLES.cameraButton}>
-                        </TouchableOpacity>
-                        <View style={STYLES.footerContainer}>
-                            <Icon name='photo' size={30} color='white'/>
-                        </View>
 												<Animated.View style={{...STYLES.flashContainer, opacity}} />
-
                     </Camera>
-
+										<TouchableOpacity
+												onPress={this.handleSnap}
+												style={STYLES.cameraButton}>
+										</TouchableOpacity>
                 </View>
             )
         }
@@ -123,7 +119,8 @@ const STYLES = {
 		},
     cameraContainer: {
         height: Dimensions.get('window').height - 225,
-				width: Dimensions.get('window').width
+				width: Dimensions.get('window').width,
+				zIndex: 0
     },
     footerContainer: {
         position: 'absolute',
@@ -144,6 +141,7 @@ const STYLES = {
         height: 50,
         width: 50,
         padding: 10,
-        marginBottom: 30
+        marginBottom: 30,
+				zIndex: 1
     }
 }
