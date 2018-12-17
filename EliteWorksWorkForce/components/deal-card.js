@@ -76,7 +76,7 @@ export default class DealCard extends React.Component {
     handleAddWorkOrder() {
         this.props.onShowSpringPanel(
             "Add Work Order",
-            <AddWorkOrderForm onShowSidePanel={this.props.onShowSidePanel} onComplete={this.props.onComplete}/>
+            <AddWorkOrderForm onShowSidePanel={this.props.onShowSidePanel} onComplete={this.props.onComplete} deal={this.props.deal}/>
         )
     }
 

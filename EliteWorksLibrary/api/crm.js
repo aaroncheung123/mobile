@@ -12,6 +12,7 @@ export default class CrmApi {
         this.Notification = new Notification();
         this.Device = new Model('device');
         this.Account = new Account();
+        this.DealProduct = new Model('dealproduct');
     }
 }
 

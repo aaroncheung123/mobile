@@ -35,6 +35,11 @@ export default class AddWorkOrderForm extends React.Component {
             //console.log(success.data.users);
             this.setState({users: success.data.users});
         });
+        EliteAPI.CRM.DealProduct.search({take: 1000, include_classes: 'product', deal_id: this.props.deal.deal_id}, (success) => {
+          success.data.models.map(model => {
+            this.state.selectedProducts.push({...model.product, price: model.price});
+          })
+        })
     }
 
     handleShippingAddressSubmit() {

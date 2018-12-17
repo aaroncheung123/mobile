@@ -347,6 +347,7 @@ import Zone from './models/crm/zone';
 import Notification from './models/crm/notification';
 import Device from './models/crm/device';
 import Account from './models/crm/account';
+import DealProduct from './models/crm/deal-product'
 
 class CrmModels {
     constructor()
@@ -359,6 +360,7 @@ class CrmModels {
         this.Notification = Notification;
         this.Device = Device;
         this.Account = Account;
+        this.DealProduct = DealProduct;
     }
 }
 

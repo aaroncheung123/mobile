@@ -29,6 +29,7 @@ const CLASS_STRING_MAP = () => {
         account: EliteAPI.Models.CRM.Account,
         sitefile: EliteAPI.Models.CMS.SiteFile,
         modelfile: EliteAPI.Models.GEN.ModelFile,
+        dealproduct: EliteAPI.Models.CRM.DealProduct
     }
 }
 export default CLASS_STRING_MAP;
