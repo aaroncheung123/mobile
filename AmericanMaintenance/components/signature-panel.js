@@ -168,8 +168,7 @@ const STYLES = {
 		fontWeight: 'bold'
 	},
 	notesContainer: {
-		width: 300,
-		minHeight: 200,
+		width: '100%',
 		backgroundColor: 'white',
 		borderRadius: 10,
 		padding: 10,
@@ -183,7 +182,7 @@ const STYLES = {
 	   padding: 20
 	},
 	myButton: {
-		padding: 10,
+		padding: 15,
 		backgroundColor: EliteWorksOrange,
 		borderRadius: 5,
 		justifyContent: 'center',

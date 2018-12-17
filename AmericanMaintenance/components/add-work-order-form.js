@@ -237,7 +237,8 @@ export default class AddWorkOrderForm extends React.Component {
 
 const STYLES = {
     container: {
-        margin: 10
+        margin: 10,
+        width: '100%'
     },
     selectedBoxTitle: {
         color: 'white'
@@ -271,7 +272,7 @@ const STYLES = {
         borderColor: 'black',
         borderRadius: 5,
         height: 35,
-        width: 300,
+        width: '100%'
     },
     dropdownMenu: {
         backgroundColor: '#eaeaea',
@@ -283,7 +284,7 @@ const STYLES = {
     },
     textInputContainer: {
         height: 35,
-        width: 300,
+        width: '100%',
         borderWidth: 1,
         borderRadius: 5,
         paddingHorizontal: 20,
@@ -297,10 +298,11 @@ const STYLES = {
     },
     datePickerContainer: {
         margin: 10,
-        width: '95%'
+        width: '100%',
+        alignSelf: 'center'
     },
     addButton: {
-        width: '90%',
+        width: '100%',
         backgroundColor: EliteWorksOrange,
         padding: 15,
         justifyContent: 'center',
@@ -310,10 +312,10 @@ const STYLES = {
         borderRadius: 5,
     },
     whiteText: {
-        color: 'white',
-        fontSize: 16
+        color: 'white'
     },
     dateContainer: {
-        marginTop: 10
+        marginTop: 10,
+        width: '100%'
     }
 }

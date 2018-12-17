@@ -210,8 +210,7 @@ export default class Account extends React.Component {
 								type='font-awesome'
 								color='#F7882F'
 								size={25}
-								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}
-							/>
+								onPress={() => this.setState({sideMenuOpen: !this.state.sideMenuOpen}, this.updateSideMenu)}/>
 						</View>
 						<View style={TOP_MENU_STYLES.companyNameContainer}>
 							<Text style={TOP_MENU_STYLES.companyName}>{this.state.title}</Text>
@@ -360,14 +359,17 @@ const TOP_MENU_STYLES = {
 		backgroundColor: 'white',
 		elevation: 2,
 		shadowOffset: { height: 1, width: 1 }, // IOS
-		shadowOpacity: 2, // IOS
-		shadowRadius: 2, //IOS,
+		shadowOpacity: 1, // IOS
+		shadowRadius: 1, //IOS,
 		zIndex: 1
 	},
 	leftMenuIconContainer: {
 		position: 'absolute',
 		top: 25,
 		left: 20,
+		paddingBottom: 10,
+		paddingHorizontal: 10,
+		zIndex: 1
 	},
 	companyName: {
 		textAlign: 'center',

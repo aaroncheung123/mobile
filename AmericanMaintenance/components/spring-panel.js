@@ -55,7 +55,7 @@ export default class SpringPanel extends React.Component {
 				                <ScrollView
 												 	style={STYLES.scrollContainer}
 													keyboardDismissMode="on-drag"
-													keyboardShouldPersistTaps='always'>
+													keyboardShouldPersistTaps='handled'>
 			                        <View style={STYLES.filler}>
 			                            {this.props.content}
 			                        </View>
@@ -70,8 +70,8 @@ export default class SpringPanel extends React.Component {
 
 const STYLES = {
 	springContainer: {
-        //position: 'absolute',
-        //bottom: 0,
+        position: 'absolute',
+        bottom: 0,
         width: '100%',
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,

@@ -336,6 +336,7 @@ export default class WorkOrderSpringContent extends React.Component {
 								<View style={STYLES.productSelectContainer}>
 									<Text style={STYLES.notesTitle}>Products</Text>
 									<TextInput style={STYLES.dropdownTextInput}
+											placeholder = "Enter product here"
 											underlineColorAndroid = "transparent"
 											autoCapitalize = "none"
 											onChangeText = {(text) => this.handleDropdownOnChangeText(text)}
@@ -454,7 +455,7 @@ const ToggleSection = (props) => {
                     <Text style={STYLES.toggleText}>Stop</Text>
                     <Switch
                         trackColor = '#F7882F'
-                        _thumbColor = 'white'
+                        thumbColor = 'white'
                         style={STYLES.switchStyle}
                         onValueChange = {props.onValueChange}
                         value = {props.activeStatus === props.job}/>
