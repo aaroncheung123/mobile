@@ -39,7 +39,7 @@ export default class AddWorkOrderForm extends React.Component {
 
 
         EliteAPI.CRM.DealProduct.search({take: 1000, include_classes: 'product', deal_id: this.props.deal.deal_id}, (success) => {
-            console.log(success);
+            //console.log(success);
             success.data.models.map(model => {
                 this.state.selectedProducts.push({...model.product, price: model.price});
             })
@@ -49,12 +49,12 @@ export default class AddWorkOrderForm extends React.Component {
 
     componentDidUpdate(prevProps)
     {
-        if (prevProps.deal.deal_id != this.props.deal.deal_id) 
+        if (prevProps.deal.deal_id != this.props.deal.deal_id)
         {
             this.state.selectedProducts = [];
             this.forceUpdate();
             EliteAPI.CRM.DealProduct.search({take: 1000, include_classes: 'product', deal_id: this.props.deal.deal_id}, (success) => {
-                console.log(success);
+                //console.log(success);
                 success.data.models.map(model => {
                     this.state.selectedProducts.push({...model.product, price: model.price});
                 })

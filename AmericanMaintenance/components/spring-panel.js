@@ -52,7 +52,10 @@ export default class SpringPanel extends React.Component {
 
 		            <View style={STYLES.innerSpringContainer}>
 		                <Text style={STYLES.springContainerText}>{this.props.title}</Text>
-				                <KeyboardAwareScrollView keyboardDismissMode="on-drag" keyboardShouldPersistTaps='always'>
+				                <KeyboardAwareScrollView
+												 	style={STYLES.scrollContainer}
+													keyboardDismissMode="on-drag"
+													keyboardShouldPersistTaps='always'>
 			                        <View style={STYLES.filler}>
 			                            {this.props.content}
 			                        </View>
@@ -84,7 +87,7 @@ const STYLES = {
         borderBottomWidth: 2,
         marginTop: 20,
         paddingBottom: 20,
-        borderColor: 'black',
+        borderColor: 'black'
     },
     toggleText: {
         color: 'black',
@@ -94,8 +97,7 @@ const STYLES = {
 				flex: 1,
 				width: '100%',
         justifyContent: 'flex-start',
-        alignItems: 'center',
-				paddingHorizontal: 20
+        alignItems: 'center'
     },
     icon: {
         color: 'black',
@@ -105,7 +107,13 @@ const STYLES = {
         padding: 15,
 				zIndex: 1
     },
+		scrollContainer: {
+			width: '100%'
+		},
     filler: {
-        marginBottom: 300
+				width: '100%',
+        marginBottom: 300,
+				paddingHorizontal: 20,
+				alignSelf: 'center'
     }
 }

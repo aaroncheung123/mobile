@@ -352,7 +352,7 @@ export default class WorkOrderSpringContent extends React.Component {
 											this.state.selectedProducts.length > 0 ?
 											<View>
 													<View style={STYLES.selectedBox}>
-															<Text style={[STYLES.selectedBoxTitle,STYLES.nameContainer]}>NAME</Text>
+															<Text style={[STYLES.selectedBoxTitle,STYLES.flexBox2]}>NAME</Text>
 															<Text style={[STYLES.selectedBoxTitle,STYLES.flexBox1]}>PRICE</Text>
 															{/*<Text style={[STYLES.selectedBoxTitle,STYLES.flexBox2]}>QUANTITY</Text>*/}
 													</View>
@@ -496,17 +496,15 @@ const STYLES = {
 	flexBox2: {
 			flex: 2
 	},
-	nameContainer: {
-			flex: 4
-	},
 	productSelectContainer: {
 		width: '100%',
 		marginVertical: 20
 	},
 	dropdownTextInput: {
-			padding: 5,
+			padding: 10,
 			borderWidth: 1,
 			borderRadius: 5,
+			marginTop: 5,
 			width: '100%'
 	},
 	dropdownText: {
@@ -520,7 +518,7 @@ const STYLES = {
 	outsideToggleContainer: {
     flexDirection: 'row',
     height: 120,
-		width: 300,
+		width: '100%',
 		margin: 10
 	},
   leftToggleContainer: {
@@ -561,8 +559,7 @@ const STYLES = {
     fontWeight: 'bold'
   },
   notesTitleContainer: {
-    alignSelf: 'flex-start',
-		marginLeft: 15
+    alignSelf: 'flex-start'
   },
 	switchStyle: {
 		marginHorizontal: 10,
@@ -570,10 +567,11 @@ const STYLES = {
 	notesContainer: {
 		width: 300,
 		backgroundColor: 'white',
-		borderRadius: 10,
+		borderRadius: 5,
 		padding: 10,
     marginTop: 15,
-		borderWidth: 1
+		borderWidth: 1,
+		width: '100%'
 	},
 	outsidePhotoContainer: {
     marginVertical: 20,
@@ -591,12 +589,12 @@ const STYLES = {
   	borderRadius: 5,
   },
   completeButton: {
-		padding: 10,
+		padding: 15,
 		backgroundColor: EliteWorksOrange,
 		borderRadius: 5,
 		justifyContent: 'center',
 		alignItems: 'center',
 		marginTop: 30,
-		width: '90%'
+		width: '100%'
 	}
 }

@@ -37,7 +37,7 @@ export default class Test extends React.Component {
 		this.props.workOrder.data.signature = {}
 		this.props.workOrder.data.signature.skip_message = this.state.notes;
 		this.props.workOrder.save((success) => {
-				console.log(success);
+				//console.log(success);
 				this.setState({
 					notes: ''
 				})

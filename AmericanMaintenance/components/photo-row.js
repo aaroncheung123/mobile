@@ -67,7 +67,7 @@ export default class PhotoRow extends React.Component {
             site_file_id: siteFile.site_file_id,
             include_classes: 'sitefile'
         }, (success) => {
-						console.log(success.data.model_file);
+						//console.log(success.data.model_file);
             let photos = this.state.photos;
             photos.push(success.data.model_file);
             this.setState({photos: photos}, () => {
@@ -79,7 +79,7 @@ export default class PhotoRow extends React.Component {
     }
 
     handleDeletePhoto(photo){
-        console.log('test: ', photo);
+        //console.log('test: ', photo);
         photo.delete((success) => {
             console.log('success');
             this.setState({
