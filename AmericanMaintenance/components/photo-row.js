@@ -67,6 +67,7 @@ export default class PhotoRow extends React.Component {
             site_file_id: siteFile.site_file_id,
             include_classes: 'sitefile'
         }, (success) => {
+						console.log(success.data.model_file);
             let photos = this.state.photos;
             photos.push(success.data.model_file);
             this.setState({photos: photos}, () => {
@@ -93,7 +94,7 @@ export default class PhotoRow extends React.Component {
 
       let photos = this.state.photos.map(photo => <PhotoCard
           key={photo.site_file_id}
-	      photo={photo}
+	        photo={photo}
           onDelete={this.handleDeletePhoto}
           onPress={ () => {
               this.props.onPress({photo});
@@ -131,7 +132,7 @@ const PhotoCard = (props) => {
             <TouchableOpacity onPress= {props.onPress}>
                 <Image
                   style={STYLES.photoCardContainer}
-                  source={{uri: props.photo.site_file.proxy_url_full}}/>
+                  source={{uri: props.photo.site_file.proxy_url_full + "?api_key=" + GlobalUtil.webClientApiKey}}/>
             </TouchableOpacity>
             <TouchableOpacity
                 style={STYLES.deletePhotoButton}

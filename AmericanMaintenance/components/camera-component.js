@@ -28,7 +28,6 @@ export default class CameraComponent extends React.Component {
 
     async handleSnap(){
 				//AUDIO
-        console.log('handle snap');
 				const soundObject = new Expo.Audio.Sound();
 				try {
 				  await soundObject.loadAsync(require('../assets/audio/camera_shutter.mp3'));
