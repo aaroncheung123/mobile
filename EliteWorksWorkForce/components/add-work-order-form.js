@@ -42,6 +42,14 @@ export default class AddWorkOrderForm extends React.Component {
         })
     }
 
+    componentDidUpdaet(prevProps, prevState) {
+      if (prevProps.deal.deal_id != this.props.deal.deal_id)
+      {
+        this.state.selectedProducts = true;
+        this.forceUpdate();
+      }
+    }
+
     handleShippingAddressSubmit() {
         this.props.handleClose()
         this.addressSelect.getAddress((address) => {

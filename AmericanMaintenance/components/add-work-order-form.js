@@ -36,6 +36,31 @@ export default class AddWorkOrderForm extends React.Component {
             //console.log(success.data.users);
             this.setState({users: success.data.users});
         });
+
+
+        EliteAPI.CRM.DealProduct.search({take: 1000, include_classes: 'product', deal_id: this.props.deal.deal_id}, (success) => {
+            console.log(success);
+            success.data.models.map(model => {
+                this.state.selectedProducts.push({...model.product, price: model.price});
+            })
+            this.forceUpdate();
+        }, f => console.log(f))
+    }
+
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.deal.deal_id != this.props.deal.deal_id) 
+        {
+            this.state.selectedProducts = [];
+            this.forceUpdate();
+            EliteAPI.CRM.DealProduct.search({take: 1000, include_classes: 'product', deal_id: this.props.deal.deal_id}, (success) => {
+                console.log(success);
+                success.data.models.map(model => {
+                    this.state.selectedProducts.push({...model.product, price: model.price});
+                })
+                this.forceUpdate();
+            }, f => console.log(f))
+        }
     }
 
     handleShippingAddressSubmit() {
@@ -65,7 +90,7 @@ export default class AddWorkOrderForm extends React.Component {
                         work_order_id: workOrder.work_order_id,
                         product_id: product.product_id,
                         name: product.name,
-                        price: (product.price_current) ? product.price_current.price : 0,
+                        price: (product.price_current) ? product.price_current.price : (product.price ? product.price : 0),
                         quantity: 1,
                         notes: ''
                     })

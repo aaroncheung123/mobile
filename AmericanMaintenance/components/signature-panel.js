@@ -33,8 +33,9 @@ export default class Test extends React.Component {
 	}
 
 	handleSkipComplete(){
+		this.props.workOrder.data = {};
+		this.props.workOrder.data.signature = {}
 		this.props.workOrder.data.signature.skip_message = this.state.notes;
-		console.log(this.state.notes);
 		this.props.workOrder.save((success) => {
 				console.log(success);
 				this.setState({
@@ -42,7 +43,7 @@ export default class Test extends React.Component {
 				})
 				this.handleModal();
 				this.props.onCompleteWorkOrder();
-		});
+		}, f => console.log(f));
 	}
 
 	async handleComplete(){
