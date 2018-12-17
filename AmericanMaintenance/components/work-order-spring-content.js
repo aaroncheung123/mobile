@@ -501,7 +501,7 @@ const STYLES = {
 		marginVertical: 20
 	},
 	dropdownTextInput: {
-			padding: 10,
+			padding: 5,
 			borderWidth: 1,
 			borderRadius: 5,
 			marginTop: 5,
@@ -568,7 +568,7 @@ const STYLES = {
 		width: 300,
 		backgroundColor: 'white',
 		borderRadius: 5,
-		padding: 10,
+		padding: 5,
     marginTop: 15,
 		borderWidth: 1,
 		width: '100%'

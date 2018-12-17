@@ -52,14 +52,14 @@ export default class SpringPanel extends React.Component {
 
 		            <View style={STYLES.innerSpringContainer}>
 		                <Text style={STYLES.springContainerText}>{this.props.title}</Text>
-				                <KeyboardAwareScrollView
+				                <ScrollView
 												 	style={STYLES.scrollContainer}
 													keyboardDismissMode="on-drag"
 													keyboardShouldPersistTaps='always'>
 			                        <View style={STYLES.filler}>
 			                            {this.props.content}
 			                        </View>
-				                </KeyboardAwareScrollView>
+				                </ScrollView>
 		            </View>
 
 	        </Animated.View>
