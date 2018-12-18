@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Animated, ScrollView, Dimensions, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default class SidePanel extends React.Component {
+export default class CameraPanel extends React.Component {
 
 	constructor(props){
 		super(props);
@@ -57,11 +57,9 @@ export default class SidePanel extends React.Component {
 					</View>
 
 
-					<ScrollView style={STYLES.contentContainer}>
-						<View style={STYLES.filler}>
-								{this.props.content}
-						</View>
-					</ScrollView>
+					<View style={STYLES.contentContainer}>
+						{this.props.content}
+					</View>
 				</View>
 			</Animated.View>
 		);
@@ -71,8 +69,7 @@ export default class SidePanel extends React.Component {
 
 const STYLES = {
 	contentContainer: {
-		width:'100%',
-		paddingHorizontal: 20
+		flex: 1
 	},
 	springContainer: {
 		position: 'absolute',
@@ -100,7 +97,7 @@ const STYLES = {
 	innerSpringContainer: {
 		justifyContent: 'flex-start',
 		alignItems: 'center',
-		width:'100%'
+		width: '100%'
 	},
 	innerSpringContainer1: {
 		height: 70
@@ -114,11 +111,5 @@ const STYLES = {
 		top: 0,
 		padding: 20,
 		zIndex: 1
-	},
-	filler: {
-			width: '100%',
-			marginBottom: 300,
-			paddingHorizontal: 20,
-			alignSelf: 'center'
 	}
 }

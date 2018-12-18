@@ -12,6 +12,7 @@ import AccountWorkOrders from './account/workorders';
 import LoginModal from './account/login-modal';
 import SpringPanel from '../components/spring-panel';
 import SidePanel from '../components/side-panel';
+import CameraPanel from '../components/camera-panel';
 
 const SIDE_MENU_WIDTH = 300;
 
@@ -34,7 +35,9 @@ export default class Account extends React.Component {
 			springPanelContent: null,
 			sidePanelTitle: '',
 			sidePanelContent: null,
-			title: ''
+			title: '',
+			cameraPanelTitle: '',
+			cameraPanelContent: null
 		}
 
 		this.updateSideMenu = this.updateSideMenu.bind(this);
@@ -45,6 +48,8 @@ export default class Account extends React.Component {
 		this.handleSpringPanelClose = this.handleSpringPanelClose.bind(this);
 		this.handleShowSidePanel = this.handleShowSidePanel.bind(this);
 		this.handleSidePanelClose = this.handleSidePanelClose.bind(this);
+		this.handleShowCameraPanel = this.handleShowCameraPanel.bind(this);
+		this.handleCameraPanelClose = this.handleCameraPanelClose.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
 	}
 
@@ -135,9 +140,28 @@ export default class Account extends React.Component {
 		})
 	}
 
+	handleCameraPanelClose() {
+		this.setState({
+			cameraPanelTitle: '',
+			cameraPanelContent: null
+		})
+	}
+
+	handleShowCameraPanel(title, content) {
+		this.setState({
+			cameraPanelTitle: title,
+			cameraPanelContent: content
+		}, () => {
+			if (this.cameraPanel) {
+				this.cameraPanel.open();
+			}
+		})
+	}
+
 	handleComplete(){
 		this.springPanel.handleClose();
 		this.sidePanel.handleClose();
+		this.cameraPanel.handleClose();
 	}
 
 	handleLogout() {
@@ -223,6 +247,7 @@ export default class Account extends React.Component {
 							<Route path="/dashboard" render={(props) =>
 	              <AccountDashBoard {...props}
 	                  onComplete={this.handleComplete}
+										onShowCameraPanel={this.handleShowCameraPanel}
 	                  onShowSpringPanel={this.handleShowSpringPanel}
 	                  onShowSidePanel={this.handleShowSidePanel}/>} />
 							<Route path="/orders" render={(props) =>
@@ -237,6 +262,7 @@ export default class Account extends React.Component {
 							{/* slide up model */}
 							<SpringPanel ref={e => this.springPanel = e} title={this.state.springPanelTitle} content={this.state.springPanelContent} onClose={this.handleSpringPanelClose}/>
 							<SidePanel ref={e => this.sidePanel = e} title={this.state.sidePanelTitle} content={this.state.sidePanelContent} onClose={this.handleSidePanelClose}/>
+							<CameraPanel ref={e => this.cameraPanel = e} title={this.state.cameraPanelTitle} content={this.state.cameraPanelContent} onClose={this.handleCameraPanelClose}/>
 						</View>
 
 					{/*Bottom Menu*/}

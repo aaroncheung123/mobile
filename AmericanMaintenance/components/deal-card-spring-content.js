@@ -13,7 +13,7 @@ export default class DealCardSpringContent extends React.Component {
     }
 
 	componentDidMount(){
-		console.log('compo: ', this.props.workOrders);
+		//console.log(this.props.workOrders);
 		this.setState({
 			workOrders: this.props.workOrders
 		})
@@ -22,9 +22,10 @@ export default class DealCardSpringContent extends React.Component {
     render() {
 		let workOrders = this.state.workOrders.map(workOrder =>
 	        <WorkOrderCard
-				onComplete={this.props.onComplete}
+							onComplete={this.props.onComplete}
 	            workOrder={workOrder}
 	            key={workOrder.work_order_id}
+							onShowCameraPanel={this.props.onShowCameraPanel}
 	            onShowSpringPanel={this.props.onShowSpringPanel}
 	            onShowSidePanel={this.props.onShowSidePanel}/>)
 

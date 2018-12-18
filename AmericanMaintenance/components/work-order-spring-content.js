@@ -379,13 +379,13 @@ export default class WorkOrderSpringContent extends React.Component {
                         type='BEFORE'
                         workOrder={this.props.workOrder}
                         onPress={this.handlePhotoZoom}
-                        onShowSidePanel={this.props.onShowSidePanel}/>
+                        onShowCameraPanel={this.props.onShowCameraPanel}/>
                     <PhotoRow
                         title='After Photos'
                         type='AFTER'
                         workOrder={this.props.workOrder}
                         onPress={this.handlePhotoZoom}
-                        onShowSidePanel={this.props.onShowSidePanel}/>
+                        onShowCameraPanel={this.props.onShowCameraPanel}/>
                 </View>
 
 

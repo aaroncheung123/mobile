@@ -39,7 +39,7 @@ export default class PhotoRow extends React.Component {
     }
 
     handleCameraDisplay() {
-        this.props.onShowSidePanel(
+        this.props.onShowCameraPanel(
             'Camera',
             <View>
                 <Camera onSnap={this.handleSnap} onSnapStart={this.onStartLoadingBox}></Camera>

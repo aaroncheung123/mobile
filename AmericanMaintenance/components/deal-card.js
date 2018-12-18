@@ -42,7 +42,7 @@ export default class DealCard extends React.Component {
 
 	handleWorkOrderAdd(workOrder){
 		this.props.onComplete();
-		console.log(workOrder, 'test mate');
+		//console.log(workOrder, 'test mate');
 		this.state.workOrders.push(workOrder);
 		this.forceUpdate();
 	}
@@ -55,6 +55,7 @@ export default class DealCard extends React.Component {
 				deal={this.props.deal}
 				workOrders={this.state.workOrders}
 				onComplete={this.props.onComplete}
+				onShowCameraPanel={this.props.onShowCameraPanel}
 				onShowSpringPanel={this.props.onShowSpringPanel}
 				onShowSidePanel={this.props.onShowSidePanel}/>)
 	}

@@ -62,6 +62,7 @@ export default class Dashboard extends React.Component {
                 key={deal.deal_id}
                 deal={deal}
                 onComplete={this.props.onComplete}
+                onShowCameraPanel={this.props.onShowCameraPanel}
                 onShowSpringPanel={this.props.onShowSpringPanel}
                 onShowSidePanel={this.props.onShowSidePanel}/>);
 
