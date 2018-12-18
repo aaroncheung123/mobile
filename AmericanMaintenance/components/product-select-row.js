@@ -29,7 +29,7 @@ export default class ProductSelectRow extends React.Component {
         let productPrice = this.props.product.price_current != null ? this.props.product.price_current.price : (this.props.product.price ? this.props.product.price : 0);
         return (
             <View style={STYLES.container}>
-                <Text style={STYLES.nameContainer}>{this.props.product.name}</Text>
+                <Text style={STYLES.flexBox2}>{this.props.product.name}</Text>
                 <Text style={STYLES.flexBox1}>{GlobalUtil.convertToMoney(productPrice)}</Text>
                 {/*
                 <Text style={STYLES.flexBox2}>{this.state.quantity}</Text>
@@ -57,19 +57,12 @@ const STYLES = {
         flexDirection: 'row',
         marginTop: 5
     },
-    nameContainer: {
-        flex: 4
-    },
-    flexBox2: {
-        flex: 2,
-        margin: 5
-    },
     flexBox1: {
-        flex: 1,
-        minWidth: 40,
-        marginLeft: 5
-
-    },
+			flex: 1
+	},
+	flexBox2: {
+			flex: 2
+	},
     minusContainer: {
         paddingVertical: 10,
         paddingHorizontal: 15

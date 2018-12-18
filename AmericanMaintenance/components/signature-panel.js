@@ -161,7 +161,7 @@ const STYLES = {
 		width: '80%'
 	},
 	modalContainer: {
-		width: 300
+		width: '100%'
 	},
 	textTitle: {
 		fontSize: 20,
