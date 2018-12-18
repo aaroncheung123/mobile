@@ -25,8 +25,8 @@ export default class DealCard extends React.Component {
 		};
 
 		this.toggle = this.toggle.bind(this);
-        this.handleAddWorkOrder = this.handleAddWorkOrder.bind(this);
-				this.handleWorkOrderAdd = this.handleWorkOrderAdd.bind(this);
+    this.handleAddWorkOrder = this.handleAddWorkOrder.bind(this);
+		this.handleWorkOrderAdd = this.handleWorkOrderAdd.bind(this);
 	}
 
 	componentDidMount() {
@@ -45,7 +45,7 @@ export default class DealCard extends React.Component {
 	handleWorkOrderAdd(workOrder)
 	{
 		this.props.onComplete();
-							console.log(workOrder, 'test mate');
+		console.log(workOrder, 'test mate');
 		this.state.workOrders.push(workOrder);
 		this.forceUpdate();
 	}
@@ -82,16 +82,16 @@ export default class DealCard extends React.Component {
 		});
 	}
 
-	  handleAddWorkOrder() {
-	      this.props.onShowSpringPanel(
-	          "Add Work Order",
-	          <AddWorkOrderForm
-							onComplete={this.props.onComplete}
-							deal={this.props.deal}
-							onShowSidePanel={this.props.onShowSidePanel}
-							onWorkOrderAdd={this.handleWorkOrderAdd}/>
-	      )
-    }
+  handleAddWorkOrder() {
+      this.props.onShowSpringPanel(
+          "Add Work Order",
+          <AddWorkOrderForm
+						onComplete={this.props.onComplete}
+						deal={this.props.deal}
+						onShowSidePanel={this.props.onShowSidePanel}
+						onWorkOrderAdd={this.handleWorkOrderAdd}/>
+      )
+  }
 
 	render(){
 
