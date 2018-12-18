@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 import WorkOrderCard from './work-order-card';
+import AddWorkOrderForm from './add-work-order-form';
 
 export default class DealCardSpringContent extends React.Component {
 
@@ -8,8 +10,9 @@ export default class DealCardSpringContent extends React.Component {
     {
         super(props)
         this.state = {
-			workOrders: []
+					workOrders: []
         }
+				this.handleAddWorkOrder = this.handleAddWorkOrder.bind(this);
     }
 
 	componentDidMount(){
@@ -17,6 +20,17 @@ export default class DealCardSpringContent extends React.Component {
 		this.setState({
 			workOrders: this.props.workOrders
 		})
+	}
+
+	handleAddWorkOrder() {
+			this.props.onShowSidePanel(
+					"Add Work Order",
+					<AddWorkOrderForm
+						onComplete={this.props.onComplete}
+						deal={this.props.deal}
+						onShowSidePanel={this.props.onShowSidePanel}
+						onWorkOrderAdd={this.handleWorkOrderAdd}/>
+			)
 	}
 
     render() {
@@ -74,13 +88,13 @@ const STYLES = {
 	},
 	addButton: {
 		borderRadius: 5,
-		backgroundColor: 'orange',
+		backgroundColor: EliteWorksOrange,
 		padding: 10,
 		margin: 10,
 		marginBottom: 20,
 		justifyContent: 'center',
 		alignItems: 'center',
-		width: '50%',
+		width: '100%',
 		alignSelf: 'center'
 	},
 }

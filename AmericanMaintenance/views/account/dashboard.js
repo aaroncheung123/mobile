@@ -31,7 +31,7 @@ export default class Dashboard extends React.Component {
             //console.log(success.data.models);
             this.setState({zones: success.data.models})
         });
-        EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
+        EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user,address', status: 'WON'}, success => {
             //console.log(success.data.models);
             this.setState({deals: success.data.models, refreshing: false})
         });

@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Button, Image, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry, AppleCore} from '../assets/styles/constants';
-import AddWorkOrderForm from './add-work-order-form';
 import DealCardSpringContent from './deal-card-spring-content';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -23,13 +22,12 @@ export default class DealCard extends React.Component {
 		};
 
 		this.toggle = this.toggle.bind(this);
-    this.handleAddWorkOrder = this.handleAddWorkOrder.bind(this);
-		this.handleWorkOrderAdd = this.handleWorkOrderAdd.bind(this);
+    //this.handleWorkOrderAdd = this.handleWorkOrderAdd.bind(this);
 	}
 
 	componentDidMount() {
 		let startOfDay = (new Date()).getStartOfDay();
-		//console.log('DEAL: ', this.props.deal.deal_id);
+		console.log('DEAL: ', this.props.deal.address.formatted);
 		EliteAPI.STR.WorkOrder.search({
       include_classes: 'model,address,workorderproduct',
       take: 1000,
@@ -40,12 +38,11 @@ export default class DealCard extends React.Component {
       })
 	}
 
-	handleWorkOrderAdd(workOrder){
-		this.props.onComplete();
-		//console.log(workOrder, 'test mate');
-		this.state.workOrders.push(workOrder);
-		this.forceUpdate();
-	}
+	// handleWorkOrderAdd(workOrder){
+	// 	this.props.onComplete();
+	// 	this.state.workOrders.push(workOrder);
+	// 	this.forceUpdate();
+	// }
 
 
 	toggle(){
@@ -59,17 +56,6 @@ export default class DealCard extends React.Component {
 				onShowSpringPanel={this.props.onShowSpringPanel}
 				onShowSidePanel={this.props.onShowSidePanel}/>)
 	}
-
-  handleAddWorkOrder() {
-      this.props.onShowSpringPanel(
-          "Add Work Order",
-          <AddWorkOrderForm
-						onComplete={this.props.onComplete}
-						deal={this.props.deal}
-						onShowSidePanel={this.props.onShowSidePanel}
-						onWorkOrderAdd={this.handleWorkOrderAdd}/>
-      )
-  }
 
 	render(){
 
@@ -87,7 +73,7 @@ export default class DealCard extends React.Component {
 						<View>
 							<View style={STYLES.textContainer}>
 								<Text style={STYLES.textStyleTitle}>{this.props.deal.name}</Text>
-
+								<Text style={STYLES.textStyle}>{this.props.deal.address.formatted}</Text>
 								{lastScheduledService}
 							</View>
 							<View style={STYLES.arrowContainer}>

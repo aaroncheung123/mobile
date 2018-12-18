@@ -72,7 +72,7 @@ export default class SidePanel extends React.Component {
 const STYLES = {
 	contentContainer: {
 		width:'100%',
-		paddingHorizontal: 20
+		paddingHorizontal: 10
 	},
 	springContainer: {
 		position: 'absolute',
