@@ -181,7 +181,7 @@ const STYLES = {
         flexDirection: 'row',
         borderWidth: 1,
         borderRadius: 5,
-        width: '60%'
+        width: '80%'
     },
     filterContainer: {
         borderRadius: 2,
@@ -207,7 +207,7 @@ const STYLES = {
         width: '100%',
         flexDirection: 'row',
         marginHorizontal: 20,
-        marginVertical: 30,
+        marginVertical: 10,
         justifyContent: 'center',
         alignItems: Platform.OS === 'ios' ? 'flex-start' : 'center',
     },
