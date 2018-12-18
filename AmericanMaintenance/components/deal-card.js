@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Animated, Button, Image, TextInput} from 'react-native';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, DarkBlueberry, AppleCore} from '../assets/styles/constants';
-import WorkOrderCard from './work-order-card';
 import AddWorkOrderForm from './add-work-order-form';
+import DealCardSpringContent from './deal-card-spring-content';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -18,9 +18,7 @@ export default class DealCard extends React.Component {
 		super(props);
 
 		this.state = {
-			expanded: false,
 			opacity: new Animated.Value(0),
-			maxHeight: new Animated.Value(0),
 			workOrders: []
 		};
 
@@ -31,19 +29,18 @@ export default class DealCard extends React.Component {
 
 	componentDidMount() {
 		let startOfDay = (new Date()).getStartOfDay();
-
+		//console.log('DEAL: ', this.props.deal.deal_id);
 		EliteAPI.STR.WorkOrder.search({
-            include_classes: 'model,address,workorderproduct',
-            take: 1000,
-            deal_id: this.props.deal.deal_id,
-            scheduled_after: GlobalUtil.convertDateToMysql(startOfDay)}, success => {
-                console.log(success.data.models)
-                this.setState({workOrders: success.data.models})
-            })
+      include_classes: 'model,address,workorderproduct',
+      take: 1000,
+      deal_id: this.props.deal.deal_id,
+      scheduled_after: GlobalUtil.convertDateToMysql(startOfDay)}, success => {
+          //console.log('HELLO',success.data.models)
+          this.setState({workOrders: success.data.models})
+      })
 	}
 
-	handleWorkOrderAdd(workOrder)
-	{
+	handleWorkOrderAdd(workOrder){
 		this.props.onComplete();
 		console.log(workOrder, 'test mate');
 		this.state.workOrders.push(workOrder);
@@ -51,35 +48,15 @@ export default class DealCard extends React.Component {
 	}
 
 
-
 	toggle(){
-
-		this.state.opacity.setValue(0);
-		this.state.maxHeight.setValue(0);
-
-		this.setState({
-			expanded : !this.state.expanded
-		}, () => {
-
-			if (this.state.expanded) {
-
-				Animated.timing(
-					this.state.opacity,
-					{
-						toValue: 1,
-						duration: 1000
-					},
-				).start();
-
-				Animated.spring(
-					this.state.maxHeight,
-					{
-						toValue: 500,
-                		friction: 6
-					}
-				).start();
-			}
-		});
+		this.props.onShowSpringPanel(
+			this.props.deal.name,
+			<DealCardSpringContent
+				deal={this.props.deal}
+				workOrders={this.state.workOrders}
+				onComplete={this.props.onComplete}
+				onShowSpringPanel={this.props.onShowSpringPanel}
+				onShowSidePanel={this.props.onShowSidePanel}/>)
 	}
 
   handleAddWorkOrder() {
@@ -97,16 +74,11 @@ export default class DealCard extends React.Component {
 
 		let lastScheduledService = null
 		if (this.props.deal.lastest_scheduled_work_order) {
-			lastScheduledService = <Text style={STYLES.textStyle}>Latest Service: {GlobalUtil.convertMysqlToDate(this.props.deal.lastest_scheduled_work_order).formatDate('n/d/y H:m A')}</Text>
+			lastScheduledService =
+				<Text style={STYLES.textStyle}>
+					Latest Service: {GlobalUtil.convertMysqlToDate(this.props.deal.lastest_scheduled_work_order).formatDate('n/d/y H:m A')}
+				</Text>
 		}
-
-		let workOrders = this.state.workOrders.map(workOrder =>
-            <WorkOrderCard
-								onComplete={this.props.onComplete}
-                workOrder={workOrder}
-                key={workOrder.work_order_id}
-                onShowSpringPanel={this.props.onShowSpringPanel}
-                onShowSidePanel={this.props.onShowSidePanel}/>)
 
 		return(
 			<View style={STYLES.container}>
@@ -125,31 +97,7 @@ export default class DealCard extends React.Component {
 							</View>
 						</View>
 				</TouchableOpacity>
-				{
-					this.state.expanded ?
-					<Animated.View style={{...STYLES.hiddenBody, opacity: this.state.opacity, maxHeight: this.state.maxHeight < 500 ? this.state.maxHeight : 100000}}>
-						<View style={STYLES.descriptionContainer}>
-							<Text style={STYLES.textStyle2}>Description:</Text>
-							<Text style={STYLES.textStyle3}>{GlobalUtil.htmlTextStripper(this.props.deal.description)}</Text>
-						</View>
-
-						<TouchableOpacity
-              onPress={this.handleAddWorkOrder}
-              style={STYLES.addButton}>
-              <Text style={STYLES.textStyle}>+ Work Order</Text>
-						</TouchableOpacity>
-
-						{
-							this.state.workOrders.length > 0 ?
-							<View>
-								<Text style={STYLES.textStyle2}>Work Orders</Text>
-								{workOrders}
-							</View> : null
-						}
-					</Animated.View> : null
-				}
 			</View>
-
 		);
 	}
 }
@@ -162,28 +110,6 @@ const STYLES = {
 		overflow: 'hidden',
 		paddingLeft: 20,
 		paddingRight: 20
-	},
-    addButton: {
-        borderRadius: 5,
-        backgroundColor: 'orange',
-        padding: 10,
-        margin: 10,
-        marginBottom: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '50%',
-        alignSelf: 'center'
-    },
-	hiddenBody: {
-		width: '100%',
-		backgroundColor: 'white',
-		padding: 20,
-		borderRadius: 10,
-		elevation: 10,
-		shadowOffset: { height: 1, width: 1 }, // IOS
-		shadowOpacity: 2, // IOS
-		shadowRadius: 2, //IOS,
-		marginBottom: 20
 	},
 	elevatedContainer: {
 		backgroundColor: Blueberry,
@@ -209,13 +135,6 @@ const STYLES = {
 		borderColor: 'white',
 		fontWeight: 'bold'
 	},
-	textStyle2: {
-		fontSize: 18,
-		color: 'black'
-	},
-	textStyle3: {
-		color: 'black'
-	},
 	textContainer: {
 		justifyContent: 'center',
 		alignItems: 'flex-start',
@@ -233,8 +152,5 @@ const STYLES = {
 		justifyContent: 'center',
 		alignItems: 'center',
 		marginTop: 20
-	},
-	descriptionContainer: {
-		marginBottom: 20
 	}
 }

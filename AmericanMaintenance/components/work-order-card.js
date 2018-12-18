@@ -32,7 +32,7 @@ export default class WorkOrderCard extends React.Component {
     }
 
   handleDetailsPress() {
-	    this.props.onShowSpringPanel(
+	    this.props.onShowSidePanel(
 	        this.props.workOrder.name,
 	        <WorkOrderSpringContent
 						onComplete={this.props.onComplete}

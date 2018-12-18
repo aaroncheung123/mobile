@@ -44,7 +44,7 @@ export default class AddWorkOrderForm extends React.Component {
                 this.state.selectedProducts.push({...model.product, price: model.price});
             })
             this.forceUpdate();
-        }, f => console.log(f))
+        })
     }
 
     componentDidUpdate(prevProps)

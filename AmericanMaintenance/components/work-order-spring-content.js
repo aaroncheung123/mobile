@@ -470,9 +470,9 @@ const ToggleSection = (props) => {
 
 const STYLES = {
 	container: {
-		justifyContent: 'center',
+		justifyContent: 'flex-start',
 		alignItems: 'center',
-    width: '100%'
+    width: '95%',
 	},
 	selectedBox: {
 			flexDirection: 'row',
