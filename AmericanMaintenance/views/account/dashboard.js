@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated, Switch,Picker, RefreshControl, Platform} from 'react-native';
 import DealCard from '../../components/deal-card.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import SelectPicker from 'react-native-picker-select';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../../assets/styles/constants';
 
 export default class Dashboard extends React.Component {
@@ -16,9 +17,11 @@ export default class Dashboard extends React.Component {
             deals: [],
             zones: [],
             refreshing: false,
+            pickerSelected: '',
         }
         this.filterDeals = this.filterDeals.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
+        this.handleFilter = this.handleFilter.bind(this);
     }
 
     componentDidMount() {
@@ -55,6 +58,10 @@ export default class Dashboard extends React.Component {
         }
     }
 
+    handleFilter(){
+        console.log('test');
+    }
+
     render() {
 
         let deals = this.state.deals.map(deal =>
@@ -75,22 +82,24 @@ export default class Dashboard extends React.Component {
         return (
             <View style={STYLES.container}>
                 <View style={STYLES.searchContainer}>
-                    {
-                        Platform.OS != 'ios' ?
+
+                    <View style={STYLES.innerSearchContainer}>
                         <View style={STYLES.iconContainer}>
                             <Icon name='search' size= {20}/>
-                        </View> : null
-                    }
+                        </View>
 
-                    <View style={STYLES.textInputContainer}>
-                        <Picker
-                          selectedValue={this.state.searchText}
-                          style={STYLES.pickerStyle}
-                          onValueChange={(itemValue, itemIndex) => this.filterDeals(itemValue)}>
-                          <Picker.Item label="Search by zone - no filter" value="no_filter" />
-                          {zones}
-                        </Picker>
+                        <TextInput
+                            placeholder='Search'
+                            style={STYLES.textInputContainer}
+                            onChangeText={(text) => this.setState({text})}
+                            value={this.state.text}/>
                     </View>
+
+
+                    <TouchableOpacity onPress={this.handleFilter} style={STYLES.filterContainer}>
+                        <Icon name='filter' color='white' size= {20}/>
+                    </TouchableOpacity>
+
                 </View>
 
                 <View style={STYLES.scrollViewContainer}>
@@ -113,6 +122,22 @@ const STYLES = {
         justifyContent: 'center',
         alignItems: 'center'
     },
+    innerSearchContainer: {
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderRadius: 5,
+        width: '60%'
+    },
+    filterContainer: {
+        borderRadius: 2,
+        backgroundColor: 'black',
+        padding: 6,
+        marginLeft: 10
+    },
+    selectPicker: {
+        height: 100,
+        width: 200
+    },
     textInputStyle: {
         width: '100%',
         borderBottomWidth: 2,
@@ -124,7 +149,7 @@ const STYLES = {
     },
     searchContainer: {
         height: 30,
-        width: '80%',
+        width: '100%',
         flexDirection: 'row',
         marginHorizontal: 20,
         marginVertical: 30,
@@ -138,16 +163,17 @@ const STYLES = {
     iconContainer: {
         justifyContent: 'flex-start',
         alignItems: 'center',
-        marginRight: 20
+        padding: 5
     },
     textInputContainer: {
         justifyContent: 'flex-start',
         alignItems: 'center',
-        borderWidth: Platform.OS === 'ios' ? 0 : 1,
-        position: Platform.OS === 'ios' ? 'absolute' : null,
-        top: Platform.OS === 'ios' ? -80 : 0,
-        borderColor: '#c4c4c4',
-        zIndex: 0
+        //borderWidth: 1,
+        //borderColor: '#c4c4c4',
+        zIndex: 0,
+        width: '60%',
+        height: 30,
+        padding: 5
     },
     transparentFiller: {
         marginBottom: 200,
@@ -164,3 +190,14 @@ const STYLES = {
         opacity: .9
     }
 }
+
+
+{/*<View style={STYLES.textInputContainer}>
+    <Picker
+      selectedValue={this.state.searchText}
+      style={STYLES.pickerStyle}
+      onValueChange={(itemValue, itemIndex) => this.filterDeals(itemValue)}>
+      <Picker.Item label="Search by zone - no filter" value="no_filter" />
+      {zones}
+    </Picker>
+</View>*/}
