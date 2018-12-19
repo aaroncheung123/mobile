@@ -14,15 +14,14 @@ export default class Dashboard extends React.Component {
         super(props)
 
         this.state = {
-            searchText: '',
             deals: [],
             zones: [],
             refreshing: false,
             pickerSelected: '',
         }
-        this.filterDeals = this.filterDeals.bind(this);
+        this.handleFilterDeals = this.handleFilterDeals.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
-        this.handleFilter = this.handleFilter.bind(this);
+        this.handleFilterPanel = this.handleFilterPanel.bind(this);
     }
 
     componentDidMount() {
@@ -42,29 +41,35 @@ export default class Dashboard extends React.Component {
     }
 
 
-    filterDeals(item){
-        //console.log(item);
+    handleFilterDeals(value){
+        let item = value.zone_id;
         if(item != 'no_filter'){
-            EliteAPI.CRM.Deal.search({zone_id: item, take: 1000, include_classes: 'user', status: 'WON'}, success => {
-                //console.log(success.data.models);
-                this.setState({searchText: item, deals: success.data.models})
+            EliteAPI.CRM.Deal.search({zone_id: item, take: 1000, include_classes: 'user,address', status: 'WON'}, success => {
+                console.log(success.data.models);
+                this.setState({deals: success.data.models}, () => {
+                    console.log('HELLO: ',this.state.deals);
+                })
                 //this.setState({deals: success.data.models})
             })
         }
         else{
-            this.setState({searchText: item})
-            EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
+            console.log('no filter');
+            EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user,address', status: 'WON'}, success => {
                 this.setState({deals: success.data.models})
             });
         }
     }
 
-    handleFilter(){
+    handleFilterPanel(){
         this.props.onShowSidePanel(
             "Filter",
-            <FilterSpringContent/>
+            <FilterSpringContent
+                onFilterDeals={this.handleFilterDeals}
+                zones={this.state.zones}/>
         )
     }
+
+    //onValueChange={(itemValue, itemIndex) => this.filterDeals(itemValue)}
 
     render() {
 
@@ -77,12 +82,6 @@ export default class Dashboard extends React.Component {
                 onShowSpringPanel={this.props.onShowSpringPanel}
                 onShowSidePanel={this.props.onShowSidePanel}/>);
 
-        let zones = this.state.zones.map(zone =>
-            <View key={zone.zone_id} style={STYLES.zoneTextContainer}>
-                <TouchableOpacity onPress={this.handleZoneFilterPress} style={STYLES.zoneTouchableOpacity}>
-                    <Text style={STYLES.zoneText}>{zone.name}</Text>
-                </TouchableOpacity>
-            </View>)
 
         return (
             <View style={STYLES.container}>
@@ -101,7 +100,7 @@ export default class Dashboard extends React.Component {
                     </View>
 
 
-                    <TouchableOpacity onPress={this.handleFilter} style={STYLES.filterContainer}>
+                    <TouchableOpacity onPress={this.handleFilterPanel} style={STYLES.filterContainer}>
                         <Icon name='filter' color='white' size= {20}/>
                     </TouchableOpacity>
 
@@ -204,20 +203,3 @@ const STYLES = {
         opacity: .9
     }
 }
-
-
-{/*<View style={STYLES.textInputContainer}>
-    <Picker
-      selectedValue={this.state.searchText}
-      style={STYLES.pickerStyle}
-      onValueChange={(itemValue, itemIndex) => this.filterDeals(itemValue)}>
-      <Picker.Item label="Search by zone - no filter" value="no_filter" />
-      {zones}
-    </Picker>
-</View>*/}
-
-
-// <Picker.Item
-//     key={zone.zone_id}
-//     label={zone.name}
-//     value={zone.zone_id} />

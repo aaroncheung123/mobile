@@ -38,12 +38,6 @@ export default class DealCard extends React.Component {
       })
 	}
 
-	// handleWorkOrderAdd(workOrder){
-	// 	this.props.onComplete();
-	// 	this.state.workOrders.push(workOrder);
-	// 	this.forceUpdate();
-	// }
-
 
 	toggle(){
 		this.props.onShowSpringPanel(

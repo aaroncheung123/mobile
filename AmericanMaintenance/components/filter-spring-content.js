@@ -9,26 +9,28 @@ export default class FilterSpringContent extends React.Component {
         super(props)
         this.state = {
             selectedValue: '',
-            items: [
-            {
-                label: 'Red',
-                value: 'red',
-            },
-            {
-                label: 'Orange',
-                value: 'orange',
-            },
-            {
-                label: 'Blue',
-                value: 'blue',
+            zones: [{
+                label: 'No Filter',
+                value: 'no_filter',
             },
         ]
         }
+        this.handleFilter = this.handleFilter.bind(this);
     }
 
 
     componentDidMount(){
-        console.log(this.state.items[0].value);
+        this.props.zones.map(zone => this.state.zones.push({
+            label: zone.name,
+            value: zone
+        }))
+
+    }
+
+    handleFilter(value, index){
+        console.log("value: ", value);
+        this.setState({selectedValue: this.state.zones[index]})
+        this.props.onFilterDeals(value);
     }
 
     render() {
@@ -38,13 +40,11 @@ export default class FilterSpringContent extends React.Component {
                 <View style={STYLES.selectPickerContainer}>
                     <SelectPicker
                         placeholder={{}}
-                        style={STYLES.selectPicker}
                         value={this.state.selectedValue.value}
-                        items={this.state.items}
+                        items={this.state.zones}
                         hideDoneBar={true}
                         hideIcon={true}
-                        onValueChange={(value, index) => {this.setState({selectedValue: this.state.items[index]})}}
-                    />
+                        onValueChange={(value, index) => this.handleFilter(value, index)}/>
                 </View>
             </View>
         );
