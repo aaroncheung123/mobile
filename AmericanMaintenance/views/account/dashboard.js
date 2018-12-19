@@ -133,7 +133,7 @@ const STYLES = {
         width: '80%'
     },
     filterContainer: {
-        borderRadius: 2,
+        borderRadius: 5,
         backgroundColor: 'black',
         padding: 6,
         marginLeft: 10

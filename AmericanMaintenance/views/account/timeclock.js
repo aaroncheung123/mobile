@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {StyleSheet, View, TextInput, Switch, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, TouchableHighlight, ScrollView} from 'react-native';
+import {StyleSheet, View, TextInput, Switch, Image, Keyboard, TouchableWithoutFeedback, Text, Animated, TouchableHighlight, ScrollView, Platform} from 'react-native';
 import SelectPicker from 'react-native-picker-select';
 import {Button} from 'react-native-elements';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry} from '../../assets/styles/constants';
@@ -247,9 +247,10 @@ export default class TimeClock extends React.Component {
 						<View style={PANEL.container}>
 							<Text style={PANEL.headerHistoryText}>History</Text>
 
-							<View style={PANEL.selectPickerContainer}>
+							<View style={PANEL.historySelectPickerContainer}>
 								<SelectPicker
 									placeholder={{}}
+									style={PANEL.historySelectPicker}
 									label='Week'
 									value={this.state.historyWeekDropdownSelected.value}
 									items={this.state.historyWeekDropdownData}
@@ -386,10 +387,8 @@ const PANEL = {
 	headerHistoryText: {
 		color: 'white',
 		fontSize: 16,
-		borderBottomWidth: 2,
 		borderColor: 'white',
 		width: '50%',
-		paddingBottom: 30,
 		marginBottom: 10
 	},
 	timeText: {
@@ -411,18 +410,24 @@ const PANEL = {
 		borderRadius: 15,
 		width: 125
 	},
-	selectPickerContainer: {
+	historySelectPickerContainer: {
+		padding: Platform.OS === 'ios'? 15 : 0,
 		borderWidth: 1,
-		borderRadius: 5,
 		borderColor: 'white',
-		padding: 10,
+		borderRadius: 5,
+		width: '100%',
 		marginHorizontal: 5,
-		marginBottom: 15,
-		width: '100%'
+		marginBottom: 10
 	},
 	historySelectPicker: {
-		color: 'white',
-		borderWidth: 2
+		inputAndroid: {
+			color: 'white',
+			borderColor: 'white'
+		},
+		inputIOS: {
+			color: 'white',
+			borderColor: 'white'
+    },
 	}
 }
 

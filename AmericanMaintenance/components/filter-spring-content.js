@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 import SelectPicker from 'react-native-picker-select';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 
@@ -77,7 +77,7 @@ const STYLES = {
         borderWidth: 1,
         borderRadius: 5,
         width: '100%',
-        padding: 5
+        padding: Platform.OS === 'ios'? 15 : 0,
     },
     applyButton: {
         marginTop: 20,
