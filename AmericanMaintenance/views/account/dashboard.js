@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated, Switch,Picker, RefreshControl, Platform, Modal} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Dimensions, Animated, Switch,Picker, RefreshControl, Platform} from 'react-native';
 import DealCard from '../../components/deal-card.js';
+import FilterSpringContent from '../../components/filter-spring-content.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SelectPicker from 'react-native-picker-select';
 import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../../assets/styles/constants';
@@ -18,13 +19,10 @@ export default class Dashboard extends React.Component {
             zones: [],
             refreshing: false,
             pickerSelected: '',
-            modalVisible: false,
         }
         this.filterDeals = this.filterDeals.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
-        this.handleZoneFilterPress = this.handleZoneFilterPress.bind(this);
-
     }
 
     componentDidMount() {
@@ -62,12 +60,10 @@ export default class Dashboard extends React.Component {
     }
 
     handleFilter(){
-        console.log(this.state.modalVisible);
-        this.setState({ modalVisible: !this.state.modalVisible });
-    }
-
-    handleZoneFilterPress(){
-        console.log('zone filter: ');
+        this.props.onShowSidePanel(
+            "Filter",
+            <FilterSpringContent/>
+        )
     }
 
     render() {
@@ -109,26 +105,7 @@ export default class Dashboard extends React.Component {
                         <Icon name='filter' color='white' size= {20}/>
                     </TouchableOpacity>
 
-                    <Modal
-                        animationType = {"slide"}
-                        transparent = {true}
-                        visible = {this.state.modalVisible}
-                        onRequestClose = {() => { console.log("Modal has been closed.") } }>
 
-                       <View style={STYLES.modal}>
-                           <Text style={STYLES.modalTitle}>Select a zone</Text>
-
-                           <ScrollView>
-                               {zones}
-                           </ScrollView>
-
-                           <TouchableOpacity
-                             style={STYLES.myButton}
-                             onPress ={this.handleFilter}>
-                                 <Text style={STYLES.zoneCancel}>Cancel</Text>
-                           </TouchableOpacity>
-                       </View>
-                    </Modal>
 
                 </View>
 
@@ -152,30 +129,12 @@ const STYLES = {
         justifyContent: 'center',
         alignItems: 'center'
     },
-    modalTitle: {
-        fontSize: 16,
-        fontWeight: 'bold'
-    },
     zoneTextContainer: {
         borderBottomWidth: 2
     },
     zoneTouchableOpacity: {
         paddingVertical: 10,
         marginVertical: 10
-    },
-    zoneCancel: {
-        marginVertical: 15
-    },
-    modal: {
-        backgroundColor:'#c4c4c4',
-        marginHorizontal: 50,
-        marginVertical: 150,
-        borderRadius: 5,
-        padding: 10,
-        opacity: .95
-    },
-    myButton: {
-
     },
     innerSearchContainer: {
         flexDirection: 'row',
