@@ -27,7 +27,7 @@ export default class DealCard extends React.Component {
 
 	componentDidMount() {
 		let startOfDay = (new Date()).getStartOfDay();
-		console.log('DEAL: ', this.props.deal.address.formatted);
+		//console.log('DEAL: ', this.props.deal.address.formatted);
 		EliteAPI.STR.WorkOrder.search({
       include_classes: 'model,address,workorderproduct',
       take: 1000,

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+import SelectPicker from 'react-native-picker-select';
 
 export default class FilterSpringContent extends React.Component {
 
@@ -7,24 +8,44 @@ export default class FilterSpringContent extends React.Component {
     {
         super(props)
         this.state = {
+            selectedValue: '',
+            items: [
+            {
+                label: 'Red',
+                value: 'red',
+            },
+            {
+                label: 'Orange',
+                value: 'orange',
+            },
+            {
+                label: 'Blue',
+                value: 'blue',
+            },
+        ]
         }
+    }
+
+
+    componentDidMount(){
+        console.log(this.state.items[0].value);
     }
 
     render() {
         return (
             <View style={STYLES.container}>
-                <TouchableOpacity style={STYLES.filterContainer}>
-                    <Text style={STYLES.title}>Zone</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={STYLES.filterContainer}>
-                    <Text style={STYLES.title}>Zone</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={STYLES.filterContainer}>
-                    <Text style={STYLES.title}>Zone</Text>
-                </TouchableOpacity>
-
-
+                <Text style={STYLES.title}>Zone</Text>
+                <View style={STYLES.selectPickerContainer}>
+                    <SelectPicker
+                        placeholder={{}}
+                        style={STYLES.selectPicker}
+                        value={this.state.selectedValue.value}
+                        items={this.state.items}
+                        hideDoneBar={true}
+                        hideIcon={true}
+                        onValueChange={(value, index) => {this.setState({selectedValue: this.state.items[index]})}}
+                    />
+                </View>
             </View>
         );
     }
@@ -33,19 +54,19 @@ export default class FilterSpringContent extends React.Component {
 const STYLES = {
     container: {
         flexDirection: 'row',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        width: '100%',
     },
     title: {
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginBottom: 5,
+        marginTop: 15
     },
-    filterContainer: {
-        height:150,
-        width: 150,
-        backgroundColor: '#c4c4c4',
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 10
+    selectPickerContainer: {
+        borderWidth: 1,
+        borderRadius: 5,
+        width: '100%',
+        padding: 5
     }
 }
