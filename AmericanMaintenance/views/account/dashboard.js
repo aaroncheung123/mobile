@@ -17,7 +17,7 @@ export default class Dashboard extends React.Component {
             deals: [],
             zones: [],
             refreshing: false,
-            pickerSelected: '',
+            selectedZone: '',
         }
         this.handleFilterDeals = this.handleFilterDeals.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
@@ -42,34 +42,25 @@ export default class Dashboard extends React.Component {
 
 
     handleFilterDeals(value){
-        let item = value.zone_id;
-        if(item != 'no_filter'){
-            EliteAPI.CRM.Deal.search({zone_id: item, take: 1000, include_classes: 'user,address', status: 'WON'}, success => {
-                console.log(success.data.models);
-                this.setState({deals: success.data.models}, () => {
-                    console.log('HELLO: ',this.state.deals);
-                })
-                //this.setState({deals: success.data.models})
-            })
-        }
-        else{
-            console.log('no filter');
-            EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user,address', status: 'WON'}, success => {
-                this.setState({deals: success.data.models})
-            });
-        }
+        this.setState({selectedZone: value});
+        let args = {take: 1000, include_classes: 'user,address', status: 'WON'}
+        if (value != 'no_filter') args.zone_id = value
+        console.log(value)
+        EliteAPI.CRM.Deal.search(args, success => {
+            this.setState({deals: success.data.models})
+        });
     }
 
     handleFilterPanel(){
         this.props.onShowSidePanel(
             "Filter",
             <FilterSpringContent
+                onComplete={this.props.onComplete}
+                selectedValue={this.state.selectedZone}
                 onFilterDeals={this.handleFilterDeals}
                 zones={this.state.zones}/>
         )
     }
-
-    //onValueChange={(itemValue, itemIndex) => this.filterDeals(itemValue)}
 
     render() {
 

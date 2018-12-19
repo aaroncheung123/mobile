@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import SelectPicker from 'react-native-picker-select';
+import {EliteWorksOrange, AccountContentGrey, AccountMenuGrey, Blueberry, AppleCore} from '../assets/styles/constants';
 
 export default class FilterSpringContent extends React.Component {
 
@@ -8,44 +9,50 @@ export default class FilterSpringContent extends React.Component {
     {
         super(props)
         this.state = {
-            selectedValue: '',
+            selectedValue: this.props.selectedValue ? this.props.selectedValue : 'no_filter',
             zones: [{
                 label: 'No Filter',
                 value: 'no_filter',
-            },
-        ]
+            }]
         }
+
+        console.log('props', this.props);
         this.handleFilter = this.handleFilter.bind(this);
-    }
 
-
-    componentDidMount(){
         this.props.zones.map(zone => this.state.zones.push({
             label: zone.name,
-            value: zone
+            value: Number(zone.zone_id),
+            zone: zone
         }))
 
     }
 
+
     handleFilter(value, index){
         console.log("value: ", value);
-        this.setState({selectedValue: this.state.zones[index]})
+        this.setState({selectedValue: value});
         this.props.onFilterDeals(value);
     }
 
     render() {
+
+        console.log('selected', this.state.selectedValue)
         return (
             <View style={STYLES.container}>
                 <Text style={STYLES.title}>Zone</Text>
                 <View style={STYLES.selectPickerContainer}>
                     <SelectPicker
                         placeholder={{}}
-                        value={this.state.selectedValue.value}
+                        value={Number(this.state.selectedValue)}
                         items={this.state.zones}
                         hideDoneBar={true}
                         hideIcon={true}
-                        onValueChange={(value, index) => this.handleFilter(value, index)}/>
+                        onValueChange={this.handleFilter}/>
                 </View>
+
+                <TouchableOpacity onPress={this.props.onComplete} style={STYLES.applyButton}>
+                    <Text style={STYLES.text}>Apply</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -63,10 +70,22 @@ const STYLES = {
         marginBottom: 5,
         marginTop: 15
     },
+    text: {
+        color: 'white'
+    },
     selectPickerContainer: {
         borderWidth: 1,
         borderRadius: 5,
         width: '100%',
         padding: 5
+    },
+    applyButton: {
+        marginTop: 20,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        padding: 15,
+        backgroundColor: EliteWorksOrange
     }
 }

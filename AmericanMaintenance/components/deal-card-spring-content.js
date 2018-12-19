@@ -89,7 +89,7 @@ const STYLES = {
 	addButton: {
 		borderRadius: 5,
 		backgroundColor: EliteWorksOrange,
-		padding: 10,
+		padding: 15,
 		margin: 10,
 		marginBottom: 20,
 		justifyContent: 'center',
