@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Animated, ScrollView, Dimensions, TouchableOpacity} from 'react-native';
+import {View, Text, Animated, ScrollView, Dimensions, TouchableOpacity, Keyboard} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class SidePanel extends React.Component {
@@ -7,13 +7,26 @@ export default class SidePanel extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			open: false
+			open: false,
+			margin: 0
 		}
 		this.springValue = new Animated.Value(0);
 		this.screenWidth = Dimensions.get('window').width;
 		this.screenHeight= Dimensions.get('window').height - 160;
 		this.open = this.open.bind(this);
 		this.handleClose = this.handleClose.bind(this);
+		this.handleKeyboardDidShow = this.handleKeyboardDidShow.bind(this);
+		this.handleKeyboardDidHide = this.handleKeyboardDidHide.bind(this);
+	}
+
+	componentDidMount(){
+		this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.handleKeyboardDidShow);
+		this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide);
+	}
+
+	componentWillUnmount () {
+		this.keyboardDidShowListener.remove();
+		this.keyboardDidHideListener.remove();
 	}
 
 	open() {
@@ -26,6 +39,15 @@ export default class SidePanel extends React.Component {
 				}
 			).start()
 		})
+	}
+
+	handleKeyboardDidShow(){
+		//alert('Keyboard Shown');
+		this.setState({margin: 200});
+	}
+
+	handleKeyboardDidHide () {
+		this.setState({margin: 0});
 	}
 
 	handleClose() {
@@ -58,10 +80,12 @@ export default class SidePanel extends React.Component {
 
 
 					<ScrollView style={STYLES.contentContainer}>
-						<View style={STYLES.filler}>
+						<View style={{...STYLES.filler, marginTop: this.state.margin}}>
 								{this.props.content}
 						</View>
 					</ScrollView>
+
+
 				</View>
 			</Animated.View>
 		);

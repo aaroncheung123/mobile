@@ -33,10 +33,14 @@ export default class Dashboard extends React.Component {
         EliteAPI.CRM.Zone.search({take: 1000, include_classes: 'user', status: 'WON'}, success => {
             //console.log(success.data.models);
             this.setState({zones: success.data.models})
+        }, failure => {
+            console.log(failure);
         });
         EliteAPI.CRM.Deal.search({take: 1000, include_classes: 'user,address', status: 'WON'}, success => {
             //console.log(success.data.models);
             this.setState({deals: success.data.models, refreshing: false})
+        }, failure => {
+            console.log(failure);
         });
     }
 
